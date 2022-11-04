@@ -24,9 +24,17 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
 
+const { palette } = createTheme();
+const { augmentColor } = palette
+const createColor = (mainColor) => augmentColor({ color: { main: mainColor } });
 export const themeOptions = createTheme({
   palette: {
-    type: 'light',
+    logoPink: createColor('#D62BD9'),
+    medPink: createColor('#D76CD9'),
+    basePink: createColor('#f1b3f2'),
+    palePink: createColor('#f2dcf2'),
+    baseTan: createColor('#BFA78A'),
+    baseGrey: createColor('#434343'),
     primary: {
       main: '#f1b3f2',
       contrastText: '#d62bd9',
