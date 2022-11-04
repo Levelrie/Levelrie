@@ -102,6 +102,12 @@ CREATE TABLE "favorited_items" (
     "item_id" INT REFERENCES "items"   
 );
 
+CREATE TABLE "rejections" (
+    "id" SERIAL PRIMARY KEY,  
+    "user_id" INT REFERENCES "users",
+    "outfit_id" INT REFERENCES "outfits"
+)
+
 INSERT INTO "categories"
     ("name")
         VALUES 
