@@ -20,7 +20,7 @@ CREATE TABLE "admins" (
 
 CREATE TABLE "outfits" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (80) NOT NULL,
+    "name" VARCHAR (80) UNIQUE NOT NULL,
     "description" VARCHAR (500) NOT NULL
 );
 
@@ -101,6 +101,12 @@ CREATE TABLE "favorited_items" (
     "favorited_outfit_id" INT REFERENCES "favorited_outfits",
     "item_id" INT REFERENCES "items"   
 );
+
+CREATE TABLE "rejections" (
+    "id" SERIAL PRIMARY KEY,  
+    "user_id" INT REFERENCES "users",
+    "outfit_id" INT REFERENCES "outfits"
+)
 
 INSERT INTO "categories"
     ("name")
