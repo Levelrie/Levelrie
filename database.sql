@@ -101,3 +101,14 @@ CREATE TABLE "favorited_items" (
     "favorited_outfit_id" INT REFERENCES "favorited_outfits",
     "item_id" INT REFERENCES "items"   
 );
+
+INSERT INTO "categories"
+    ("name")
+        VALUES 
+            ("top"),
+            ("bottom"),
+            ("footwear"),
+            ("dress"),
+            ("hat"),
+            ("outerwear"),
+            ("accessories");
