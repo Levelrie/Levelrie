@@ -20,7 +20,7 @@ CREATE TABLE "admins" (
 
 CREATE TABLE "outfits" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (80) NOT NULL,
+    "name" VARCHAR (80) UNIQUE NOT NULL,
     "description" VARCHAR (500) NOT NULL
 );
 
