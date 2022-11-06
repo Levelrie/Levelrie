@@ -41,7 +41,7 @@ router.post('/reject', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
     const outfitId = req.body;
 
-    sqlText = `INSERT INTO "rejections"
+    const sqlText = `INSERT INTO "rejections"
                     ("user_id", "outfit_id")
                     VALUES
                     ($1, $2);`
@@ -58,7 +58,7 @@ router.post('/reject', rejectUnauthenticated, (req, res) => {
 });
 
 // Add an outfit and ALL its items to a user's favorites
-router.post('/favoriteOutfit', rejectUnauthenticated, (req, res) => {
+router.post('/favorite', rejectUnauthenticated, async (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
     
@@ -66,32 +66,49 @@ router.post('/favoriteOutfit', rejectUnauthenticated, (req, res) => {
     const outfitId = req.body;
 
     // First, fetch all the items associated with this outfit
-    sqlFetchItemsText = `SELECT * FROM "items"
+    const sqlFetchItemsText = `SELECT * FROM "items"
                             JOIN "outfit_items" ON items.id = outfit_items.item_id
                             JOIN "outfits" ON outfit_items.outfit_id = outfits.id
                                 WHERE outfits.id = $1;`
 
     // Then, add the favorited outfit and its items to their respective favorites tables
-    sqlInsertOutfitText = `INSERT INTO "favorited_outfits"
+    const sqlInsertOutfitText = `INSERT INTO "favorited_outfits"
                                 ("user_id", "outfit_id")
                                 VALUES
                                 ($1, $2);`
 
     // This needs to have a loop
-    sqlInsertItemsText = `INSERT INTO "favorited_outfits"
+    const sqlInsertItemsText = `INSERT INTO "favorited_items"
                                 ("favorited_outfit_id", "item_id")
                                 VALUES
-                                ($1, [$2]);`
+                                ($1, $2);`
 
+    const connection = await pool.connect();
 
-    pool.query(sqlText, [userId, outfitId])
-        .then((results) => {
-            res.sendStatus(201);
-        })
-        .catch((error) => {
-            console.log('Error in POST /api/outfit/reject query', error)
-            res.sendStatus(500);
-        });
+    try {
+        await connection.query('BEGIN;');
+
+        const itemsToAdd = await connection.query(sqlFetchItemsText, [outfitId]);
+
+        // Add the outfit first
+        await connection.query(sqlInsertOutfitText, [userId, outfitId]);
+
+        // Add the items next
+        for (let i = 0; i < itemsToAdd.rows.length; i++) {
+            await connection.query(sqlInsertItemsText, [outfitId, itemsToAdd.rows[i].id]);
+        }
+
+        // Confirm successful actions
+        await connection.query('COMMIT;');
+
+        res.sendStatus(201);
+
+    } catch (error) {
+        await connection.query('ROLLBACK;');
+        console.log('Error in POST /api/outfit/favoriteOutfit queries', error)
+        res.sendStatus(500);
+    }
+
 });
 
 module.exports = router;
