@@ -14,9 +14,11 @@ router.get('/', (req, res) => {
 
     // For the time being, there is no return limit
     // This query will return rows containing outfits and arrays of that outfit's items
-    const sqlText = `SELECT outfits.*, ARRAY_AGG(items.*) FROM "outfits"
+    // ADD CATEGORY NAMES TO FETCH QUERY, what you have now probably doesn't work
+    const sqlText = `SELECT outfits.*, ARRAY_AGG(items.*, categories.name AS categoryName) FROM "outfits"
                         JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
                         JOIN "items" ON outfit_items.item_id = items.id
+                        JOIN "categories" ON items.category_id = categories.id
                         JOIN "favorited_outfits" ON outfits.id = favorited_outfits.outfit_id
                         JOIN "rejections" ON outfits.id = rejections.outfit_id
                             WHERE favorited_outfits.user_id != $1
