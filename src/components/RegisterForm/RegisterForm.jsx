@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import './RegisterForm.css';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -25,9 +27,15 @@ function RegisterForm() {
     });
   }; // end registerUser
 
+  const history = useHistory();
+
+  const onHome = (event) => {
+    history.push('/home');
+  };
+
   return (
-    <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+    <form className='registerForm' onSubmit={registerUser}>
+      <img onClick={onHome} src='https://res.cloudinary.com/dgainc6rr/image/upload/v1667588949/Logo/Levelrie_Logo_ipecqt.png'/>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}

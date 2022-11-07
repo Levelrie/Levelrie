@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import './LoginForm.css';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -24,9 +26,15 @@ function LoginForm() {
     }
   }; // end login
 
+  const history = useHistory();
+
+  const onHome = (event) => {
+    history.push('/home');
+  };
+
   return (
-    <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
+    <form className='loginForm' onSubmit={login}>
+      <img onClick={onHome} src='https://res.cloudinary.com/dgainc6rr/image/upload/v1667588949/Logo/Levelrie_Logo_ipecqt.png'/>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
