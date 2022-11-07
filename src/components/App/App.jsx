@@ -23,6 +23,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Home from '../Home/Home';
 
 import './App.css';
 
@@ -116,6 +117,13 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute
+              exact
+              path="/home"
+            >
+              <Home />
+            </ProtectedRoute>
+
+            <ProtectedRoute
               // logged in shows InfoPage else shows LoginPage
               exact
               path="/info"
@@ -130,7 +138,7 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect to the /user page
-                <Redirect to="/user" />
+                <Redirect to="/home" />
                 :
                 // Otherwise, show the login page
                 <LoginPage />
