@@ -1,3 +1,8 @@
 .registerForm {
     text-align: center;
 }
+
+.RegisterPage {
+    text-align: end;
+    margin: 20px;
+}

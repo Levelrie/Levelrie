@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 
@@ -18,10 +19,20 @@ function LandingPage() {
     <div className='landing'>
       <img onClick={onHome} src='https://res.cloudinary.com/dgainc6rr/image/upload/v1667588949/Logo/Levelrie_Logo_ipecqt.png'/>
       <div className='login-btn'>
-       <button onClick={onLogin}>Log-in</button> 
+        <Button 
+          variant="contained"
+          onClick={onLogin}
+        >
+          Log-in
+        </Button>
       </div>
       <div className='register-btn'>
-       <button onClick={onRegister}>Register</button> 
+        <Button 
+          variant="contained"
+          onClick={onRegister}
+        >
+          Register
+        </Button>
       </div>
     </div>
   );
