@@ -35,7 +35,7 @@ CREATE TABLE "items" (
     "color" VARCHAR (80) NOT NULL,
     "size" VARCHAR (80) NOT NULL,
     "seller" VARCHAR (80) NOT NULL,
-    "price" MONEY (80) NOT NULL,
+    "price" MONEY NOT NULL,
     "img" VARCHAR (1000) NOT NULL,
     "category_id" INT REFERENCES "categories"
 );
@@ -106,15 +106,15 @@ CREATE TABLE "rejections" (
     "id" SERIAL PRIMARY KEY,  
     "user_id" INT REFERENCES "users",
     "outfit_id" INT REFERENCES "outfits"
-)
+);
 
 INSERT INTO "categories"
     ("name")
         VALUES 
-            ("top"),
-            ("bottom"),
-            ("footwear"),
-            ("dress"),
-            ("hat"),
-            ("outerwear"),
-            ("accessories");
+            ('top'),
+            ('bottom'),
+            ('footwear'),
+            ('dress'),
+            ('hat'),
+            ('outerwear'),
+            ('accessories');
