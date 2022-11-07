@@ -15,6 +15,8 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
+import AdminLogin from '../AdminLogin/AdminLogin';
+
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
@@ -68,10 +70,19 @@ function App() {
 
   return (
     <ThemeProvider theme={themeOptions}>
+
       <Router>
+        <Nav />
         <div>
-          <Nav />
           <Switch>
+
+            {/* Adding an admin page that will be navigated to by using 
+            a direct URL no link on mobile version to seperate staff 
+            from client use */}
+            <Route exact path="/admin/login">
+              <AdminLogin />
+            </Route>
+
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
 
