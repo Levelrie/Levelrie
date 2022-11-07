@@ -1,0 +1,17 @@
+#paymentContainer{
+    background-color: #F5F5F5;
+}
+
+#payPalIcon{
+    height: 2rem;
+    margin-top: .25rem;
+}
+
+#applePayIcon{
+    height: 2rem;
+    margin-top: .25rem;
+}
+
+#paymentGroup{
+    color: #434343;
+}
