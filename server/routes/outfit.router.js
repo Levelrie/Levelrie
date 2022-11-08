@@ -8,7 +8,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // Fetch all outfits that haven't already been rejected by the user
 //      and all outfits that haven't already been saved by the user
-router.get('/', (req, res) => {
+router.get('/home', (req, res) => {
 
     const userId = req.user.id;
 
@@ -20,9 +20,9 @@ router.get('/', (req, res) => {
     // If a result row contains an outfit with id 1 and has a the current user's id in favoritedBy OR rejectedBy
     // ALL result rows containing outfit with id 1 must be removed
     const sqlText = `SELECT outfits.*, 
-                            favorited_outfits.user_id AS favoritedBy, 
-                            rejections.user_id AS rejectedBy, 
-                            ARRAY_AGG((items, categories.name)) AS items 
+                            favorited_outfits.user_id AS favorited_by, 
+                            rejections.user_id AS rejected_by, 
+                            JSON_AGG((items, categories.name)) AS items 
                      FROM "outfits"
                             JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
                             JOIN "items" ON outfit_items.item_id = items.id
@@ -31,35 +31,40 @@ router.get('/', (req, res) => {
                             LEFT JOIN "rejections" ON outfits.id = rejections.outfit_id
                                 GROUP BY outfits.id, favorited_outfits.user_id, rejections.user_id;`
 
-    pool.query(sqlText, [userId])
+    pool.query(sqlText)
         .then((results) => {
             let outfits = results.rows;
             let outfitIdsToDelete = [];
 
+            console.log('Outfits 1', outfits);
+
             // Make array recording outfit IDs associated with current user
             for (let i = 0; i < outfits.length; i++) {
-                if (outfits[i].favoritedBy == userId || outfits[i].rejectedBy == userId) {
+                console.log('favorited by?', outfits[i].favorited_by)
+                if (outfits[i].favorited_by == userId || outfits[i].rejected_by == userId) {
                     outfitIdsToDelete.push(outfits[i].id);
                 }
             }
 
+            console.log('to delete:', outfitIdsToDelete);
+
             // Remove all objects with recorded outfit ids
             for (let i = 0; i < outfitIdsToDelete.length; i++) {
-                for (let j = 0; j < outfits.length; j++) {
-                    if (outfits[j].id = outfitIdsToDelete[i]) {
-                        outfits.splice(j, 1);
-                    }
-                }
+                outfits = outfits.filter(outfit => outfit.id != outfitIdsToDelete[i]);
             }
+
+            console.log('OUTFITS 2:', outfits);
 
             // Filter results to contain only one instance of each outfit ID
             for (let i = 0; i < outfits.length; i++) {
-                for (let j = 0; j < outfits.length; j++) {
+                for (let j = 1; j < outfits.length - 1; j++) {
                     if (outfits[i].id == outfits[j].id) {
                         outfits.splice(j, 1);
                     }
                 }
             }
+
+            console.log('OUTFITS 2 SEND:', outfits);
 
             res.send(outfits);
         })
@@ -75,7 +80,7 @@ router.post('/reject', rejectUnauthenticated, (req, res) => {
     // ••• This route is forbidden if not logged in •••
     
     const userId = req.user.id;
-    const outfitId = req.body;
+    const outfitId = req.body.outfitId;
 
     const sqlText = `INSERT INTO "rejections"
                     ("user_id", "outfit_id")
@@ -99,7 +104,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
     // ••• This route is forbidden if not logged in •••
     
     const userId = req.user.id;
-    const outfitId = req.body;
+    const outfitId = req.body.outfitId;
 
     // First, fetch all the items associated with this outfit
     const sqlFetchItemsText = `SELECT * FROM "items"
@@ -111,7 +116,8 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
     const sqlInsertOutfitText = `INSERT INTO "favorited_outfits"
                                 ("user_id", "outfit_id")
                                 VALUES
-                                ($1, $2);`
+                                ($1, $2)
+                                RETURNING "id";`
 
     // This needs to have a loop
     const sqlInsertItemsText = `INSERT INTO "favorited_items"
@@ -127,11 +133,12 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
         const itemsToAdd = await connection.query(sqlFetchItemsText, [outfitId]);
 
         // Add the outfit first
-        await connection.query(sqlInsertOutfitText, [userId, outfitId]);
+        const favoritedOutfitId = await connection.query(sqlInsertOutfitText, [userId, outfitId]);
 
         // Add the items next
         for (let i = 0; i < itemsToAdd.rows.length; i++) {
-            await connection.query(sqlInsertItemsText, [outfitId, itemsToAdd.rows[i].id]);
+            console.log('ITEMsss????', itemsToAdd);
+            await connection.query(sqlInsertItemsText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
         }
 
         // Confirm successful actions
@@ -141,7 +148,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
 
     } catch (error) {
         await connection.query('ROLLBACK;');
-        console.log('Error in POST /api/outfit/favoriteOutfit queries', error)
+        console.log('Error in POST /api/outfit/favorite queries', error)
         res.sendStatus(500);
     }
 

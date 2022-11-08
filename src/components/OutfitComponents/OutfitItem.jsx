@@ -18,7 +18,8 @@ export default function OutfitItem({outfit}) {
                 return (
                     // need to set each item's position somehow -> use className?
                     //      If using class name, need to ensure items are received with category names
-                    <img className={item.categoryName} src={item.img} />
+                    // <img key={item.f1.id} className={item.f2} src={item.f1.img} />
+                    <p key={item.f1.id}>{item.f1.name}</p>
                 );
             })}
         </>
