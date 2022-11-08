@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
 function* favoriteItem(action) {
     console.log('WOOOOO', action.payload);
@@ -23,6 +23,6 @@ function* unfavoriteItem(action) {
 }
 
 export default function* itemsSaga() {
-    yield takeLatest('SAGA_FAVORITE_ITEM', favoriteItem);
-    yield takeLatest('SAGA_UNFAVORITE_ITEM', unfavoriteItem);
+    yield takeEvery('SAGA_FAVORITE_ITEM', favoriteItem);
+    yield takeEvery('SAGA_UNFAVORITE_ITEM', unfavoriteItem);
 }

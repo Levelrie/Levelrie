@@ -8,6 +8,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.post('/favorite', rejectUnauthenticated, async (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
+
+    console.log('BREAKING HERE?????? 0');
     
     const userId = req.user.id;
     const itemId = req.body.itemId;
@@ -41,6 +43,8 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
         // Check for existing outfit (see line 23)
         let favoritedOutfitId = await connection.query(sqlCheckText, [userId, outfitId]);
 
+        console.log('BREAKING HERE?????? 1');
+
         // If it doesn't exist ...
         if (favoritedOutfitId.rows.length === 0) {
             // Add the outfit first
@@ -50,21 +54,32 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
         // Add the item next
         await connection.query(sqlAddItemText, [favoritedOutfitId.rows[0].id, itemId]);
 
+        console.log('BREAKING HERE?????? 2');
+
         // Confirm successful actions
         await connection.query('COMMIT;');
 
+        console.log('BREAKING HERE?????? 3');
+
         res.sendStatus(201);
+
+
+        console.log('BREAKING HERE?????? END 1');
 
     } catch (error) {
         await connection.query('ROLLBACK;');
         console.log('Error in POST /api/item/favorite queries', error)
         res.sendStatus(500);
     }  
+    connection.release();
 });
 
 router.delete('/unfavorite/:itemId/:outfitId', rejectUnauthenticated, async (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
+
+
+    console.log('BREAKING HERE?????? 4');
 
     const userId = req.user.id;
     const itemId = req.params.itemId;
@@ -99,13 +114,16 @@ router.delete('/unfavorite/:itemId/:outfitId', rejectUnauthenticated, async (req
         // Fetch favorited_outfits id
         const favoritedOutfitId = await connection.query(sqlFavoritedOutfitId, [userId, outfitId]);
 
-        console.log('ID!!!!!!!', favoritedOutfitId)
+        // console.log('ID!!!!!!!', favoritedOutfitId)
 
         // Remove the item
         await connection.query(sqlUnfavoriteText, [favoritedOutfitId.rows[0].id, itemId]);
 
         // Check for favorited items remaining
         const remainingItems = await connection.query(sqlCheckIfAnyItemsRemaining, [favoritedOutfitId.rows[0].id]);
+
+
+        console.log('BREAKING HERE?????? 5');
 
         // If there aren't any ...
         if (remainingItems.rows.length === 0) {
@@ -118,11 +136,15 @@ router.delete('/unfavorite/:itemId/:outfitId', rejectUnauthenticated, async (req
 
         res.sendStatus(200);
 
+
+        console.log('BREAKING HERE?????? END 2');
+
     } catch (error) {
         await connection.query('ROLLBACK;');
         console.log('Error in DELETE /api/item/unfavorite queries', error)
         res.sendStatus(500);
     }  
+    connection.release();
 });
 
 module.exports = router;

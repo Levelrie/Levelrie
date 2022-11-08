@@ -128,6 +128,7 @@ router.post('/reject', rejectUnauthenticated, async (req, res) => {
         console.log('Error in POST /api/outfit/reject queries', error)
         res.sendStatus(500);
     }
+    connection.release();
 });
 
 // Add an outfit and ALL its items to a user's favorites
@@ -179,6 +180,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
         // Check for the existing outfit
         let favoritedOutfitId = await connection.query(sqlCheckForOutfitText, [userId, outfitId]);
 
+
         // If the outfit doesn't exist in favorited_outfits
         if (favoritedOutfitId.rows.length === 0) {
             // Add the outfit and get the id
@@ -187,7 +189,6 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
 
         // Add the items next
         for (let i = 0; i < itemsToAdd.rows.length; i++) {
-            console.log('ITEMsss????', itemsToAdd);
             // Check first that an item doesn't already exist in the table with this outfit
             const existenceCheck = await connection.query(sqlCheckForItemText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
             if (existenceCheck.rows.length === 0) {
@@ -205,7 +206,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
         console.log('Error in POST /api/outfit/favorite queries', error)
         res.sendStatus(500);
     }
-
+    connection.release();
 });
 
 module.exports = router;
