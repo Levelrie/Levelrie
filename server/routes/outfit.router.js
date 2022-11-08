@@ -75,27 +75,59 @@ router.get('/home', (req, res) => {
 });
 
 // Add an outfit to a user's rejections
-router.post('/reject', rejectUnauthenticated, (req, res) => {
+router.post('/reject', rejectUnauthenticated, async (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
     
     const userId = req.user.id;
     const outfitId = req.body.outfitId;
 
-    const sqlText = `INSERT INTO "rejections"
+    // Insert into rejections
+    const sqlInsertText = `INSERT INTO "rejections"
                     ("user_id", "outfit_id")
                     VALUES
                     ($1, $2);`
 
+    // Search if this outfit has any favorited items
+    const sqlSearchText = `SELECT "id" FROM "favorited_outfits"
+                                WHERE "user_id" = $1
+                                AND "outfit_id" = $2;`
 
-    pool.query(sqlText, [userId, outfitId])
-        .then((results) => {
-            res.sendStatus(201);
-        })
-        .catch((error) => {
-            console.log('Error in POST /api/outfit/reject query', error)
-            res.sendStatus(500);
-        });
+    // If this item has been favorited
+    //      Remove from favorited_items and favorited_outfits
+    const sqlDeleteItemsText = `DELETE FROM "favorited_items"
+                                    WHERE "favorited_outfit_id" = $1;`
+
+    const sqlDeleteOutfitText = `DELETE FROM "favorited_outfits"
+                                    WHERE "id" = $1;`
+
+
+    const connection = await pool.connect();
+
+    try {
+        await connection.query('BEGIN;');
+
+        // Insert into rejections
+        await connection.query(sqlInsertText, [userId, outfitId]);
+
+
+        // Search if this outfit has any favorited items
+        const searchIdResults = await connection.query(sqlSearchText, [userId, outfitId]);
+
+        // If this item has been favorited
+        if (searchIdResults.rows.length != 0) {
+            await connection.query(sqlDeleteItemsText, [searchIdResults.rows[0].id]);
+            await connection.query(sqlDeleteOutfitText, [searchIdResults.rows[0].id]);
+        }
+
+        await connection.query('COMMIT;');
+
+        res.sendStatus(201);
+
+    } catch (error) {
+        console.log('Error in POST /api/outfit/reject queries', error)
+        res.sendStatus(500);
+    }
 });
 
 // Add an outfit and ALL its items to a user's favorites

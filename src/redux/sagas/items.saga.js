@@ -15,7 +15,8 @@ function* unfavoriteItem(action) {
     try {
         const itemId = action.payload.itemId;
         const outfitId = action.payload.outfitId;
-        // yield axios.delete(`/api/item/unfavorite/${itemId}`);
+        console.log('OUTFIT ID', outfitId)
+        yield axios.delete(`/api/item/unfavorite/${itemId}/${outfitId}`);
     } catch (error) {
         console.log('itemsSaga favoriteItem function error', error);
     }

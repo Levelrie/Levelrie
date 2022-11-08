@@ -48,7 +48,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
         }
 
         // Add the item next
-        await connection.query(sqlAddItemText, [favoritedOutfitId, itemId]);
+        await connection.query(sqlAddItemText, [favoritedOutfitId.rows[0].id, itemId]);
 
         // Confirm successful actions
         await connection.query('COMMIT;');
@@ -62,14 +62,67 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
     }  
 });
 
-router.delete('/unfavorite/:id', rejectUnauthenticated, async (req, res) => {
+router.delete('/unfavorite/:itemId/:outfitId', rejectUnauthenticated, async (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
 
     const userId = req.user.id;
-    const itemId = req.body.itemId;
-    const outfitId = req.body.outfitId;
+    const itemId = req.params.itemId;
+    const outfitId = req.params.outfitId;
 
+    // Fetch favorited_outfits id associated with this outfit and user
+    const sqlFavoritedOutfitId = `SELECT "id" FROM "favorited_outfits"
+                                    WHERE "user_id" = $1
+                                    AND "outfit_id" = $2;`
+
+    // Remove the item
+    const sqlUnfavoriteText = `DELETE FROM "favorited_items"
+                                    WHERE "favorited_outfit_id" = $1
+                                    AND "item_id" = $2;`
+
+    // Check if there's anymore favorited items remaining
+    const sqlCheckIfAnyItemsRemaining = `SELECT * FROM "favorited_items"
+                                            WHERE "favorited_outfit_id" = $1;`
+
+    // If all items in this outfit have been unfavorited by the user
+    //      Remove the initial favorited_outfits entry
+    const sqlRemoveOutfitText = `DELETE FROM "favorited_outfits"
+                                    WHERE "user_id" = $1
+                                    AND "outfit_id" = $2;`
+
+
+    const connection = await pool.connect();
+
+    try {
+        await connection.query('BEGIN;');
+
+        // Fetch favorited_outfits id
+        const favoritedOutfitId = await connection.query(sqlFavoritedOutfitId, [userId, outfitId]);
+
+        console.log('ID!!!!!!!', favoritedOutfitId)
+
+        // Remove the item
+        await connection.query(sqlUnfavoriteText, [favoritedOutfitId.rows[0].id, itemId]);
+
+        // Check for favorited items remaining
+        const remainingItems = await connection.query(sqlCheckIfAnyItemsRemaining, [favoritedOutfitId.rows[0].id]);
+
+        // If there aren't any ...
+        if (remainingItems.rows.length === 0) {
+            // Remove the favorited outfit
+            await connection.query(sqlRemoveOutfitText, [userId, outfitId]);
+        }
+
+        // Confirm successful actions
+        await connection.query('COMMIT;');
+
+        res.sendStatus(200);
+
+    } catch (error) {
+        await connection.query('ROLLBACK;');
+        console.log('Error in DELETE /api/item/unfavorite queries', error)
+        res.sendStatus(500);
+    }  
 });
 
 module.exports = router;
