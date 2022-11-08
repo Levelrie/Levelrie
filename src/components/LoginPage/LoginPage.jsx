@@ -1,6 +1,8 @@
 import React from 'react';
 import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
+import '../LoginForm/LoginForm.css';
+import { Button } from '@mui/material';
 
 function LoginPage() {
   const history = useHistory();
@@ -8,18 +10,16 @@ function LoginPage() {
   return (
     <div>
       <LoginForm />
-
-      <center>
-        <button
-          type="button"
-          className="btn btn_asLink"
+      <div className='LoginPage'>
+        <Button 
+          variant="contained"
           onClick={() => {
-            history.push('/registration');
+            history.push('/home');
           }}
         >
-          Register
-        </button>
-      </center>
+          Back
+        </Button>
+      </div>
     </div>
   );
 }

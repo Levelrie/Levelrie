@@ -1,3 +1,4 @@
+import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -42,67 +43,69 @@ function RegisterForm() {
         </h3>
       )}
       <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            required
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
+        <TextField 
+          id="username" 
+          label="username" 
+          variant="outlined"
+          type="text"
+          margin="dense"
+          required
+          value={username}
+          onChange={(event) => setUsername(event.target.value)} 
+        />
       </div>
       <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            required
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
+        <TextField 
+          id="password" 
+          label="password" 
+          variant="outlined"
+          type="text"
+          margin="dense"
+          required
+          value={password}
+          onChange={(event) => setPassword(event.target.value)} 
+        />
       </div>
       <div>
-        <label htmlFor="firstName">
-          First Name:
-          <input
-            type="text"
-            name="firstName"
-            value={firstName}
-            required
-            onChange={(event) => setFirstName(event.target.value)}
-          />
-        </label>
+      <TextField 
+          id="firstName" 
+          label="First Name" 
+          variant="outlined"
+          type="text"
+          margin="dense"
+          required
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)} 
+        />
       </div>
       <div>
-        <label htmlFor="lastName">
-          Last Name:
-          <input
-            type="text"
-            name="lastName"
-            value={lastName}
-            required
-            onChange={(event) => setLastName(event.target.value)}
-          />
-        </label>
+        <TextField 
+          id="lastName" 
+          label="Last Name" 
+          variant="outlined"
+          type="text"
+          margin="dense"
+          required
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)} 
+        />
       </div>
       <div>
-        <label htmlFor="email">
-          Email:
-          <input
-            type="text"
-            name="email"
-            value={email}
-            required
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
+        <TextField 
+          id="email" 
+          label="Email" 
+          variant="outlined"
+          type="text"
+          margin="dense"
+          required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)} 
+        />
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+        <Button variant="contained" type="submit" value="Register">
+          Register
+        </Button>
       </div>
     </form>
   );
