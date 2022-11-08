@@ -1,7 +1,37 @@
+.box {
+  background-image: 
+    url(https://res.cloudinary.com/dgainc6rr/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1667858286/Logo/Screen_Shot_2022-11-07_at_3.54.24_PM_nirtjn.png);
+  background-size: 
+    120px;
+  background-repeat: repeat;
+  opacity: 1;
+}
+
 .outerCard {
   margin: auto;
 }
 
 .innerCard {
   margin: auto;
+  padding: 0;
+}
+
+img {
+  scale: 0.5;
+  padding: 0;
+}
+
+.adminLoginCard {
+  padding: 0;
+  margin: 0;
+}
+/* ------------------------- */
+/* Removed NavBar and Footer */
+
+.nav {
+  display: none;
+}
+
+footer {
+  display: none;
 }
