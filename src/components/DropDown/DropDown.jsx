@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 // MUI
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 // item is a prop passed in from component
@@ -11,9 +14,9 @@ import Select from '@mui/material/Select';
 function DropDown() {
     const item = {
         id: 2,
-        colors: ['red', 'blue', 'yellow', 'purple'],
-        sizes: ['small', 'large'],
-        quantity: 3,
+        colors: ['Red', 'Blue', 'Yellow', 'Purple'],
+        sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+        quantity: [0,1,2,3,4,5]
     }
 
     const [color, setColor] = useState('');
@@ -35,37 +38,50 @@ function DropDown() {
         setQuantity(e.target.value);
     }
 
-    console.log('here is color now:', color)
-    console.log('here is size now:', size)
-    console.log('here is quantity now:', quantity)
+    // console.log('here is color now:', color)
+    // console.log('here is size now:', size)
+    // console.log('here is quantity now:', quantity)
+
     return (
         <>
-        <Select
-            size="small"
-            value={color}
-            onChange={handleColorChange}
-        >
-            {item.colors.map(option => (
-                <MenuItem key={option} value={option}>{option}</MenuItem>
-            ))}
-        </Select>
-        <Select
-            size="small"
-            value={size}
-            onChange={handleSizeChange}
-        >
-            {item.sizes.map(option => (
-                <MenuItem key={option} value={option}>{option}</MenuItem>
-            ))}
-        </Select>
-
-        <Select
-            size="small"
-            value={quantity}
-            onChange={handleQuantityChange}
-        >
-            <MenuItem>{item.quantity}</MenuItem>
-        </Select>
+            <Box sx={{ minWidth: 120 }}>
+                <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                    <InputLabel>Color</InputLabel>
+                    <Select
+                        value={color}
+                        label="color"
+                        onChange={handleColorChange}
+                    >
+                    {item.colors.map(option => (
+                        <MenuItem key={option} value={option}>{option}</MenuItem>
+                    ))}
+                    </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                    <InputLabel>size</InputLabel>
+                    <Select
+                        value={size}
+                        label="size"
+                        onChange={handleSizeChange}
+                    >
+                    {item.sizes.map(option => (
+                        <MenuItem key={option} value={option}>{option}</MenuItem>
+                    ))}
+                    </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                    <InputLabel>quantity</InputLabel>
+                    <Select
+                        value={quantity}
+                        label="quantity"
+                        onChange={handleQuantityChange}
+                    >
+                    {item.quantity.map(option => (
+                        <MenuItem key={option} value={option}>{option}</MenuItem>
+                    ))}
+                    </Select>
+                </FormControl>
+            </Box>
         </>
     );
 };
