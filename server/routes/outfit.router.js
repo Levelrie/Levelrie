@@ -80,7 +80,7 @@ router.post('/reject', rejectUnauthenticated, (req, res) => {
     // ••• This route is forbidden if not logged in •••
     
     const userId = req.user.id;
-    const outfitId = req.body;
+    const outfitId = req.body.outfitId;
 
     const sqlText = `INSERT INTO "rejections"
                     ("user_id", "outfit_id")
@@ -104,7 +104,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
     // ••• This route is forbidden if not logged in •••
     
     const userId = req.user.id;
-    const outfitId = req.body;
+    const outfitId = req.body.outfitId;
 
     // First, fetch all the items associated with this outfit
     const sqlFetchItemsText = `SELECT * FROM "items"
@@ -116,7 +116,8 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
     const sqlInsertOutfitText = `INSERT INTO "favorited_outfits"
                                 ("user_id", "outfit_id")
                                 VALUES
-                                ($1, $2);`
+                                ($1, $2)
+                                RETURNING "id";`
 
     // This needs to have a loop
     const sqlInsertItemsText = `INSERT INTO "favorited_items"
@@ -132,11 +133,12 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
         const itemsToAdd = await connection.query(sqlFetchItemsText, [outfitId]);
 
         // Add the outfit first
-        await connection.query(sqlInsertOutfitText, [userId, outfitId]);
+        const favoritedOutfitId = await connection.query(sqlInsertOutfitText, [userId, outfitId]);
 
         // Add the items next
         for (let i = 0; i < itemsToAdd.rows.length; i++) {
-            await connection.query(sqlInsertItemsText, [outfitId, itemsToAdd.rows[i].id]);
+            console.log('ITEMsss????', itemsToAdd);
+            await connection.query(sqlInsertItemsText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
         }
 
         // Confirm successful actions
@@ -146,7 +148,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
 
     } catch (error) {
         await connection.query('ROLLBACK;');
-        console.log('Error in POST /api/outfit/favoriteOutfit queries', error)
+        console.log('Error in POST /api/outfit/favorite queries', error)
         res.sendStatus(500);
     }
 

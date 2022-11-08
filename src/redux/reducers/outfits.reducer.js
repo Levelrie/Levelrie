@@ -3,7 +3,7 @@ export default function outfits(state = {outfits: [], counter: 0}, action) {
         case 'SET_HOME_OUTFITS':
             return {outfits: action.payload, counter: 0};
         case 'INCREASE_HOME_COUNTER':
-            return {...state, counter: counter++}
+            return {...state, counter: state.counter + 1}
         case 'CLEAR_HOME_OUTFITS':
             return {outfits: [], counter: 0};
     }

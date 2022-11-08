@@ -21,14 +21,14 @@ export default function Home() {
     const rejectOutfit = () => {
         dispatch({
             type: 'SAGA_REJECT_OUTFIT',
-            payload: outfitsArray[homeCounter]
+            payload: outfitsArray[homeCounter].id
         });
     }
 
     const favoriteOutfit = () => {
         dispatch({
             type: 'SAGA_FAVORITE_OUTFIT',
-            payload: outfitsArray[homeCounter]
+            payload: outfitsArray[homeCounter].id
         });
     }
 

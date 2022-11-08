@@ -9,16 +9,32 @@ function* fetchOutfits() {
             payload: outfits.data
         });
     } catch (error) {
-        console.log('outfitsSaga fetchOutfits function', error);
+        console.log('outfitsSaga fetchOutfits function error', error);
     }
 }
 
-function* rejectOutfit() {
-
+function* rejectOutfit(action) {
+    try {
+        const outfitId = action.payload;
+        yield axios.post(`/api/outfit/reject`, {outfitId: outfitId});
+        yield put({
+            type: 'INCREASE_HOME_COUNTER'
+        });
+    } catch (error) {
+        console.log('outfitsSaga rejectOutfit function error', error);
+    }
 }
 
-function* favoriteOutfit() {
-    
+function* favoriteOutfit(action) {
+    try {
+        const outfitId = action.payload;
+        yield axios.post(`/api/outfit/favorite`, {outfitId: outfitId});
+        yield put({
+            type: 'INCREASE_HOME_COUNTER'
+        });
+    } catch (error) {
+        console.log('outfitsSaga favoriteOutfit function error', error);
+    }
 }
 
 
