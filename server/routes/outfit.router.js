@@ -148,7 +148,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
     //         Would occur if this user favorited an outfit from HOME, then swiped right as well
     const sqlCheckForOutfitText = `SELECT "id" FROM "favorited_outfits"
                                     WHERE "user_id" = $1
-                                    AND "outfit" = $2;`
+                                    AND "outfit_id" = $2;`
 
     // Then, add the favorited outfit and its items to their respective favorites tables
     const sqlInsertOutfitText = `INSERT INTO "favorited_outfits"
