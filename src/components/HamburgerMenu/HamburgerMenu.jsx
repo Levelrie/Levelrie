@@ -10,7 +10,8 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Backdrop from '@mui/material/Backdrop';
 
-
+// import component
+import LogOutButton from '../LogOutButton/LogOutButton';
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
     position: 'absolute',
@@ -28,7 +29,7 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
     { icon: <AccountCircleOutlinedIcon />, name: 'Account' },
     { icon: <SettingsOutlinedIcon />, name: 'Settings' },
     { icon: <ShareIcon />, name: 'Share' },
-    { icon: <LogoutOutlinedIcon />, name: 'Logout' }
+    { icon: <LogoutOutlinedIcon />, name: <LogOutButton /> }
   ];
   
   export default function PlaygroundSpeedDial() {
@@ -39,8 +40,7 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
 
   
     return (
-      <Box sx={{ transform: 'translateZ(0px)', flexGrow: 1 }}>
-        <Box sx={{ position: 'relative', mt: 3, height: 650, width: 1 }}>
+        <Box>
         <Backdrop open={open} />
           <StyledSpeedDial
             ariaLabel="SpeedDial playground example"
@@ -63,6 +63,5 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
             ))}
           </StyledSpeedDial>
         </Box>
-      </Box>
     );
   }
