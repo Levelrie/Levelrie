@@ -11,18 +11,50 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
+//  CSS import
 import './AdminLogin.css'
 
 function AdminLogin() {
 
   //  local state used to set toggle button
   const [isFront, setIsFront] = useState(true)
+  
   //  on click to alter toggle button
   const handleClick = (e) => {
-    // console.log('this', e.currentTarget)
     setIsFront(current => !current)  
-  }
+  } //  end handleClick function
 
+  const loginUser = (event) => {
+    event.preventDefault();
+    if (username && password) {
+      dispatch ({
+        type: 'ADMIN_LOGIN',
+        payload: {
+          username: username,
+          password: password,
+        },
+      });
+    } //  end IF
+    else {
+      dispatch ({ type: 'ADMIN_LOGIN_INPUT_ERROR' });
+    } //  end ELSE
+  } //  end loginUser function
+
+  const registerUser = (event) => {
+    event.preventDefault();
+    if (username && password) {
+      dispatch ({
+        type: 'ADMIN_REGISTER',
+        payload: {
+          username: username,
+          password: password,
+        },
+      });
+    } //  end IF
+    else {
+      dispatch ({ type: 'ADMIN_REGISTER_INPUT_ERROR' });
+    } //  end ELSE
+  } //  end registerUser function
 
 //  The Admin Login-Register page display contains the following elements:
 //  Box - set to match the entire browser display height and width with the
@@ -36,9 +68,9 @@ function AdminLogin() {
       <Card className='outerCard' sx={{width: '50vw', height: '75vh', display: 'center', bgcolor: '#f1b3f2', border: '10px solid #BFA78A', borderRadius: 4}} variant='outlined' bgc='red'>
         <Card className='innerCard' sx={{width: '40vw', height: '65vh', display: 'center'}}>
           <CardContent className="adminLoginCard">
-            <Stack direction="column"  spacing={1} alignItems="center" sx={{mt: -9}}>
+            <Stack direction="column"  spacing={2} alignItems="center" sx={{mt: -8}}>
               <CardMedia
-                sx={{mb: -6}}
+                sx={{mb: -5}}
                 className="adminLoginCard"
                 component="img"
                 image="https://res.cloudinary.com/dgainc6rr/image/upload/v1667860497/Logo/cropped-logo_so1shs.png"
@@ -46,15 +78,15 @@ function AdminLogin() {
               />
               {/* <Typography sx={{mt: -5}} color='#434343'>Admin Login</Typography> */}
               <Stack direction='row' justifyContent='center'>
-                <Button variant='contained' color='baseTan' id='outfitButton' className={isFront ? 'frontButton' : ''} sx={{borderRadius: 3 , width: 120, left: 10, fontSize: 16}} onClick={handleClick}>Login</Button>
-                <Button variant='contained' color='basePink' id='categoryButton' className={!isFront ? 'frontButton' : ''} sx={{borderRadius: 3, width: 120, right: 10, fontSize: 16}} onClick={handleClick}>Register</Button>
+                <Button variant='contained' size="small" color='baseTan' id='outfitButton' className={isFront ? 'frontButton' : ''} sx={{borderRadius: 3 , width: 100, left: 10, justifyContent: 'center'}} onClick={handleClick}>Login</Button>
+                <Button variant='contained' size="small" color='basePink' id='categoryButton' className={!isFront ? 'frontButton' : ''} sx={{borderRadius: 3, width: 100, right: 10, justifyContent: 'space-around'}} onClick={handleClick}>Register</Button>
               </Stack>
-              <TextField id="outlined-basic" margin='dense' label="username" variant="outlined" />
-              <TextField id="outlined-basic" label="password" variant="outlined" />
+              <TextField id="outlined-basic" margin='dense' size="small" label="username" variant="outlined" />
+              <TextField id="outlined-basic" size="small" label="password" variant="outlined" />
               
               {/* Conditional changes to button based on toggle selection above */}
-              {isFront ? <Button variant="contained">Login</Button> : 
-                <Button variant="contained">Register</Button>}
+              {isFront ? <Button variant="contained" size="small" onClick={loginUser}>Login</Button> : 
+                <Button variant="contained" size="small" onClick={registerUser}>Register</Button>}
             </Stack>
           </CardContent>
         </Card>

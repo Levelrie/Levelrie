@@ -73,9 +73,11 @@ function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
+  const admin = useSelector(store => store.admin);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'FETCH_ADMIN' });
   }, [dispatch]);
 
   return (
@@ -86,7 +88,7 @@ function App() {
         <div>
           <Switch>
 
-            {/* Adding an admin page that will be navigated to by using 
+            {/* Adding an admin login page that will be navigated to by using 
             a direct URL no link on mobile version to seperate staff 
             from client use */}
             <Route exact path="/admin/login">
