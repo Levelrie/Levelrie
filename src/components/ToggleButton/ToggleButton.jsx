@@ -11,9 +11,6 @@ export default function ToggleButton() {
     const handleClick = (e) => {
       console.log('this', e.currentTarget)
         setIsFront(current => !current)  
-
-        
-        
     }
 
   return (
