@@ -4,16 +4,14 @@ const router = express.Router();
 
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// •••••••••••••••••••••••••••••••••••••••• HOME VIEW ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
-
 // Add an item to a user's favorites
 router.post('/favorite', rejectUnauthenticated, async (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
     
     const userId = req.user.id;
-    const itemId = req.body.item_id;
-    const outfitId = req.body.outfit_id;
+    const itemId = req.body.itemId;
+    const outfitId = req.body.outfitId;
 
     // First, check if this outfit is already in the favorited outfits table
     //      associated with this user's id
@@ -40,7 +38,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
     try {
         await connection.query('BEGIN;');
 
-        // Check for existing outfit (see line 123)
+        // Check for existing outfit (see line 23)
         let favoritedOutfitId = await connection.query(sqlCheckText, [userId, outfitId]);
 
         // If it doesn't exist ...
@@ -59,9 +57,19 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
 
     } catch (error) {
         await connection.query('ROLLBACK;');
-        console.log('Error in POST /api/outfit/favoriteItem queries', error)
+        console.log('Error in POST /api/item/favorite queries', error)
         res.sendStatus(500);
     }  
+});
+
+router.delete('/unfavorite/:id', rejectUnauthenticated, async (req, res) => {
+
+    // ••• This route is forbidden if not logged in •••
+
+    const userId = req.user.id;
+    const itemId = req.body.itemId;
+    const outfitId = req.body.outfitId;
+
 });
 
 module.exports = router;

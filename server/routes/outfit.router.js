@@ -112,12 +112,24 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
                             JOIN "outfits" ON outfit_items.outfit_id = outfits.id
                                 WHERE outfits.id = $1;`
 
+    // Check if favorited_outfits already has an entry for this outfit and user
+    //         Would occur if this user favorited an outfit from HOME, then swiped right as well
+    const sqlCheckForOutfitText = `SELECT "id" FROM "favorited_outfits"
+                                    WHERE "user_id" = $1
+                                    AND "outfit" = $2;`
+
     // Then, add the favorited outfit and its items to their respective favorites tables
     const sqlInsertOutfitText = `INSERT INTO "favorited_outfits"
                                 ("user_id", "outfit_id")
                                 VALUES
                                 ($1, $2)
                                 RETURNING "id";`
+
+
+    // Check text for preexisting item in favorited_items table
+    const sqlCheckForItemText = `SELECT * FROM "favorited_items"
+                                    WHERE "favorited_outfit_id" = $1
+                                    AND "item_id" = $2;`
 
     // This needs to have a loop
     const sqlInsertItemsText = `INSERT INTO "favorited_items"
@@ -132,13 +144,23 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
 
         const itemsToAdd = await connection.query(sqlFetchItemsText, [outfitId]);
 
-        // Add the outfit first
-        const favoritedOutfitId = await connection.query(sqlInsertOutfitText, [userId, outfitId]);
+        // Check for the existing outfit
+        let favoritedOutfitId = await connection.query(sqlCheckForOutfitText, [userId, outfitId]);
+
+        // If the outfit doesn't exist in favorited_outfits
+        if (favoritedOutfitId.rows.length === 0) {
+            // Add the outfit and get the id
+            favoritedOutfitId = await connection.query(sqlInsertOutfitText, [userId, outfitId]);
+        }
 
         // Add the items next
         for (let i = 0; i < itemsToAdd.rows.length; i++) {
             console.log('ITEMsss????', itemsToAdd);
-            await connection.query(sqlInsertItemsText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
+            // Check first that an item doesn't already exist in the table with this outfit
+            const existenceCheck = await connection.query(sqlCheckForItemText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
+            if (existenceCheck.rows.length === 0) {
+                await connection.query(sqlInsertItemsText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
+            }
         }
 
         // Confirm successful actions

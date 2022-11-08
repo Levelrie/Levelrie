@@ -9,7 +9,7 @@ import Favorite from '@mui/icons-material/Favorite';
 
 // item is a prop passed in from component
 // example: item = a specific shirt
-function FavoriteButton(item) {
+function FavoriteButton({itemId, outfitId}) {
 
   const [check, setCheck] = useState(false);
   const dispatch = useDispatch();
@@ -21,19 +21,25 @@ function FavoriteButton(item) {
   }
 
   const handleFavorite = () => {
-    if(check === false) {  // if false (flase because check will not have changed yet) then add to favorites
+    if(check === false) {  // if false (false because check will not have changed yet) then add to favorites
       console.log('dispatch add to favorites');
-      // dispatch({
-          //     type: 'ADD_TO_FAVORITES',
-          //     payload: item
-          // })
+      dispatch({
+        type: 'SAGA_FAVORITE_ITEM',
+        payload: {
+          itemId: itemId,
+          outfitId: outfitId
+        }
+      });
     }
     else { // if true (true because check will not have changed yet) then remove from favorites
       console.log('dispatch remove from favorites');
-      // dispatch({
-          //     type: 'REMOVE_FROM_FAVORITES',
-          //     payload: item
-          // })
+      dispatch({
+        type: 'SAGA_UNFAVORITE_ITEM',
+        payload: {
+          itemId: itemId,
+          outfitId: outfitId
+        }
+      });
     }
   }
 
@@ -44,9 +50,9 @@ function FavoriteButton(item) {
             checkedIcon={<Favorite />}
             value={check}
             sx={{
-                color: 'black',
+                color: 'pink',
                 '&.Mui-checked': {
-                  color: 'black',
+                  color: 'pink',
                 },
             }}
         />    
