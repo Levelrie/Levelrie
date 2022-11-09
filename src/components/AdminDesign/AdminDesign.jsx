@@ -8,13 +8,14 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-function AdminHome() {
-
+function AdminDesign() {
   return (
-    <Box  sx={{width: '100vw', height: '90vh', backgroundColor: 'red'}} >
-
-    </Box>
+    <div className="container">
+      <div>
+        <p>This is ADMIN DESIGN!</p>
+      </div>
+    </div>
   );
 }
 
-export default AdminHome;
+export default AdminDesign;
