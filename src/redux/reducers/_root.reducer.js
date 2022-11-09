@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 import outfits from './outfits.reducer';
+import favorites from './favorites.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -12,7 +13,8 @@ import outfits from './outfits.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  outfits
+  outfits,
+  favorites // contains favoriteOutfitsReducer and favoriteItemsReducer
 });
 
 export default rootReducer;
