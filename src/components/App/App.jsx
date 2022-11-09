@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   HashRouter as Router,
   Redirect,
@@ -6,18 +7,16 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
+//  MUI Tools
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { cssBaseLine } from '@mui/material'
 
-
+//  Component Imports
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AdminLogin from '../AdminLogin/AdminLogin';
-
+import AdminDesign from '../AdminDesign/AdminDesign';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
@@ -26,6 +25,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Home from '../Home/Home';
 
+//  CSS Import
 import './App.css';
 
 const { palette } = createTheme();
@@ -88,13 +88,18 @@ function App() {
         <div>
           <Switch>
 
-            {/* Adding an admin login page that will be navigated to by using 
-            a direct URL no link on mobile version to seperate staff 
-            from client use */}
+            {/* ---------- ADMIN ROUTES ---------- */}
+            {/* Adding an admin login page that will be navigated to by using a 
+            direct URL no link on mobile version to seperate staff from client use */}
             <Route exact path="/admin/login">
-              <AdminLogin />
+              {admin.id ? <Redirect to="/admin/design" /> : <AdminLogin /> }
             </Route>
+            {/* Protected route for admin users */}
+            <ProtectedRoute exact path="/admin/design" >
+              <AdminDesign />
+            </ProtectedRoute>
 
+            {/* ---------- USER ROUTES ---------- */}
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
 
