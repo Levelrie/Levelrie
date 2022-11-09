@@ -224,7 +224,8 @@ router.get('/search', (req, res) => {
                             JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
                             JOIN "items" ON outfit_items.item_id = items.id
                             INNER JOIN "categories" ON items.category_id = categories.id
-                                WHERE outfits.name LIKE $1;`
+                                WHERE outfits.name LIKE $1
+                                GROUP BY outfits.id;`
 
     pool.query(sqlSearchText, [query])
         .then((results) => {

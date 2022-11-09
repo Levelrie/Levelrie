@@ -31,6 +31,75 @@ router.get('/', (req, res) => {
             console.log('dbErr in /favorites/outfits:', dbErr);
             res.sendStatus(500);
         })
-})
+});
+
+router.get('/search', rejectUnauthenticated, (req, res) => {
+
+    // ••• This route is forbidden if not logged in •••
+
+    // Search a user's favorited outfits
+    
+    // General outfit query will target outfits by name
+    let query = req.query.q;
+    let userId = req.user.id;
+
+    // Add '%' to the end of the query string for the database
+    query += '%';
+
+    sqlSearchText = `SELECT outfits.*, 
+                            JSON_AGG((items, categories.name)) AS items  
+                        FROM "outfits"
+                            JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
+                            JOIN "items" ON outfit_items.item_id = items.id
+                            INNER JOIN "categories" ON items.category_id = categories.id
+                            JOIN "favorited_outfits" ON outfits.id = favorited_outfits.outfit_id
+                                WHERE outfits.name LIKE $1
+                                AND "favorited_outfits".user_id = $2
+                                GROUP BY outfits.id;`
+
+    pool.query(sqlSearchText, [query, userId])
+        .then((results) => {
+            res.send(results.rows);
+        })
+        .catch((error) => {
+            console.log('Error in GET /api/favorites/outfits/search query', error);
+            res.sendStatus(500);
+        });
+
+});
+
+// Probably put this in a separate router
+router.get('/search/item', rejectUnauthenticated, (req, res) => {
+
+    // ••• This route is forbidden if not logged in •••
+
+    // Search a user's favorited items
+    
+    // General outfit query will target outfits by name
+    let query = req.query.q;
+    let category = req.query.cat;
+    let userId = req.user.id;
+
+    // Add '%' to the end of the query string for the database
+    query += '%';
+
+    sqlSearchText = `SELECT items.* FROM "items"
+                        JOIN "categories" ON items.category_id = categories.id
+                        JOIN "favorited_items" ON items.id = favorited_items.item_id
+                        JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
+                            WHERE items.name LIKE $1
+                            AND categories.name = $2
+                            AND "favorited_outfits".user_id = $3;`
+
+    pool.query(sqlSearchText, [query, category, userId])
+        .then((results) => {
+            res.send(results.rows);
+        })
+        .catch((error) => {
+            console.log('Error in GET /api/favorites/outfits/search/item query', error);
+            res.sendStatus(500);
+        });
+
+});
 
 module.exports = router;
