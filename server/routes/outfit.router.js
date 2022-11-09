@@ -209,4 +209,32 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
     connection.release();
 });
 
+// •••••••••••••••••••••••••••••••••••••••• GLOBAL SEARCH VIEW ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
+router.get('/search', (req, res) => {
+
+    // General outfit query will target outfits by name
+    let query = req.query.q;
+
+    // Add '%' to the end of the query string for the database
+    query += '%';
+
+    sqlSearchText = `SELECT outfits.*, 
+                            JSON_AGG((items, categories.name)) AS items  
+                     FROM "outfits"
+                            JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
+                            JOIN "items" ON outfit_items.item_id = items.id
+                            INNER JOIN "categories" ON items.category_id = categories.id
+                                WHERE outfits.name LIKE $1;`
+
+    pool.query(sqlSearchText, [query])
+        .then((results) => {
+            res.send(results.rows);
+        })
+        .catch((error) => {
+            console.log('Error in GET /api/outfit/search query', error);
+            res.sendStatus(500);
+        });
+});
+
+
 module.exports = router;
