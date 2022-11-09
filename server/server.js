@@ -14,7 +14,8 @@ const itemRouter = require('./routes/item.router');
 const outfitRouter = require('./routes/outfit.router');
 const cartRouter = require('./routes/cart.router');
 const favoritesRouter = require('./routes/favorites.router');
-const closetRouter = require('./routes/closet.router');
+const closetRouter = require('./routes/closetOutfit.router');
+const closetItemRouter = require('./routes/closetItem.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -34,7 +35,8 @@ app.use('/api/item', itemRouter);
 app.use('/api/outfit', outfitRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/favorites/outfits', favoritesRouter);
-app.use('/api/closet', closetRouter);
+app.use('/api/closet/outfits', closetRouter);
+app.use('/api/closet/items', closetItemRouter);
 
 // Serve static files
 app.use(express.static('build'));
