@@ -13,6 +13,7 @@ const adminRouter = require('./routes/admin.router');
 const itemRouter = require('./routes/item.router');
 const outfitRouter = require('./routes/outfit.router');
 const cartRouter = require('./routes/cart.router');
+const favoritesRouter = require('./routes/favorites.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use('/api/admin', adminRouter);
 app.use('/api/item', itemRouter);
 app.use('/api/outfit', outfitRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/favorites/outfits', favoritesRouter);
 
 // Serve static files
 app.use(express.static('build'));
