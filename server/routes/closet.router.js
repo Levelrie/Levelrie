@@ -1,43 +1,14 @@
-// try the below and navigate to: http://localhost:5000/api/favorites/outfits
-
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-console.log("fav router");
-
-// router.get('/favorites/outfits', (req, res) => {
-//     console.log('here');
-//     res.sendStatus(200);
-
-// })
-
-router.get('/', (req, res) => {
-    console.log('in GET /api/favorites/outfits');
-    // Fetch all outfits that have been favorited by the user
-    const sqlText = `
-        SELECT * FROM "favorited_outfits"
-        JOIN "outfits" ON favorited_outfits.outfit_id = outfits.id
-        WHERE favorited_outfits.user_id = $1;
-    `
-    const sqlValues = [req.user.id]
-    pool.query(sqlText, sqlValues)
-        .then((dbRes) => {
-            console.log('dbRes.rows is:', dbRes.rows);
-            res.send(dbRes.rows)
-        }).catch(dbErr => {
-            console.log('dbErr in /favorites/outfits:', dbErr);
-            res.sendStatus(500);
-        })
-});
-
-router.get('/search', rejectUnauthenticated, (req, res) => {
+router.get('/search/outfit', rejectUnauthenticated, (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
 
-    // Search a user's favorited outfits
+    // Search a user's closet outfits
     
     // General outfit query will target outfits by name
     let query = req.query.q;
@@ -52,9 +23,9 @@ router.get('/search', rejectUnauthenticated, (req, res) => {
                             JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
                             JOIN "items" ON outfit_items.item_id = items.id
                             INNER JOIN "categories" ON items.category_id = categories.id
-                            JOIN "favorited_outfits" ON outfits.id = favorited_outfits.outfit_id
+                            JOIN "closet_outfits" ON outfits.id = closet_outfits.outfit_id
                                 WHERE outfits.name LIKE $1
-                                AND "favorited_outfits".user_id = $2
+                                AND "closet_outfits".user_id = $2
                                 GROUP BY outfits.id;`
 
     pool.query(sqlSearchText, [query, userId])
@@ -62,18 +33,17 @@ router.get('/search', rejectUnauthenticated, (req, res) => {
             res.send(results.rows);
         })
         .catch((error) => {
-            console.log('Error in GET /api/favorites/outfits/search query', error);
+            console.log('Error in GET /api/closet/search/outfit query', error);
             res.sendStatus(500);
         });
 
 });
 
-// Probably put this in a separate router
 router.get('/search/item', rejectUnauthenticated, (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
 
-    // Search a user's favorited items
+    // Search a user's closet items by category
     
     // General outfit query will target outfits by name
     let query = req.query.q;
@@ -85,21 +55,21 @@ router.get('/search/item', rejectUnauthenticated, (req, res) => {
 
     sqlSearchText = `SELECT items.* FROM "items"
                         JOIN "categories" ON items.category_id = categories.id
-                        JOIN "favorited_items" ON items.id = favorited_items.item_id
-                        JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
+                        JOIN "closet_items" ON items.id = closet_items.item_id
                             WHERE items.name LIKE $1
                             AND categories.name = $2
-                            AND "favorited_outfits".user_id = $3;`
+                            AND "closet_items".user_id = $3;`
 
     pool.query(sqlSearchText, [query, category, userId])
         .then((results) => {
             res.send(results.rows);
         })
         .catch((error) => {
-            console.log('Error in GET /api/favorites/outfits/search/item query', error);
+            console.log('Error in GET /api/closet/search/item query', error);
             res.sendStatus(500);
         });
 
 });
+
 
 module.exports = router;

@@ -147,4 +147,32 @@ router.delete('/unfavorite/:itemId/:outfitId', rejectUnauthenticated, async (req
     connection.release();
 });
 
+// •••••••••••••••••••••••••••••••••••••••• GLOBAL SEARCH VIEW ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
+
+router.get('/search', (req, res) => { 
+    
+    // Item query will target outfits by name and category
+    let query = req.query.q;
+
+    let category = req.query.cat;
+
+    // Add '%' to the end of the query string for the database
+    query += '%';
+
+    sqlSearchText = `SELECT items.* FROM "items"
+                        JOIN "categories" ON items.category_id = categories.id
+                            WHERE items.name LIKE $1
+                            AND categories.name = $2;`
+
+    pool.query(sqlSearchText, [query, category])
+    .then((results) => {
+        res.send(results.rows);
+    })
+    .catch((error) => {
+        console.log('Error in GET /api/item/search query', error);
+        res.sendStatus(500);
+    });
+
+});
+
 module.exports = router;
