@@ -7,7 +7,12 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET route to fetch all closet outfits
 router.get('/', rejectUnauthenticated, (req, res) => {
     // we only want the closet outfit that is related to a specific user purchases. 
-    const query = `SELECT * FROM "closet_outfits" WHERE "user_id" = $1 ORDER BY "id" DESC;`;
+    const query = `
+        SELECT * FROM "closet_outfits"
+        JOIN "outfits" ON closet_outfits.outfit_id = outfits.id
+        WHERE closet_outfits.user_id = $1;
+    `;
+
     const sqlValues = [req.user.id]
     pool.query(query, sqlValues)
       .then( result => {
