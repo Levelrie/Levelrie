@@ -118,3 +118,50 @@ INSERT INTO "categories"
             ('hat'),
             ('outerwear'),
             ('accessories');
+
+
+
+            -- ****************** TEST DATA BELOW *********************
+INSERT INTO "users"
+	("username", "password", "first_name", "last_name", "email")
+		VALUES
+            ('Maggie', '123', 'Maggie', 'Whitlock', 'maggie.whitlock@gmail.com')
+			('Theo', '123', 'Theo', 'Janke-Furman', 'tjankefurman@gmail.com'),
+			('Chameng', '123', 'Chameng', 'Vang', 'Chameng02@gmail.com'),
+            ('Hess', '123', 'Hess', 'Hess', 'ryanmhess@gmail.com'),
+            ('Kyle', '123', 'Kyle', 'Jensen', 'kjensen19@gmail.com');
+
+INSERT INTO "outfits"
+	("name", "description")
+		VALUES
+			('Cocktail attire', 'For going out'),
+			('Something more comfortable', 'For staying in'),
+			('Beach ensemble', 'Splish splash')
+			('Dog outfit', 'Woof');
+			
+
+INSERT INTO "favorited_outfits"
+	("user_id", "outfit_id")
+		VALUES
+			(1, 3),
+			(1, 4), 
+			(2, 3),
+			(3, 1);
+
+
+INSERT INTO "items"
+	("name", "color", "size", "seller", "price", "img", "category_id")
+		VALUES
+			('Maroon Pants', 'Maroon', 'L', 'Citizen', '$250', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588845/Bottoms/image-23_f0vnry.png', 2),
+			('Black Belt (Double Buckle)', 'Black', 'M', 'Balenciaga', '$300', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588911/Accessories/image-25_bgpqqa.png', 7),
+            ('Grey Skirt', 'Grey', 'XS', 'All Saints', '$150', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588854/Bottoms/image-15_w9c9er.png', 2),
+            ('Black Tank', 'Black', 'XXS', 'Anine Bing', '$105', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588877/Tops/image-19_j7r1lc.png', 1);
+
+
+INSERT INTO "favorited_items"
+	("user_id", "outfit_id")
+		VALUES
+			(1, 3),
+			(1, 4), 
+			(2, 2),
+			(3, 1);
