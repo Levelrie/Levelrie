@@ -14,6 +14,7 @@ import HamburgerMenu from '../HamburgerMenu/HamburgerMenu.jsx';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  // Get admin id
 
   return (
     <div className="nav">
@@ -32,7 +33,7 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-
+{/* 
             <Link className="navLink" to="/home">
               Home
             </Link>
@@ -41,7 +42,7 @@ function Nav() {
               Info Page
             </Link>
 
-            <LogOutButton className="navLink" />
+            <LogOutButton className="navLink" /> */}
 
             <Box sx={{ flexGrow: 1 }}>
               <AppBar position="static">

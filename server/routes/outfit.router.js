@@ -75,27 +75,60 @@ router.get('/home', (req, res) => {
 });
 
 // Add an outfit to a user's rejections
-router.post('/reject', rejectUnauthenticated, (req, res) => {
+router.post('/reject', rejectUnauthenticated, async (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
     
     const userId = req.user.id;
     const outfitId = req.body.outfitId;
 
-    const sqlText = `INSERT INTO "rejections"
+    // Insert into rejections
+    const sqlInsertText = `INSERT INTO "rejections"
                     ("user_id", "outfit_id")
                     VALUES
                     ($1, $2);`
 
+    // Search if this outfit has any favorited items
+    const sqlSearchText = `SELECT "id" FROM "favorited_outfits"
+                                WHERE "user_id" = $1
+                                AND "outfit_id" = $2;`
 
-    pool.query(sqlText, [userId, outfitId])
-        .then((results) => {
-            res.sendStatus(201);
-        })
-        .catch((error) => {
-            console.log('Error in POST /api/outfit/reject query', error)
-            res.sendStatus(500);
-        });
+    // If this item has been favorited
+    //      Remove from favorited_items and favorited_outfits
+    const sqlDeleteItemsText = `DELETE FROM "favorited_items"
+                                    WHERE "favorited_outfit_id" = $1;`
+
+    const sqlDeleteOutfitText = `DELETE FROM "favorited_outfits"
+                                    WHERE "id" = $1;`
+
+
+    const connection = await pool.connect();
+
+    try {
+        await connection.query('BEGIN;');
+
+        // Insert into rejections
+        await connection.query(sqlInsertText, [userId, outfitId]);
+
+
+        // Search if this outfit has any favorited items
+        const searchIdResults = await connection.query(sqlSearchText, [userId, outfitId]);
+
+        // If this item has been favorited
+        if (searchIdResults.rows.length != 0) {
+            await connection.query(sqlDeleteItemsText, [searchIdResults.rows[0].id]);
+            await connection.query(sqlDeleteOutfitText, [searchIdResults.rows[0].id]);
+        }
+
+        await connection.query('COMMIT;');
+
+        res.sendStatus(201);
+
+    } catch (error) {
+        console.log('Error in POST /api/outfit/reject queries', error)
+        res.sendStatus(500);
+    }
+    connection.release();
 });
 
 // Add an outfit and ALL its items to a user's favorites
@@ -112,12 +145,24 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
                             JOIN "outfits" ON outfit_items.outfit_id = outfits.id
                                 WHERE outfits.id = $1;`
 
+    // Check if favorited_outfits already has an entry for this outfit and user
+    //         Would occur if this user favorited an outfit from HOME, then swiped right as well
+    const sqlCheckForOutfitText = `SELECT "id" FROM "favorited_outfits"
+                                    WHERE "user_id" = $1
+                                    AND "outfit_id" = $2;`
+
     // Then, add the favorited outfit and its items to their respective favorites tables
     const sqlInsertOutfitText = `INSERT INTO "favorited_outfits"
                                 ("user_id", "outfit_id")
                                 VALUES
                                 ($1, $2)
                                 RETURNING "id";`
+
+
+    // Check text for preexisting item in favorited_items table
+    const sqlCheckForItemText = `SELECT * FROM "favorited_items"
+                                    WHERE "favorited_outfit_id" = $1
+                                    AND "item_id" = $2;`
 
     // This needs to have a loop
     const sqlInsertItemsText = `INSERT INTO "favorited_items"
@@ -132,13 +177,23 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
 
         const itemsToAdd = await connection.query(sqlFetchItemsText, [outfitId]);
 
-        // Add the outfit first
-        const favoritedOutfitId = await connection.query(sqlInsertOutfitText, [userId, outfitId]);
+        // Check for the existing outfit
+        let favoritedOutfitId = await connection.query(sqlCheckForOutfitText, [userId, outfitId]);
+
+
+        // If the outfit doesn't exist in favorited_outfits
+        if (favoritedOutfitId.rows.length === 0) {
+            // Add the outfit and get the id
+            favoritedOutfitId = await connection.query(sqlInsertOutfitText, [userId, outfitId]);
+        }
 
         // Add the items next
         for (let i = 0; i < itemsToAdd.rows.length; i++) {
-            console.log('ITEMsss????', itemsToAdd);
-            await connection.query(sqlInsertItemsText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
+            // Check first that an item doesn't already exist in the table with this outfit
+            const existenceCheck = await connection.query(sqlCheckForItemText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
+            if (existenceCheck.rows.length === 0) {
+                await connection.query(sqlInsertItemsText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
+            }
         }
 
         // Confirm successful actions
@@ -151,7 +206,36 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
         console.log('Error in POST /api/outfit/favorite queries', error)
         res.sendStatus(500);
     }
-
+    connection.release();
 });
+
+// •••••••••••••••••••••••••••••••••••••••• GLOBAL SEARCH VIEW ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
+router.get('/search', (req, res) => {
+
+    // General outfit query will target outfits by name
+    let query = req.query.q;
+
+    // Add '%' to the end of the query string for the database
+    query += '%';
+
+    sqlSearchText = `SELECT outfits.*, 
+                            JSON_AGG((items, categories.name)) AS items  
+                     FROM "outfits"
+                            JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
+                            JOIN "items" ON outfit_items.item_id = items.id
+                            INNER JOIN "categories" ON items.category_id = categories.id
+                                WHERE outfits.name LIKE $1
+                                GROUP BY outfits.id;`
+
+    pool.query(sqlSearchText, [query])
+        .then((results) => {
+            res.send(results.rows);
+        })
+        .catch((error) => {
+            console.log('Error in GET /api/outfit/search query', error);
+            res.sendStatus(500);
+        });
+});
+
 
 module.exports = router;

@@ -1,5 +1,7 @@
 // This component will handle the rendering of each individual outfit
 
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
+
 export default function OutfitHomeItem({outfitsArray, homeCounter}) {
 
     // Determine what page we're on somehow
@@ -18,7 +20,7 @@ export default function OutfitHomeItem({outfitsArray, homeCounter}) {
                 // need to set each item's position somehow -> use className?
                 //      If using class name, need to ensure items are received with category names
                 // <img key={item.f1.id} className={item.f2} src={item.f1.img} />
-                <p key={item.f1.id}>{item.f1.name}</p>
+                <p key={item.f1.id}>{item.f1.name} <FavoriteButton itemId={item.f1.id} outfitId={outfitsArray[homeCounter].id}/></p>
                 );
             })}
         </>
