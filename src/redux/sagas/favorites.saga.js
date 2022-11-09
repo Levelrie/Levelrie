@@ -10,7 +10,7 @@ function* fetchFavoriteOutfits() {
         })
         yield put({
             type: 'SET_FAVORITE_OUTFITS',
-            payload: favoriteOutfitsRes
+            payload: favoriteOutfitsRes.data
         })
     }
     catch(error) {
@@ -26,7 +26,7 @@ function* fetchFavoriteItems() {
         })
         yield put({
             type: 'SET_FAVORITE_ITEMS',
-            payload: favoriteItemsRes
+            payload: favoriteItemsRes.data
         })
     }
     catch(error) {
