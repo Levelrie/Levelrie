@@ -6,7 +6,6 @@ import loginSaga from './login.saga';
 import outfitsSaga from './outfits.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
-import outfitsSaga from './outfits.saga';
 import itemsSaga from './items.saga';
 import favoritesSaga from './favorites.saga';
 import closetSaga from './closet.saga';
@@ -24,7 +23,6 @@ export default function* rootSaga() {
     adminRegistrationSaga(),
     adminSaga(),
     loginSaga(),
-    outfitsSaga(),
     registrationSaga(),
     userSaga(),
     outfitsSaga(),
