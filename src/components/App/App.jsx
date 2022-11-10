@@ -25,6 +25,9 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Home from '../Home/Home';
 import FavoriteOutfitList from '../FavoriteOutfitList/FavoriteOutfitList';
+import FavoriteItemList from '../FavoriteItemList/FavoriteItemList';
+import FavoriteItemCategoriesPage from '../FavoriteItemList/FavoriteItemCategoriesPage';
+import SearchPage from '../SearchPage/SearchPage';
 import ClosetPage from '../ClosetPage/ClosetPage';
 import ClosetItemPage from '../ClosetPage/ClosetItemPage';
 
@@ -164,6 +167,14 @@ function App() {
               path="/closet/categories"
             >
               <ClosetItemPage />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // logged in shows FavoriteItemList else shows LoginPage
+              exact
+              path="/search"
+            >
+              <SearchPage />
             </ProtectedRoute>
 
             <Route
