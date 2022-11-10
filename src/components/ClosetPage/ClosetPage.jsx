@@ -1,9 +1,12 @@
 // Import React
 import { useEffect } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
+import { useHistory } from 'react-router'
 
 // import component
-import ClosetOutfitList from './ClosetOutfit.jsx'
+import ClosetOutfitList from './ClosetOutfit.jsx';
+import SearchBar from '../SearchBar/SearchBar.jsx';
+import ToggleButton from '../ToggleButton/ToggleButton.jsx';
 
 function ClosetPage () {
 
@@ -23,9 +26,20 @@ function ClosetPage () {
 
     },[]);
 
+    //use-history
+    const history = useHistory();
+    
+    const handleCategory = (e) => {
+        e.preventDefault();
+        history.push('/closet/categories')
+    }
+
     return (
         <div>
-            <h1>this is the closet Page</h1>
+            <ToggleButton />
+            <button onClick={handleCategory}>Category</button>
+            <SearchBar />
+            <h4>My Closet: Outfits</h4>
             <ul>
                 {closetOutfits.map(outfit => (
                     <ClosetOutfitList key={outfit.id} outfit={outfit}/>
