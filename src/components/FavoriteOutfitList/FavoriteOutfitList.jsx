@@ -10,11 +10,12 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
+
 function FavoriteOutfitList() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
-    // const favoriteOutfits = useSelector(store => store.outfits.faveOutfits);
+    const favoriteOutfits = useSelector(store => store.favorites.favoriteOutfitsReducer);
 
     useEffect(() => {
         dispatch({
@@ -27,10 +28,17 @@ function FavoriteOutfitList() {
           }
     }, []);
 
+    console.log('favoriteOutfits is:', favoriteOutfits);
     return (
         <>
             <p>Favorite Outfit List Page</p>
-            <FavoriteOutfitItem />
+
+            <Stack spacing={2}>
+            {favoriteOutfits.map(outfit => (
+                    <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
+            ))}
+            </Stack>
+
         </>
     );
 };
