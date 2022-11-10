@@ -103,6 +103,13 @@ CREATE TABLE "favorited_items" (
     "item_id" INT REFERENCES "items"   
 );
 
+-- for items favorited outside of an outfit:
+CREATE TABLE "favorited_solo" (
+    "id" SERIAL PRIMARY KEY,
+    "user_id" INT REFERENCES "users",
+    "item_id" INT REFERENCES "items"
+);
+
 CREATE TABLE "rejections" (
     "id" SERIAL PRIMARY KEY,  
     "user_id" INT REFERENCES "users",
@@ -123,7 +130,7 @@ INSERT INTO "categories"
 
 
 
-            -- ****************** TEST DATA BELOW *********************
+                        -- ****************** TEST DATA BELOW *********************
 INSERT INTO "users"
 	("username", "password", "first_name", "last_name", "email")
 		VALUES
@@ -132,6 +139,7 @@ INSERT INTO "users"
 			('Chameng', '123', 'Chameng', 'Vang', 'Chameng02@gmail.com'),
             ('Hess', '123', 'Hess', 'Hess', 'ryanmhess@gmail.com'),
             ('Kyle', '123', 'Kyle', 'Jensen', 'kjensen19@gmail.com');
+            
 
 INSERT INTO "outfits"
 	("name", "description")
@@ -140,6 +148,7 @@ INSERT INTO "outfits"
 			('Something more comfortable', 'For staying in'),
 			('Business and Pleasure', 'For going out'),
 			('Casual Vibes', 'For running errands');
+			
 
 INSERT INTO "items"
 	("name", "color", "size", "seller", "price", "img", "category_id")
@@ -192,3 +201,32 @@ INSERT INTO "outfit_items"
 			(4, 11),
 			(4, 16),
 			(4, 21);
+
+
+INSERT INTO "favorited_outfits"
+	("user_id", "outfit_id")
+		VALUES
+			(1, 3),
+			(1, 4);
+
+			
+INSERT INTO "favorited_items"
+	("favorited_outfit_id", "item_id")
+		VALUES
+			(1, 6),
+			(1, 13),
+			(1, 20),
+			(2, 10),
+			(2, 11),
+			(2, 16),
+			(2, 21);
+			
+			
+INSERT INTO "favorited_solo"
+	("user_id", "item_id")
+		VALUES
+			(1, 25),
+			(1, 26),
+			(1, 27),
+			(1, 4), 
+			(1, 5);

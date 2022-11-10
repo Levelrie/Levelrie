@@ -104,12 +104,19 @@ router.get('/items', (req, res) => {
 
     // Fetch all items that have been favorited by the user by category
     const sqlText = `
-        SELECT items.* FROM "items"
-            JOIN "categories" ON items.category_id = categories.id
-            JOIN "favorited_items" ON items.id = favorited_items.item_id
-            JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
-                WHERE categories.name = $1
-                    AND "favorited_outfits".user_id = $2;
+    SELECT items.* FROM "items"
+    JOIN "categories" ON items.category_id = categories.id
+    JOIN "favorited_items" ON items.id = favorited_items.item_id
+    JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
+        WHERE categories.name = 'tops'
+            AND "favorited_outfits".user_id = $1
+    UNION
+    SELECT items.* FROM "items"
+        JOIN "categories" ON items.category_id = categories.id
+        JOIN "favorited_solo" ON items.id = favorited_solo.item_id
+        JOIN "users" ON favorited_solo.user_id = "users".id
+            WHERE categories.name = 'tops'
+                AND "favorited_solo".user_id = $1
     `
     const sqlValues = [category, req.user.id]
     pool.query(sqlText, sqlValues)

@@ -18,7 +18,7 @@ function FavoriteItemItem({item}) {
 
                 {/* COLUMN 1 */}
                 <Grid item container xs={4}>
-                    <Stack>             
+                    <Stack className='this'>             
                         <img src={item.img} />
                         <Typography>{item.price}</Typography>
                     </Stack> 
