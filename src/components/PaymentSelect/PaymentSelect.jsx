@@ -16,7 +16,7 @@ export default function ControlledRadioButtonsGroup() {
     setValue(event.target.value);
   };
   const handleAddressClick = () => {
-    console.log('code to go to address selection goes here')
+    console.log('code to go to payment add/edit goes here')
   }
 
   return (

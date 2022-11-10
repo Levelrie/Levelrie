@@ -1,6 +1,6 @@
 import ShippingSelector from '../ShippingSelector/ShippingSelector.jsx'
 import ShippingEstimate from '../ShippingSelector/ShippingEstimate.jsx';
-import PaymentSelector from '../App/PaymentSelect/PaymentSelect.jsx'
+import PaymentSelector from '../PaymentSelect/PaymentSelect.jsx'
 import Stack from '@mui/material/Stack'
 import Divider from '@mui/material/Divider';
 import PayNow from '../PayNow/PayNow.jsx';

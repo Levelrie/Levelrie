@@ -25,6 +25,10 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Home from '../Home/Home';
 import FavoriteOutfitList from '../FavoriteOutfitList/FavoriteOutfitList';
+import CheckoutSelector from '../CheckoutSelectors/CheckoutSelectors.jsx'
+import ModifyPayment from '../ModifyPayment/ModifyPayment';
+import ModifyShipping from '../ModifyShipping/ModifyShipping';
+import CheckoutConfirmation from '../CheckoutConfirmation/CheckoutConfirmation';
 
 //  CSS Import
 import './App.css';
@@ -83,7 +87,7 @@ function App() {
 
   return (
     <ThemeProvider theme={themeOptions}>
-
+      
       <Router>
         <Nav />
         <div>
@@ -146,6 +150,34 @@ function App() {
               path="/favorites/outfits"
             >
               <FavoriteOutfitList />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows cart else shows LoginPage
+              exact
+              path="/cart"
+            >
+              <CheckoutSelector />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows payment else shows LoginPage
+              exact
+              path="/payment"
+            >
+              <ModifyPayment />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows shipping else shows LoginPage
+              exact
+              path="/shipping"
+            >
+              <ModifyShipping />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows checkout else shows LoginPage
+              exact
+              path="/checkout"
+            >
+              <CheckoutConfirmation />
             </ProtectedRoute>
 
             <Route
