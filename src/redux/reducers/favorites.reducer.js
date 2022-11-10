@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 const favoriteOutfitsReducer = (state = [], action) => {
-    console.log('in favoriteOutfitsReducer');
+    // console.log('in favoriteOutfitsReducer');
     switch (action.type) {
         case 'SET_FAVORITE_OUTFITS':
             return action.payload;
