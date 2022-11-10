@@ -2,7 +2,7 @@
 
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
-export default function OutfitHomeItem({outfit, homeCounter}) {
+export default function OutfitHomeItem({outfit}) {
 
     // Determine what page we're on somehow
         // if we're on home view or favorites view -> each item needs a favorite button

@@ -160,6 +160,22 @@ function App() {
             >
               <ClosetPage />
             </ProtectedRoute>
+
+            <ProtectedRoute
+               // logged in shows FavoriteItemCategoriesPage else shows LoginPage
+               exact
+               path="/favorites/categories"
+             >
+               <FavoriteItemCategoriesPage />
+             </ProtectedRoute>
+
+             <ProtectedRoute
+               // logged in shows FavoriteItemList else shows LoginPage
+               exact
+               path="/favorites/items"
+             >
+               <FavoriteItemList />
+             </ProtectedRoute>
             
             <ProtectedRoute
               // logged in shows Closet categories list else shows LoginPage

@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+ import { useDispatch, useSelector } from 'react-redux';
 
-//  MUI Tools
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
+ //  MUI Tools
+ import Button from '@mui/material/Button';
+ import Stack from '@mui/material/Stack';
+ import TextField from '@mui/material/TextField';
 
-function AdminRegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const admin_error = useSelector((store) => store.admin_errors);
-  const dispatch = useDispatch();
+ //  CSS Import
+ import './AdminRegisterForm.css'
 
-  const registerAdmin = (event) => {
-    event.preventDefault();
-    if (username && password) {
+ function AdminRegisterForm() {
+   const [username, setUsername] = useState('');
+   const [password, setPassword] = useState('');
+   const admin_error = useSelector((store) => store.admin_errors);
+   const dispatch = useDispatch();
+
+   //  function to dispatch inputs for registration process
+   const registerAdmin = (event) => {
+     event.preventDefault();
+     if (username && password) {
       dispatch ({
         type: 'ADMIN_REGISTER',
         payload: {
@@ -26,17 +29,19 @@ function AdminRegisterForm() {
     } //  end IF
     else {
       dispatch ({ type: 'ADMIN_REGISTER_INPUT_ERROR' });
-    } //  end ELSE
-  } //  end registerUser function
+     } //  end ELSE
+   } //  end registerUser function
 
-  return (
-    <form className='registerForm' onSubmit={registerAdmin}>
-      {admin_error.registrationMessage && (
-        <h3 className="alert" role="alert">
-          {admin_error.registrationMessage}
-        </h3>
-      )}
-      <Stack direction="column"  spacing={2} alignItems="center">
+   //  form element with stacked textfields and button to allow
+   //  users to register an admin account
+   return (
+     <form className='adminRegisterForm' onSubmit={registerAdmin}>
+       {admin_error.adminRegistrationMessage && (
+         <h3 id="alertMsg" className="alert" role="alert">
+           {admin_error.adminRegistrationMessage}
+         </h3>
+       )}
+       <Stack direction="column"  spacing={2} alignItems="center">
         <TextField 
           id="username" 
           label="username" 
@@ -64,5 +69,4 @@ function AdminRegisterForm() {
     </form>
   );
 }
-
 export default AdminRegisterForm;

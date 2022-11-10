@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
-
 //  MUI Tools
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
+ import Stack from '@mui/material/Stack';
+ import TextField from '@mui/material/TextField';
 
-function AdminLoginForm() {
+ //  CSS Import
+ import './AdminLoginForm.css'
 
-  //  Local State for Input Fields
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+ function AdminLoginForm() {
 
-  const admin_error = useSelector(store => store.admin_errors);
+   const [username, setUsername] = useState('');
+   const [password, setPassword] = useState('');
+   const admin_error = useSelector(store => store.admin_errors);
+   const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
-
-  //  function to dispatch inputs for login process
+   //  function to dispatch inputs for login process
   const login = (event) => {
     event.preventDefault();
     if (username && password) {
@@ -31,17 +30,19 @@ function AdminLoginForm() {
     } //  end IF
     else {
       dispatch({ type: 'ADMIN_LOGIN_INPUT_ERROR' });
-    } //  end ELSE
-  }; // end login function
+     } //  end ELSE
+   }; // end login function
 
-  return (
-    <form className='loginForm' onSubmit={login}>
-      {admin_error.loginMessage && (
-        <h3 className="alert" role="alert">
-          {admin_error.loginMessage}
-        </h3>
-      )}
-      <Stack direction="column"  spacing={2} alignItems="center">
+   //  form element with stacked textfields and button to allow
+   //  users to login to their admin account
+   return (
+     <form className='adminLoginForm' onSubmit={login}>
+       {admin_error.adminLoginMessage && (
+         <h3 id="alertMsg" className="alert" role="alert">
+           {admin_error.adminLoginMessage}
+         </h3>
+       )}
+       <Stack direction="column"  spacing={2} alignItems="center">
         <TextField 
           id="username" 
           label="username" 
@@ -59,15 +60,14 @@ function AdminLoginForm() {
           type="password"
           size="small"
           required
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <Button variant="contained" type="submit" value="Log In">
-          Login
-        </Button>
-      </Stack>
+           value={password}
+           onChange={(event) => setPassword(event.target.value)}
+         />
+         <Button variant="contained" type="submit">
+           Login
+         </Button>
+       </Stack>
     </form>
   );
 }
-
 export default AdminLoginForm;
