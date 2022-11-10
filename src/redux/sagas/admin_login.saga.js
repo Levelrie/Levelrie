@@ -12,6 +12,8 @@ function* adminLogin(action) {
       withCredentials: true,
     };
 
+    console.log('PAYLOADDDD', action.payload);
+
     // send the action.payload as the body
     // the config includes credentials which
     // allow the server session to recognize the admin
