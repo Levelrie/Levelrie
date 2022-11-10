@@ -12,7 +12,6 @@ export default function Home() {
     const dispatch = useDispatch();
 
     const outfitsArray = useSelector(store => store.outfits.outfits);
-    const homeCounter = useSelector(store => store.outfits.counter);
 
 
     useEffect(() => {
@@ -41,7 +40,6 @@ export default function Home() {
     const onSwipe = (direction, outfitId) => {
         // Direction is a string
 
-        swipeOcurred = true;
         let id = outfitId;
 
         if (direction === 'left') {
@@ -63,7 +61,7 @@ export default function Home() {
                                 onSwipe={(direction) => onSwipe(direction, outfit.id)}
                                 preventSwipe={['up', 'down']}
                                 >
-                            <OutfitHomeItem outfit={outfit} homeCounter={homeCounter}/>
+                            <OutfitHomeItem outfit={outfit}/>
                             <p><button onClick={rejectOutfit}>Swipe Left</button><button onClick={favoriteOutfit}>Swipe Right</button></p>
                         
                     </TinderCard>
