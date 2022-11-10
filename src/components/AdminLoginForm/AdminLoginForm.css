@@ -1,0 +1,11 @@
+.adminLoginForm {
+  text-align: center;
+}
+
+#alertMsg {
+  position: fixed;
+  text-align: center;
+  width: 30vw;
+  top: 20%;
+  left: 35vw;
+}
