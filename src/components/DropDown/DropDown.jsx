@@ -7,11 +7,18 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
+import NativeSelect from '@mui/material/NativeSelect';
+import OutlinedInput from "@mui/material/OutlinedInput";
 
-// item is a prop passed in from component
-// example:
 
 function DropDown() {
+    // item is a prop passed in from component
+    // example:
     const item = {
         id: 2,
         colors: ['Red', 'Blue', 'Yellow', 'Purple'],
@@ -44,7 +51,9 @@ function DropDown() {
 
     return (
         <>
-            <Box sx={{ minWidth: 120 }}>
+
+        {/* ORIGINAL */}
+            {/* <Box sx={{ minWidth: 120 }}>
                 <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
                     <InputLabel>Color</InputLabel>
                     <Select
@@ -81,7 +90,41 @@ function DropDown() {
                     ))}
                     </Select>
                 </FormControl>
-            </Box>
+            </Box> */}
+
+
+
+             {/* TRYING NATIVE SELECT */}
+             {/* TO DO:
+             -GET IMAGE TO TAKE UP LESS SPACE
+             -DROP DOWNS ARE DIFFERENT WIDTHS BASED ON ITEM TITLES IN THAT SAME COLUMN
+             -BUY CHECKBOX MUST COME DOWN ON PAGE
+            */}
+             <Container>
+                <Stack>
+
+                <FormControl fullWidth variant="outlined" sx={{ m: 1, minWidth: 100 }}>
+                    <InputLabel variant="outlined" htmlFor="uncontrolled-native">
+                        Color
+                    </InputLabel>
+                    <NativeSelect
+                        size="small"
+                        defaultValue={30}
+                        input={<OutlinedInput label="Color" />}
+                        inputProps={{
+                            name: "color",
+                            id: "uncontrolled-native"
+                        }}
+                    >
+                        <option value='red'>Red</option>
+                        <option value='blue'>Blue</option>
+                        <option value='yellow'>Yellow</option>
+                    </NativeSelect>
+                </FormControl>
+                </Stack>
+             </Container>
+
+
         </>
     );
 };
