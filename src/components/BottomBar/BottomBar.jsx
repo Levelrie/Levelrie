@@ -4,16 +4,19 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+ import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
+ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+
+ import { useLocation, useHistory } from 'react-router-dom';
+ import { useEffect, useState } from 'react';
 
 
-export default function BottomBar() {
+ export default function BottomBar() {
 
-  let location = useLocation();
-  let history = useHistory();
+   let location = useLocation();
+   let history = useHistory();
 
-  useEffect(() => {
+   useEffect(() => {
     switch(location.pathname) {
       case '/home':
         setValue('swipe');
@@ -44,11 +47,13 @@ export default function BottomBar() {
 
   }, [location]);
 
-  const [value, setValue] = React.useState('recents');
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue); 
-    switch(newValue) {
+   const [value, setValue] = React.useState('recents');
+
+   const handleChange = (event, newValue) => {
+     setValue(newValue);
+
+     switch(newValue) {
       case 'swipe':
         history.push('/home');
         break;
@@ -65,11 +70,11 @@ export default function BottomBar() {
         history.push('/closet/outfits');
         break;
     }
-    console.log(newValue);
-    console.log(location);
-  };
+     console.log(newValue);
+     console.log(location);
+   };
 
-  return (
+   return (
     <BottomNavigation  sx={{ width: 1 }} value={value} onChange={handleChange}>
          <BottomNavigationAction
         label="Closet"
