@@ -32,7 +32,7 @@ app.use('/api/admin', adminRouter);
 app.use('/api/item', itemRouter);
 app.use('/api/outfit', outfitRouter);
 app.use('/api/cart', cartRouter);
-app.use('/api/favorites/outfits', favoritesRouter);
+app.use('/api/favorites', favoritesRouter);
 
 // Serve static files
 app.use(express.static('build'));

@@ -9,7 +9,8 @@ import Paper from '@mui/material/Paper';
 
 function FavoriteOutfitItem({outfit}) {
 
-    console.log('this is outfit in item:', {outfit})
+    console.log('this is outfit in item:', {outfit});
+    
     return (
         <Paper key={outfit.id}>
             <Typography>{outfit.name}</Typography>
