@@ -22,8 +22,8 @@ export default function* rootSaga() {
     adminLoginSaga(), // login saga is now registered
     adminRegistrationSaga(),
     adminSaga(),
-    outfitsSaga(),
     loginSaga(),
+    outfitsSaga(),
     registrationSaga(),
     userSaga(),
     itemsSaga(),

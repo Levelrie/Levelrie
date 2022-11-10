@@ -7,9 +7,6 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
-import { useLocation, useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-
 
 export default function BottomBar() {
 
@@ -47,12 +44,10 @@ export default function BottomBar() {
 
   }, [location]);
 
-
   const [value, setValue] = React.useState('recents');
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    
+    setValue(newValue); 
     switch(newValue) {
       case 'swipe':
         history.push('/home');

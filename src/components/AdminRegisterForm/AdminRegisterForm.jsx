@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// import { useHistory } from 'react-router-dom';
 
 //  MUI Tools
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-
-//  CSS Import
-import './AdminRegisterForm.css'
 
 function AdminRegisterForm() {
   const [username, setUsername] = useState('');
@@ -15,7 +13,6 @@ function AdminRegisterForm() {
   const admin_error = useSelector((store) => store.admin_errors);
   const dispatch = useDispatch();
 
-  //  function to dispatch inputs for registration process
   const registerAdmin = (event) => {
     event.preventDefault();
     if (username && password) {
@@ -32,13 +29,11 @@ function AdminRegisterForm() {
     } //  end ELSE
   } //  end registerUser function
 
-  //  form element with stacked textfields and button to allow
-  //  users to register an admin account
   return (
-    <form className='adminRegisterForm' onSubmit={registerAdmin}>
-      {admin_error.adminRegistrationMessage && (
-        <h3 id="alertMsg" className="alert" role="alert">
-          {admin_error.adminRegistrationMessage}
+    <form className='registerForm' onSubmit={registerAdmin}>
+      {admin_error.registrationMessage && (
+        <h3 className="alert" role="alert">
+          {admin_error.registrationMessage}
         </h3>
       )}
       <Stack direction="column"  spacing={2} alignItems="center">

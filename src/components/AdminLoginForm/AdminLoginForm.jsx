@@ -7,14 +7,14 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-//  CSS Import
-import './AdminLoginForm.css'
-
 function AdminLoginForm() {
 
+  //  Local State for Input Fields
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   const admin_error = useSelector(store => store.admin_errors);
+
   const dispatch = useDispatch();
 
   //  function to dispatch inputs for login process
@@ -34,13 +34,11 @@ function AdminLoginForm() {
     } //  end ELSE
   }; // end login function
 
-  //  form element with stacked textfields and button to allow
-  //  users to login to their admin account
   return (
-    <form className='adminLoginForm' onSubmit={login}>
-      {admin_error.adminLoginMessage && (
-        <h3 id="alertMsg" className="alert" role="alert">
-          {admin_error.adminLoginMessage}
+    <form className='loginForm' onSubmit={login}>
+      {admin_error.loginMessage && (
+        <h3 className="alert" role="alert">
+          {admin_error.loginMessage}
         </h3>
       )}
       <Stack direction="column"  spacing={2} alignItems="center">
@@ -64,7 +62,7 @@ function AdminLoginForm() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" value="Log In">
           Login
         </Button>
       </Stack>
