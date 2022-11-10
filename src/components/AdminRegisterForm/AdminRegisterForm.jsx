@@ -12,7 +12,10 @@ import './AdminRegisterForm.css'
 function AdminRegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const admin_error = useSelector((store) => store.admin_errors);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const error = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
   //  function to dispatch inputs for registration process
@@ -20,15 +23,18 @@ function AdminRegisterForm() {
     event.preventDefault();
     if (username && password) {
       dispatch ({
-        type: 'ADMIN_REGISTER',
+        type: 'REGISTER_ADMIN',
         payload: {
           username: username,
           password: password,
+          firstName: firstName,
+          lastName: lastName,
+          email: email
         },
       });
     } //  end IF
     else {
-      dispatch ({ type: 'ADMIN_REGISTER_INPUT_ERROR' });
+      dispatch ({ type: 'REGISTER_INPUT_ERROR' });
     } //  end ELSE
   } //  end registerUser function
 
@@ -36,12 +42,12 @@ function AdminRegisterForm() {
   //  users to register an admin account
   return (
     <form className='adminRegisterForm' onSubmit={registerAdmin}>
-      {admin_error.adminRegistrationMessage && (
+      {error.adminRegistrationMessage && (
         <h3 id="alertMsg" className="alert" role="alert">
-          {admin_error.adminRegistrationMessage}
+          {error.adminRegistrationMessage}
         </h3>
       )}
-      <Stack direction="column"  spacing={2} alignItems="center">
+      <Stack direction="column"  spacing={1} alignItems="center">
         <TextField 
           id="username" 
           label="username" 
@@ -61,6 +67,36 @@ function AdminRegisterForm() {
           required
           value={password}
           onChange={(event) => setPassword(event.target.value)} 
+        />
+        <TextField 
+          id="firstName" 
+          label="First Name" 
+          variant="outlined"
+          type="text"
+          size="small"
+          required
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)} 
+        />
+        <TextField 
+          id="lastName" 
+          label="Last Name" 
+          variant="outlined"
+          type="text"
+          size="small"
+          required
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)} 
+        />
+        <TextField 
+          id="email" 
+          label="Email" 
+          variant="outlined"
+          type="text"
+          size="small"
+          required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)} 
         />
         <Button variant="contained" type="submit" value="Register">
           Register

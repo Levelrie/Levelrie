@@ -34,10 +34,10 @@ function AdminLogin() {
 
   return (
     <Box className='box' sx={{width: '100vw', height: '100vh', display: 'center'}} >
-      <Card className='outerCard' sx={{width: '50vw', height: '75vh', display: 'center', bgcolor: '#f1b3f2', border: '10px solid #BFA78A', borderRadius: 4}} variant='outlined' bgc='red'>
-        <Card className='innerCard' sx={{width: '40vw', height: '65vh', display: 'center'}}>
+      <Box className={isFront ? 'outerLoginCard' : 'outerRegisterCard'} sx={{display: 'center', bgcolor: '#f1b3f2', border: '10px solid #BFA78A', borderRadius: 4, mt: 3}} variant='outlined' bgc='red'>
+        <Card className={isFront ? 'innerLoginCard' : 'innerRegisterCard'} sx={{display: 'center'}}>
           <CardContent className="adminLoginCard" sx={{height: '40vh', display: 'center'}}>
-            <Stack direction="column"  spacing={4} alignItems="center">
+            <Stack direction="column"  spacing={2} alignItems="center">
               <CardMedia
                 className="adminLoginCard"
                 component="img"
@@ -45,67 +45,32 @@ function AdminLogin() {
                 alt="Levelrie Logo"
               />
               <Stack direction='row' justifyContent='center'>
-                <Button variant='contained' size="small" color='baseTan' id='outfitButton' className={isFront ? 'frontButton' : ''} sx={{borderRadius: 3 , width: 100, left: 10, justifyContent: 'center'}} onClick={handleClick}>Login</Button>
-                <Button variant='contained' size="small" color='basePink' id='categoryButton' className={!isFront ? 'frontButton' : ''} sx={{borderRadius: 3, width: 100, right: 10, justifyContent: 'center'}} onClick={handleClick}>Register</Button>
+                <Button 
+                  variant='contained' 
+                  size="small" 
+                  color='baseTan' 
+                  id='outfitButton' 
+                  className={isFront ? 'frontButton' : ''} 
+                  sx={{borderRadius: 3 , width: 100, left: 10, justifyContent: 'center'}} 
+                  onClick={handleClick}>Login
+                </Button>
+                <Button 
+                  variant='contained' 
+                  size="small" 
+                  color='basePink' 
+                  id='categoryButton' 
+                  className={!isFront ? 'frontButton' : ''} 
+                  sx={{borderRadius: 3, width: 100, right: 10, justifyContent: 'center'}} 
+                  onClick={handleClick}>Register
+                </Button>
               </Stack>
               {isFront ? <AdminLoginForm /> : <AdminRegisterForm />}
             </Stack>
           </CardContent>
         </Card>
-      </Card>
+      </Box>
     </Box>
   );
 }
 
 export default AdminLogin;
-
-
-
-
-
-
-
-
-
-
-
-
- 
-//<TextField id="outlined-basic" margin='dense' size="small" label="username" variant="outlined" />
-//<TextField id="outlined-basic" size="small" label="password" variant="outlined" />
-
-//{/* Conditional changes to button based on toggle selection above */}
-//{isFront ? <Button variant="contained" size="small" onClick={loginUser}>Login</Button> : 
-//  <Button variant="contained" size="small" onClick={registerUser}>Register</Button>}
-
-  // const loginUser = (event) => {
-  //   event.preventDefault();
-  //   if (username && password) {
-  //     dispatch ({
-  //       type: 'ADMIN_LOGIN',
-  //       payload: {
-  //         username: username,
-  //         password: password,
-  //       },
-  //     });
-  //   } //  end IF
-  //   else {
-  //     dispatch ({ type: 'ADMIN_LOGIN_INPUT_ERROR' });
-  //   } //  end ELSE
-  // } //  end loginUser function
-
-  // const registerUser = (event) => {
-  //   event.preventDefault();
-  //   if (username && password) {
-  //     dispatch ({
-  //       type: 'ADMIN_REGISTER',
-  //       payload: {
-  //         username: username,
-  //         password: password,
-  //       },
-  //     });
-  //   } //  end IF
-  //   else {
-  //     dispatch ({ type: 'ADMIN_REGISTER_INPUT_ERROR' });
-  //   } //  end ELSE
-  // } //  end registerUser function

@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
 
 //  MUI Tools
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -22,7 +26,7 @@ function AdminLoginForm() {
     event.preventDefault();
     if (username && password) {
       dispatch({
-        type: 'ADMIN_LOGIN',
+        type: 'LOGIN',
         payload: {
           username: username,
           password: password,
@@ -30,7 +34,7 @@ function AdminLoginForm() {
       });
     } //  end IF
     else {
-      dispatch({ type: 'ADMIN_LOGIN_INPUT_ERROR' });
+      dispatch({ type: 'LOGIN_INPUT_ERROR' });
     } //  end ELSE
   }; // end login function
 
@@ -43,7 +47,7 @@ function AdminLoginForm() {
           {admin_error.adminLoginMessage}
         </h3>
       )}
-      <Stack direction="column"  spacing={2} alignItems="center">
+      <Stack direction="column"  spacing={1} alignItems="center">
         <TextField 
           id="username" 
           label="username" 

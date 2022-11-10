@@ -1,20 +1,41 @@
 .box {
   background-image: 
-    url(https://res.cloudinary.com/dgainc6rr/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1667858286/Logo/Screen_Shot_2022-11-07_at_3.54.24_PM_nirtjn.png);
+    url(https://res.cloudinary.com/dgainc6rr/image/upload/v1668112280/Logo/Hanger_Logo_seyccz.png);
   background-size: 
-    120px;
+    80px;
   background-repeat: repeat;
   opacity: 1;
 }
 
-.outerCard {
+/* ---------------------------------------------- */
+/* Login Card Sizing */
+.outerLoginCard {
   margin: auto;
+  width: 35vw;
+  height: 60vh;
 }
 
-.innerCard {
+.innerLoginCard {
   margin: auto;
+  width: 30vw;
+  min-height: 50vh;
   padding: 0;
 }
+/* ---------------------------------------------- */
+/* Register Card Sizing */
+.outerRegisterCard {
+  margin: auto;
+  width: 35vw;
+  height: 85vh;
+}
+
+.innerRegisterCard {
+  margin: auto;
+  width: 30vw;
+  height: 75vh;
+  padding: 0;
+}
+/* ---------------------------------------------- */
 
 img {
   scale: 0.5;
@@ -26,7 +47,7 @@ img {
   margin: 0;
 }
 
-/* ------------- */
+/* ---------------------------------------------- */
 /* Toggle Button */
 
 button{
@@ -41,12 +62,12 @@ button{
   z-index: 3;
 }
 
-/* ------------------------- */
+/* ---------------------------------------------- */
 /* Removed NavBar and Footer */
 
-/* .nav {
+.nav {
   display: none;
-} */
+}
 
 footer {
   display: none;
