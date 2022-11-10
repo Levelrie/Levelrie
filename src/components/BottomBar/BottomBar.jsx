@@ -17,32 +17,35 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
    let history = useHistory();
 
    useEffect(() => {
-     switch(location.pathname) {
-       case '/home':
-         setValue('swipe');
-         break;
-       case `/favorites/outfits`:
-         setValue('Favorites');
-         break;
-       case `/favorites/categories`:
-         setValue('Favorites');
-         break;
-       case `/favorites/items`:
-         setValue('Favorites');
-         break;
-       case `/favorites/items`:
-         setValue('Favorites');
-         break; 
-       case `/cart`:
-         setValue('Cart');
-         break;  
-       case `/closet/outfits`:
-         setValue('Closet');
-         break;    
+    switch(location.pathname) {
+      case '/home':
+        setValue('swipe');
+        break;
+      case `/favorites/outfits`:
+        setValue('Favorites');
+        break;
+      case `/favorites/categories`:
+        setValue('Favorites');
+        break;
+      case `/favorites/items`:
+        setValue('Favorites');
+        break;
+      case `/favorites/items`:
+        setValue('Favorites');
+        break; 
+      case `/cart`:
+        setValue('Cart');
+        break;  
+      case `/closet/outfits`:
+        setValue('Closet');
+        break;    
+      case `/search`:
+        setValue('Search');
+        break;   
 
-     }
+    }
 
-   }, [location]);
+  }, [location]);
 
 
    const [value, setValue] = React.useState('recents');
@@ -51,22 +54,22 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
      setValue(newValue);
 
      switch(newValue) {
-       case 'swipe':
-         history.push('/home');
-         break;
-       case 'Favorites':
-         history.push('/favorites/outfits');
-         break;
-       case 'Cart':
-         history.push('/cart');
-         break;
-       case 'Search':
-         // history.push('/');
-         break;
-       case 'Closet':
-         history.push('/closet/outfits');
-         break;
-     }
+      case 'swipe':
+        history.push('/home');
+        break;
+      case 'Favorites':
+        history.push('/favorites/outfits');
+        break;
+      case 'Cart':
+        history.push('/cart');
+        break;
+      case 'Search':
+        history.push('/search');
+        break;
+      case 'Closet':
+        history.push('/closet/outfits');
+        break;
+    }
      console.log(newValue);
      console.log(location);
    };

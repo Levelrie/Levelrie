@@ -6,38 +6,39 @@ import BuyCheckbox from '../BuyCheckbox/BuyCheckbox';
 // MUI
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 
 function FavoriteItemItem({item}) {
 
     console.log('this is the item:', item);
 
     return (
-        <Paper key={item.id} variant="outlined" className="itemGrid">
-            <Grid container spacing={0.5}>
-                <Grid item container xs={5}>               
-                    <img src={item.img} />
+        <div key={item.id} variant="outlined" className="itemGrid">
+            <Grid container>
+
+                {/* COLUMN 1 */}
+                <Grid item container xs={4}>
+                    <Stack className='this'>             
+                        <img src={item.img} />
+                        <Typography>{item.price}</Typography>
+                    </Stack> 
                 </Grid>
-                <Grid xs={5}>
-                    <Typography variant="body1" gutterBottom>{item.name}</Typography> {/* replace this with names of the clothes */}
-                    <DropDown />
+
+                {/* COLUMN 2 */}
+                <Grid item container xs={6}>
+                    <Stack>
+                        <Typography variant="body1" gutterBottom>{item.name}</Typography>
+                        <DropDown />
+                    </Stack>
                 </Grid>
-                <Grid xs={2}>
-                    {/* will find a easier way to bring checkbox postion down, for now this is what we are using. */}
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
+
+                {/* COLUMN 3 */}
+                <Grid xs={2}>       
                     <BuyCheckbox />
                 </Grid>
-                <Grid xs={5}>
-                    <Typography>{item.price}</Typography>
-                </Grid> 
             </Grid>
-        </Paper>
+        </div>
     );
 };
 
- export default FavoriteItemItem;
+export default FavoriteItemItem;
