@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import TinderCard from 'react-tinder-card'
 
 import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
+import BottomBar from "../BottomBar/BottomBar";
+import Paper from '@mui/material/Paper';
 
 import './Home.css'
 
@@ -51,27 +53,31 @@ export default function Home() {
     };
 
     return (
-        <div className="stack">
-            {outfitsArray.map((outfit) => {
+        <>
+            <div className="stack">
+                {outfitsArray.map((outfit) => {
 
-                return (
+                    return (
 
-                    <TinderCard key={outfit.id}
-                                className="outfitHomeBox"
-                                onSwipe={(direction) => onSwipe(direction, outfit.id)}
-                                preventSwipe={['up', 'down']}
-                                >
-                            <OutfitHomeItem outfit={outfit}/>
-                            <p><button onClick={rejectOutfit}>Swipe Left</button><button onClick={favoriteOutfit}>Swipe Right</button></p>
-                        
-                    </TinderCard>
-
-
-                );
+                        <TinderCard key={outfit.id}
+                                    className="outfitHomeBox"
+                                    onSwipe={(direction) => onSwipe(direction, outfit.id)}
+                                    preventSwipe={['up', 'down']}
+                                    >
+                                <OutfitHomeItem outfit={outfit}/>
+                                <p><button onClick={rejectOutfit}>Swipe Left</button><button onClick={favoriteOutfit}>Swipe Right</button></p>
+                            
+                        </TinderCard>
 
 
-            })}
-        
-        </div>
+                    );
+
+
+                })}
+            </div>
+            <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
+                <BottomBar />
+            </Paper>
+        </>
     );
 }
