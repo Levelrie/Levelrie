@@ -27,6 +27,9 @@ import Home from '../Home/Home';
 import FavoriteOutfitList from '../FavoriteOutfitList/FavoriteOutfitList';
 import FavoriteItemList from '../FavoriteItemList/FavoriteItemList';
 import FavoriteItemCategoriesPage from '../FavoriteItemList/FavoriteItemCategoriesPage';
+import SearchPage from '../SearchPage/SearchPage';
+import ClosetPage from '../ClosetPage/ClosetPage';
+import ClosetItemPage from '../ClosetPage/ClosetItemPage';
 
 //  CSS Import
 import './App.css';
@@ -151,19 +154,27 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute
-              // logged in shows FavoriteItemCategoriesPage else shows LoginPage
+              // logged in shows Closet Outfit List else shows LoginPage
               exact
-              path="/favorites/categories"
+              path="/closet/outfits"
             >
-              <FavoriteItemCategoriesPage />
+              <ClosetPage />
+            </ProtectedRoute>
+            
+            <ProtectedRoute
+              // logged in shows Closet categories list else shows LoginPage
+              exact
+              path="/closet/categories"
+            >
+              <ClosetItemPage />
             </ProtectedRoute>
 
             <ProtectedRoute
               // logged in shows FavoriteItemList else shows LoginPage
               exact
-              path="/favorites/items"
+              path="/search"
             >
-              <FavoriteItemList />
+              <SearchPage />
             </ProtectedRoute>
 
             <Route
@@ -207,6 +218,7 @@ function App() {
                 <LandingPage />
               }
             </Route>
+            
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>

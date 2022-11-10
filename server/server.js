@@ -35,7 +35,7 @@ app.use('/api/admin', adminRouter);
 app.use('/api/item', itemRouter);
 app.use('/api/outfit', outfitRouter);
 app.use('/api/cart', cartRouter);
-app.use('/api/favorites', favoritesRouter);
+app.use('/api/favorites/outfits', favoritesRouter);
 app.use('/api/closet/outfits', closetOutfitRouter);
 app.use('/api/closet/items', closetItemRouter);
 app.use('/api/closet', closetRouter);

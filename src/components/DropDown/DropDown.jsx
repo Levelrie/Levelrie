@@ -58,7 +58,7 @@ function DropDown() {
                     <InputLabel>Color</InputLabel>
                     <Select
                         value={color}
-                        label="Color"
+                        label="color"
                         onChange={handleColorChange}
                     >
                     {item.colors.map(option => (
@@ -67,10 +67,10 @@ function DropDown() {
                     </Select>
                 </FormControl>
                 <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-                    <InputLabel>Size</InputLabel>
+                    <InputLabel>size</InputLabel>
                     <Select
                         value={size}
-                        label="Size"
+                        label="size"
                         onChange={handleSizeChange}
                     >
                     {item.sizes.map(option => (
@@ -79,10 +79,10 @@ function DropDown() {
                     </Select>
                 </FormControl>
                 <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-                    <InputLabel>Quantity</InputLabel>
+                    <InputLabel>quantity</InputLabel>
                     <Select
                         value={quantity}
-                        label="Quantity"
+                        label="quantity"
                         onChange={handleQuantityChange}
                     >
                     {item.quantity.map(option => (

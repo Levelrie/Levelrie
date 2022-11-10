@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
-import TinderCard from 'react-tinder-card'
+import TinderCard from 'react-tinder-card';
 
 import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
 
@@ -12,7 +12,9 @@ export default function Home() {
     const dispatch = useDispatch();
 
     const outfitsArray = useSelector(store => store.outfits.outfits);
+    const homeCounter = useSelector(store => store.outfits.counter);
 
+    const [swipeOcurred, setSwipeOcurred] = useState(false);
 
     useEffect(() => {
         dispatch({type: 'SAGA_FETCH_OUTFITS_FOR_SWIPING'});
@@ -40,15 +42,24 @@ export default function Home() {
     const onSwipe = (direction, outfitId) => {
         // Direction is a string
 
-        let id = outfitId;
+        let swipeOcurred = false;
 
-        if (direction === 'left') {
-            rejectOutfit(id);
-        } else if (direction === 'right') {
-            favoriteOutfit(id);
+        if (swipeOcurred === false) {
+            swipeOcurred = true;
+            let id = outfitId;
+
+            if (direction === 'left') {
+                rejectOutfit(id);
+            } else if (direction === 'right') {
+                favoriteOutfit(id);
+            }
         }
 
     };
+
+    // const onCardLeftScreen = (myIdentifier) => {
+    //     setSwipeOcurred(true);
+    // }
 
     return (
         <div className="stack">
@@ -60,8 +71,9 @@ export default function Home() {
                                 className="outfitHomeBox"
                                 onSwipe={(direction) => onSwipe(direction, outfit.id)}
                                 preventSwipe={['up', 'down']}
+                                // onCardLeftScreen={() => onCardLeftScreen('fooBar')}
                                 >
-                            <OutfitHomeItem outfit={outfit}/>
+                            <OutfitHomeItem outfit={outfit} homeCounter={homeCounter}/>
                             <p><button onClick={rejectOutfit}>Swipe Left</button><button onClick={favoriteOutfit}>Swipe Right</button></p>
                         
                     </TinderCard>

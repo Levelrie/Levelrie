@@ -19,11 +19,10 @@ function* fetchFavoriteOutfits() {
 }
 
 function* fetchFavoriteItems() {
-    console.log()
     try {
         const favoriteItemsRes = yield axios({
             method: 'GET',
-            url: '/api/favorites/items'
+            url: '/favorites/items'
         })
         yield put({
             type: 'SET_FAVORITE_ITEMS',
