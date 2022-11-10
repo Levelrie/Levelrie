@@ -23,7 +23,6 @@ export default function* rootSaga() {
     adminRegistrationSaga(),
     adminSaga(),
     loginSaga(),
-    outfitsSaga(),
     registrationSaga(),
     userSaga(),
     itemsSaga(),

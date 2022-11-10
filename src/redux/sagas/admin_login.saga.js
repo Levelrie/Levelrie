@@ -15,8 +15,10 @@ function* adminLogin(action) {
     // send the action.payload as the body
     // the config includes credentials which
     // allow the server session to recognize the admin
+    console.log('admin login pre-post in saga: 1');
     yield axios.post('/api/admin/login', action.payload, config);
-
+    console.log('admin login post-post in saga: 2');
+    console.log('action.payload: 2:', action.payload);
     // after the admin has logged in
     // get the admin information from the server
     yield put({ type: 'FETCH_ADMIN' });
