@@ -7,17 +7,17 @@ import FavoriteItemItem from "./FavoriteItemItem";
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-function FavoriteItemList() {
+function FavoriteItemList({category}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store) => store.user);
     const favoriteItems = useSelector(store => store.favorites.favoriteItemsReducer);
 
 
-
     useEffect(() => {
         dispatch({
             type: 'FETCH_FAVORITE_ITEMS',
+            payload: {category}
         })
         return () => {
             dispatch({
