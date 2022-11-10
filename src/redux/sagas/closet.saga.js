@@ -10,6 +10,7 @@ function* fetchClosetOutfits () {
             method: 'GET',
             url: '/api/closet/outfits'
         })
+        // console.log('what is', closetOutfitsRes.data);
         yield put({
             type: 'SET_CLOSET_OUTFITS',
             payload: closetOutfitsRes.data

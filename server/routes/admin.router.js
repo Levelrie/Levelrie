@@ -11,7 +11,7 @@ const router = express.Router();
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
-  res.send(req.admin);
+  res.send(req.admins);
 });
 
 // Handles POST request with new user data
@@ -32,10 +32,10 @@ router.post('/register', (req, res, next) => {
 });
 
 // Handles login form authenticate/login POST
-// adminStrategy.authenticate('local') is middleware that we run on this route
+// userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful
 // this middleware will send a 404 if not successful
-router.post('/login', userStrategy.authenticate('admin-local'), (req, res) => {
+router.post('/login', userStrategy.authenticate('local'), (req, res) => {
   res.sendStatus(200);
 });
 

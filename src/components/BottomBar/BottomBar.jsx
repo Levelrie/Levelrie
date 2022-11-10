@@ -7,68 +7,12 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
-import { useLocation, useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-
 
 export default function BottomBar() {
-
-  let location = useLocation();
-  let history = useHistory();
-
-  useEffect(() => {
-    switch(location.pathname) {
-      case '/home':
-        setValue('swipe');
-        break;
-      case `/favorites/outfits`:
-        setValue('Favorites');
-        break;
-      case `/favorites/categories`:
-        setValue('Favorites');
-        break;
-      case `/favorites/items`:
-        setValue('Favorites');
-        break;
-      case `/favorites/items`:
-        setValue('Favorites');
-        break; 
-      case `/cart`:
-        setValue('Cart');
-        break;  
-      case `/closet/outfits`:
-        setValue('Closet');
-        break;    
-
-    }
-
-  }, [location]);
-
-
   const [value, setValue] = React.useState('recents');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    
-    switch(newValue) {
-      case 'swipe':
-        history.push('/home');
-        break;
-      case 'Favorites':
-        history.push('/favorites/outfits');
-        break;
-      case 'Cart':
-        history.push('/cart');
-        break;
-      case 'Search':
-        // history.push('/');
-        break;
-      case 'Closet':
-        history.push('/closet/outfits');
-        break;
-    }
-    console.log(newValue);
-    console.log(location);
   };
 
   return (
