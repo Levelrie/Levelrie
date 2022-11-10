@@ -5,6 +5,7 @@ import FavoriteItemItem from "./FavoriteItemItem";
 
 // MUI
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 function FavoriteItemList() {
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function FavoriteItemList() {
 
     return (
         <>
-        <p>Favorite Item List</p>
+        <Typography variant="h6">Faves</Typography>
         <Stack spacing={2}>
             {favoriteItems.map(item => (
                     <FavoriteItemItem key={item.id} item={item}/>
