@@ -95,17 +95,17 @@ router.get('/search/item', rejectUnauthenticated, (req, res) => {
     JOIN "categories" ON items.category_id = categories.id
     JOIN "favorited_items" ON items.id = favorited_items.item_id
     JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
-        WHERE categories.name = 'tops'
+        WHERE categories.name = 'accessories'
             AND "favorited_outfits".user_id = $1
     UNION
     SELECT items.* FROM "items"
         JOIN "categories" ON items.category_id = categories.id
         JOIN "favorited_solo" ON items.id = favorited_solo.item_id
         JOIN "users" ON favorited_solo.user_id = "users".id
-            WHERE categories.name = 'tops'
+            WHERE categories.name = 'accessories'
                 AND "favorited_solo".user_id = $1
     `
-    const sqlValues = [category, req.user.id]
+    const sqlValues = [req.user.id]
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
             console.log('dbRes.rows is:', dbRes.rows);
