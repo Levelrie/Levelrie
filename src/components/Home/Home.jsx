@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
-import TinderCard from 'react-tinder-card'
+import TinderCard from 'react-tinder-card';
 
 import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
 import BottomBar from "../BottomBar/BottomBar";

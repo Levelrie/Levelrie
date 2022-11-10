@@ -39,6 +39,9 @@ export default function BottomBar() {
       case `/closet/outfits`:
         setValue('Closet');
         break;    
+      case `/search`:
+        setValue('Search');
+        break;   
 
     }
 
@@ -61,7 +64,7 @@ export default function BottomBar() {
         history.push('/cart');
         break;
       case 'Search':
-        // history.push('/');
+        history.push('/search');
         break;
       case 'Closet':
         history.push('/closet/outfits');

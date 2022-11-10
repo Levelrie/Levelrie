@@ -27,6 +27,7 @@ import Home from '../Home/Home';
 import FavoriteOutfitList from '../FavoriteOutfitList/FavoriteOutfitList';
 import FavoriteItemList from '../FavoriteItemList/FavoriteItemList';
 import FavoriteItemCategoriesPage from '../FavoriteItemList/FavoriteItemCategoriesPage';
+import SearchPage from '../SearchPage/SearchPage';
 
 //  CSS Import
 import './App.css';
@@ -164,6 +165,14 @@ function App() {
               path="/favorites/items"
             >
               <FavoriteItemList />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // logged in shows FavoriteItemList else shows LoginPage
+              exact
+              path="/search"
+            >
+              <SearchPage />
             </ProtectedRoute>
 
             <Route
