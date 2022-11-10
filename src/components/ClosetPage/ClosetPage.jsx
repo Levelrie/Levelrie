@@ -8,8 +8,8 @@ import ClosetOutfitList from './ClosetOutfit.jsx'
 function ClosetPage () {
 
     // use-selector
-    const closetOutfits = useSelector(store => store.closetOutfitsReducer);
-    console.log('what is our data:', closetOutfits)
+    const closetOutfits = useSelector(store => store.closetReducer.closetOutfitsReducer);
+    // console.log('what is our data:', closetOutfits)
 
     // use-dispatch
     const dispatch = useDispatch();
@@ -26,11 +26,11 @@ function ClosetPage () {
     return (
         <div>
             <h1>this is the closet Page</h1>
-            {/* <ul>
+            <ul>
                 {closetOutfits.map(outfit => (
                     <ClosetOutfitList key={outfit.id} outfit={outfit}/>
                 ))}
-            </ul> */}
+            </ul>
         </div>
     )
 } // end of ClosetPage
