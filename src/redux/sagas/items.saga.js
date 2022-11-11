@@ -25,7 +25,10 @@ function* unfavoriteItem(action) {
 function* fetchCategories() {
     try {
         const categories = yield axios.get('/api/item/categories');
-        console.log(categories.data);
+        yield put({
+            type: 'SET_CATEGORY_NAMES',
+            payload: categories.data
+        })
 
 
     } catch (error) {
