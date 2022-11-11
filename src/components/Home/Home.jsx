@@ -7,6 +7,7 @@ import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
 import BottomBar from "../BottomBar/BottomBar";
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import './Home.css'
 
@@ -48,6 +49,7 @@ const favoriteOutfit = (id) => {
 
     };
 
+    console.log('outfitsArray is:', outfitsArray)
     return (
         <>
             <Container maxWidth="lg">
@@ -59,11 +61,7 @@ const favoriteOutfit = (id) => {
                                     onSwipe={(direction) => onSwipe(direction, outfit.id)}
                                     preventSwipe={['up', 'down']}
                                     >
-                                        {/* <Paper variant="outlined" square> */}
                                             <OutfitHomeItem outfit={outfit}/>
-                                        {/* </Paper> */}
-                                {/* below swipe buttons no longer needed due to actual swiping capabilities */}
-                                {/* <p><button onClick={rejectOutfit}>Swipe Left</button><button onClick={favoriteOutfit}>Swipe Right</button></p> */}
                         </TinderCard>
                     );
                 })}

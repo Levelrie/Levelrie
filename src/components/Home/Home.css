@@ -8,8 +8,8 @@
     top: 0px;
 
     /* Take full size */
-    height: 80vh;
-    width: 94%;
+    /* height: 80vh;
+    width: 94%; */
 
     z-index: 1;
 
@@ -18,4 +18,5 @@
 }
 .stack {
    position: relative;
+   
 }
