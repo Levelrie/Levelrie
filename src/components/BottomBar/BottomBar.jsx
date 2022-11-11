@@ -38,7 +38,10 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
         break;  
       case `/closet/outfits`:
         setValue('Closet');
-        break;    
+        break;
+      case `/closet/categories`:
+        setValue('Closet');
+        break;     
       case `/search`:
         setValue('Search');
         break;   
