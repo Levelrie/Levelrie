@@ -95,17 +95,17 @@ function App() {
         <Nav />
         <div>
           <Switch>
-
             {/* ---------- ADMIN ROUTES ---------- */}
             {/* Adding an admin login page that will be navigated to by using a 
             direct URL no link on mobile version to seperate staff from client use */}
             <Route exact path="/admin">
-              {user.isAdmin ? <Redirect to="/admin/design" /> : <AdminPage /> }
+            {user.isAdmin ? <Redirect to="/admin/design" /> : (user.id ? <Redirect to="/" /> : <AdminPage /> )}
             </Route>
             {/* Protected route for admin users */}
             <Route exact path="/admin/design" >
               {user.isAdmin ? <AdminDesign /> : <Redirect exact from="/admin/design" to="/admin" /> }
             </Route>
+
 
             {/* ---------- USER ROUTES ---------- */}
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
