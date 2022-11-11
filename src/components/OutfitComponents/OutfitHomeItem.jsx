@@ -36,8 +36,6 @@ export default function OutfitHomeItem({outfit}) {
 
 
 
-
-
         {/* Below is getting slightly better:
 
         <Grid container key={outfit.id} spacing={0}>

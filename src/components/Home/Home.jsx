@@ -6,6 +6,7 @@ import TinderCard from 'react-tinder-card'
 import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import Paper from '@mui/material/Paper';
 
 
 import './Home.css'
@@ -52,8 +53,23 @@ const favoriteOutfit = (id) => {
     console.log('outfitsArray is:', outfitsArray)
     return (
         <>
-            <Container maxWidth="lg">
-            <div className="stack">
+        <Container className="cardContainer">
+        {/* <Paper> */}
+            {outfitsArray.map((outfit) => {
+                    return (
+                        <TinderCard key={outfit.id}
+                                    // className="outfitHomeBox"
+                                    className="card"
+                                    onSwipe={(direction) => onSwipe(direction, outfit.id)}
+                                    preventSwipe={['up', 'down']}
+                                    >
+                                            <OutfitHomeItem outfit={outfit}/>
+                        </TinderCard>
+                    );
+                })}
+        {/* </Paper> */}
+        </Container>
+            {/* <div className="stack">
                 {outfitsArray.map((outfit) => {
                     return (
                         <TinderCard key={outfit.id}
@@ -65,8 +81,8 @@ const favoriteOutfit = (id) => {
                         </TinderCard>
                     );
                 })}
-            </div>
-            </Container>
+            </div> */}
+        
         </>
     );
 }
