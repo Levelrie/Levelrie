@@ -13,9 +13,9 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 //  CSS import
-import './AdminLogin.css'
+import './AdminPage.css'
 
-function AdminLogin() {
+function AdminPage() {
 
   //  local state used to set toggle button
   const [isFront, setIsFront] = useState(true)
@@ -73,4 +73,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default AdminPage;

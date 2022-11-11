@@ -8,9 +8,15 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+//  Component Import
+import LogOutAdminButton from '../LogOutAdminButton/LogOutAdminButton';
+
+
+
 function AdminDesign() {
   return (
     <div className="container">
+      <LogOutAdminButton />
       <div>
         <p>This is ADMIN DESIGN!</p>
       </div>

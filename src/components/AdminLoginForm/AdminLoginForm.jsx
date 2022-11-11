@@ -18,7 +18,7 @@ function AdminLoginForm() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const admin_error = useSelector(store => store.admin_errors);
+  const admin_error = useSelector(store => store.errors);
   const dispatch = useDispatch();
 
   //  function to dispatch inputs for login process
@@ -26,7 +26,7 @@ function AdminLoginForm() {
     event.preventDefault();
     if (username && password) {
       dispatch({
-        type: 'LOGIN',
+        type: 'ADMIN_LOGIN',
         payload: {
           username: username,
           password: password,

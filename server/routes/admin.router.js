@@ -4,14 +4,14 @@ const {
 } = require('../modules/authentication-middleware');
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
-const adminStrategy = require('../strategies/admin.strategy');
+const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
-  res.send(req.admin);
+  res.send(req.user);
 });
 
 // Handles POST request with new user data
@@ -20,22 +20,28 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
-  const queryText = `INSERT INTO "admins" (username, password)
-    VALUES ($1, $2) RETURNING id`;
+  const first_name = req.body.firstName;
+  const last_name = req.body.lastName;
+  const email = req.body.email;
+  const isAdmin = true;
+  console.log('IN ADMIN ROUTER');
+
+  const queryText = `INSERT INTO "users" (username, password, first_name, last_name, email, "isAdmin")
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
   pool
-    .query(queryText, [username, password])
+    .query(queryText, [username, password, first_name, last_name, email, isAdmin])
     .then(() => res.sendStatus(201))
     .catch((err) => {
-      console.log('Admin registration failed: ', err);
+      console.log('User registration failed: ', err);
       res.sendStatus(500);
     });
 });
 
 // Handles login form authenticate/login POST
-// adminStrategy.authenticate('local') is middleware that we run on this route
+// userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful
 // this middleware will send a 404 if not successful
-router.post('/login', adminStrategy.authenticate('local'), (req, res) => {
+router.post('/login', userStrategy.authenticate('local'), (req, res) => {
   res.sendStatus(200);
 });
 
