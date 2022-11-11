@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   HashRouter as Router,
   Redirect,
   Route,
-  Switch,
+  Switch
 } from 'react-router-dom';
 
 //  MUI Tools
@@ -32,6 +32,7 @@ import SearchPage from '../SearchPage/SearchPage';
 import ClosetPage from '../ClosetPage/ClosetPage';
 import ClosetItemPage from '../ClosetPage/ClosetItemPage';
 import BottomBar from "../BottomBar/BottomBar";
+import ToggleButton from '../ToggleButton/ToggleButton';
 
 //  CSS Import
 import './App.css';
@@ -87,6 +88,7 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_ADMIN' });
   }, [dispatch]);
+
 
   return (
     <ThemeProvider theme={themeOptions}>
@@ -147,15 +149,12 @@ function App() {
               <InfoPage />
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows Closet Outfit List else shows LoginPage
-              exact
-              path="/closet/outfits"
-            >
-              <ClosetPage />
-            </ProtectedRoute>
 
             <ProtectedRoute path="/favorites">
+
+
+
+              <ToggleButton />
               <ProtectedRoute
                 // logged in shows FavoriteOutfitList else shows LoginPage
                 exact
@@ -181,13 +180,26 @@ function App() {
               </ProtectedRoute>
             </ProtectedRoute>
 
-            
-            <ProtectedRoute
-              // logged in shows Closet categories list else shows LoginPage
-              exact
-              path="/closet/categories"
-            >
-              <ClosetItemPage />
+            <ProtectedRoute path="/closet">
+
+                <ToggleButton />
+                <ProtectedRoute
+                  // logged in shows Closet Outfit List else shows LoginPage
+                  exact
+                  path="/closet/outfits"
+                >
+                  <ClosetPage />
+                </ProtectedRoute>
+                
+                <ProtectedRoute
+                  // logged in shows Closet categories list else shows LoginPage
+                  exact
+                  path="/closet/categories"
+                >
+                  <ClosetItemPage />
+                </ProtectedRoute>
+
+
             </ProtectedRoute>
 
             <ProtectedRoute
