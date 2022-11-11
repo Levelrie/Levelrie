@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import TinderCard from 'react-tinder-card'
 
 import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
+
 
 import './Home.css'
 
@@ -46,27 +49,24 @@ const favoriteOutfit = (id) => {
 
     };
 
+    console.log('outfitsArray is:', outfitsArray)
     return (
         <>
+            <Container maxWidth="lg">
             <div className="stack">
                 {outfitsArray.map((outfit) => {
-
                     return (
-
                         <TinderCard key={outfit.id}
                                     className="outfitHomeBox"
                                     onSwipe={(direction) => onSwipe(direction, outfit.id)}
                                     preventSwipe={['up', 'down']}
                                     >
-                                <OutfitHomeItem outfit={outfit}/>
-                                <p><button onClick={rejectOutfit}>Swipe Left</button><button onClick={favoriteOutfit}>Swipe Right</button></p>
-
+                                            <OutfitHomeItem outfit={outfit}/>
                         </TinderCard>
-
-
                     );
                 })}
             </div>
+            </Container>
         </>
     );
 }
