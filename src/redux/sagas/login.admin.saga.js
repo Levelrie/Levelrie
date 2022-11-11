@@ -12,8 +12,6 @@ function* loginAdminUser(action) {
       withCredentials: true,
     };
 
-    console.log('PAYLOADDDD', action.payload);
-
     // send the action.payload as the body
     // the config includes credentials which
     // allow the server session to recognize the user
@@ -23,7 +21,7 @@ function* loginAdminUser(action) {
     // get the user information from the server
     yield put({ type: 'FETCH_ADMIN' });
   } catch (error) {
-    console.log('Error with user login:', error);
+    console.log('Error with admin login:', error);
     if (error.response.status === 401) {
       // The 401 is the error status sent from passport
       // if user isn't in the database or

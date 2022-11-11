@@ -21,7 +21,7 @@ function AdminLoginForm() {
     event.preventDefault();
     if (username && password) {
       dispatch({
-        type: 'ADMIN_LOGIN',
+        type: 'LOGIN_ADMIN',
         payload: {
           username: username,
           password: password,

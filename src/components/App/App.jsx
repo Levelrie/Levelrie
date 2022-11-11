@@ -103,9 +103,9 @@ function App() {
               {user.isAdmin ? <Redirect to="/admin/design" /> : <AdminPage /> }
             </Route>
             {/* Protected route for admin users */}
-            <ProtectedRoute exact path="/admin/design" >
+            <Route exact path="/admin/design" >
               {user.isAdmin ? <AdminDesign /> : <Redirect exact from="/admin/design" to="/admin" /> }
-            </ProtectedRoute>
+            </Route>
 
             {/* ---------- USER ROUTES ---------- */}
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
