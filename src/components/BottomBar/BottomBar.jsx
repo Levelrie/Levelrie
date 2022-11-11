@@ -24,15 +24,6 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
       case `/favorites/outfits`:
         setValue('Favorites');
         break;
-      case `/favorites/categories`:
-        setValue('Favorites');
-        break;
-      case `/favorites/items`:
-        setValue('Favorites');
-        break;
-      case `/favorites/items`:
-        setValue('Favorites');
-        break; 
       case `/cart`:
         setValue('Cart');
         break;  
@@ -41,7 +32,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
         break;    
       case `/search`:
         setValue('Search');
-        break;   
+        break;
 
     }
 
