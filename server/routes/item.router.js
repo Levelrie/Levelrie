@@ -159,7 +159,7 @@ router.get('/search', (req, res) => {
     // Add '%' to the end of the query string for the database
     query += '%';
 
-    sqlSearchText = `SELECT items.* FROM "items"
+    const sqlSearchText = `SELECT items.* FROM "items"
                         JOIN "categories" ON items.category_id = categories.id
                             WHERE items.name LIKE $1
                             AND categories.name = $2;`
@@ -174,5 +174,25 @@ router.get('/search', (req, res) => {
     });
 
 });
+
+// •••••••••••••••••••••••••••••••••••••••• FETCH CATEGORY NAMES ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
+
+
+router.get('/categories', (req, res) => {
+
+    const sqlFetchText = `SELECT name FROM "categories";`
+
+    pool.query(sqlFetchText)
+    .then((results) => {
+        res.send(results.rows);
+    })
+    .catch((error) => {
+        console.log('Error in GET /api/item/categories query', error);
+        res.sendStatus(500);
+    });
+
+});
+
+
 
 module.exports = router;
