@@ -10,7 +10,14 @@ CREATE TABLE "users" (
     "first_name" VARCHAR (100) NOT NULL,
     "last_name" VARCHAR (100) NOT NULL,
     "email" VARCHAR (100) UNIQUE NOT NULL,
-    "isAdmin" BOOLEAN DEFAULT (FALSE) NOT NULL
+    "isAdmin" BOOLEAN DEFAULT FALSE NOT NULL
+);
+
+CREATE TABLE "admins" (
+    "id" SERIAL PRIMARY KEY,
+    "username" VARCHAR (80) UNIQUE NOT NULL,
+    "password" VARCHAR (1000) NOT NULL,
+    "clearance" INT DEFAULT (1) NOT NULL
 );
 
 CREATE TABLE "outfits" (
@@ -97,6 +104,12 @@ CREATE TABLE "favorited_items" (
     "item_id" INT REFERENCES "items"   
 );
 
+CREATE TABLE "favorited_solo" (
+    "id" SERIAL PRIMARY KEY,
+    "user_id" INT REFERENCES "users",
+    "item_id" INT REFERENCES "items"
+);
+
 CREATE TABLE "rejections" (
     "id" SERIAL PRIMARY KEY,  
     "user_id" INT REFERENCES "users",
@@ -114,30 +127,29 @@ INSERT INTO "categories"
             ('outerwear'),
             ('accessories');
 
-
-
-
-            -- ****************** TEST DATA BELOW *********************
+-- ****************** TEST DATA BELOW *********************
 INSERT INTO "users"
-	("username", "password", "first_name", "last_name", "email")
-		VALUES
+ 	("username", "password", "first_name", "last_name", "email")
+ 		VALUES
             ('Maggie', '123', 'Maggie', 'Whitlock', 'maggie.whitlock@gmail.com'),
-			('Theo', '123', 'Theo', 'Janke-Furman', 'tjankefurman@gmail.com'),
-			('Chameng', '123', 'Chameng', 'Vang', 'Chameng02@gmail.com'),
+ 			('Theo', '123', 'Theo', 'Janke-Furman', 'tjankefurman@gmail.com'),
+ 			('Chameng', '123', 'Chameng', 'Vang', 'Chameng02@gmail.com'),
             ('Hess', '123', 'Hess', 'Hess', 'ryanmhess@gmail.com'),
             ('Kyle', '123', 'Kyle', 'Jensen', 'kjensen19@gmail.com');
 
+
 INSERT INTO "outfits"
-	("name", "description")
-		VALUES
-			('All business', 'For closing that deal'),
-			('Something more comfortable', 'For staying in'),
-			('Business and Pleasure', 'For going out'),
-			('Casual Vibes', 'For running errands');
+ 	("name", "description")
+ 		VALUES
+ 			('All business', 'For closing that deal'),
+ 			('Something more comfortable', 'For staying in'),
+ 			('Business and Pleasure', 'For going out'),
+ 			('Casual Vibes', 'For running errands');
+
 
 INSERT INTO "items"
-	("name", "color", "size", "seller", "price", "img", "category_id")
-		VALUES
+ 	("name", "color", "size", "seller", "price", "img", "category_id")
+ 		VALUES
             ('Black Tank', 'Black', 'XXS', 'Anine Bing', '$105', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588877/Tops/image-19_j7r1lc.png', 1),
             ('Cream Knit', 'Cream', 'M', 'J. Crew', '$145', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588875/Tops/image-18_pteshe.png', 1),
             ('Grey Knit Cardigan', 'Grey', 'S', 'All Saints', '$400', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588872/Tops/image-17_qjmpyj.png', 1),
@@ -169,20 +181,49 @@ INSERT INTO "items"
 
 
 INSERT INTO "outfit_items"
-	("outfit_id", "item_id")
-		VALUES
-			(1, 1),
-			(1, 8),
-			(1, 18),
-			(1, 24),
-			(2, 2),
-			(2, 4),
-			(2, 19),
-			(2, 23),
-			(3, 6),
-			(3, 13),
-			(3, 20),
-			(4, 10),
-			(4, 11),
-			(4, 16),
-			(4, 21);
+ 	("outfit_id", "item_id")
+ 		VALUES
+ 			(1, 1),
+ 			(1, 8),
+ 			(1, 18),
+ 			(1, 24),
+ 			(2, 2),
+ 			(2, 4),
+ 			(2, 19),
+ 			(2, 23),
+ 			(3, 6),
+ 			(3, 13),
+ 			(3, 20),
+ 			(4, 10),
+ 			(4, 11),
+ 			(4, 16),
+ 			(4, 21);
+
+
+INSERT INTO "favorited_outfits"
+ 	("user_id", "outfit_id")
+ 		VALUES
+ 			(1, 3),
+ 			(1, 4);
+
+
+INSERT INTO "favorited_items"
+ 	("favorited_outfit_id", "item_id")
+ 		VALUES
+ 			(1, 6),
+ 			(1, 13),
+ 			(1, 20),
+ 			(2, 10),
+ 			(2, 11),
+ 			(2, 16),
+ 			(2, 21);
+
+
+INSERT INTO "favorited_solo"
+ 	("user_id", "item_id")
+ 		VALUES
+ 			(1, 25),
+ 			(1, 26),
+ 			(1, 27),
+ 			(1, 4), 
+ 			(1, 5);

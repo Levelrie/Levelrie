@@ -19,7 +19,6 @@ function* fetchFavoriteOutfits() {
 }
 
 function* fetchFavoriteItems() {
-    console.log()
     try {
         const favoriteItemsRes = yield axios({
             method: 'GET',

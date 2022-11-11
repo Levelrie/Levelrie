@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
-
 //  MUI Tools
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -18,10 +17,10 @@ function AdminLoginForm() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const admin_error = useSelector(store => store.errors);
+  const error = useSelector(store => store.errors);
   const dispatch = useDispatch();
 
-  //  function to dispatch inputs for login process
+   //  function to dispatch inputs for login process
   const login = (event) => {
     event.preventDefault();
     if (username && password) {
@@ -42,9 +41,9 @@ function AdminLoginForm() {
   //  users to login to their admin account
   return (
     <form className='adminLoginForm' onSubmit={login}>
-      {admin_error.adminLoginMessage && (
+      {error.adminLoginMessage && (
         <h3 id="alertMsg" className="alert" role="alert">
-          {admin_error.adminLoginMessage}
+          {error.adminLoginMessage}
         </h3>
       )}
       <Stack direction="column"  spacing={1} alignItems="center">
@@ -65,15 +64,14 @@ function AdminLoginForm() {
           type="password"
           size="small"
           required
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <Button variant="contained" type="submit">
-          Login
-        </Button>
-      </Stack>
+           value={password}
+           onChange={(event) => setPassword(event.target.value)}
+         />
+         <Button variant="contained" type="submit">
+           Login
+         </Button>
+       </Stack>
     </form>
   );
 }
-
 export default AdminLoginForm;
