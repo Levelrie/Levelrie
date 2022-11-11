@@ -16,7 +16,7 @@ import Paper from '@mui/material/Paper';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import AdminLogin from '../AdminLogin/AdminLogin';
+import AdminPage from '../AdminPage/AdminPage';
 import AdminDesign from '../AdminDesign/AdminDesign';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -82,11 +82,9 @@ function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
-  const admin = useSelector(store => store.admin);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-    dispatch({ type: 'FETCH_ADMIN' });
   }, [dispatch]);
 
 
@@ -101,12 +99,12 @@ function App() {
             {/* ---------- ADMIN ROUTES ---------- */}
             {/* Adding an admin login page that will be navigated to by using a 
             direct URL no link on mobile version to seperate staff from client use */}
-            <Route exact path="/admin/login">
-              {admin.id ? <Redirect to="/admin/design" /> : <AdminLogin /> }
+            <Route exact path="/admin">
+              {user.isAdmin ? <Redirect to="/admin/design" /> : <AdminPage /> }
             </Route>
             {/* Protected route for admin users */}
             <ProtectedRoute exact path="/admin/design" >
-              <AdminDesign />
+              {user.isAdmin ? <AdminDesign /> : <Redirect exact from="/admin/design" to="/admin" /> }
             </ProtectedRoute>
 
             {/* ---------- USER ROUTES ---------- */}

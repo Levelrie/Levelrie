@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+
 //  MUI Tools
 import Button from '@mui/material/Button';
- import Stack from '@mui/material/Stack';
- import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
- //  CSS Import
- import './AdminLoginForm.css'
+//  CSS Import
+import './AdminLoginForm.css'
 
- function AdminLoginForm() {
+function AdminLoginForm() {
 
-   const [username, setUsername] = useState('');
-   const [password, setPassword] = useState('');
-   const admin_error = useSelector(store => store.admin_errors);
-   const dispatch = useDispatch();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const error = useSelector(store => store.errors);
+  const dispatch = useDispatch();
 
    //  function to dispatch inputs for login process
   const login = (event) => {
@@ -29,20 +29,20 @@ import Button from '@mui/material/Button';
       });
     } //  end IF
     else {
-      dispatch({ type: 'ADMIN_LOGIN_INPUT_ERROR' });
-     } //  end ELSE
-   }; // end login function
+      dispatch({ type: 'LOGIN_INPUT_ERROR' });
+    } //  end ELSE
+  }; // end login function
 
-   //  form element with stacked textfields and button to allow
-   //  users to login to their admin account
-   return (
-     <form className='adminLoginForm' onSubmit={login}>
-       {admin_error.adminLoginMessage && (
-         <h3 id="alertMsg" className="alert" role="alert">
-           {admin_error.adminLoginMessage}
-         </h3>
-       )}
-       <Stack direction="column"  spacing={2} alignItems="center">
+  //  form element with stacked textfields and button to allow
+  //  users to login to their admin account
+  return (
+    <form className='adminLoginForm' onSubmit={login}>
+      {error.loginMessage && (
+        <h3 id="alertMsg" className="alert" role="alert">
+          {error.loginMessage}
+        </h3>
+      )}
+      <Stack direction="column"  spacing={1} alignItems="center">
         <TextField 
           id="username" 
           label="username" 
@@ -60,13 +60,13 @@ import Button from '@mui/material/Button';
           type="password"
           size="small"
           required
-           value={password}
-           onChange={(event) => setPassword(event.target.value)}
-         />
-         <Button variant="contained" type="submit">
-           Login
-         </Button>
-       </Stack>
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <Button variant="contained" type="submit">
+          Login
+        </Button>
+      </Stack>
     </form>
   );
 }

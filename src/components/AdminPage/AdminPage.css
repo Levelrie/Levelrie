@@ -1,0 +1,74 @@
+.box {
+  background-image: 
+    url(https://res.cloudinary.com/dgainc6rr/image/upload/v1668112280/Logo/Hanger_Logo_seyccz.png);
+  background-size: 
+    80px;
+  background-repeat: repeat;
+  opacity: 1;
+}
+
+/* ---------------------------------------------- */
+/* Login Card Sizing */
+.outerLoginCard {
+  margin: auto;
+  width: 35vw;
+  height: 60vh;
+}
+
+.innerLoginCard {
+  margin: auto;
+  width: 30vw;
+  min-height: 50vh;
+  padding: 0;
+}
+/* ---------------------------------------------- */
+/* Register Card Sizing */
+.outerRegisterCard {
+  margin: auto;
+  width: 35vw;
+  height: 85vh;
+}
+
+.innerRegisterCard {
+  margin: auto;
+  width: 30vw;
+  height: 75vh;
+  padding: 0;
+}
+/* ---------------------------------------------- */
+
+img {
+  scale: 0.5;
+  padding: 0;
+}
+
+.adminLoginCard {
+  padding: 0;
+  margin: 0;
+}
+
+/* ---------------------------------------------- */
+/* Toggle Button */
+
+button{
+  z-index: 4;
+}
+
+.frontButton{
+  z-index: 5
+}
+
+.backButton{
+  z-index: 3;
+}
+
+/* ---------------------------------------------- */
+/* Removed NavBar and Footer */
+
+.nav {
+  display: none;
+}
+
+footer {
+  display: none;
+}
