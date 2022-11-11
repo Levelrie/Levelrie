@@ -106,6 +106,7 @@ function App() {
               {user.isAdmin ? <AdminDesign /> : <Redirect exact from="/admin/design" to="/admin" /> }
             </Route>
 
+
             {/* ---------- USER ROUTES ---------- */}
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
