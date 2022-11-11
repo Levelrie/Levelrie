@@ -92,14 +92,14 @@ function App() {
     <ThemeProvider theme={themeOptions}>
 
       <Router>
-        <Nav />
+        {user.isAdmin ? '' : <Nav /> }
         <div>
           <Switch>
             {/* ---------- ADMIN ROUTES ---------- */}
             {/* Adding an admin login page that will be navigated to by using a 
             direct URL no link on mobile version to seperate staff from client use */}
             <Route exact path="/admin">
-            {user.isAdmin ? <Redirect to="/admin/design" /> : (user.id ? <Redirect to="/" /> : <AdminPage /> )}
+              {user.isAdmin ? <Redirect to="/admin/design" /> : (user.id ? <Redirect to="/" /> : <AdminPage /> )}
             </Route>
             {/* Protected route for admin users */}
             <Route exact path="/admin/design" >
@@ -256,9 +256,9 @@ function App() {
             </Route>
           </Switch>
             <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
-                <BottomBar />
+            {user.isAdmin ? '' : <BottomBar /> }
             </Paper>
-          <Footer />
+            {user.isAdmin ? '' : <Footer /> }
         </div>
       </Router>
     </ThemeProvider>

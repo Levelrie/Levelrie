@@ -48,7 +48,7 @@ function AdminLoginForm() {
           label="username" 
           variant="outlined"
           type="text"
-          size="small"
+          // size="small"
           required
           value={username}
           onChange={(event) => setUsername(event.target.value)} 
@@ -58,7 +58,7 @@ function AdminLoginForm() {
           label="password" 
           variant="outlined"
           type="password"
-          size="small"
+          // size="small"
           required
           value={password}
           onChange={(event) => setPassword(event.target.value)}
