@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import FavoriteItemItem from "./FavoriteItemItem";
+import ToggleButton from '../ToggleButton/ToggleButton.jsx';
 
 // MUI
 import Stack from '@mui/material/Stack';
@@ -28,17 +29,35 @@ function FavoriteItemList({category}) {
         }
     }, []);
 
+    const toggleButtonClicked = (e) => {
+        console.log('PASSED???', e.target.value);
+
+        switch(e.target.value) {
+            case 'outfit':
+                history.push('/favorites/outfits')
+                setHighlightedButton('outfit');
+                break;
+            case 'category':
+                // No need to history.push, you're already here!
+                setHighlightedButton('category');
+                break;
+        }
+
+    }
+
     console.log('favoriteItems is:', favoriteItems);
 
     return (
-        <Container>
-        <Typography variant="h6">Faves</Typography>
-        <Stack spacing={2}>
-            {favoriteItems.map(item => (
-                    <FavoriteItemItem key={item.id} item={item}/>
-            ))}
-        </Stack>
-        </Container>
+        <>
+            <Container>
+            <Typography variant="h6">Faves</Typography>
+            <Stack spacing={2}>
+                {favoriteItems.map(item => (
+                        <FavoriteItemItem key={item.id} item={item}/>
+                ))}
+            </Stack>
+            </Container>
+        </>
     )
 }
 

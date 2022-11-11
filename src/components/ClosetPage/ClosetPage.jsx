@@ -6,9 +6,6 @@ import { useHistory } from 'react-router'
 // import component
 import ClosetOutfitList from './ClosetOutfit.jsx';
 import SearchBar from '../SearchBar/SearchBar.jsx';
-import ToggleButton from '../ToggleButton/ToggleButton.jsx';
-import BottomBar from "../BottomBar/BottomBar";
-import Paper from '@mui/material/Paper';
 
 function ClosetPage () {
 
@@ -39,7 +36,6 @@ function ClosetPage () {
     return (
         <>
             <div>
-                <ToggleButton />
                 <button onClick={handleCategory}>Category</button>
                 <SearchBar />
                 <h4>My Closet: Outfits</h4>
@@ -49,9 +45,6 @@ function ClosetPage () {
                     ))}
                 </ul>
             </div>
-            <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
-                <BottomBar />
-            </Paper>
         </>
     )
 } // end of ClosetPage

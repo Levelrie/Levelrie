@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   HashRouter as Router,
   Redirect,
   Route,
-  Switch,
+  Switch
 } from 'react-router-dom';
 
 //  MUI Tools
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { cssBaseLine } from '@mui/material'
+import { cssBaseLine } from '@mui/material';
+import Paper from '@mui/material/Paper';
 
 //  Component Imports
 import Nav from '../Nav/Nav';
@@ -30,6 +31,8 @@ import FavoriteItemCategoriesPage from '../FavoriteItemList/FavoriteItemCategori
 import SearchPage from '../SearchPage/SearchPage';
 import ClosetPage from '../ClosetPage/ClosetPage';
 import ClosetItemPage from '../ClosetPage/ClosetItemPage';
+import BottomBar from "../BottomBar/BottomBar";
+import ToggleButton from '../ToggleButton/ToggleButton';
 
 //  CSS Import
 import './App.css';
@@ -85,6 +88,7 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_ADMIN' });
   }, [dispatch]);
+
 
   return (
     <ThemeProvider theme={themeOptions}>
@@ -145,44 +149,57 @@ function App() {
               <InfoPage />
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows FavoriteOutfitList else shows LoginPage
-              exact
-              path="/favorites/outfits"
-            >
-              <FavoriteOutfitList />
+
+            <ProtectedRoute path="/favorites">
+
+
+
+              <ToggleButton />
+              <ProtectedRoute
+                // logged in shows FavoriteOutfitList else shows LoginPage
+                exact
+                path="/favorites/outfits"
+              >
+                <FavoriteOutfitList />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows FavoriteItemCategoriesPage else shows LoginPage
+                exact
+                path="/favorites/categories"
+              >
+                <FavoriteItemCategoriesPage />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows FavoriteItemList else shows LoginPage
+                exact
+                path="/favorites/items"
+              >
+                <FavoriteItemList />
+              </ProtectedRoute>
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows Closet Outfit List else shows LoginPage
-              exact
-              path="/closet/outfits"
-            >
-              <ClosetPage />
-            </ProtectedRoute>
+            <ProtectedRoute path="/closet">
 
-            <ProtectedRoute
-               // logged in shows FavoriteItemCategoriesPage else shows LoginPage
-               exact
-               path="/favorites/categories"
-             >
-               <FavoriteItemCategoriesPage />
-             </ProtectedRoute>
+                <ToggleButton />
+                <ProtectedRoute
+                  // logged in shows Closet Outfit List else shows LoginPage
+                  exact
+                  path="/closet/outfits"
+                >
+                  <ClosetPage />
+                </ProtectedRoute>
+                
+                <ProtectedRoute
+                  // logged in shows Closet categories list else shows LoginPage
+                  exact
+                  path="/closet/categories"
+                >
+                  <ClosetItemPage />
+                </ProtectedRoute>
 
-             <ProtectedRoute
-               // logged in shows FavoriteItemList else shows LoginPage
-               exact
-               path="/favorites/items"
-             >
-               <FavoriteItemList />
-             </ProtectedRoute>
-            
-            <ProtectedRoute
-              // logged in shows Closet categories list else shows LoginPage
-              exact
-              path="/closet/categories"
-            >
-              <ClosetItemPage />
+
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -235,12 +252,14 @@ function App() {
               }
             </Route>
             
-
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>
               <h1>404</h1>
             </Route>
           </Switch>
+            <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
+                <BottomBar />
+            </Paper>
           <Footer />
         </div>
       </Router>
