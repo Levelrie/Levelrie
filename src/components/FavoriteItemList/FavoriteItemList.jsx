@@ -49,7 +49,6 @@ function FavoriteItemList({category}) {
 
     return (
         <>
-            <ToggleButton toggleButtonClicked={toggleButtonClicked} highlighted={'category'} />
             <Container>
             <Typography variant="h6">Faves</Typography>
             <Stack spacing={2}>
