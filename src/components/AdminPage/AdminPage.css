@@ -37,10 +37,6 @@
 }
 /* ---------------------------------------------- */
 
-img {
-  scale: 0.5;
-  padding: 0;
-}
 
 .adminLoginCard {
   padding: 0;
@@ -65,9 +61,9 @@ button{
 /* ---------------------------------------------- */
 /* Removed NavBar and Footer */
 
-.nav {
+/* .nav {
   display: none;
-}
+} */
 
 footer {
   display: none;
