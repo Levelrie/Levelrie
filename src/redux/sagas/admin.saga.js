@@ -15,8 +15,6 @@ function* fetchAdmin() {
     // from the server session (req.admin)
     const response = yield axios.get('/api/admin', config);
 
-    console.log(response);
-
     // now that the session has given us a admin object
     // with an id and username set the client-side admin object to let
     // the client-side code know the admin is logged in

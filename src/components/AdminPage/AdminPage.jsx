@@ -34,10 +34,10 @@ function AdminPage() {
 
   return (
     <Box className='box' sx={{width: '100vw', height: '100vh', display: 'center'}} >
-      <Box className={isFront ? 'outerLoginCard' : 'outerRegisterCard'} sx={{display: 'center', bgcolor: '#f1b3f2', border: '10px solid #BFA78A', borderRadius: 4, mt: 3}} variant='outlined' bgc='red'>
+      <Box className={isFront ? 'outerLoginCard' : 'outerRegisterCard'} sx={{display: 'center', bgcolor: '#f1b3f2', border: '10px solid #BFA78A', borderRadius: 4, mt: 5}} variant='outlined' bgc='red'>
         <Card className={isFront ? 'innerLoginCard' : 'innerRegisterCard'} sx={{display: 'center'}}>
           <CardContent className="adminLoginCard" sx={{height: '40vh', display: 'center'}}>
-            <Stack direction="column"  spacing={2} alignItems="center">
+            <Stack direction="column"  spacing={4} alignItems="center">
               <CardMedia
                 className="adminLoginCard"
                 component="img"
@@ -47,20 +47,18 @@ function AdminPage() {
               <Stack direction='row' justifyContent='center'>
                 <Button 
                   variant='contained' 
-                  size="small" 
                   color='baseTan' 
                   id='outfitButton' 
                   className={isFront ? 'frontButton' : ''} 
-                  sx={{borderRadius: 3 , width: 100, left: 10, justifyContent: 'center'}} 
+                  sx={{borderRadius: 3 , width: 120, left: 10, justifyContent: 'center'}} 
                   onClick={handleClick}>Login
                 </Button>
                 <Button 
                   variant='contained' 
-                  size="small" 
                   color='basePink' 
                   id='categoryButton' 
                   className={!isFront ? 'frontButton' : ''} 
-                  sx={{borderRadius: 3, width: 100, right: 10, justifyContent: 'center'}} 
+                  sx={{borderRadius: 3, width: 120, right: 10, justifyContent: 'center'}} 
                   onClick={handleClick}>Register
                 </Button>
               </Stack>
