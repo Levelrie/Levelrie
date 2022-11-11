@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
- import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
- //  MUI Tools
- import Button from '@mui/material/Button';
- import Stack from '@mui/material/Stack';
- import TextField from '@mui/material/TextField';
+//  MUI Tools
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
- //  CSS Import
- import './AdminRegisterForm.css'
+//  CSS Import
+import './AdminRegisterForm.css'
 
 function AdminRegisterForm() {
   const [username, setUsername] = useState('');
@@ -18,10 +18,10 @@ function AdminRegisterForm() {
   const error = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
-   //  function to dispatch inputs for registration process
-   const registerAdmin = (event) => {
-     event.preventDefault();
-     if (username && password) {
+  //  function to dispatch inputs for registration process
+  const registerAdmin = (event) => {
+    event.preventDefault();
+    if (username && password) {
       dispatch ({
         type: 'REGISTER_ADMIN',
         payload: {
@@ -42,9 +42,9 @@ function AdminRegisterForm() {
   //  users to register an admin account
   return (
     <form className='adminRegisterForm' onSubmit={registerAdmin}>
-      {error.adminRegistrationMessage && (
+      {error.registrationMessage && (
         <h3 id="alertMsg" className="alert" role="alert">
-          {error.adminRegistrationMessage}
+          {error.registrationMessage}
         </h3>
       )}
       <Stack direction="column"  spacing={1} alignItems="center">

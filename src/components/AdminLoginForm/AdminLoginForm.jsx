@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+
 //  MUI Tools
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -41,9 +37,9 @@ function AdminLoginForm() {
   //  users to login to their admin account
   return (
     <form className='adminLoginForm' onSubmit={login}>
-      {error.adminLoginMessage && (
+      {error.loginMessage && (
         <h3 id="alertMsg" className="alert" role="alert">
-          {error.adminLoginMessage}
+          {error.loginMessage}
         </h3>
       )}
       <Stack direction="column"  spacing={1} alignItems="center">
@@ -64,13 +60,13 @@ function AdminLoginForm() {
           type="password"
           size="small"
           required
-           value={password}
-           onChange={(event) => setPassword(event.target.value)}
-         />
-         <Button variant="contained" type="submit">
-           Login
-         </Button>
-       </Stack>
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <Button variant="contained" type="submit">
+          Login
+        </Button>
+      </Stack>
     </form>
   );
 }
