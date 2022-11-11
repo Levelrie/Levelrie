@@ -1,21 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   HashRouter as Router,
   Redirect,
   Route,
-  Switch,
+  Switch
 } from 'react-router-dom';
 
 //  MUI Tools
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { cssBaseLine } from '@mui/material'
+import { cssBaseLine } from '@mui/material';
+import Paper from '@mui/material/Paper';
 
 //  Component Imports
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import AdminLogin from '../AdminLogin/AdminLogin';
+import AdminPage from '../AdminPage/AdminPage';
 import AdminDesign from '../AdminDesign/AdminDesign';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -30,6 +31,8 @@ import FavoriteItemCategoriesPage from '../FavoriteItemList/FavoriteItemCategori
 import SearchPage from '../SearchPage/SearchPage';
 import ClosetPage from '../ClosetPage/ClosetPage';
 import ClosetItemPage from '../ClosetPage/ClosetItemPage';
+import BottomBar from "../BottomBar/BottomBar";
+import ToggleButton from '../ToggleButton/ToggleButton';
 
 //  CSS Import
 import './App.css';
@@ -79,12 +82,11 @@ function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
-  const admin = useSelector(store => store.admin);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-    dispatch({ type: 'FETCH_ADMIN' });
   }, [dispatch]);
+
 
   return (
     <ThemeProvider theme={themeOptions}>
@@ -93,17 +95,17 @@ function App() {
         <Nav />
         <div>
           <Switch>
-
             {/* ---------- ADMIN ROUTES ---------- */}
             {/* Adding an admin login page that will be navigated to by using a 
             direct URL no link on mobile version to seperate staff from client use */}
-            <Route exact path="/admin/login">
-              {admin.id ? <Redirect to="/admin/design" /> : <AdminLogin /> }
+            <Route exact path="/admin">
+            {user.isAdmin ? <Redirect to="/admin/design" /> : (user.id ? <Redirect to="/" /> : <AdminPage /> )}
             </Route>
             {/* Protected route for admin users */}
-            <ProtectedRoute exact path="/admin/design" >
-              <AdminDesign />
-            </ProtectedRoute>
+            <Route exact path="/admin/design" >
+              {user.isAdmin ? <AdminDesign /> : <Redirect exact from="/admin/design" to="/admin" /> }
+            </Route>
+
 
             {/* ---------- USER ROUTES ---------- */}
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -145,44 +147,57 @@ function App() {
               <InfoPage />
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows FavoriteOutfitList else shows LoginPage
-              exact
-              path="/favorites/outfits"
-            >
-              <FavoriteOutfitList />
+
+            <ProtectedRoute path="/favorites">
+
+
+
+              <ToggleButton />
+              <ProtectedRoute
+                // logged in shows FavoriteOutfitList else shows LoginPage
+                exact
+                path="/favorites/outfits"
+              >
+                <FavoriteOutfitList />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows FavoriteItemCategoriesPage else shows LoginPage
+                exact
+                path="/favorites/categories"
+              >
+                <FavoriteItemCategoriesPage />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows FavoriteItemList else shows LoginPage
+                exact
+                path="/favorites/items"
+              >
+                <FavoriteItemList />
+              </ProtectedRoute>
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows Closet Outfit List else shows LoginPage
-              exact
-              path="/closet/outfits"
-            >
-              <ClosetPage />
-            </ProtectedRoute>
+            <ProtectedRoute path="/closet">
 
-            <ProtectedRoute
-               // logged in shows FavoriteItemCategoriesPage else shows LoginPage
-               exact
-               path="/favorites/categories"
-             >
-               <FavoriteItemCategoriesPage />
-             </ProtectedRoute>
+                <ToggleButton />
+                <ProtectedRoute
+                  // logged in shows Closet Outfit List else shows LoginPage
+                  exact
+                  path="/closet/outfits"
+                >
+                  <ClosetPage />
+                </ProtectedRoute>
+                
+                <ProtectedRoute
+                  // logged in shows Closet categories list else shows LoginPage
+                  exact
+                  path="/closet/categories"
+                >
+                  <ClosetItemPage />
+                </ProtectedRoute>
 
-             <ProtectedRoute
-               // logged in shows FavoriteItemList else shows LoginPage
-               exact
-               path="/favorites/items"
-             >
-               <FavoriteItemList />
-             </ProtectedRoute>
-            
-            <ProtectedRoute
-              // logged in shows Closet categories list else shows LoginPage
-              exact
-              path="/closet/categories"
-            >
-              <ClosetItemPage />
+
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -235,12 +250,14 @@ function App() {
               }
             </Route>
             
-
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>
               <h1>404</h1>
             </Route>
           </Switch>
+            <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
+                <BottomBar />
+            </Paper>
           <Footer />
         </div>
       </Router>

@@ -59,9 +59,6 @@ function ClosetPage () {
                     ))}
                 </ul>
             </div>
-            <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
-                <BottomBar />
-            </Paper>
         </>
     )
 } // end of ClosetPage
