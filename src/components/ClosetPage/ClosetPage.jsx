@@ -6,7 +6,6 @@ import { useHistory } from 'react-router'
 // import component
 import ClosetOutfitList from './ClosetOutfit.jsx';
 import SearchBar from '../SearchBar/SearchBar.jsx';
-import ToggleButton from '../ToggleButton/ToggleButton.jsx';
 
 function ClosetPage () {
 
@@ -37,7 +36,6 @@ function ClosetPage () {
     return (
         <>
             <div>
-                <ToggleButton />
                 <button onClick={handleCategory}>Category</button>
                 <SearchBar />
                 <h4>My Closet: Outfits</h4>

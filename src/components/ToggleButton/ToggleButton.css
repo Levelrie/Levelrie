@@ -3,9 +3,22 @@ button{
 }
 
 .frontButton{
-    z-index: 5
+    z-index: 5;
+    transition-timing-function: ease-in-out;
+    transition: .5s;
 }
 
 .backButton{
     z-index: 3;
 }
+
+#categoryButton {
+    transition-timing-function: ease-in-out;
+    transition: .5s;
+}
+
+#outfitButton {
+    transition-timing-function: ease-in-out;
+    transition: .5s;
+}
+

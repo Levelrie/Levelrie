@@ -61,8 +61,7 @@ function FavoriteOutfitList() {
     console.log('favoriteOutfits is:', favoriteOutfits);
     return (
         <>
-            {/* <p>Favorite Outfit List Page</p> */}
-            <ToggleButton toggleButtonClicked={toggleButtonClicked} highlighted={'outfit'} />
+            {/* <p>Favorite Outfit List Page</p> */} 
 
             <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (
