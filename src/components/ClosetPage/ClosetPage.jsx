@@ -11,7 +11,6 @@ import BottomBar from "../BottomBar/BottomBar";
 import Paper from '@mui/material/Paper';
 import './ClosetPage.css';
 
-
 function ClosetPage () {
 
     // use-selector
@@ -51,6 +50,7 @@ function ClosetPage () {
         <>
             <div className='outfitForm'>
             <ToggleButton toggleButtonClicked={toggleButtonClicked} highlighted={'outfit'} />
+
                 <SearchBar />
                 <h4>My Closet: Outfits</h4>
                 <ul className='outfit-ul'>
@@ -59,9 +59,6 @@ function ClosetPage () {
                     ))}
                 </ul>
             </div>
-            <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
-                <BottomBar />
-            </Paper>
         </>
     )
 } // end of ClosetPage

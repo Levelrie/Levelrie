@@ -141,10 +141,12 @@ INSERT INTO "users"
 INSERT INTO "outfits"
  	("name", "description")
  		VALUES
- 			('All business', 'For closing that deal'),
- 			('Something more comfortable', 'For staying in'),
- 			('Business and Pleasure', 'For going out'),
- 			('Casual Vibes', 'For running errands');
+			('All business', 'For closing that deal'),
+			('Rebel with a cause', 'For taking names'),
+			('Business and pleasure', 'For going out'),
+			('Casual vibes', 'For running errands')
+			('Rebel without a cause', 'For taking names'), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			('Casual vibes dupe', 'For running errands'); -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
 
 
 INSERT INTO "items"
@@ -183,47 +185,56 @@ INSERT INTO "items"
 INSERT INTO "outfit_items"
  	("outfit_id", "item_id")
  		VALUES
- 			(1, 1),
- 			(1, 8),
- 			(1, 18),
- 			(1, 24),
- 			(2, 2),
- 			(2, 4),
- 			(2, 19),
- 			(2, 23),
- 			(3, 6),
- 			(3, 13),
- 			(3, 20),
- 			(4, 10),
- 			(4, 11),
- 			(4, 16),
- 			(4, 21);
+			(1, 10),
+			(1, 8),
+			(1, 18),
+			(1, 24),
+			(2, 10),
+			(2, 11),
+			(2, 12),
+			(2, 22),
+			(3, 7),
+			(3, 10),
+			(3, 18),
+			(3, 24),
+			(4, 10),
+			(4, 3),
+			(4, 19),
+			(4, 23),
+			(5, 10), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			(5, 11), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			(5, 12), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			(5, 22), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			(6, 10), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			(6, 3), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			(6, 19), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			(6, 23); -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
 
 
-INSERT INTO "favorited_outfits"
- 	("user_id", "outfit_id")
- 		VALUES
- 			(1, 3),
- 			(1, 4);
+-- INSERT INTO "favorited_outfits"
+--  	("user_id", "outfit_id")
+--  		VALUES
+--  			(1, 3),
+--  			(1, 4);
 
 
-INSERT INTO "favorited_items"
- 	("favorited_outfit_id", "item_id")
- 		VALUES
- 			(1, 6),
- 			(1, 13),
- 			(1, 20),
- 			(2, 10),
- 			(2, 11),
- 			(2, 16),
- 			(2, 21);
+-- INSERT INTO "favorited_items"
+--  	("favorited_outfit_id", "item_id")
+--  		VALUES
+--  			(1, 6),
+--  			(1, 13),
+--  			(1, 20),
+--  			(2, 10),
+--  			(2, 11),
+--  			(2, 16),
+--  			(2, 21);
 
 
-INSERT INTO "favorited_solo"
- 	("user_id", "item_id")
- 		VALUES
- 			(1, 25),
- 			(1, 26),
- 			(1, 27),
- 			(1, 4), 
- 			(1, 5);
+-- INSERT INTO "favorited_solo"
+--  	("user_id", "item_id")
+--  		VALUES
+--  			(1, 25),
+--  			(1, 26),
+--  			(1, 27),
+--  			(1, 4), 
+--  			(1, 5);

@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects';
-import adminLoginSaga from './admin_login.saga';
-import adminRegistrationSaga from './admin_registration.saga';
+import loginAdminSaga from './login.admin.saga';
+import registrationAdminSaga from './registration.admin.saga';
 import adminSaga from './admin.saga';
 import loginSaga from './login.saga';
 import outfitsSaga from './outfits.saga';
@@ -19,8 +19,8 @@ import closetSaga from './closet.saga';
 // and login triggers setting the user
 export default function* rootSaga() {
   yield all([
-    adminLoginSaga(), // login saga is now registered
-    adminRegistrationSaga(),
+    loginAdminSaga(), // login saga is now registered
+    registrationAdminSaga(),
     adminSaga(),
     loginSaga(),
     outfitsSaga(),
@@ -29,5 +29,6 @@ export default function* rootSaga() {
     itemsSaga(),
     favoritesSaga(),
     closetSaga(),
+    outfitsSaga()
   ]);
 }
