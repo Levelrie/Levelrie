@@ -18,6 +18,7 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
     '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
       bottom: theme.spacing(2),
       right: theme.spacing(2),
+      color: theme.palette.baseGrey
     },
     '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
       top: theme.spacing(2),
@@ -50,6 +51,7 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
             onClose={handleClose}
             onOpen={handleOpen}
             open={open}
+            
           >
             {actions.map((action) => (
               <SpeedDialAction
@@ -59,6 +61,7 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
                 tooltipOpen
                 onClick={handleClose}
                 tooltipPlacement="right"
+                
               />
             ))}
           </StyledSpeedDial>

@@ -14,11 +14,11 @@ export default function PayNow() {
             <Stack direction='row' justifyContent='space-around'>
                 <Stack spacing={0}>
                     <p className='priceTeam'>Total:</p>
-                    <p className='priceTeam'>$567.89</p>
+                    <p className='priceTeam'>$299.00</p>
                 </Stack>
                 <Button variant='contained' onClick={() => history.push('/checkout')}> Pay Now!</Button>
             </Stack>
-            <p>This is the final step, after touching Pay Now button, the payment will be transacted</p>
+            <p>This is the final step, after touching the Pay Now button, the payment will be transacted</p>
         </Stack>
     )
 }

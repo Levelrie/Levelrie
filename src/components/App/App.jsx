@@ -29,6 +29,7 @@ import CheckoutSelector from '../CheckoutSelectors/CheckoutSelectors.jsx'
 import ModifyPayment from '../ModifyPayment/ModifyPayment';
 import ModifyShipping from '../ModifyShipping/ModifyShipping';
 import CheckoutConfirmation from '../CheckoutConfirmation/CheckoutConfirmation';
+import CheckoutLanding from '../CheckoutSelectors/CheckoutLanding';
 
 //  CSS Import
 import './App.css';
@@ -151,6 +152,14 @@ function App() {
             >
               <FavoriteOutfitList />
             </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows cart else shows LoginPage
+              exact
+              path="/cartlanding"
+            >
+              <CheckoutLanding />
+            </ProtectedRoute>
+
             <ProtectedRoute
               // logged in shows cart else shows LoginPage
               exact

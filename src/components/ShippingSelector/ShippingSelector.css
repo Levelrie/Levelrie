@@ -4,9 +4,11 @@
     background-color: #F5F5F5;
 }
 
-#shippingEstimate{
-    background-color: #F2DCF2;
+.addressDisplay{
+    background-color: #F5F5F5
 }
+
+
 
 .estimateText{
     margin: 0;
