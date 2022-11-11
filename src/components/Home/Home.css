@@ -17,5 +17,6 @@
    background-color: rgb(255, 255, 255);
 }
 .stack {
-   position: relative;
+   position: fixed;
+   width: 100%;
 }
