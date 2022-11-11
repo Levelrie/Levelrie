@@ -6,6 +6,7 @@ import TinderCard from 'react-tinder-card'
 import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
 import BottomBar from "../BottomBar/BottomBar";
 import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
 
 import './Home.css'
 
@@ -49,27 +50,25 @@ const favoriteOutfit = (id) => {
 
     return (
         <>
+            <Container maxWidth="lg">
             <div className="stack">
                 {outfitsArray.map((outfit) => {
-
                     return (
-
                         <TinderCard key={outfit.id}
                                     className="outfitHomeBox"
                                     onSwipe={(direction) => onSwipe(direction, outfit.id)}
                                     preventSwipe={['up', 'down']}
                                     >
-                                <OutfitHomeItem outfit={outfit}/>
-                                <p><button onClick={rejectOutfit}>Swipe Left</button><button onClick={favoriteOutfit}>Swipe Right</button></p>
-
+                                        {/* <Paper variant="outlined" square> */}
+                                            <OutfitHomeItem outfit={outfit}/>
+                                        {/* </Paper> */}
+                                {/* below swipe buttons no longer needed due to actual swiping capabilities */}
+                                {/* <p><button onClick={rejectOutfit}>Swipe Left</button><button onClick={favoriteOutfit}>Swipe Right</button></p> */}
                         </TinderCard>
-
-
                     );
-
-
                 })}
             </div>
+            </Container>
             <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
                 <BottomBar />
             </Paper>
