@@ -22,7 +22,20 @@ function* unfavoriteItem(action) {
     }
 }
 
+function* fetchCategories() {
+    try {
+        const categories = yield axios.get('/api/item/categories');
+        console.log(categories.data);
+
+
+    } catch (error) {
+        console.log('itemsSaga fetchCategories function error', error);
+    }
+
+}
+
 export default function* itemsSaga() {
     yield takeEvery('SAGA_FAVORITE_ITEM', favoriteItem);
     yield takeEvery('SAGA_UNFAVORITE_ITEM', unfavoriteItem);
+    yield takeEvery('SAGA_FETCH_CATEGORIES',fetchCategories);
 }
