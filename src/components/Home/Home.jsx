@@ -13,6 +13,7 @@ export default function Home() {
     const dispatch = useDispatch();
 
     const outfitsArray = useSelector(store => store.outfits.outfits);
+    const counter = useSelector(store => store.outfits.counter);
 
 
     useEffect(() => {
@@ -59,7 +60,7 @@ const favoriteOutfit = (id) => {
                                     onSwipe={(direction) => onSwipe(direction, outfit.id)}
                                     preventSwipe={['up', 'down']}
                                     >
-                                <OutfitHomeItem outfit={outfit}/>
+                                <OutfitHomeItem outfit={outfit} counter={counter}/>
                                 <p><button onClick={rejectOutfit}>Swipe Left</button><button onClick={favoriteOutfit}>Swipe Right</button></p>
 
                         </TinderCard>
