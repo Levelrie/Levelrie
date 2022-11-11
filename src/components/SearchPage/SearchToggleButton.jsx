@@ -11,7 +11,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 
-export default function SearchToggleButton() {
+export default function SearchToggleButton({setConstraint, currentCategories, setCategories}) {
 
     const dispatch = useDispatch();
 
@@ -33,13 +33,22 @@ export default function SearchToggleButton() {
             case 'outfit':
                 setCatsDisabled(true);
                 setIsFront(true);
+                setConstraint('outfits')
                 break;
             case 'category':
                 setCatsDisabled(false);
                 setIsFront(false);
+                setConstraint('items')
                 break;
         }
 
+    }
+
+    const handleSwitch = (e) => {
+        // console.log(e)
+        // It always adds right now. Fix!!!
+        setCategories([...currentCategories, e.target.value]);
+        console.log(currentCategories);
     }
 
   return (
@@ -54,7 +63,7 @@ export default function SearchToggleButton() {
                 <FormControlLabel
                     key={i}
                     value={category.name}
-                    control={<Switch color="primary" />}
+                    control={<Switch color="primary" onChange={(e) => handleSwitch(e)} />}
                     label={category.name}
                     labelPlacement="top"
                     disabled={catsDisabled}
