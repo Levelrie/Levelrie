@@ -23,7 +23,7 @@ router.get('/home', (req, res) => {
                             favorited_outfits.user_id AS favorited_by, 
                             rejections.user_id AS rejected_by, 
                             JSON_AGG((items, categories.name)) AS items 
-                     FROM "outfits"
+                    FROM "outfits"
                             JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
                             JOIN "items" ON outfit_items.item_id = items.id
                             INNER JOIN "categories" ON items.category_id = categories.id

@@ -21,16 +21,16 @@ import AdminDesignBuilder from '../AdminDesignBuilder/AdminDesignBuilder';
 function AdminDesign() {
 
   const dispatch = useDispatch();
-  const category = useSelector((store) => store.category);
+  const categories = useSelector((store) => store.categories);
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
     dispatch ({
-      type: 'FETCH_CATEGORY'
+      type: 'SAGA_FETCH_CATEGORIES'
     })
     return () => {
       dispatch ({
-        type: 'CLEAR_CATEGORY'
+        type: 'CLEAR_CATEGORY_NAMES'
       })
     }
   }, [user.isAdmin])
@@ -48,22 +48,29 @@ function AdminDesign() {
 
   const testClicker = () => {
     console.log('is admin?', user.isAdmin);
+    console.log('categories?', categories);
   }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={0.1}>
-        <Grid item xs={5} backgroundColor='blue'>
-          <Item >
+        <Grid item xs={5}>
+          <Card sx={{ height: '90vh', margin: 2, backgroundColor: "pink"}}>
             <Button onClick={testClicker}>
               CLICKER
               {/* <LogOutAdminButton /> */}
             </Button>
           <AdminDesignBuilder />
-          </Item>
+          </Card>
         </Grid>
-        <Grid item xs={7} backgroundColor='blue'>
-          <AdminDesignSlider />
+        <Grid item xs={7}>
+          <Card sx={{ height: '90vh', margin: 2, backgroundColor: "tan"}}>
+          {categories.map(category => (
+            <CardContent key={category.name}>
+              <AdminDesignSlider category={category.name} />
+            </CardContent>
+          ))}
+          </Card>
         </Grid>
       </Grid>
     </Box>
