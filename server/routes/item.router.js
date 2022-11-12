@@ -221,23 +221,4 @@ router.get('/all', (req, res) => {
     });
 });
 
-// router.get('/all/:id', async (req, res) => {
-//     // console.log('category id:', req.params.id);
-//     const category_id = req.params.id;
-//     const sqlFetchText = `SELECT * FROM "items"
-//         WHERE category_id = $1
-//         ;`
-//     const connection = await pool.connect();
-//     try {
-//         await connection.query('BEGIN;');
-//         await connection.query(sqlFetchText, [category_id]);
-//         res.send(someShitGoesHereMaybe??);
-//     } catch (error) {
-//         await connection.query('ROLLBACK;');
-//         console.log('Error in GET /api/item/all queries', error)
-//         res.sendStatus(500);
-//     }  
-//     connection.release();
-// });
-
 module.exports = router;

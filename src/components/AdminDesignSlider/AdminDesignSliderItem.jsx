@@ -17,9 +17,9 @@ import Grid from '@mui/material/Grid';
 function AdminDesignSliderItem({item}) {
 
   return (
-    <Card sx={{ height: '12vh', margin: 2, padding: 1, backgroundColor: "pink", }}>
+    <Card sx={{ height: '14vh', margin: 1, padding: 1, backgroundColor: "pink", }}>
       <CardMedia
-        sx={{ objectFit: 'contain', maxHeight: '12vh',}}
+        sx={{ objectFit: 'contain', maxHeight: '12vh', margin: 'auto'}}
         className="itemSliderImg"
         component="img"
         image={item.img}

@@ -39,10 +39,8 @@ function* fetchCategories() {
 
 //  Generator function to GET all items and store them in items reducer
 function* fetchItems() {
-    // console.log('sagas 111:', action.payload);
     try {
         const items = yield axios.get('/api/item/all');
-        console.log('items:', items);  //   REMOVE ME WHEN SLIDER ITEMS FIGURED OUT
         yield put({
             type: 'SET_ITEMS',
             payload: items.data

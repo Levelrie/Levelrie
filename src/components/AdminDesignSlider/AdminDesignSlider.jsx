@@ -83,7 +83,7 @@ function AdminDesignSlider({category}) {
   }
 
   return (
-    <Slider {...settings}>
+    <Slider {...settings} >
       {itemArray.map(item => (
         <span key={item.id}>
           <AdminDesignSliderItem item={item} /> 
