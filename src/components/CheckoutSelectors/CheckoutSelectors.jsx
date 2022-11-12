@@ -21,7 +21,7 @@ export default function CheckoutSelector() {
         console.log('How many???');
     }, []);
 
-
+    console.log('cart???', cart)
     return(
 
 

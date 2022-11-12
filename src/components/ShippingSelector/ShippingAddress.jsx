@@ -1,8 +1,22 @@
 import Box from '@mui/material/Box'
 import './ShippingSelector.css'
+import { useDispatch, useSelector } from 'react-redux'
+import * as React from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+
+
+
+
 
 
 export default function ShippingAddress({ address }){
+    const user = useSelector(store => store.user)
+    console.log('address in shipping address!!!!!!!!!!!!!!!!!!!!!!!!!', address)
 
     // const home = {
     //     name: 'Kyle Jensen',
@@ -13,12 +27,20 @@ export default function ShippingAddress({ address }){
     // }
 
     return(
-        <Box className='addressDisplay' width={1} lineHeight={.5}>
-            
-                <p>{address.name}</p>
-                <p>{address.street_address}</p>
-                <p>{address.city} {address.state}, {address.zip}</p>
-           
-        </Box>
+
+                <FormControlLabel value={address.id} control={<Radio/>} label={
+                    <Box className='addressDisplay' width={1} lineHeight={.5}>
+                        <p>{user.name}</p>
+                        <p>{address.street_address}</p>
+                        <p>{address.city} {address.state}, {address.zip}</p>
+                    </Box>
+                
+                }/>
+ 
+        
+        
+        
     )
 }
+
+{/*   */}

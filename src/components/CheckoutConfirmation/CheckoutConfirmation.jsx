@@ -46,7 +46,7 @@ export default function CheckoutConfirmation(){
                 <h3 className='checkoutText'>Thank you!</h3>
                 <h5 className='checkoutText'>Your order #BE12345 has been placed.</h5>
                 <p className='checkoutText'>We sent an email to {user.email} with your order confirmation and bill.</p>
-                <p className='checkoutText'>Time placed:{Date.now().toString()} </p>
+                <p className='checkoutText'>Time placed: {new Date().toLocaleString()} </p>
                 <Stack className="checkoutShipping" direction='row' width={1}>
                     <ShippingEstimate />
                 </Stack>
