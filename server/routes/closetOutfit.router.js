@@ -14,6 +14,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     `;
 
     const sqlValues = [req.user.id]
+
     pool.query(query, sqlValues)
       .then( result => {
         // console.log(result.rows);

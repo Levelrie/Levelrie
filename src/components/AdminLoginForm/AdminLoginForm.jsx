@@ -1,28 +1,27 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
 
 //  MUI Tools
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
+//  CSS Import
+import './AdminLoginForm.css'
+
 function AdminLoginForm() {
 
-  //  Local State for Input Fields
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  const admin_error = useSelector(store => store.admin_errors);
-
+  const error = useSelector(store => store.errors);
   const dispatch = useDispatch();
 
-  //  function to dispatch inputs for login process
+   //  function to dispatch inputs for login process
   const login = (event) => {
     event.preventDefault();
     if (username && password) {
       dispatch({
-        type: 'ADMIN_LOGIN',
+        type: 'LOGIN_ADMIN',
         payload: {
           username: username,
           password: password,
@@ -30,24 +29,26 @@ function AdminLoginForm() {
       });
     } //  end IF
     else {
-      dispatch({ type: 'ADMIN_LOGIN_INPUT_ERROR' });
+      dispatch({ type: 'LOGIN_INPUT_ERROR' });
     } //  end ELSE
   }; // end login function
 
+  //  form element with stacked textfields and button to allow
+  //  users to login to their admin account
   return (
-    <form className='loginForm' onSubmit={login}>
-      {admin_error.loginMessage && (
-        <h3 className="alert" role="alert">
-          {admin_error.loginMessage}
+    <form className='adminLoginForm' onSubmit={login}>
+      {error.loginMessage && (
+        <h3 id="alertMsg" className="alert" role="alert">
+          {error.loginMessage}
         </h3>
       )}
-      <Stack direction="column"  spacing={2} alignItems="center">
+      <Stack direction="column"  spacing={1} alignItems="center">
         <TextField 
           id="username" 
           label="username" 
           variant="outlined"
           type="text"
-          size="small"
+          // size="small"
           required
           value={username}
           onChange={(event) => setUsername(event.target.value)} 
@@ -57,17 +58,16 @@ function AdminLoginForm() {
           label="password" 
           variant="outlined"
           type="password"
-          size="small"
+          // size="small"
           required
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <Button variant="contained" type="submit" value="Log In">
+        <Button variant="contained" type="submit">
           Login
         </Button>
       </Stack>
     </form>
   );
 }
-
 export default AdminLoginForm;

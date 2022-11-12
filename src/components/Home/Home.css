@@ -1,5 +1,22 @@
 .outfitHomeBox {
     padding: 10px;
     border-color: black;
-    border-style: dotted;
+    /* border-style: dotted; */
+
+    left: 0px;
+    position: absolute;
+    top: 0px;
+
+    /* Take full size */
+    /* height: 80vh;
+    width: 94%; */
+
+    z-index: 1;
+
+   /* Background and border colors */
+   background-color: rgb(255, 255, 255);
+}
+.stack {
+   position: fixed;
+   width: 100%;
 }

@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 // Closet Outfit Reducer
 const closetOutfitsReducer = (state = [], action) => {
     // console.log('in closetOutfitsReducer');
+    // console.log('what is out action.payload', action.payload);
     switch (action.type) {
         case 'SET_CLOSET_OUTFITS':
             return action.payload;

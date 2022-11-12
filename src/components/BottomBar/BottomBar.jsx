@@ -4,18 +4,68 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+ import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
+ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+
+ import { useLocation, useHistory } from 'react-router-dom';
+ import { useEffect, useState } from 'react';
 
 
-export default function BottomBar() {
-  const [value, setValue] = React.useState('recents');
+ export default function BottomBar() {
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+   let location = useLocation();
+   let history = useHistory();
 
-  return (
+   useEffect(() => {
+    switch(location.pathname) {
+      case '/home':
+        setValue('swipe');
+        break;
+      case `/favorites/outfits`:
+        setValue('Favorites');
+        break;
+      case `/cart`:
+        setValue('Cart');
+        break;  
+      case `/closet/outfits`:
+        setValue('Closet');
+        break;    
+      case `/search`:
+        setValue('Search');
+        break;
+
+    }
+
+  }, [location]);
+
+
+   const [value, setValue] = React.useState('recents');
+
+   const handleChange = (event, newValue) => {
+     setValue(newValue);
+
+     switch(newValue) {
+      case 'swipe':
+        history.push('/home');
+        break;
+      case 'Favorites':
+        history.push('/favorites/outfits');
+        break;
+      case 'Cart':
+        history.push('/cart');
+        break;
+      case 'Search':
+        history.push('/search');
+        break;
+      case 'Closet':
+        history.push('/closet/outfits');
+        break;
+    }
+     console.log(newValue);
+     console.log(location);
+   };
+
+   return (
     <BottomNavigation  sx={{ width: 1 }} value={value} onChange={handleChange}>
          <BottomNavigationAction
         label="Closet"

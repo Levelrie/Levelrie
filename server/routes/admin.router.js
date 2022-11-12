@@ -11,7 +11,7 @@ const router = express.Router();
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
-  res.send(req.admins);
+  res.send(req.user);
 });
 
 // Handles POST request with new user data
@@ -20,13 +20,18 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
-  const queryText = `INSERT INTO "admins" (username, password)
-    VALUES ($1, $2) RETURNING id`;
+  const first_name = req.body.firstName;
+  const last_name = req.body.lastName;
+  const email = req.body.email;
+  const isAdmin = true;
+
+  const queryText = `INSERT INTO "users" (username, password, first_name, last_name, email, "isAdmin")
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
   pool
-    .query(queryText, [username, password])
+    .query(queryText, [username, password, first_name, last_name, email, isAdmin])
     .then(() => res.sendStatus(201))
     .catch((err) => {
-      console.log('Admin registration failed: ', err);
+      console.log('User registration failed: ', err);
       res.sendStatus(500);
     });
 });
