@@ -180,7 +180,7 @@ router.get('/search', (req, res) => {
 
 router.get('/categories', (req, res) => {
 
-    const sqlFetchText = `SELECT name FROM "categories"
+    const sqlFetchText = `SELECT * FROM "categories"
         ORDER BY CASE   
             WHEN name = 'outerwear' THEN 1
             WHEN name = 'top' THEN 2
@@ -189,6 +189,7 @@ router.get('/categories', (req, res) => {
             WHEN name = 'footwear' THEN 5
             ELSE 6
         END
+        LIMIT 5
         ;`
 
     pool.query(sqlFetchText)
@@ -202,6 +203,22 @@ router.get('/categories', (req, res) => {
 
 });
 
+// •••••••••••••••••••••••••••••••••••••••• FETCH ITEMS ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
 
+router.get('/all', (req, res) => {
+    // console.log('category id:', req.params.id);
+    // const category_id = req.params.id;
+    const sqlFetchText = `SELECT * FROM "items"
+        ORDER BY category_id
+        ;`
+    pool.query(sqlFetchText)
+    .then((results) => {
+        res.send(results.rows);
+    })
+    .catch((error) => {
+        console.log('Error in GET /api/item/all query', error);
+        res.sendStatus(500);
+    });
+});
 
 module.exports = router;
