@@ -1,22 +1,18 @@
-.outfitHomeBox {
-    padding: 10px;
-    border-color: black;
-    /* border-style: dotted; */
+.swipeCardContainer {
+   aspect-ratio: 1 / 1;
+   position: absolute;
+   width: 100vw;
+   height: 100vh;
+ }
 
-    left: 0px;
-    position: absolute;
-    top: 0px;
-
-    /* Take full size */
-    /* height: 80vh;
-    width: 94%; */
-
-    z-index: 1;
-
-   /* Background and border colors */
-   background-color: rgb(255, 255, 255);
-}
-.stack {
-   position: fixed;
-   width: 100%;
+.swipeCard {
+   position: absolute;
+   background-color: #fff;
+   width: 80vw;
+   max-width: 90vw;
+   box-shadow: 4px 4px 5px 0px rgb(204, 204, 204);
+   border-radius: 15px;
+   background-size: cover;
+   background-position: center;
+   padding: 20px;
 }
