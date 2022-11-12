@@ -11,15 +11,15 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('BREAKING HERE?????? 0');
     
     const userId = req.user.id;
-    const itemIds = req.body.itemId;
+    const address = req.body.address;
 
 
     // If the outfit isn't yet tied to this user
     //      add the entry to favorited_outfits
-    const sqlAddItemText = `INSERT INTO "carts"
-                                    ("user_id", "itemId")
+    const sqlAddAddressText = `INSERT INTO "addresses"
+                                    ("user_id", "street_address", "city", "state", "zip")
                                     VALUES
-                                    ($1, $2);`
+                                    ($1, $2, $3, $4, $5);`
                                     
 
 
@@ -30,11 +30,11 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         console.log('BREAKING HERE?????? 1');
 
         // Add the item next
-        for(let itemId of itemIds){
-          await connection.query(sqlAddItemText, [userId, itemId]);
+        
+        await connection.query(sqlAddAddressText, [userId, address.street_address, address.city, address.state, address.zip]);
 
         console.log('BREAKING HERE?????? 2');
-        }
+        
         // Confirm successful actions
         await connection.query('COMMIT;');
 
@@ -58,15 +58,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 router.get('/', (req, res) => {
   console.log('Yo', req.user)
   const sqlText = `
-    SELECT * from "items"
-      join "carts" on carts.item_id = items.id
-        WHERE carts.user_id = $1;
+    SELECT * from "addresses"
+        WHERE user_id = $1;
   `
-  const sqlValues = [1]
-    pool.query(sqlText, sqlValues)
+    pool.query(sqlText, [1])
         .then((dbRes) => {
-            console.log('dbRes.rows is:', dbRes.rows[0]);
-            res.send(dbRes.rows[0])
+            console.log('dbRes.rows is:', dbRes.rows);
+            res.send(dbRes.rows)
         }).catch(dbErr => {
             console.log('dbErr in /favorites/outfits:', dbErr);
             res.sendStatus(500);
