@@ -1,14 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-
 import TinderCard from 'react-tinder-card'
-
 import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
-import Paper from '@mui/material/Paper';
-
-
 import './Home.css'
 
 export default function Home() {
@@ -53,13 +46,11 @@ const favoriteOutfit = (id) => {
     console.log('outfitsArray is:', outfitsArray)
     return (
         <>
-        <Container className="cardContainer">
-        {/* <Paper> */}
+        <div className="swipeCardContainer">
             {outfitsArray.map((outfit) => {
                     return (
                         <TinderCard key={outfit.id}
-                                    // className="outfitHomeBox"
-                                    className="card"
+                                    className="swipeCard"
                                     onSwipe={(direction) => onSwipe(direction, outfit.id)}
                                     preventSwipe={['up', 'down']}
                                     >
@@ -67,22 +58,7 @@ const favoriteOutfit = (id) => {
                         </TinderCard>
                     );
                 })}
-        {/* </Paper> */}
-        </Container>
-            {/* <div className="stack">
-                {outfitsArray.map((outfit) => {
-                    return (
-                        <TinderCard key={outfit.id}
-                                    className="outfitHomeBox"
-                                    onSwipe={(direction) => onSwipe(direction, outfit.id)}
-                                    preventSwipe={['up', 'down']}
-                                    >
-                                            <OutfitHomeItem outfit={outfit}/>
-                        </TinderCard>
-                    );
-                })}
-            </div> */}
-        
+        </div>        
         </>
     );
 }
