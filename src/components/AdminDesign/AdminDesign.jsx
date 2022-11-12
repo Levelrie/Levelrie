@@ -17,6 +17,7 @@ import Grid from '@mui/material/Grid';
 import LogOutAdminButton from '../LogOutAdminButton/LogOutAdminButton';
 import AdminDesignSlider from '../AdminDesignSlider/AdminDesignSlider';
 import AdminDesignBuilder from '../AdminDesignBuilder/AdminDesignBuilder';
+import { autocompleteClasses } from '@mui/material';
 
 function AdminDesign() {
 
@@ -35,17 +36,7 @@ function AdminDesign() {
     }
   }, [user.isAdmin])
 
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    height: '95vh',
-    margin: 5,
-    marginTop: 15,
-    color: theme.palette.text.secondary,
-  }));
-
+  //  TO BE REMOVED LATER
   const testClicker = () => {
     console.log('is admin?', user.isAdmin);
     console.log('categories?', categories);
@@ -64,13 +55,13 @@ function AdminDesign() {
           </Card>
         </Grid>
         <Grid item xs={7}>
-          <Card sx={{ height: '90vh', margin: 2, backgroundColor: "tan"}}>
+          <Box sx={{ height: '95vh', margin: 1, py: 0}}>
           {categories.map(category => (
-            <CardContent key={category.name}>
-              <AdminDesignSlider category={category.name} />
-            </CardContent>
+            <Box sx={{margin: 1, py: 0, px: 4, backgroundColor: "tan", display: 'flex', flexDirection: 'column' }} key={category.id}>
+              <AdminDesignSlider category={category} />
+            </Box>
           ))}
-          </Card>
+          </Box>
         </Grid>
       </Grid>
     </Box>

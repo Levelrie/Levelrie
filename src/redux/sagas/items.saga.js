@@ -37,8 +37,26 @@ function* fetchCategories() {
 
 }
 
+//  Generator function to GET all items and store them in items reducer
+function* fetchItems() {
+    // console.log('sagas 111:', action.payload);
+    try {
+        const items = yield axios.get('/api/item/all');
+        console.log('items:', items);  //   REMOVE ME WHEN SLIDER ITEMS FIGURED OUT
+        yield put({
+            type: 'SET_ITEMS',
+            payload: items.data
+        })
+
+    } catch (error) {
+        console.log('itemsSaga fetchItems function error', error);
+    }
+
+}
+
 export default function* itemsSaga() {
     yield takeEvery('SAGA_FAVORITE_ITEM', favoriteItem);
     yield takeEvery('SAGA_UNFAVORITE_ITEM', unfavoriteItem);
     yield takeEvery('SAGA_FETCH_CATEGORIES',fetchCategories);
+    yield takeEvery('SAGA_FETCH_ITEMS',fetchItems);
 }
