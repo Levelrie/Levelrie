@@ -180,7 +180,16 @@ router.get('/search', (req, res) => {
 
 router.get('/categories', (req, res) => {
 
-    const sqlFetchText = `SELECT name FROM "categories";`
+    const sqlFetchText = `SELECT name FROM "categories"
+        ORDER BY CASE   
+            WHEN name = 'outerwear' THEN 1
+            WHEN name = 'top' THEN 2
+            WHEN name = 'accessories' THEN 3
+            WHEN name = 'bottom' THEN 4
+            WHEN name = 'footwear' THEN 5
+            ELSE 6
+        END
+        ;`
 
     pool.query(sqlFetchText)
     .then((results) => {
