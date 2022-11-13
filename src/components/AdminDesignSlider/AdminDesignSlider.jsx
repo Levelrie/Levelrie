@@ -1,6 +1,5 @@
-import React, { useEffect, Component }from 'react';
+import React, { useEffect }from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 //  Component
 import AdminDesignSliderItem from './AdminDesignSliderItem';
@@ -21,11 +20,15 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
+//  CSS
+import './AdminDesignSlider.css';
+
 function AdminDesignSlider({category}) {
 
   const dispatch = useDispatch();
   const items = useSelector((store) => store.items);
 
+  //  Get all them items
   useEffect(() => {
     dispatch ({
       type: 'SAGA_FETCH_ITEMS'
@@ -37,11 +40,14 @@ function AdminDesignSlider({category}) {
     }
   }, [])
 
+  //  Creates a new array of items based on category passed in
+  //  Allows the DOM to be populated with a completed row of each category items
   const itemArray = [];
   {items.map(item => (item.category_id === category.id ? itemArray.push(item) : ''))}
   console.log('Items in category:', category.name, 'Equal:', itemArray);
   const catName = category.name;
 
+  //  Slider Settings
   const settings = {
     dots: true,
       infinite: true,
@@ -78,10 +84,7 @@ function AdminDesignSlider({category}) {
       ]
   };
 
-  const clicky = () => {
-    console.log('items', items);
-  }
-
+  //  Return maps through each category passed in
   return (
     <Slider {...settings} >
       {itemArray.map(item => (

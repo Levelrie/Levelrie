@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -12,11 +12,16 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+
 
 //  Component Import
 import LogOutAdminButton from '../LogOutAdminButton/LogOutAdminButton';
 import AdminDesignSlider from '../AdminDesignSlider/AdminDesignSlider';
-import AdminDesignBuilder from '../AdminDesignBuilder/AdminDesignBuilder';
+import OutfitDesignBuilder from '../OutfitDesignBuilder/OutfitDesignBuilder';
+import OutfitDesignDetails from '../OutfitDesignDetails/OutfitDesignDetails';
+import ItemDesignBuilder from '../ItemDesignBuilder/ItemDesignBuilder';
+import ItemDesignDetails from '../ItemDesignDetails/ItemDesignDetails';
 import { autocompleteClasses } from '@mui/material';
 
 function AdminDesign() {
@@ -24,6 +29,9 @@ function AdminDesign() {
   const dispatch = useDispatch();
   const categories = useSelector((store) => store.categories);
   const user = useSelector((store) => store.user);
+
+  const [outfitDesign, setOutfitDesign] = useState(true);
+  const [itemDesign, setItemDesign] = useState(false);
 
   useEffect(() => {
     dispatch ({
@@ -36,6 +44,8 @@ function AdminDesign() {
     }
   }, [user.isAdmin])
 
+
+
   //  TO BE REMOVED LATER
   const testClicker = () => {
     console.log('is admin?', user.isAdmin);
@@ -46,18 +56,21 @@ function AdminDesign() {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={0.1}>
         <Grid item xs={5}>
-          <Card sx={{ height: '90vh', margin: 2, backgroundColor: "pink"}}>
-            <Button onClick={testClicker}>
-              CLICKER
-              {/* <LogOutAdminButton /> */}
-            </Button>
-          <AdminDesignBuilder />
-          </Card>
+          <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "teal"}}>
+            <Stack direction="column" spacing={2} display='flex'>
+              <Stack alignSelf='center' direction="row" spacing={2}>
+                <Button variant="contained" onClick={(event) => {setOutfitDesign(true)}} color={outfitDesign ? 'primary' : 'baseTan' } >Add/Edit Outfits</Button>
+                <Button variant="contained" onClick={(event) => {setOutfitDesign(false)}} color={outfitDesign ? 'baseTan' : 'primary' }>Add/Edit Items</Button>
+              </Stack>
+              {outfitDesign ? <OutfitDesignBuilder /> : <ItemDesignBuilder />}
+              {outfitDesign ? <OutfitDesignDetails /> : <ItemDesignDetails />}
+            </Stack>
+          </Box>
         </Grid>
         <Grid item xs={7}>
-          <Box sx={{ height: '95vh', margin: 1, py: 0}}>
+          <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: 'teal'}}>
           {categories.map(category => (
-            <Box sx={{margin: 1, py: 0, px: 4, backgroundColor: "tan", display: 'flex', flexDirection: 'column' }} key={category.id}>
+            <Box sx={{margin: 1, py: 0, px: 4, backgroundColor: "#BFA78A", borderRadius: 2, display: 'flex', flexDirection: 'column' }} key={category.id}>
               <AdminDesignSlider category={category} />
             </Box>
           ))}
