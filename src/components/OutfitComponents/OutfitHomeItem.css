@@ -22,7 +22,7 @@
     z-index: 2
 }
 
-#bottoms {
+#bottom {
     grid-column: 9 / span 4;
     grid-row: 2 / span 12;
     z-index: 1
@@ -34,7 +34,7 @@
     z-index: 4
 }
 
-#accessory {
+#accessories {
     grid-column: 8 / span 3;
     grid-row: 1;
     z-index: 5
