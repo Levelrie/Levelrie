@@ -157,7 +157,9 @@ router.get('/search', (req, res) => {
     let category = req.query.cat;
 
     // Add '%' to the end of the query string for the database
-    query += '%';
+    if (query != '') {
+        query += '%';
+    }
 
     const sqlSearchText = `SELECT items.* FROM "items"
                         JOIN "categories" ON items.category_id = categories.id

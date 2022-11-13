@@ -33,21 +33,28 @@ export default function SearchToggleButton({setConstraint, currentCategories, se
             case 'outfit':
                 setCatsDisabled(true);
                 setIsFront(true);
-                setConstraint('outfits')
+                setConstraint('globalOutfits')
                 break;
             case 'category':
                 setCatsDisabled(false);
                 setIsFront(false);
-                setConstraint('items')
+                setConstraint('globalItems')
                 break;
         }
 
     }
 
     const handleSwitch = (e) => {
-        // console.log(e)
-        // It always adds right now. Fix!!!
-        setCategories([...currentCategories, e.target.value]);
+
+        // If this switch is being turned to "on"
+        if (e.target.checked) {
+            setCategories([...currentCategories, e.target.value]);
+        } else if (!e.target.checked) {
+            // If this switch is being turned "off"
+            // Remove it from the category list
+            let filtered = currentCategories.filter(category => category != e.target.value);
+            setCategories(filtered);
+        }
         console.log(currentCategories);
     }
 

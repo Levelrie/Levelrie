@@ -216,7 +216,11 @@ router.get('/search', (req, res) => {
     let query = req.query.q;
 
     // Add '%' to the end of the query string for the database
-    query += '%';
+    if (query != '') {
+        query += '%';
+    }
+
+    // console.log('query!!', query);
 
     sqlSearchText = `SELECT outfits.*, 
                             JSON_AGG((items, categories.name)) AS items  

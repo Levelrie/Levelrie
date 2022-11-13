@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import SearchBar from "../SearchBar/SearchBar";
 import SearchToggleButton from "./SearchToggleButton";
@@ -11,6 +12,8 @@ export default function SearchPage() {
     const [constraint, setConstraint] = useState('globalOutfits');
     const [categories, setCategories] = useState([]);
 
+    const searchResults = useSelector(store => store.searchResults);
+
     return (
         <div className="searchPage">
             <SearchToggleButton setConstraint={setConstraint}
@@ -18,7 +21,7 @@ export default function SearchPage() {
                                 setCategories={setCategories} />
             <SearchBar constraint={constraint}
                        categories={categories}/>
-            <SearchResults />  
+            <SearchResults searchResults={searchResults} />  
         </div>
     );
 
