@@ -60,20 +60,13 @@ router.get('/home', (req, res) => {
 
             // Filter results to contain only one instance of each outfit ID
             
-            // ORIGINAL:
-            // for (let i = 0; i < outfits.length; i++) {
-            //     for (let j = 1; j < outfits.length - 1; j++) {
-            //         if (outfits[i].id == outfits[j].id) {
-            //             outfits.splice(j, 1);
-            //         }
-            //     }
-            // }
-
-            // NEW:
+            ORIGINAL:
             for (let i = 0; i < outfits.length; i++) {
-                for (let j = i+1; j < outfits.length; j++) {
-                    console.log(`if ${outfits[i].id} = ${outfits[j].id} then remove one to avoid duplicates`)
+                console.log('first loop:', outfits[i])
+                for (let j = i+1; j < outfits.length - 1; j++) {
+                    console.log('second loop:', outfits[j])
                     if (outfits[i].id == outfits[j].id) {
+                        console.log('checking:', outfits[i].id, 'and', outfits[j].id)
                         outfits.splice(j, 1);
                     }
                 }

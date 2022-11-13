@@ -28,7 +28,26 @@ export default function OutfitHomeItem({outfit}) {
             <div id="footwear">
                 <img className="itemPic" src={outfit.items[3]?.f1.img} />
             </div>
+            {/* <div id="accessory">
+                <img className="itemPic" src={outfit.items[4]?.f1.img} />
+            </div> */}
         </div>
+
+        {/* //  map through items in outfit
+        if category is top put in certain box
+        if bottoms put in certain box
+        etc.
+        {outfit.items.map((item) => {
+            
+            return (
+                // need to set each item's position somehow -> use className?
+                //      If using class name, need to ensure items are received with category names
+                // <img key={item.f1.id} className={item.f2} src={item.f1.img} />
+                <p key={item.f1.id}>{item.f1.name} <FavoriteButton itemId={item.f1.id} outfitId={outfit.id}/></p>
+                );
+            })} */}
+
+
 
             {/* original code:
             <p>{outfit.name}</p>
