@@ -1,35 +1,49 @@
+// import React
+import { useHistory } from 'react-router-dom'
 // import component
 import './ClosetPage.css';
 
 // import material ui
 import { Box, Stack } from "@mui/system";
 import { styled } from '@mui/material/styles';
-import { Paper, Typography } from "@mui/material";
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
+import { Card, CardContent, Paper, Typography } from "@mui/material";
 
 function ClosetOutfitList ({outfit}) {
+    // use-history
+    const history = useHistory()
 
     // handle the outfit detail click
-    const clickOnOutfit = () => {
+    const handleDetailsClick = () => {
+        history.push(`/closet/outfits/detailsPage/${outfit.id}`)
         console.log('outfit id clicked', outfit.id);
     }
 
     return (
         <div>
             <Box sx={{ width: '100%' }}>
-                <Stack spacing={2}>
-                    <Item onClick={clickOnOutfit}>
-                        <Typography variant="h1">Outfit Image Goes Here!</Typography>
-                        <Typography variant="h6">Brand Name: {outfit.name}</Typography>
-                        <Typography variant="h6">Outfit Description: {outfit.description}</Typography>
-                    </Item>
+                <Stack   
+                    direction="column"
+                    spacing={2}
+                >
+                    <Card onClick={handleDetailsClick} sx={{ minWidth: 275 }}>
+                        <Typography variant='h6'>{outfit.name}</Typography>
+                        <CardContent>
+                            <div className="twoTopContainer">
+                                <div id="topOne">
+                                    <img className="itemPic" src={outfit.items[0]?.f1.img} />
+                                </div>
+                                <div id="topTwo">
+                                    <img className="itemPic" src={outfit.items[1]?.f1.img} />
+                                </div>
+                                <div id="bottoms">
+                                    <img className="itemPic" src={outfit.items[2]?.f1.img} />
+                                </div>
+                                <div id="footwear">
+                                    <img className="itemPic" src={outfit.items[3]?.f1.img} />
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
                 </Stack>
             </Box>
         </div>

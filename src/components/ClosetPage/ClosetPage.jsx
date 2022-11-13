@@ -8,6 +8,9 @@ import ClosetOutfitList from './ClosetOutfit.jsx';
 import SearchBar from '../SearchBar/SearchBar.jsx';
 import './ClosetPage.css';
 
+// import material ui
+import { Typography } from '@mui/material';
+
 function ClosetPage () {
 
     // use-selector
@@ -33,7 +36,7 @@ function ClosetPage () {
         <>
             <div className='outfitForm'>
                 <SearchBar />
-                <h4>My Closet: Outfits</h4>
+                <Typography variant='h6'>My Closet: Outfits</Typography>
                 <ul className='outfit-ul'>
                     {closetOutfits.map(outfit => (
                         <ClosetOutfitList key={outfit.id} outfit={outfit}/>

@@ -39,7 +39,26 @@ function* fetchClosetItems () {
     }
 } // end of fetchClosetItems
 
+function* fetchClosetOutfitDetails (action) {
+    const outfitId = action.payload;
+    // console.log('what is outfitId', outfitId);
+    try {
+        const closetOutfitDetails = yield axios({
+            method: 'GET',
+            url: `/api/closet/outfits/${outfitId}`
+        })
+        yield put({
+            type: 'SET_CLOSET_OUTFIT_DETAILS',
+            payload: closetOutfitDetails.data
+        })
+    }        
+    catch(error) {
+            console.log('error getting closet outfit details:', error);
+    }
+}
+
 export default function* closetSaga() {
     yield takeLatest('FETCH_CLOSET_OUTFITS', fetchClosetOutfits);
     yield takeLatest('FETCH_CLOSET_ITEMS', fetchClosetItems);
+    yield takeLatest('FETCH_CLOSET_OUTFIT_DETAILS', fetchClosetOutfitDetails);
 };
