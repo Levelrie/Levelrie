@@ -144,9 +144,7 @@ INSERT INTO "outfits"
 			('All business', 'For closing that deal'),
 			('Rebel with a cause', 'For taking names'),
 			('Business and pleasure', 'For going out'),
-			('Casual vibes', 'For running errands')
-			('Rebel without a cause', 'For taking names'), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			('Casual vibes dupe', 'For running errands'); -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			('Casual vibes', 'For running errands');
 
 
 INSERT INTO "items"
@@ -200,15 +198,7 @@ INSERT INTO "outfit_items"
 			(4, 10),
 			(4, 3),
 			(4, 19),
-			(4, 23),
-			(5, 10), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(5, 11), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(5, 12), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(5, 22), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(6, 10), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(6, 3), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(6, 19), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(6, 23); -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			(4, 23);
 
 
 -- INSERT INTO "favorited_outfits"

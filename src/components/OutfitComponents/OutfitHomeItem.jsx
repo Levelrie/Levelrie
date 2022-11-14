@@ -22,7 +22,7 @@ export default function OutfitHomeItem({outfit}) {
             <div id="topTwo">
                 <img className="itemPic" src={outfit.items[1]?.f1.img} />
             </div>
-            <div id="bottoms">
+            <div id="bottom">
                 <img className="itemPic" src={outfit.items[2]?.f1.img} />
             </div>
             <div id="footwear">

@@ -15,4 +15,10 @@
    background-size: cover;
    background-position: center;
    padding: 20px;
+   margin:auto;
+   margin-left: auto;
+   margin-right: auto;
+   left: 0;
+   right: 0;
+   text-align: center;
 }
