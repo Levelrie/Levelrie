@@ -163,7 +163,7 @@ router.get('/search', (req, res) => {
 
     const sqlSearchText = `SELECT items.* FROM "items"
                         JOIN "categories" ON items.category_id = categories.id
-                            WHERE items.name LIKE $1
+                            WHERE UPPER(items.name) LIKE UPPER($1)
                             AND categories.name = $2;`
 
     pool.query(sqlSearchText, [query, category])

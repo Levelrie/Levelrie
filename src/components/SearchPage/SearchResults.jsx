@@ -1,18 +1,22 @@
-import { useEffect } from "react";
-
 export default function SearchResults({searchResults}) {
-
-    // useEffect(() => {
-    //     return () => {
-
-    //     }
-    // }, [])
 
     return (
         <>
             {searchResults.map((result, i) => {
                 return (
-                    <p key={i}>{result.name}</p>
+                    <div key={i} className="resultsDiv">
+                        <p>{result.name}</p>
+                        {/* If the result is one item, its image will be rendered */}
+                        <img className="resultImg" src={result.img} />
+                        {/* If the result is an outfit, all outfit items will be rendered */}
+                        {result?.items?.map((item, i) => {
+                            return (
+                                <div key={i}>
+                                    <img className="resultImg" src={item.f1.img} />
+                                </div>
+                            );
+                        })}
+                    </div>
                 );
             })}
 
