@@ -47,7 +47,7 @@ function AdminDesign() {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={0.1}>
         <Grid item xs={5}>
-          <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "teal"}}>
+          <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "white"}}>
             <Stack direction="column" spacing={2} display='flex'>
               <Stack alignSelf='center' direction="row" spacing={4}>
                 <Button variant="contained" onClick={(event) => {setOutfitDesign(true)}} color={outfitDesign ? 'primary' : 'baseTan' } >Outfits</Button>
@@ -59,7 +59,7 @@ function AdminDesign() {
           </Box>
         </Grid>
         <Grid item xs={7}>
-          <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: 'teal'}}>
+          <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: 'white'}}>
           {categories.map(category => (
             <Box sx={{margin: 1, py: 0, px: 4, backgroundColor: "#BFA78A", borderRadius: 2, display: 'flex', flexDirection: 'column' }} key={category.id}>
               <AdminDesignSlider category={category} />

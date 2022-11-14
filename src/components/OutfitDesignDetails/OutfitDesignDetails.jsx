@@ -37,13 +37,13 @@ function OutfitDesignDetails() {
           <Button variant="contained" onClick={(event) => {setAddOutfit(true)}} color={addOutfit ? 'primary' : 'baseTan' } >Add</Button>
           <Button variant="contained" onClick={(event) => {setAddOutfit(false)}} color={addOutfit ? 'baseTan' : 'primary' }>Edit</Button>
         </Stack>
-        <Box color='#434343'>
-          <Typography>Outerwear: {outerwear.name}</Typography>
-          <Typography>Top: {top.name}</Typography>
-          <Typography>Accessory: {accessory.name}</Typography>
-          <Typography>Bottom: {bottom.name}</Typography>
-          <Typography>Footwear: {footwear.name}</Typography>
-          <Typography>Total Price: ${totalPrice}</Typography>
+        <Box backgroundColor='#434343' borderRadius='3'>
+          <Typography variant='h6' color='primary'>Outerwear: {outerwear.name}</Typography>
+          <Typography variant='h6' color='primary'>Top: {top.name}</Typography>
+          <Typography variant='h6' color='primary'>Accessory: {accessory.name}</Typography>
+          <Typography variant='h6' color='primary'>Bottom: {bottom.name}</Typography>
+          <Typography variant='h6' color='primary'>Footwear: {footwear.name}</Typography>
+          <Typography variant='h6' color='primary'>Total Price: ${totalPrice}</Typography>
         </Box>
       </Stack>
     </Card>
