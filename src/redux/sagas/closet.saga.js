@@ -57,8 +57,25 @@ function* fetchClosetOutfitDetails (action) {
     }
 }
 
+function* fetchCategory () {
+    try {
+        const closetCategory = yield axios({
+            method: 'GET',
+            url: `/api/closet/items/category`
+        })
+        yield put({
+            type: 'SET_CATEGORY_NAMES',
+            payload: closetCategory.data
+        })
+    }        
+    catch(error) {
+            console.log('error getting closet category:', error);
+    }
+}
+
 export default function* closetSaga() {
     yield takeLatest('FETCH_CLOSET_OUTFITS', fetchClosetOutfits);
     yield takeLatest('FETCH_CLOSET_ITEMS', fetchClosetItems);
     yield takeLatest('FETCH_CLOSET_OUTFIT_DETAILS', fetchClosetOutfitDetails);
+    yield takeLatest('FETCH_CATEGORY', fetchCategory);
 };
