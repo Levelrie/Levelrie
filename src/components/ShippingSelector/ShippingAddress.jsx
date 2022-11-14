@@ -28,7 +28,7 @@ export default function ShippingAddress({ address }){
 
     return(
 
-                <FormControlLabel value={address.id} control={<Radio/>} label={
+                <FormControlLabel value={address.id} control={<Radio/>}  label={
                     <Box className='addressDisplay' width={1} lineHeight={.5}>
                         <p>{user.name}</p>
                         <p>{address.street_address}</p>

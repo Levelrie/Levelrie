@@ -66,7 +66,7 @@ export default function ToggleButton() {
     }
 
   return (
-    <Stack direction='row' justifyContent='center'>
+    <Stack direction='row' justifyContent='center' >
       <Button variant='contained' value='outfit' color={isFront ? 'basePink' : 'baseTan'} id='outfitButton' className={isFront ? 'frontButton' : ''} sx={{borderRadius: 3 , width: 120, left: 10, fontSize: 16}} onClick={(e) => handleClick(e)}>Outfit</Button>
       <Button variant='contained' value='category' color={!isFront ? 'basePink' : 'baseTan'} id='categoryButton' className={!isFront ? 'frontButton' : ''} sx={{borderRadius: 3, width: 120, right: 10, fontSize: 16}} onClick={(e) => handleClick(e)}>Category</Button>
     </Stack>
