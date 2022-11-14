@@ -30,16 +30,16 @@ function ClosetOutfitList ({outfit}) {
                         <CardContent>
                             <div className="twoTopContainer">
                                 <div id="topOne">
-                                    <img className="itemPic" src={outfit.items[0]?.f1.img} />
+                                    <img className="ClosetItemPic" src={outfit.items[0]?.f1.img} />
                                 </div>
                                 <div id="topTwo">
-                                    <img className="itemPic" src={outfit.items[1]?.f1.img} />
+                                    <img className="ClosetItemPic" src={outfit.items[1]?.f1.img} />
                                 </div>
                                 <div id="bottoms">
-                                    <img className="itemPic" src={outfit.items[2]?.f1.img} />
+                                    <img className="ClosetItemPic" src={outfit.items[2]?.f1.img} />
                                 </div>
                                 <div id="footwear">
-                                    <img className="itemPic" src={outfit.items[3]?.f1.img} />
+                                    <img className="ClosetItemPic" src={outfit.items[3]?.f1.img} />
                                 </div>
                             </div>
                         </CardContent>

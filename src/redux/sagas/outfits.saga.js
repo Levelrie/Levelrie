@@ -18,7 +18,7 @@ function* rejectOutfit(action) {
         const outfitId = action.payload;
         yield axios.post(`/api/outfit/reject`, {outfitId: outfitId});
         yield put({
-            type: 'INCREASE_HOME_COUNTER'
+            type: 'SAGA_FETCH_OUTFITS_FOR_SWIPING'
         });
     } catch (error) {
         console.log('outfitsSaga rejectOutfit function error', error);
@@ -30,7 +30,7 @@ function* favoriteOutfit(action) {
         const outfitId = action.payload;
         yield axios.post(`/api/outfit/favorite`, {outfitId: outfitId});
         yield put({
-            type: 'INCREASE_HOME_COUNTER'
+            type: 'SAGA_FETCH_OUTFITS_FOR_SWIPING'
         });
     } catch (error) {
         console.log('outfitsSaga favoriteOutfit function error', error);
