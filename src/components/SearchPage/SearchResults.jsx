@@ -2,7 +2,11 @@ import { useEffect } from "react";
 
 export default function SearchResults({searchResults}) {
 
+    // useEffect(() => {
+    //     return () => {
 
+    //     }
+    // }, [])
 
     return (
         <>

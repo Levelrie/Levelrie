@@ -6,7 +6,7 @@ import user from './user.reducer';
 import favorites from './favorites.reducer';
 import closetReducer from './closet.reducer';
 import categories from './categories.reducer';
-import searchResults from './searchResults.reducer';
+import searchResultsReducer from './searchResults.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   favorites, // contains favoriteOutfitsReducer and favoriteItemsReducer
   closetReducer, // contains closetOutfitsReducer and closetItemsReducer
   categories, // Stores category names
-  searchResults,
+  searchResultsReducer,
 });
 
 export default rootReducer;

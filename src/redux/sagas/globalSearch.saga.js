@@ -15,6 +15,9 @@ function* searchAllItems(action) {
     const query = action.payload.query;
     const categories = action.payload.categories;
     let searchResults = [];
+
+    // Get results for each individual category
+    // Concat results into a single array
     for (let i = 0; i < categories.length; i++) {
         let categoryResults = yield axios.get(`/api/item/search?q=${query}&cat=${categories[i]}`);
         searchResults = searchResults.concat(categoryResults.data);

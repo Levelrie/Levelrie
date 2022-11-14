@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // MUI
 import InputAdornment from '@mui/material/InputAdornment';
@@ -15,8 +15,10 @@ function SearchBar({constraint, categories}) {
     // example: constraint could be "closet" to search only closet
     // will need to dispatch based on that constraint
 
-    const [value, setValue] = useState('');
+    // const [value, setValue] = useState('');
     const [searchValue, setSearchValue] = useState('');
+
+    const query = useSelector(store => store.searchResultsReducer.query);
 
     const dispatch = useDispatch();
 
@@ -27,24 +29,28 @@ function SearchBar({constraint, categories}) {
                 console.log('111111');
                 dispatch({
                     type: 'SAGA_SEARCH_ALL_OUTFITS',
-                    payload: value
+                    payload: query
                 });
                 break;
             case 'globalItems':
                 console.log('222222');
                 dispatch({
                     type: 'SAGA_SEARCH_ALL_ITEMS',
-                    payload: {query: value, categories: categories}
+                    payload: {query: query, categories: categories}
                 });
                 break;
         }
 
-    }, [constraint])
+    }, [constraint, categories])
 
     // The search will fire off to the database on change
     const handleChange = (e) => {
-        setValue(e.target.value);
+        // setValue(e.target.value);
         console.log('constraint', constraint);
+        dispatch({
+            type: 'SET_GLOBAL_SEARCH_QUERY',
+            payload: e.target.value
+        });
 
         switch (constraint) {
             case 'globalOutfits':
@@ -92,7 +98,7 @@ function SearchBar({constraint, categories}) {
 
     // }
 
-    console.log('here is value:', value);
+    // console.log('here is value:', value);
     console.log('here is searchValue:', searchValue);
 
     return (
@@ -105,6 +111,7 @@ function SearchBar({constraint, categories}) {
             }}
             onChange={handleChange}
             size="small"
+            value={query}
             endAdornment={
                 <InputAdornment position="end">
                     <IconButton
