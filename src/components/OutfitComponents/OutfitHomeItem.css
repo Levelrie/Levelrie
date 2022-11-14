@@ -1,4 +1,4 @@
-.twoTopContainer {
+.outfitSwipeContainer {
     display: grid;
     /* set width of each column */
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -8,7 +8,7 @@
     aspect-ratio: 1 / 1;
 }
 
-#topOne {
+#top {
     /* column number that the item starts in (11 columns) */
     grid-column: 5 / span 5;
     /* row number that the item starts in (11 rows)  */
@@ -16,7 +16,7 @@
     z-index: 3
 }
 
-#topTwo {
+#outerwear {
     grid-column: 1 / span 7;
     grid-row: 1 / span 9;
     z-index: 2
