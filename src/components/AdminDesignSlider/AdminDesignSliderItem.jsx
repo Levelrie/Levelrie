@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect }from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 //  MUI Tools
 import Card from '@mui/material/Card';
@@ -7,13 +8,19 @@ import CardMedia from '@mui/material/CardMedia';
 
 function AdminDesignSliderItem({item}) {
 
+  const dispatch = useDispatch();
+
   //  Temporary onClick function to console.log item details
-  const deets = () => {
+  const addItemToDisplay = () => {
     console.log('Item details:', item);
+    dispatch ({
+      type: 'SAGA_OUTFIT_DISPLAY',
+      payload: item
+    })
   }
 
   return (
-    <Card onClick={deets} sx={{ height: '14.4vh', margin: 1, padding: 1, backgroundColor: "#F1B3F2", }}>
+    <Card onClick={addItemToDisplay} sx={{ height: '14.4vh', margin: 1, padding: 1, backgroundColor: "#F1B3F2", }}>
       <CardMedia
         sx={{ objectFit: 'contain', maxHeight: '12vh', margin: 'auto'}}
         className="itemSliderImg"

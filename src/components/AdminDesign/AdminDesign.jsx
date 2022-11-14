@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 //  MUI Tools
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 
@@ -22,7 +15,6 @@ import OutfitDesignBuilder from '../OutfitDesignBuilder/OutfitDesignBuilder';
 import OutfitDesignDetails from '../OutfitDesignDetails/OutfitDesignDetails';
 import ItemDesignBuilder from '../ItemDesignBuilder/ItemDesignBuilder';
 import ItemDesignDetails from '../ItemDesignDetails/ItemDesignDetails';
-import { autocompleteClasses } from '@mui/material';
 
 function AdminDesign() {
 
@@ -31,8 +23,7 @@ function AdminDesign() {
   const user = useSelector((store) => store.user);
 
   const [outfitDesign, setOutfitDesign] = useState(true);
-  const [itemDesign, setItemDesign] = useState(false);
-
+  
   useEffect(() => {
     dispatch ({
       type: 'SAGA_FETCH_CATEGORIES'
@@ -58,9 +49,9 @@ function AdminDesign() {
         <Grid item xs={5}>
           <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "teal"}}>
             <Stack direction="column" spacing={2} display='flex'>
-              <Stack alignSelf='center' direction="row" spacing={2}>
-                <Button variant="contained" onClick={(event) => {setOutfitDesign(true)}} color={outfitDesign ? 'primary' : 'baseTan' } >Add/Edit Outfits</Button>
-                <Button variant="contained" onClick={(event) => {setOutfitDesign(false)}} color={outfitDesign ? 'baseTan' : 'primary' }>Add/Edit Items</Button>
+              <Stack alignSelf='center' direction="row" spacing={4}>
+                <Button variant="contained" onClick={(event) => {setOutfitDesign(true)}} color={outfitDesign ? 'primary' : 'baseTan' } >Outfits</Button>
+                <Button variant="contained" onClick={(event) => {setOutfitDesign(false)}} color={outfitDesign ? 'baseTan' : 'primary' }>Items</Button>
               </Stack>
               {outfitDesign ? <OutfitDesignBuilder /> : <ItemDesignBuilder />}
               {outfitDesign ? <OutfitDesignDetails /> : <ItemDesignDetails />}
