@@ -19,17 +19,17 @@ function BuyCheckbox(item) {
   }
 
   const handleBuy = () => {
-    if(check === false) {  // if false (flase because check will not have changed yet) then add to cart
+    if(check === false) {  // if false (false because check will not have changed yet) then add to cart
       console.log('dispatch add to cart');
       dispatch({
-              type: 'ADD_TO_CART',
+              type: 'SAGA_ADDCART_ITEM',
               payload: item
           })
     }
     else { // if true (true because check will not have changed yet) then remove from cart
       console.log('dispatch remove from cart');
       dispatch({
-              type: 'REMOVE_FROM_CART',
+              type: 'SAGA_UNCART_ITEM',
               payload: item
           })
     }

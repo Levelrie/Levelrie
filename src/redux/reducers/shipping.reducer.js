@@ -13,6 +13,17 @@ const shippingReducer = (state = [], action) => {
     }
 }
 
+const favoriteAddyReducer = (state=[], action) => {
+    console.log('is this thing on???')
+    switch (action.type) {
+        case 'SET_FAVORITE_ADDY':
+            console.log('Addy in fav addy', action.payload)
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 
 
 export default shippingReducer

@@ -6,16 +6,21 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import * as React from 'react';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack'
+import { useHistory } from 'react-router-dom'
+
+
 
 
 
 
 
 export default function ModifyShipping(){
-
+    const history = useHistory()
     const dispatch = useDispatch()
     const addresses = useSelector(store => store.shipping)
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = React.useState(1);
 
     const handleChange = (event) => {
         console.log('value= ', value)
@@ -39,7 +44,13 @@ export default function ModifyShipping(){
     console.log('addresses in modify', addresses)
 
     return(
-       
+        <Stack>
+            <Stack direction='row'>
+                <Button onClick={()=>{history.push('/cart')}}>Confirm</Button>
+                <Button>Add</Button>
+                <Button>Edit</Button>
+                <Button>Remove</Button>
+            </Stack>
             <FormControl>
                 <FormLabel id="demo-controlled-radio-buttons-group">Choose an Address</FormLabel>
                 <RadioGroup
@@ -47,14 +58,18 @@ export default function ModifyShipping(){
                 name="controlled-radio-buttons-group"
                 value={value}
                 onChange={handleChange}
+                
+
+                
                 >
                 {addresses && addresses.map((address) => {
                     return(
-                <ShippingAddress address={address} key={address.id}/>
+                <ShippingAddress address={address} key={address.id} />
                 
                 )})}
                 </RadioGroup>
             </FormControl> 
+        </Stack>
     )
 }
 

@@ -21,18 +21,19 @@ export default function CheckoutLanding() {
 
     return(
         <Stack justifyItems='center' alignItems='center'>
-            <Stack justifyItems='center' alignItems='center' width={.8}>
-                <h1>LEVELRIE</h1>
-                <h3>Shopping Cart</h3>
+            <Stack justifyItems='center' alignItems='center' width={.8} mb={3}>
+                <h1 className="estimateText">LEVELRIE</h1>
+                <h3 className="estimateText">Shopping Cart</h3>
             </Stack>
-            <Stack id="shippingEst" direction='row' width={1} >
+            <Stack id="shippingEst" direction='row' width={1} mb={3}>
                 <ShippingEstimate />
             </Stack>
-            <Stack width={1} className='checkoutFrame' justifyItems='center' alignItems='center'>
+            <Stack width={1} className='checkoutFrame' justifyItems='center' alignItems='center' mt={3}>
                 <ItemItem />
-                <Divider width='80%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, mt: 10}} />
+                <Divider width='80%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, mt: 10, mb: 3}} />
                 <PurchaseItems  />
             </Stack>
+
         </Stack>
 
 
