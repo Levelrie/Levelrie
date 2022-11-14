@@ -16,7 +16,7 @@
     z-index: 3
 }
 
-#topTwo {
+#outerwear {
     grid-column: 1 / span 7;
     grid-row: 1 / span 9;
     z-index: 2

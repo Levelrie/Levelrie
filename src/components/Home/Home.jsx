@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import TinderCard from 'react-tinder-card'
 import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
 import './Home.css'
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -43,9 +44,31 @@ const favoriteOutfit = (id) => {
 
     };
 
+    const [open, setOpen] = useState(true);
+
+    const handleClose = () => {
+        setOpen(false);
+      };
+    
+      const handleOpen = () => {
+        setOpen(true);
+      };
+
+//       const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
+//         <Tooltip {...props} classes={{ popper: className }} />
+//       ))(({ theme }) => ({
+//         [`& .${tooltipClasses.tooltip}`]: {
+//           backgroundColor: '#f5f5f9',
+//           color: 'rgba(0, 0, 0, 0.87)',
+//           maxWidth: 220,
+//           fontSize: theme.typography.pxToRem(12),
+//           border: '1px solid #dadde9',
+//         },
+//   }));
+
     console.log('outfitsArray is:', outfitsArray)
     return (
-        <>
+        <Tooltip title="Swipe LEFT to see a new outfit. Swipe RIGHT to save the outfit to favorites" open={open} onClose={handleClose} onOpen={handleOpen}>
         <div className="swipeCardContainer">
             {outfitsArray.map((outfit) => {
                     return (
@@ -59,6 +82,6 @@ const favoriteOutfit = (id) => {
                     );
                 })}
         </div>        
-        </>
+        </Tooltip>
     );
 }
