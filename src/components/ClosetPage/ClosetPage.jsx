@@ -6,6 +6,10 @@ import { useHistory } from 'react-router'
 // import component
 import ClosetOutfitList from './ClosetOutfit.jsx';
 import SearchBar from '../SearchBar/SearchBar.jsx';
+import './ClosetPage.css';
+
+// import material ui
+import { Typography } from '@mui/material';
 
 function ClosetPage () {
 
@@ -28,18 +32,12 @@ function ClosetPage () {
     //use-history
     const history = useHistory();
     
-    const handleCategory = (e) => {
-        e.preventDefault();
-        history.push('/closet/categories')
-    }
-
     return (
         <>
-            <div>
-                <button onClick={handleCategory}>Category</button>
+            <div className='outfitForm'>
                 <SearchBar />
-                <h4>My Closet: Outfits</h4>
-                <ul>
+                <Typography variant='h6'>My Closet: Outfits</Typography>
+                <ul className='outfit-ul'>
                     {closetOutfits.map(outfit => (
                         <ClosetOutfitList key={outfit.id} outfit={outfit}/>
                     ))}

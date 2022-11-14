@@ -6,6 +6,8 @@ import { Typography } from '@mui/material';
 import './ItemItem.css';
 
 function ItemItem() {
+
+  
   return (
     <div className="itemGrid">
       <Grid container spacing={0.5}>

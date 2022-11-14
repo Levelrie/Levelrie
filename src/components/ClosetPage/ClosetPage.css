@@ -1,0 +1,24 @@
+.outfit-ul {
+    padding: 0px;
+}
+
+.outfitForm {
+    text-align: center;
+}
+
+img {
+    height: 150px;
+    width: fit-content;
+}
+
+.css-nktb04-MuiPaper-root-MuiCard-root {
+    margin: 30px;
+}
+
+.css-46bh2p-MuiCardContent-root:last-child {
+    outline: #f2dcf2 solid 5px;
+}
+
+.closetItemList {
+    text-align: center;
+}

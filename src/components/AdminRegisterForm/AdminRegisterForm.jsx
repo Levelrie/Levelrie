@@ -53,7 +53,7 @@ function AdminRegisterForm() {
           label="username" 
           variant="outlined"
           type="text"
-          size="small"
+          // size="small"
           required
           value={username}
           onChange={(event) => setUsername(event.target.value)} 
@@ -63,7 +63,7 @@ function AdminRegisterForm() {
           label="password" 
           variant="outlined"
           type="password"
-          size="small"
+          // size="small"
           required
           value={password}
           onChange={(event) => setPassword(event.target.value)} 
@@ -73,7 +73,7 @@ function AdminRegisterForm() {
           label="First Name" 
           variant="outlined"
           type="text"
-          size="small"
+          // size="small"
           required
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)} 
@@ -83,7 +83,7 @@ function AdminRegisterForm() {
           label="Last Name" 
           variant="outlined"
           type="text"
-          size="small"
+          // size="small"
           required
           value={lastName}
           onChange={(event) => setLastName(event.target.value)} 
@@ -93,7 +93,7 @@ function AdminRegisterForm() {
           label="Email" 
           variant="outlined"
           type="text"
-          size="small"
+          // size="small"
           required
           value={email}
           onChange={(event) => setEmail(event.target.value)} 

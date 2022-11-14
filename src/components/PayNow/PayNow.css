@@ -1,3 +1,8 @@
 .priceTeam{
     margin: 0;
 }
+
+.payNow{
+    position: absolute;
+    bottom: 0;
+}

@@ -26,6 +26,11 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Home from '../Home/Home';
 import FavoriteOutfitList from '../FavoriteOutfitList/FavoriteOutfitList';
+import CheckoutSelector from '../CheckoutSelectors/CheckoutSelectors.jsx'
+import ModifyPayment from '../ModifyPayment/ModifyPayment';
+import ModifyShipping from '../ModifyShipping/ModifyShipping';
+import CheckoutConfirmation from '../CheckoutConfirmation/CheckoutConfirmation';
+import CheckoutLanding from '../CheckoutSelectors/CheckoutLanding';
 import FavoriteItemList from '../FavoriteItemList/FavoriteItemList';
 import FavoriteItemCategoriesPage from '../FavoriteItemList/FavoriteItemCategoriesPage';
 import SearchPage from '../SearchPage/SearchPage';
@@ -33,6 +38,7 @@ import ClosetPage from '../ClosetPage/ClosetPage';
 import ClosetItemPage from '../ClosetPage/ClosetItemPage';
 import BottomBar from "../BottomBar/BottomBar";
 import ToggleButton from '../ToggleButton/ToggleButton';
+import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
 
 //  CSS Import
 import './App.css';
@@ -90,16 +96,16 @@ function App() {
 
   return (
     <ThemeProvider theme={themeOptions}>
-
+      
       <Router>
-        <Nav />
+        {user.isAdmin ? '' : <Nav /> }
         <div>
           <Switch>
             {/* ---------- ADMIN ROUTES ---------- */}
             {/* Adding an admin login page that will be navigated to by using a 
             direct URL no link on mobile version to seperate staff from client use */}
             <Route exact path="/admin">
-            {user.isAdmin ? <Redirect to="/admin/design" /> : (user.id ? <Redirect to="/" /> : <AdminPage /> )}
+              {user.isAdmin ? <Redirect to="/admin/design" /> : (user.id ? <Redirect to="/" /> : <AdminPage /> )}
             </Route>
             {/* Protected route for admin users */}
             <Route exact path="/admin/design" >
@@ -147,6 +153,14 @@ function App() {
               <InfoPage />
             </ProtectedRoute>
 
+            {/* This route is for the outfits details path. this page does not the the toggle button */}
+            <ProtectedRoute
+            // logged in shows Closet Outfit details page else shows LoginPage
+            exact
+            path="/closet/outfits/detailsPage/:id"
+            >
+            <ClosetDetailsPage />
+            </ProtectedRoute>
 
             <ProtectedRoute path="/favorites">
 
@@ -207,6 +221,42 @@ function App() {
             >
               <SearchPage />
             </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows cart else shows LoginPage
+              exact
+              path="/cartlanding"
+            >
+              <CheckoutLanding />
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // logged in shows cart else shows LoginPage
+              exact
+              path="/cart"
+            >
+              <CheckoutSelector />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows payment else shows LoginPage
+              exact
+              path="/payment"
+            >
+              <ModifyPayment />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows shipping else shows LoginPage
+              exact
+              path="/shipping"
+            >
+              <ModifyShipping />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows checkout else shows LoginPage
+              exact
+              path="/checkout"
+            >
+              <CheckoutConfirmation />
+            </ProtectedRoute>
 
             <Route
               exact
@@ -256,9 +306,9 @@ function App() {
             </Route>
           </Switch>
             <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
-                <BottomBar />
+            {user.isAdmin ? '' : <BottomBar /> }
             </Paper>
-          <Footer />
+            {user.isAdmin ? '' : <Footer /> }
         </div>
       </Router>
     </ThemeProvider>
