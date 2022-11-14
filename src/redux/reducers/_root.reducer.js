@@ -8,6 +8,7 @@ import closetReducer from './closet.reducer';
 import cart from './cart.reducer';
 import shipping from './shipping.reducer'
 import categories from './categories.reducer';
+import searchResultsReducer from './searchResults.reducer';
 import items from './items.reducer';
 import outerwear from './outerwear.reducer';
 import top from './top.reducer';
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   accessory,
   bottom,
   footwear,
+  searchResultsReducer,
 });
 
 export default rootReducer;

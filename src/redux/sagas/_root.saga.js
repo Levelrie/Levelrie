@@ -12,6 +12,7 @@ import closetSaga from './closet.saga';
 import cart from './cart.saga';
 import shipping from './shipping.saga';
 import outfitsDisplaySaga from './outfit.display.saga';
+import globalSearchSaga from './globalSearch.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -32,6 +33,8 @@ export default function* rootSaga() {
     itemsSaga(),
     favoritesSaga(),
     closetSaga(),
+    outfitsSaga(),
+    globalSearchSaga(),
     cart(),
     shipping(),
     outfitsSaga(),

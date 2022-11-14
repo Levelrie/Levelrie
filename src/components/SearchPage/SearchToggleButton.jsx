@@ -11,11 +11,13 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 
-export default function SearchToggleButton() {
+export default function SearchToggleButton({setConstraint, currentCategories, setCategories}) {
 
     const dispatch = useDispatch();
 
     const categories = useSelector(store => store.categories);
+    const selectedCategories = useSelector(store => store.searchResultsReducer.categories);
+    const constraint = useSelector(store => store.searchResultsReducer.constraint);
 
     useEffect(() => {
         dispatch({
@@ -23,8 +25,9 @@ export default function SearchToggleButton() {
         });
     }, []);
   
-    const [isFront, setIsFront] = useState(true);
-    const [catsDisabled, setCatsDisabled] = useState(true);
+    // Handles button highlighting and category disabling
+    const [isFront, setIsFront] = useState(constraint === 'globalOutfits' ? true : false);
+    const [catsDisabled, setCatsDisabled] = useState(constraint === 'globalOutfits' ? true : false);
 
     const handleClick = (e) => {
         console.log('this', e.target.value);
@@ -33,13 +36,45 @@ export default function SearchToggleButton() {
             case 'outfit':
                 setCatsDisabled(true);
                 setIsFront(true);
+                // setConstraint('globalOutfits')
+                dispatch({
+                    type: 'SET_GLOBAL_SEARCH_CONSTRAINT',
+                    payload: 'globalOutfits'
+                });
                 break;
             case 'category':
                 setCatsDisabled(false);
                 setIsFront(false);
+                // setConstraint('globalItems');
+                dispatch({
+                    type: 'SET_GLOBAL_SEARCH_CONSTRAINT',
+                    payload: 'globalItems'
+                });
                 break;
         }
 
+    }
+
+    const handleSwitch = (e) => {
+
+        // If this switch is being turned to "on"
+        if (e.target.checked) {
+            // setCategories([...currentCategories, e.target.value]);
+            dispatch({
+                type: 'ADD_GLOBAL_SEARCH_CATEGORY',
+                payload: e.target.value
+            });
+        } else if (!e.target.checked) {
+            // If this switch is being turned "off"
+            // Remove it from the category list
+            // let filtered = currentCategories.filter(category => category != e.target.value);
+            // setCategories(filtered);
+            dispatch({
+                type: 'REMOVE_GLOBAL_SEARCH_CATEGORY',
+                payload: e.target.value
+            });
+        }
+        console.log(currentCategories);
     }
 
   return (
@@ -54,10 +89,11 @@ export default function SearchToggleButton() {
                 <FormControlLabel
                     key={i}
                     value={category.name}
-                    control={<Switch color="primary" />}
+                    control={<Switch color="primary" onChange={(e) => handleSwitch(e)} />}
                     label={category.name}
                     labelPlacement="top"
                     disabled={catsDisabled}
+                    checked={selectedCategories.includes(category.name)}
                 />
             );
         })}

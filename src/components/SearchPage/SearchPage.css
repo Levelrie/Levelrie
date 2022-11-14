@@ -1,3 +1,12 @@
 .searchPage {
     text-align: center;
+    padding-bottom: 100px;
+}
+
+/* .resultsDiv {
+    margin-bottom: 300px;
+} */
+
+.resultImg {
+    max-width: 100px;
 }

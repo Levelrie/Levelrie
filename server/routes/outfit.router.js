@@ -216,7 +216,11 @@ router.get('/search', (req, res) => {
     let query = req.query.q;
 
     // Add '%' to the end of the query string for the database
-    query += '%';
+    if (query != '') {
+        query += '%';
+    }
+
+    // console.log('query!!', query);
 
     sqlSearchText = `SELECT outfits.*, 
                             JSON_AGG((items, categories.name)) AS items  
@@ -224,7 +228,7 @@ router.get('/search', (req, res) => {
                             JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
                             JOIN "items" ON outfit_items.item_id = items.id
                             INNER JOIN "categories" ON items.category_id = categories.id
-                                WHERE outfits.name LIKE $1
+                                WHERE UPPER(outfits.name) LIKE UPPER($1)
                                 GROUP BY outfits.id;`
 
     pool.query(sqlSearchText, [query])

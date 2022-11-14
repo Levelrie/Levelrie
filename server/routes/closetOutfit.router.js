@@ -36,4 +36,32 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       })
   });
 
+    // GET route to fetch the selected outfit details information. 
+    router.get('/:id', (req, res) => {
+      const sqlQuery = `
+        SELECT 
+          closet_outfits.id, 
+          outfits.name,
+          outfits.description,
+          JSON_AGG((items, categories.name)) AS items
+        FROM closet_outfits
+        JOIN "outfits" ON closet_outfits.outfit_id = outfits.id
+        JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
+        JOIN "items" ON items.id = outfit_items.id
+        JOIN "categories" ON categories.id = items.category_id
+        WHERE closet_outfits.outfit_id = $1
+        GROUP BY closet_outfits.id, closet_outfits.user_id, outfits.id;
+    `
+    const sqlValues = [req.params.id]
+    pool.query(sqlQuery, sqlValues)
+    .then( getRes => {
+      res.send(getRes.rows[0])
+      // console.log(getRes.rows[0]); testing
+    })
+    .catch( getErr => {
+      console.log('Error on GET ROUTE SERVER OUTFIT DETAILS', getErr)
+      res.sendStatus(500)
+    })
+  });
+
 module.exports = router;
