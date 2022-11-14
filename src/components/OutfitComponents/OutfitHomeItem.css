@@ -1,4 +1,4 @@
-.twoTopContainer {
+.outfitSwipeContainer {
     display: grid;
     /* set width of each column */
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
