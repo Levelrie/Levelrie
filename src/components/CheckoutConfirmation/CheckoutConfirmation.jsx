@@ -92,7 +92,7 @@ export default function CheckoutConfirmation(){
                         <p>$124.99</p>
                     </Grid2>
                 </Grid2>
-                <Button variant='outlined' onClick={() => history.push('/home')} sx={{width:.8}}>Back to Shopping</Button>
+                <Button variant='outlined' onClick={() => history.push('/home')} sx={{width:.8, paddingBottom: 10}}>Back to Shopping</Button>
             </Stack>
         </>
     )

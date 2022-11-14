@@ -52,7 +52,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
         history.push('/favorites/outfits');
         break;
       case 'Cart':
-        history.push('/cart');
+        history.push('/cartlanding');
         break;
       case 'Search':
         history.push('/search');
