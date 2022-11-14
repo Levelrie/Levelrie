@@ -6,7 +6,7 @@
     text-align: center;
 }
 
-img {
+.itemPic {
     height: 150px;
     width: fit-content;
 }

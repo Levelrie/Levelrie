@@ -66,7 +66,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
    };
 
    return (
-    <BottomNavigation  sx={{ width: 1 }} value={value} onChange={handleChange}>
+    <BottomNavigation  sx={{ width: 1, paddingBottom: 1, paddingTop: 1, zIndex: 100000000 }} value={value} onChange={handleChange}>
          <BottomNavigationAction
         label="Closet"
         value="Closet"

@@ -305,10 +305,10 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
-            <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
+            <Paper sx={{padding: 0, boxShadow: 2, margin: 0, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
             {user.isAdmin ? '' : <BottomBar /> }
             </Paper>
-            {user.isAdmin ? '' : <Footer /> }
+            {/* {user.isAdmin ? '' : <Footer /> } */}
         </div>
       </Router>
     </ThemeProvider>
