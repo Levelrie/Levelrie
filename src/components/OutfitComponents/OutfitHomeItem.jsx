@@ -1,10 +1,12 @@
 // This component will handle the rendering of each individual outfit
-
+import React, { useEffect, useState } from 'react';
 import FavoriteButton from "../FavoriteButton/FavoriteButton";  // for stretch goal
 import './OutfitHomeItem.css';
 
 export default function OutfitHomeItem({outfit}) {
 
+    const [topCount, setTopCount] = useState(0);
+   
     // Determine what page we're on somehow
         // if we're on home view or favorites view -> each item needs a favorite button
 
@@ -15,7 +17,7 @@ export default function OutfitHomeItem({outfit}) {
     console.log('this is outfit:', outfit);
     return (
         <>
-        <div className="twoTopContainer">
+        {/* <div className="twoTopContainer">
             <div id="topOne">
                 <img className="itemPic" src={outfit.items[0]?.f1.img} />
             </div>
@@ -28,7 +30,20 @@ export default function OutfitHomeItem({outfit}) {
             <div id="footwear">
                 <img className="itemPic" src={outfit.items[3]?.f1.img} />
             </div>
+        </div> */}
+
+        <div className="twoTopContainer">
+            {outfit.items.map(item => {
+                return (
+                    <div key={item.f1.id} id={item.f2}>
+                        <img className="itemPic" src={item.f1.img} />
+                    </div>
+                    );
+                })}
         </div>
+        
+
+
 
             {/* original code:
             <p>{outfit.name}</p>

@@ -8,7 +8,7 @@
     aspect-ratio: 1 / 1;
 }
 
-#topOne {
+#top {
     /* column number that the item starts in (11 columns) */
     grid-column: 5 / span 5;
     /* row number that the item starts in (11 rows)  */
