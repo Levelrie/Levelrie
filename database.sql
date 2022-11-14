@@ -3,21 +3,20 @@
 -- *** After successful table creation, run the SQL queries ***
 
 
+
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (100) NOT NULL,
     "last_name" VARCHAR (100) NOT NULL,
-    "email" VARCHAR (100) UNIQUE NOT NULL,
-    "isAdmin" BOOLEAN DEFAULT FALSE NOT NULL
+    "email" VARCHAR (100) UNIQUE NOT NULL
 );
 
 CREATE TABLE "admins" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL,
-    "clearance" INT DEFAULT (1) NOT NULL
+    "password" VARCHAR (1000) NOT NULL
 );
 
 CREATE TABLE "outfits" (
@@ -104,11 +103,13 @@ CREATE TABLE "favorited_items" (
     "item_id" INT REFERENCES "items"   
 );
 
+
 CREATE TABLE "favorited_solo" (
     "id" SERIAL PRIMARY KEY,
     "user_id" INT REFERENCES "users",
     "item_id" INT REFERENCES "items"
 );
+
 
 CREATE TABLE "rejections" (
     "id" SERIAL PRIMARY KEY,  
@@ -126,43 +127,42 @@ INSERT INTO "categories"
             ('hat'),
             ('outerwear'),
             ('accessories');
-
--- ****************** TEST DATA BELOW *********************
+            
+            
+            
+            -- ****************** TEST DATA BELOW *********************
 INSERT INTO "users"
- 	("username", "password", "first_name", "last_name", "email")
- 		VALUES
+	("username", "password", "first_name", "last_name", "email")
+		VALUES
             ('Maggie', '123', 'Maggie', 'Whitlock', 'maggie.whitlock@gmail.com'),
- 			('Theo', '123', 'Theo', 'Janke-Furman', 'tjankefurman@gmail.com'),
- 			('Chameng', '123', 'Chameng', 'Vang', 'Chameng02@gmail.com'),
+			('Theo', '123', 'Theo', 'Janke-Furman', 'tjankefurman@gmail.com'),
+			('Chameng', '123', 'Chameng', 'Vang', 'Chameng02@gmail.com'),
             ('Hess', '123', 'Hess', 'Hess', 'ryanmhess@gmail.com'),
             ('Kyle', '123', 'Kyle', 'Jensen', 'kjensen19@gmail.com');
-
+            
 
 INSERT INTO "outfits"
- 	("name", "description")
- 		VALUES
+	("name", "description")
+		VALUES
 			('All business', 'For closing that deal'),
-			('Rebel with a cause', 'For taking names'),
+			('Rebel with a cause', 'For taking names'), 
 			('Business and pleasure', 'For going out'),
-			('Casual vibes', 'For running errands')
-			('Rebel without a cause', 'For taking names'), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			('Casual vibes dupe', 'For running errands'); -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-
+			('Casual vibes', 'For running errands');			
 
 INSERT INTO "items"
- 	("name", "color", "size", "seller", "price", "img", "category_id")
- 		VALUES
+	("name", "color", "size", "seller", "price", "img", "category_id")
+		VALUES
             ('Black Tank', 'Black', 'XXS', 'Anine Bing', '$105', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588877/Tops/image-19_j7r1lc.png', 1),
             ('Cream Knit', 'Cream', 'M', 'J. Crew', '$145', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588875/Tops/image-18_pteshe.png', 1),
-            ('Grey Knit Cardigan', 'Grey', 'S', 'All Saints', '$400', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588872/Tops/image-17_qjmpyj.png', 1),
-            ('Tweed Blazer', 'Multi', 'L', 'ASTR', '$425', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588869/Tops/image-16_cwched.png', 1),
+            ('Grey Knit Cardigan', 'Grey', 'S', 'All Saints', '$400', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588872/Tops/image-17_qjmpyj.png', 6),
+            ('Tweed Blazer', 'Multi', 'L', 'ASTR', '$425', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588869/Tops/image-16_cwched.png', 6),
             ('Black T-Shirt', 'Black', 'XS', 'AMO', '$99', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588717/Tops/image-13_xxvwl6.png', 1),
             ('Beige Cami', 'Beige', 'S', 'Chloe', '$150', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588712/Tops/image-8_pr0uxw.png', 1),
-            ('Black Velvet Blazer', 'Black', 'XS', 'Eileen Fisher', '$145', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588708/Tops/image-7_ayhpmj.png', 1),
-            ('Floral Blazer', 'Multi', 'S', 'Santorelli', '$695', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588703/Tops/image-5_qsbtes.png', 1),
-            ('Beige Blazer', 'Beige', 'XL', 'Elie Tahari', '$395', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588688/Tops/image-2_aswyer.png', 1),
+            ('Black Velvet Blazer', 'Black', 'XS', 'Eileen Fisher', '$145', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588708/Tops/image-7_ayhpmj.png', 6),
+            ('Floral Blazer', 'Multi', 'S', 'Santorelli', '$695', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588703/Tops/image-5_qsbtes.png', 6),
+            ('Beige Blazer', 'Beige', 'XL', 'Elie Tahari', '$395', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588688/Tops/image-2_aswyer.png', 6),
             ('White Cami', 'White', 'XL', 'Reformation', '$112', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588675/Tops/image_2_hvas2i.png', 1),
-            ('Black Crepe Cropped Blazer', 'Black', 'L', 'Misook', '$298', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588682/Tops/image-1_lgeqqg.png', 1),
+            ('Black Crepe Cropped Blazer', 'Black', 'L', 'Misook', '$298', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588682/Tops/image-1_lgeqqg.png', 6),
             ('Maroon Pants', 'Maroon', 'M', 'Citizen', '$250', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588845/Bottoms/image-23_f0vnry.png', 2),
             ('Grey Skirt', 'Grey', 'S', 'All Saints', '$150', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588854/Bottoms/image-15_w9c9er.png', 2),
             ('Black Slouchy Pants', 'Black', 'S', 'All Saints', '$140', 'https://res.cloudinary.com/dgainc6rr/image/upload/v1667588843/Bottoms/image-21_ddcuvx.png', 2),
@@ -183,8 +183,8 @@ INSERT INTO "items"
 
 
 INSERT INTO "outfit_items"
- 	("outfit_id", "item_id")
- 		VALUES
+	("outfit_id", "item_id")
+		VALUES
 			(1, 10),
 			(1, 8),
 			(1, 18),
@@ -193,48 +193,41 @@ INSERT INTO "outfit_items"
 			(2, 11),
 			(2, 12),
 			(2, 22),
-			(3, 7),
+			(2, 25),
 			(3, 10),
+			(3, 7),
 			(3, 18),
 			(3, 24),
 			(4, 10),
 			(4, 3),
 			(4, 19),
-			(4, 23),
-			(5, 10), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(5, 11), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(5, 12), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(5, 22), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(6, 10), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(6, 3), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(6, 19), -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
-			(6, 23); -- DUPLICATE BECAUSE NOT PULLING IT THE FIRST TIME
+			(4, 23);
 
 
--- INSERT INTO "favorited_outfits"
---  	("user_id", "outfit_id")
---  		VALUES
---  			(1, 3),
---  			(1, 4);
+--INSERT INTO "favorited_outfits"
+--	("user_id", "outfit_id")
+--		VALUES
+--			(1, 3),
+--			(1, 4);
 
-
--- INSERT INTO "favorited_items"
---  	("favorited_outfit_id", "item_id")
---  		VALUES
---  			(1, 6),
---  			(1, 13),
---  			(1, 20),
---  			(2, 10),
---  			(2, 11),
---  			(2, 16),
---  			(2, 21);
-
-
--- INSERT INTO "favorited_solo"
---  	("user_id", "item_id")
---  		VALUES
---  			(1, 25),
---  			(1, 26),
---  			(1, 27),
---  			(1, 4), 
---  			(1, 5);
+			
+--INSERT INTO "favorited_items"
+--	("favorited_outfit_id", "item_id")
+--		VALUES
+--			(1, 6),
+--			(1, 13),
+--			(1, 20),
+--			(2, 10),
+--			(2, 11),
+--			(2, 16),
+--			(2, 21);
+			
+--			
+--INSERT INTO "favorited_solo"
+--	("user_id", "item_id")
+--		VALUES
+--			(1, 25),
+--			(1, 26),
+--			(1, 27),
+--			(1, 4), 
+--			(1, 5);

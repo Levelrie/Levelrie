@@ -23,7 +23,7 @@ router.get('/home', (req, res) => {
                             favorited_outfits.user_id AS favorited_by, 
                             rejections.user_id AS rejected_by, 
                             JSON_AGG((items, categories.name)) AS items 
-                     FROM "outfits"
+                    FROM "outfits"
                             JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
                             JOIN "items" ON outfit_items.item_id = items.id
                             INNER JOIN "categories" ON items.category_id = categories.id
@@ -39,9 +39,12 @@ router.get('/home', (req, res) => {
             console.log('Outfits 1', outfits);
 
             // Make array recording outfit IDs associated with current user
+            // for each outfit in array outfits
             for (let i = 0; i < outfits.length; i++) {
                 console.log('favorited by?', outfits[i].favorited_by)
+                // if outfit was favorited or rejected by the user
                 if (outfits[i].favorited_by == userId || outfits[i].rejected_by == userId) {
+                    // then push that outfit id to the outfitIdstoDelete array
                     outfitIdsToDelete.push(outfits[i].id);
                 }
             }
@@ -56,9 +59,14 @@ router.get('/home', (req, res) => {
             console.log('OUTFITS 2:', outfits);
 
             // Filter results to contain only one instance of each outfit ID
+            
+            ORIGINAL:
             for (let i = 0; i < outfits.length; i++) {
-                for (let j = 1; j < outfits.length - 1; j++) {
+                console.log('first loop:', outfits[i])
+                for (let j = i+1; j < outfits.length - 1; j++) {
+                    console.log('second loop:', outfits[j])
                     if (outfits[i].id == outfits[j].id) {
+                        console.log('checking:', outfits[i].id, 'and', outfits[j].id)
                         outfits.splice(j, 1);
                     }
                 }
@@ -216,7 +224,11 @@ router.get('/search', (req, res) => {
     let query = req.query.q;
 
     // Add '%' to the end of the query string for the database
-    query += '%';
+    if (query != '') {
+        query += '%';
+    }
+
+    // console.log('query!!', query);
 
     sqlSearchText = `SELECT outfits.*, 
                             JSON_AGG((items, categories.name)) AS items  
@@ -224,7 +236,7 @@ router.get('/search', (req, res) => {
                             JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
                             JOIN "items" ON outfit_items.item_id = items.id
                             INNER JOIN "categories" ON items.category_id = categories.id
-                                WHERE outfits.name LIKE $1
+                                WHERE UPPER(outfits.name) LIKE UPPER($1)
                                 GROUP BY outfits.id;`
 
     pool.query(sqlSearchText, [query])

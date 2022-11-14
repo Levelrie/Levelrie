@@ -157,11 +157,13 @@ router.get('/search', (req, res) => {
     let category = req.query.cat;
 
     // Add '%' to the end of the query string for the database
-    query += '%';
+    if (query != '') {
+        query += '%';
+    }
 
     const sqlSearchText = `SELECT items.* FROM "items"
                         JOIN "categories" ON items.category_id = categories.id
-                            WHERE items.name LIKE $1
+                            WHERE UPPER(items.name) LIKE UPPER($1)
                             AND categories.name = $2;`
 
     pool.query(sqlSearchText, [query, category])
@@ -180,7 +182,17 @@ router.get('/search', (req, res) => {
 
 router.get('/categories', (req, res) => {
 
-    const sqlFetchText = `SELECT name FROM "categories";`
+    const sqlFetchText = `SELECT * FROM "categories"
+        ORDER BY CASE   
+            WHEN name = 'outerwear' THEN 1
+            WHEN name = 'top' THEN 2
+            WHEN name = 'accessories' THEN 3
+            WHEN name = 'bottom' THEN 4
+            WHEN name = 'footwear' THEN 5
+            ELSE 6
+        END
+        LIMIT 5
+        ;`
 
     pool.query(sqlFetchText)
     .then((results) => {
@@ -193,6 +205,22 @@ router.get('/categories', (req, res) => {
 
 });
 
+// •••••••••••••••••••••••••••••••••••••••• FETCH ITEMS ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
 
+router.get('/all', (req, res) => {
+    // console.log('category id:', req.params.id);
+    // const category_id = req.params.id;
+    const sqlFetchText = `SELECT * FROM "items"
+        ORDER BY category_id
+        ;`
+    pool.query(sqlFetchText)
+    .then((results) => {
+        res.send(results.rows);
+    })
+    .catch((error) => {
+        console.log('Error in GET /api/item/all query', error);
+        res.sendStatus(500);
+    });
+});
 
 module.exports = router;

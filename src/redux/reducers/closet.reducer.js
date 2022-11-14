@@ -22,7 +22,20 @@ const closetItemReducer = (state = [], action) => {
     }
 } // end of closetItemReducer
 
+// Closet Outfit DetailsReducer
+const closetOutfitDetailsReducer  = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_CLOSET_OUTFIT_DETAILS':
+            return action.payload;
+        case 'CLEAR_OUTFIT_DETAILS':
+            return {}
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     closetOutfitsReducer,
     closetItemReducer,
+    closetOutfitDetailsReducer,
 })

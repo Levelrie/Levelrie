@@ -1,14 +1,12 @@
-import { useEffect } from "react";
+import * as React from 'react';
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-
 import TinderCard from 'react-tinder-card'
-
 import OutfitHomeItem from "../OutfitComponents/OutfitHomeItem";
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
-
-
 import './Home.css'
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -49,15 +47,25 @@ const favoriteOutfit = (id) => {
 
     };
 
+    // tool tips:
+    const [open, setOpen] = useState(true);
+
+    const handleClose = () => {
+        setOpen(false);
+      };
+    
+      const handleOpen = () => {
+        setOpen(true);
+      };
+
     console.log('outfitsArray is:', outfitsArray)
     return (
-        <>
-            <Container maxWidth="lg">
-            <div className="stack">
-                {outfitsArray.map((outfit) => {
+        <Tooltip title="Swipe LEFT to see a new outfit. Swipe RIGHT to save the outfit to favorites" open={open} onClose={handleClose} onOpen={handleOpen}>
+        <div className="swipeCardContainer">
+            {outfitsArray.map((outfit) => {
                     return (
                         <TinderCard key={outfit.id}
-                                    className="outfitHomeBox"
+                                    className="swipeCard"
                                     onSwipe={(direction) => onSwipe(direction, outfit.id)}
                                     preventSwipe={['up', 'down']}
                                     >
@@ -65,8 +73,7 @@ const favoriteOutfit = (id) => {
                         </TinderCard>
                     );
                 })}
-            </div>
-            </Container>
-        </>
+        </div>        
+        </Tooltip>
     );
 }

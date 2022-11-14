@@ -11,13 +11,13 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
-function AdminDesignBuilder() {
+function ItemDesignBuilder() {
 
   return (
-    <Box >
-      OUTFIT BUILDER SECTION
-    </Box>
+    <Card sx={{ height: '45vh', margin: 1, padding: 1, backgroundColor: "#F2DCF2", }}>
+      Item BUILDER SECTION
+    </Card>
   );
 }
 
-export default AdminDesignBuilder;
+export default ItemDesignBuilder;

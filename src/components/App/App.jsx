@@ -38,6 +38,7 @@ import ClosetPage from '../ClosetPage/ClosetPage';
 import ClosetItemPage from '../ClosetPage/ClosetItemPage';
 import BottomBar from "../BottomBar/BottomBar";
 import ToggleButton from '../ToggleButton/ToggleButton';
+import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
 
 //  CSS Import
 import './App.css';
@@ -152,6 +153,14 @@ function App() {
               <InfoPage />
             </ProtectedRoute>
 
+            {/* This route is for the outfits details path. this page does not the the toggle button */}
+            <ProtectedRoute
+            // logged in shows Closet Outfit details page else shows LoginPage
+            exact
+            path="/closet/outfits/detailsPage/:id"
+            >
+            <ClosetDetailsPage />
+            </ProtectedRoute>
 
             <ProtectedRoute path="/favorites">
 
@@ -296,7 +305,7 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
-            <Paper sx={{padding: 1, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
+            <Paper sx={{padding: 0, boxShadow: 2, margin: 0, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
             {user.isAdmin ? '' : <BottomBar /> }
             </Paper>
         </div>

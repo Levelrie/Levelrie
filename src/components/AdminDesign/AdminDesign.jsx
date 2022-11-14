@@ -1,69 +1,71 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 //  MUI Tools
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+
 
 //  Component Import
 import LogOutAdminButton from '../LogOutAdminButton/LogOutAdminButton';
 import AdminDesignSlider from '../AdminDesignSlider/AdminDesignSlider';
-import AdminDesignBuilder from '../AdminDesignBuilder/AdminDesignBuilder';
+import OutfitDesignBuilder from '../OutfitDesignBuilder/OutfitDesignBuilder';
+import OutfitDesignDetails from '../OutfitDesignDetails/OutfitDesignDetails';
+import ItemDesignBuilder from '../ItemDesignBuilder/ItemDesignBuilder';
+import ItemDesignDetails from '../ItemDesignDetails/ItemDesignDetails';
 
 function AdminDesign() {
 
   const dispatch = useDispatch();
-  const category = useSelector((store) => store.category);
+  const categories = useSelector((store) => store.categories);
   const user = useSelector((store) => store.user);
 
+  const [outfitDesign, setOutfitDesign] = useState(true);
+  
   useEffect(() => {
     dispatch ({
-      type: 'FETCH_CATEGORY'
+      type: 'SAGA_FETCH_CATEGORIES'
     })
     return () => {
       dispatch ({
-        type: 'CLEAR_CATEGORY'
+        type: 'CLEAR_CATEGORY_NAMES'
       })
     }
   }, [user.isAdmin])
 
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    height: '95vh',
-    margin: 5,
-    marginTop: 15,
-    color: theme.palette.text.secondary,
-  }));
 
+
+  //  TO BE REMOVED LATER
   const testClicker = () => {
     console.log('is admin?', user.isAdmin);
+    console.log('categories?', categories);
   }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={0.1}>
-        <Grid item xs={5} backgroundColor='blue'>
-          <Item >
-            <Button onClick={testClicker}>
-              CLICKER
-              {/* <LogOutAdminButton /> */}
-            </Button>
-          <AdminDesignBuilder />
-          </Item>
+        <Grid item xs={5}>
+          <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "teal"}}>
+            <Stack direction="column" spacing={2} display='flex'>
+              <Stack alignSelf='center' direction="row" spacing={4}>
+                <Button variant="contained" onClick={(event) => {setOutfitDesign(true)}} color={outfitDesign ? 'primary' : 'baseTan' } >Outfits</Button>
+                <Button variant="contained" onClick={(event) => {setOutfitDesign(false)}} color={outfitDesign ? 'baseTan' : 'primary' }>Items</Button>
+              </Stack>
+              {outfitDesign ? <OutfitDesignBuilder /> : <ItemDesignBuilder />}
+              {outfitDesign ? <OutfitDesignDetails /> : <ItemDesignDetails />}
+            </Stack>
+          </Box>
         </Grid>
-        <Grid item xs={7} backgroundColor='blue'>
-          <AdminDesignSlider />
+        <Grid item xs={7}>
+          <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: 'teal'}}>
+          {categories.map(category => (
+            <Box sx={{margin: 1, py: 0, px: 4, backgroundColor: "#BFA78A", borderRadius: 2, display: 'flex', flexDirection: 'column' }} key={category.id}>
+              <AdminDesignSlider category={category} />
+            </Box>
+          ))}
+          </Box>
         </Grid>
       </Grid>
     </Box>
