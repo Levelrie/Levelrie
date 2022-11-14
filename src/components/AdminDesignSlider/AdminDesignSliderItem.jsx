@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect }from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 //  MUI Tools
 import Card from '@mui/material/Card';
@@ -6,6 +7,8 @@ import CardMedia from '@mui/material/CardMedia';
 
 
 function AdminDesignSliderItem({item}) {
+
+  const dispatch = useDispatch();
 
   //  Temporary onClick function to console.log item details
   const addItemToDisplay = () => {

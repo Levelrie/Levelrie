@@ -7,6 +7,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
+import CardMedia from '@mui/material/CardMedia';
 
 function OutfitDesignBuilder() {
 
@@ -18,30 +19,60 @@ function OutfitDesignBuilder() {
 
   return (
     <Card sx={{ height: '45vh', margin: 1, padding: 1, backgroundColor: "#F2DCF2", }}>
-      <Stack direction="row" spacing={10}  width='100%' >
-        <Stack direction="column" spacing={15} display='flex'>
+      <Stack direction="row" spacing={1}  width='100%' >
+        <Stack direction="column" spacing={1} display='flex'>
           <CardContent>
             Outerwear
-            {outerwear ? outerwear.img : '' }
           </CardContent>
+          {outerwear ? <CardMedia
+            sx={{ objectFit: 'contain', maxHeight: '12vh', margin: 'auto'}}
+            className="itemSliderImg"
+            component="img"
+            image={outerwear.img}
+            alt={outerwear.name}
+          /> : '' }
           <CardContent>
             Footwear
-            {footwear ? footwear.img : '' }
           </CardContent>
+          {footwear ? <CardMedia
+            sx={{ objectFit: 'contain', maxHeight: '12vh', margin: 'auto'}}
+            className="itemSliderImg"
+            component="img"
+            image={footwear.img}
+            alt={footwear.name}
+          /> : '' }
         </Stack>
-          <CardContent sx={{ pt: '25%'}}>
+          <CardContent >
             Top
-            {top ? top.img : '' }
           </CardContent>
-        <Stack direction="column" spacing={15} display='flex'>
+          {top ? <CardMedia
+            sx={{ objectFit: 'contain', maxHeight: '12vh', margin: 'auto'}}
+            className="itemSliderImg"
+            component="img"
+            image={top.img}
+            alt={top.name}
+          /> : '' }
+        <Stack direction="column" spacing={1} display='flex'>
           <CardContent>
             Accessory
-            {accessory ? accessory.img : '' }
           </CardContent>
+          {accessory ? <CardMedia
+            sx={{ objectFit: 'contain', maxHeight: '12vh', margin: 'auto'}}
+            className="itemSliderImg"
+            component="img"
+            image={accessory.img} 
+            alt={accessory.name}
+          /> : '' }
           <CardContent>
             Bottom
-            {bottom ? bottom.img : '' }
           </CardContent>
+          {bottom ? <CardMedia
+            sx={{ objectFit: 'contain', maxHeight: '12vh', margin: 'auto'}}
+            className="itemSliderImg"
+            component="img"
+            image={bottom.img}
+            alt={bottom.name}
+          /> : '' }
         </Stack>
       </Stack>
     </Card>

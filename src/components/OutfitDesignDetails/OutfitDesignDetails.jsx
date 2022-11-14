@@ -17,6 +17,18 @@ function OutfitDesignDetails() {
 
   const [addOutfit, setAddOutfit] = useState(true);
 
+  const outerwear = useSelector((store) => store.outerwear);
+  const top = useSelector((store) => store.top);
+  const accessory = useSelector((store) => store.accessory);
+  const bottom = useSelector((store) => store.bottom);
+  const footwear = useSelector((store) => store.footwear);
+
+  const outerwearPrice = Number((outerwear.price)?.replace('$','')) || '';
+  const topPrice = Number((top.price)?.replace('$','')) || '';
+  const accessoryPrice = Number((accessory.price)?.replace('$','')) || '';
+  const bottomPrice = Number((bottom.price)?.replace('$','')) || '';
+  const footwearPrice = Number((footwear.price)?.replace('$','')) || '';
+  const totalPrice = outerwearPrice+topPrice+accessoryPrice+bottomPrice+footwearPrice;
   return (
     <Card sx={{ height: '40vh', margin: 1, padding: 1, mb: 0, backgroundColor: "#BFA78A", }}>
       OUTFIT Details SECTION
@@ -25,8 +37,13 @@ function OutfitDesignDetails() {
           <Button variant="contained" onClick={(event) => {setAddOutfit(true)}} color={addOutfit ? 'primary' : 'baseTan' } >Add</Button>
           <Button variant="contained" onClick={(event) => {setAddOutfit(false)}} color={addOutfit ? 'baseTan' : 'primary' }>Edit</Button>
         </Stack>
-        <Box>
-          
+        <Box color='#434343'>
+          <Typography>Outerwear: {outerwear.name}</Typography>
+          <Typography>Top: {top.name}</Typography>
+          <Typography>Accessory: {accessory.name}</Typography>
+          <Typography>Bottom: {bottom.name}</Typography>
+          <Typography>Footwear: {footwear.name}</Typography>
+          <Typography>Total Price: ${totalPrice}</Typography>
         </Box>
       </Stack>
     </Card>
