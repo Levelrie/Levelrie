@@ -2,16 +2,45 @@ import './FavoriteItemItem.css';
 import DropDown from '../DropDown/DropDown';
 import Grid from '@mui/material/Unstable_Grid2';
 import BuyCheckbox from '../BuyCheckbox/BuyCheckbox';
+import { useSelector, useDispatch } from 'react-redux'
+import React, { useState } from 'react';
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function FavoriteItemItem({item}) {
 
-    console.log('this is the item:', item);
+    const dispatch = useDispatch();
 
+    const handleDelete = () => {
+        console.log('in handleDelete')
+        const itemId = item.id;
+        dispatch({
+            type: 'SAGA_UNFAVORITE_ITEM',
+            payload: itemId
+        })
+    }
+
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    console.log('this is the item:', item);
     return (
         <div className='itemItemContainer'>
             <div className='itemItemImage'>
@@ -53,37 +82,23 @@ function FavoriteItemItem({item}) {
                     <option value="2">2</option>
                 </select>
             </div>
+            <div className='itemItemDelete'>
+                <Button onClick={handleClickOpen} variant="text"><HighlightOffIcon color="warning"/></Button>
+            </div>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+            >
+                <DialogContent>Delete item from favorites?</DialogContent>
+                <DialogActions>
+                    <Button color="warning" onClick={handleDelete}>Delete</Button>
+                    <Button  variant="contained" onClick={handleClose}>Cancel</Button>
+                </DialogActions>
+            </Dialog>
             <div className='itemItemBuy'>
                 <BuyCheckbox />
             </div>
         </div>
-
-
-        // <div key={item.id} variant="outlined" className="itemGrid">
-        //     <Grid container>
-
-               
-        //         <Grid item container xs={4}>
-        //             <Stack className='this'>             
-        //                 <img src={item.img} />
-        //                 <Typography>{item.price}</Typography>
-        //             </Stack> 
-        //         </Grid>
-
-    
-        //         <Grid item container xs={6}>
-        //             <Stack>
-        //                 <Typography variant="body1" gutterBottom>{item.name}</Typography>
-        //                 <DropDown />
-        //             </Stack>
-        //         </Grid>
-
-              
-        //         <Grid xs={2}>       
-        //             <BuyCheckbox />
-        //         </Grid>
-        //     </Grid>
-        // </div>
     );
 };
 

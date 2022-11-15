@@ -56,6 +56,8 @@ export const themeOptions = createTheme({
     palePink: createColor('#f2dcf2'),
     baseTan: createColor('#BFA78A'),
     baseGrey: createColor('#434343'),
+    danger:  createColor('#FF0000'),
+    normal: createColor('#000000'),
     primary: {
       main: '#f1b3f2',
       contrastText: '#d62bd9',
@@ -76,6 +78,12 @@ export const themeOptions = createTheme({
       main: '#2196f3',
       contrastText: 'rgba(10,10,10,0.87)',
     },
+    warning: {
+      main: '#FF0000',
+    },
+    black: {
+      main: '#FF0000',
+    }
   },
   typography: {
     fontFamily: 'Quicksand',
