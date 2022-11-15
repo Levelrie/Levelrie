@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import FavoriteItemItem from "./FavoriteItemItem";
+import './FavoriteItemList.css';
 
 // MUI
 import Stack from '@mui/material/Stack';
@@ -44,7 +45,7 @@ function FavoriteItemList() {
     console.log('favoriteItems is:', favoriteItems);
     return (
         <>
-            <Container>
+            <Container className='favoriteItemListContainer'>
             <Typography variant="h6">Faves</Typography>
             <Stack spacing={2}>
                 {favoriteItems.map(item => (
