@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function CheckoutSelector() {
     const dispatch = useDispatch()
-    const cart = useSelector(store => store.cart[0])
+    const cart = useSelector(store => store.cart)
     var cartTotal = 0
 
 

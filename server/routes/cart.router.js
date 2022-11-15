@@ -11,7 +11,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('BREAKING HERE?????? 0');
     
     const userId = req.user.id;
-    const itemIds = req.body.itemId;
+    const itemIds = req.body;
+    console.log('req.body', req.body)
 
 
     //SQL to add item to carts table
@@ -30,7 +31,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
         // Add the item next
         for(let itemId of itemIds){
-          await connection.query(sqlAddItemText, [userId, itemId]);
+          await connection.query(sqlAddItemText, [userId, itemId.id]);
 
         console.log('BREAKING HERE?????? 2');
         }
@@ -61,10 +62,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       join "carts" on carts.item_id = items.id
         WHERE carts.user_id = $1;
   `
-  const sqlValues = [1]
+  const sqlValues = [req.user.id]
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
-            console.log('dbRes.rows is:', dbRes.rows[0]);
+            console.log('dbRes.rows is:', dbRes.rows);
             res.send(dbRes.rows)
         }).catch(dbErr => {
             console.log('dbErr in /favorites/outfits:', dbErr);

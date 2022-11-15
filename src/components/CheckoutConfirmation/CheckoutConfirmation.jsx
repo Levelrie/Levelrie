@@ -33,7 +33,7 @@ export default function CheckoutConfirmation(){
     useEffect(() => {
         dispatch({type: 'GET_CART_ITEMS'})
         console.log('How many???')
-        //Cleanup function to clear cart, will also nee
+        // Cleanup function to clear cart. NEEDS TESTING
         // return () => {
         //     dispatch({type: 'CLEAR_CART'})
         // }
@@ -70,17 +70,17 @@ export default function CheckoutConfirmation(){
                 <Stack>
                     <Stack direction='row' justifyContent='space-between' alignItems='center' marginBottom={0}>
                         <h4>Order Items</h4>
-                        <p>1 item</p>
+                        <p>{cart.length} Items</p>
                     </Stack>
-                    {cart.length && cart.map((item) => {
+                    {cart ? cart.map((item) => {
                         console.log('item price', item.price)
                         cartTotal += Number(item.price.substring(1))
                         console.log(cartTotal)
                         return(
-                            <Box key={item.id} className='outfitFrame' paddingBottom={3} justifyItems='center' alignItems='center'>
+                            <Box key={item.id} className='outfitFrame' paddingBottom={10} justifyItems='center' alignItems='center'>
                                 <CartItem item={item}  />
                             </Box>
-                    )})}
+                    )}): ''}
                 </Stack>
                 <Grid2 container width={.9} marginTop={5} alignItems='left' justifyContent='space-between'>
                     <Grid2 xs={12}>

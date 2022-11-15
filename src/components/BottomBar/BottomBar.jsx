@@ -70,7 +70,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
      console.log(location);
    };
 
-   cart ? cartCount = 0 : cartCount = cart.length
+   cart ?  cartCount = cart.length : cartCount = 0
 
    return (
     <BottomNavigation  sx={{ width: 1, paddingBottom: 1, paddingTop: 1, zIndex: 100000000 }} value={value} onChange={handleChange}>
