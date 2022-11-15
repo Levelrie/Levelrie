@@ -13,7 +13,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function CheckoutSelector() {
     const dispatch = useDispatch()
-    const cart = useSelector(store => store.cart)
+    const cart = useSelector(store => store.cart[0])
+    var cartTotal = 0
+
 
 
     useEffect(() => {
@@ -25,19 +27,20 @@ export default function CheckoutSelector() {
     return(
 
 
-        <Stack justifyItems='center' alignItems='center'>
+        <Stack justifyItems='center' alignItems='center' width={1}>
             <ShippingSelector />
             <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, margin: 3}} />
             <PaymentSelector />
             <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, margin: 3, mb: 1}} />
-            <Stack direction='row'>
-            {cart.length && cart.map((item) => {
+            <Stack direction='row' overflow={'scroll'} >
+            {cart ? cart.map((item) => {
+                cartTotal += Number(item.price.substring(1))
                 return(
                     <CartItem item={item} key={item.id}/>
-            )})}
+            )}): 'None'}
             </Stack>
             <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, margin: 3}} />
-            <PayNow />
+            <PayNow total={cartTotal}/>
         </Stack>
     )
 }

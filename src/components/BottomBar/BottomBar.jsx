@@ -43,6 +43,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
    const [value, setValue] = React.useState('recents');
+   const cart = useSelector(store => store.cart)
+   var cartCount = 0
 
    const handleChange = (event, newValue) => {
      setValue(newValue);
@@ -68,6 +70,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
      console.log(location);
    };
 
+   cart ? cartCount = 0 : cartCount = cart.length
+
    return (
     <BottomNavigation  sx={{ width: 1, paddingBottom: 1, paddingTop: 1, zIndex: 100000000 }} value={value} onChange={handleChange}>
          <BottomNavigationAction
@@ -89,7 +93,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
         <BottomNavigationAction
         label="Cart"
         value="Cart"
-        icon={<Badge badgeContent={useSelector(store => store.cart.length)} color={'primary'}><ShoppingCartOutlinedIcon htmlColor='#424242' sx={{ border: 3, borderRadius: 50, borderColor: '#f1b3f2', padding: .5 }}/></Badge>}
+        icon={<Badge badgeContent={cartCount} color={'primary'}><ShoppingCartOutlinedIcon htmlColor='#424242' sx={{ border: 3, borderRadius: 50, borderColor: '#f1b3f2', padding: .5 }}/></Badge>}
         />
         <BottomNavigationAction
         label="Favorites"

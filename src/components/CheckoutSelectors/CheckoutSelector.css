@@ -1,12 +1,6 @@
-.itemGrid {
-    text-align: center;
-    height: 20vh;
-    
-}
 
-.outfitContainer{
-    width: 300vw;
-}
+
+
 
 .checkoutFrame{
     height: 20vh;
@@ -22,6 +16,7 @@ ul{
     align-content: center;
     list-style: none;
     margin-top: 0;
+    
 }
 
 li{

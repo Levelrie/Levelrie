@@ -32,11 +32,11 @@ export default function CheckoutConfirmation(){
 
     useEffect(() => {
         dispatch({type: 'GET_CART_ITEMS'})
-        console.log('How many???');
+        console.log('How many???')
         //Cleanup function to clear cart, will also nee
-        return () => {
-            dispatch({type: 'CLEAR_CART'})
-        }
+        // return () => {
+        //     dispatch({type: 'CLEAR_CART'})
+        // }
     }, []);
 
     const home = {

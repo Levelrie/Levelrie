@@ -65,7 +65,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText, sqlValues)
         .then((dbRes) => {
             console.log('dbRes.rows is:', dbRes.rows[0]);
-            res.send(dbRes.rows[0])
+            res.send(dbRes.rows)
         }).catch(dbErr => {
             console.log('dbErr in /favorites/outfits:', dbErr);
             res.sendStatus(500);

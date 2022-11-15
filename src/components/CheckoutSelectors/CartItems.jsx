@@ -13,8 +13,7 @@ function CartItem({ item }) {
     //     price: '299.00'
     // }
   return (
-    <div className="itemGrid" >
-      <Grid container >
+      <Grid container width={1} >
         <Grid xs={4} >
           <Grid container alignItems='center' >
             <Grid xs={9}>
@@ -33,7 +32,7 @@ function CartItem({ item }) {
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    
   )
 }
 
