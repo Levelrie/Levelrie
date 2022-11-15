@@ -22,3 +22,24 @@
 .closetItemList {
     text-align: center;
 }
+
+.categoryList {
+    padding: 10px;
+}
+
+.categoryBox {
+    margin: 10px;
+}
+
+.categoryDiv {
+    text-align: center;
+}
+
+.categoryTitle {
+    margin: 20px;
+}
+
+.ClosetCatergoryTitle {
+    text-align: center;
+}
+

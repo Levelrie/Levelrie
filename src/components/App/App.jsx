@@ -40,6 +40,7 @@ import BottomBar from "../BottomBar/BottomBar";
 import ToggleButton from '../ToggleButton/ToggleButton';
 import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
 import FavoriteOutfitItemDetail from '../FavoriteOutfitList/FavoriteOutfitItemDetail';
+import ClosetCategoryDetailPage from '../ClosetCategoryPage/ClosetCategoryDetailPage';
 
 //  CSS Import
 import './App.css';
@@ -78,9 +79,6 @@ export const themeOptions = createTheme({
   },
   typography: {
     fontFamily: 'Quicksand',
-    h6: {
-      fontFamily: 'Saira Condensed',
-    },
   },
   fontFamily: 'Saira Condensed',
 });
@@ -161,6 +159,14 @@ function App() {
             path="/closet/outfits/detailsPage/:id"
             >
             <ClosetDetailsPage />
+            </ProtectedRoute>
+
+            {/* This route is for the category details path. this page does not the the toggle button */}
+            <ProtectedRoute
+            exact
+            path="/closet/categories/:name"
+            >
+            <ClosetCategoryDetailPage />
             </ProtectedRoute>
 
             {/* <ProtectedRoute path="/favorites">
