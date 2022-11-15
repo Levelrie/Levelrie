@@ -6,7 +6,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Fab from '@mui/material/Fab';
+import Chip from '@mui/material/Chip';
 
+//  CSS
+import './AdminDesign.css';
 
 //  Component Import
 import LogOutAdminButton from '../LogOutAdminButton/LogOutAdminButton';
@@ -15,6 +20,7 @@ import OutfitDesignBuilder from '../OutfitDesignBuilder/OutfitDesignBuilder';
 import OutfitDesignDetails from '../OutfitDesignDetails/OutfitDesignDetails';
 import ItemDesignBuilder from '../ItemDesignBuilder/ItemDesignBuilder';
 import ItemDesignDetails from '../ItemDesignDetails/ItemDesignDetails';
+import Logout from '@mui/icons-material/Logout';
 
 function AdminDesign() {
 
@@ -35,23 +41,45 @@ function AdminDesign() {
     }
   }, [user.isAdmin])
 
-
-
-  //  TO BE REMOVED LATER
-  const testClicker = () => {
-    console.log('is admin?', user.isAdmin);
-    console.log('categories?', categories);
+  const handleLogout = () => {
+    dispatch ({
+      type: 'LOGOUT'
+    })
   }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Chip icon={<LogoutIcon />} 
+        color='default' 
+        label="Logout" 
+        variant="contained"
+        onClick={handleLogout}
+        position='absolute'
+        padding='10'
+      />
       <Grid container spacing={0.1}>
         <Grid item xs={5}>
           <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "white"}}>
             <Stack direction="column" spacing={2} display='flex'>
-              <Stack alignSelf='center' direction="row" spacing={4}>
-                <Button variant="contained" onClick={(event) => {setOutfitDesign(true)}} color={outfitDesign ? 'primary' : 'baseTan' } >Outfits</Button>
-                <Button variant="contained" onClick={(event) => {setOutfitDesign(false)}} color={outfitDesign ? 'baseTan' : 'primary' }>Items</Button>
+              <Stack direction="row" justifyContent="center">
+                <Button variant="contained"
+                  size="small"
+                  onClick={(event) => {setOutfitDesign(true)}}
+                  sx={{borderRadius: 3 , width: 120, left: 10, fontSize: 16}} 
+                  color={outfitDesign ? 'primary' : 'baseTan' } 
+                  className={outfitDesign ? 'frontButton' : ''}
+                >
+                  Outfits
+                </Button>
+                <Button variant="contained" 
+                  size="small"
+                  onClick={(event) => {setOutfitDesign(false)}}
+                  sx={{borderRadius: 3, width: 120, right: 10, fontSize: 16}} 
+                  color={outfitDesign ? 'baseTan' : 'primary' }
+                  className={outfitDesign ? '' : 'frontButton'}
+                >
+                  Items
+                </Button>
               </Stack>
               {outfitDesign ? <OutfitDesignBuilder /> : <ItemDesignBuilder />}
               {outfitDesign ? <OutfitDesignDetails /> : <ItemDesignDetails />}
