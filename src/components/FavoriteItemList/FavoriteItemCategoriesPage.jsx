@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
 
  function FavoriteItemCategoriesPage() {
     const history = useHistory();
@@ -16,7 +17,7 @@ import Stack from '@mui/material/Stack';
         history.push(`/favorites/categories/${e.target.id}`);
     }
      return (
-         <>
+         <Container className='faveCategoriesContainer'>
          <Stack>
          <Typography variant="h6">Faves</Typography>
          </Stack>
@@ -42,7 +43,7 @@ import Stack from '@mui/material/Stack';
                 </Grid>
             </Grid>
         </Box>
-         </>
+         </Container>
      );
  };
 
