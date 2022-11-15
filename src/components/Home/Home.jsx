@@ -9,8 +9,12 @@ import Typography from '@mui/material/Typography';
 
 export default function Home() {
     const dispatch = useDispatch();
+    
+    const rejectionFits = useSelector(store => store.outfits.rejectionFits);
+    const favoriteFits = useSelector(store => store.outfits.favoriteFits);
 
-    const outfitsArray = useSelector(store => store.outfits.outfits);
+    const outfitsArray = useSelector(store => store.outfits.fits);
+    // const swipeFit = useSelector(store => store.outfits.frontFit);
     // const counter = useSelector(store => store.outfits.counter);
 
 
@@ -32,11 +36,10 @@ export default function Home() {
         setOpen(true);
       };
 
-    console.log('outfitsArray is:', outfitsArray)
     return (
         <Tooltip title="Swipe LEFT to see a new outfit. Swipe RIGHT to save the outfit to favorites" open={open} onClose={handleClose} onOpen={handleOpen}>
         <div className="swipeCardContainer">
-            <HomeOutfitCards outfitsArray={outfitsArray}/>
+            <HomeOutfitCards rejectionFits={rejectionFits} favoriteFits={favoriteFits} outfitsArray={outfitsArray} />
         </div>        
         </Tooltip>
     );

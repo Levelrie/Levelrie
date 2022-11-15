@@ -11,15 +11,32 @@ import { useEffect } from "react";
 
 export default function CheckoutLanding() {
     const dispatch = useDispatch()
-    const cart = useSelector(store => store.cart)
+    const cart = useSelector(store => store.cart);
+    const rejectionFits = useSelector(store => store.outfits.rejectionFits);
+    const favoriteFits = useSelector(store => store.outfits.favoriteFits);
     useEffect(() => {
         dispatch({type: 'GET_CART_ITEMS'})
         console.log('How many???');
+
+        dispatch({
+            type: 'SAGA_FAVORITE_OUTFITS',
+            payload: favoriteFits
+        });
+
+        dispatch({
+            type: 'SAGA_REJECT_OUTFITS',
+            payload: rejectionFits
+        });
+
+        dispatch({type: 'CLEAR_OUTFITS_TO_REJECT'});
+        dispatch({type: 'CLEAR_OUTFITS_TO_FAVORITE'});
+
     }, []);
 
 
 
     return(
+
         <Stack justifyItems='center' alignItems='center'>
             <Stack justifyItems='center' alignItems='center' width={.8} mb={3}>
                 <h1 className="estimateText">LEVELRIE</h1>

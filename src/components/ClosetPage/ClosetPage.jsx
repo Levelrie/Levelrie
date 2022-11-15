@@ -17,6 +17,9 @@ function ClosetPage () {
     const closetOutfits = useSelector(store => store.closetReducer.closetOutfitsReducer);
     // console.log('what is our data:', closetOutfits)
 
+    const rejectionFits = useSelector(store => store.outfits.rejectionFits);
+    const favoriteFits = useSelector(store => store.outfits.favoriteFits);
+
     // use-dispatch
     const dispatch = useDispatch();
 
@@ -24,8 +27,21 @@ function ClosetPage () {
     useEffect(()=> {
 
         dispatch({
+            type: 'SAGA_FAVORITE_OUTFITS',
+            payload: favoriteFits
+        });
+
+        dispatch({
+            type: 'SAGA_REJECT_OUTFITS',
+            payload: rejectionFits
+        });
+
+        dispatch({
             type: 'FETCH_CLOSET_OUTFITS'
-        })
+        });
+
+        dispatch({type: 'CLEAR_OUTFITS_TO_REJECT'});
+        dispatch({type: 'CLEAR_OUTFITS_TO_FAVORITE'});
 
     },[]);
 
