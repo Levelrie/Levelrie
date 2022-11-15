@@ -12,24 +12,23 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-function ClosetDetailsItems ({ items }) {
+function CategoryDetailsItem ({items}) {
     return (
         <div>
             <Card>
                 <CardContent>
                     <Grid container spacing={1}>
                         <Grid item xs={6}>
-                            <img src={items.f1.img} />
+                            <img src={items.img} />
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography variant="h6">{items.f1.name}</Typography>
-                            <Typography variant="h6">Color: {items.f1.color}</Typography>
-                            <Typography variant="h6">Size: {items.f1.size}</Typography>
-                            <Typography variant="h6">Seller: {items.f1.seller}</Typography>
-                            <Typography variant="h6">{items.f2}</Typography>
+                            <Typography variant="h6">{items.name}</Typography>
+                            <Typography variant="h6">Color: {items.color}</Typography>
+                            <Typography variant="h6">Size: {items.size}</Typography>
+                            <Typography variant="h6">Seller: {items.seller}</Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography variant="h6">{items.f1.price}</Typography>
+                            <Typography variant="h6">{items.price}</Typography>
                         </Grid>
                     </Grid> 
                 </CardContent>
@@ -38,4 +37,4 @@ function ClosetDetailsItems ({ items }) {
     )
 }
 
-export default ClosetDetailsItems;
+export default CategoryDetailsItem;

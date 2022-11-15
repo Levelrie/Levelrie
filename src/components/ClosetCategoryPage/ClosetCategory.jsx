@@ -1,21 +1,27 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
+// import React
+import { useHistory } from 'react-router-dom'
+
+// import material ui
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import { Stack } from '@mui/system';
 
 function ClosetCategory ({category}) {
 
-    const handleClick = (e) => {
-        console.log('id', category.id)
+    // use-history
+    const history = useHistory()
+
+    // handle the outfit detail click
+    const handleDetailsClick = () => {
+        history.push(`/closet/categories/${category.name}`)
+        console.log('outfit clicked', 'id', category.id, 'category', category.name);
     }
+
     return (
         <div className='categoryList'>
                 <Button 
                     sx={{borderRadius:5, fontSize:20}} 
                     className="categoryButton" 
                     color='palePink' 
-                    onClick={handleClick} 
+                    onClick={handleDetailsClick} 
                     variant='contained'
                 >
                     {category.name}

@@ -27,11 +27,11 @@ function ClosetDetailsPage () {
             payload: outfitId
         })
 
-    return () => {
-        dispatch({
-            type: 'CLEAR_OUTFIT_DETAILS'
-        })
-    }
+        return () => {
+            dispatch({
+                type: 'CLEAR_OUTFIT_DETAILS'
+            })
+        }
     }, [params.id])
 
     if (!outfitItems) {
