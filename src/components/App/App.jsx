@@ -39,6 +39,7 @@ import ClosetItemPage from '../ClosetPage/ClosetItemPage';
 import BottomBar from "../BottomBar/BottomBar";
 import ToggleButton from '../ToggleButton/ToggleButton';
 import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
+import ClosetCategoryDetailPage from '../ClosetCategoryPage/ClosetCategoryDetailPage';
 
 //  CSS Import
 import './App.css';
@@ -157,6 +158,14 @@ function App() {
             path="/closet/outfits/detailsPage/:id"
             >
             <ClosetDetailsPage />
+            </ProtectedRoute>
+
+            {/* This route is for the category details path. this page does not the the toggle button */}
+            <ProtectedRoute
+            exact
+            path="/closet/categories/:name"
+            >
+            <ClosetCategoryDetailPage />
             </ProtectedRoute>
 
             <ProtectedRoute path="/favorites">
