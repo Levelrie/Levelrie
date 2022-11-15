@@ -39,6 +39,7 @@ import ClosetItemPage from '../ClosetPage/ClosetItemPage';
 import BottomBar from "../BottomBar/BottomBar";
 import ToggleButton from '../ToggleButton/ToggleButton';
 import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
+import FavoriteOutfitItemDetail from '../FavoriteOutfitList/FavoriteOutfitItemDetail';
 
 //  CSS Import
 import './App.css';
@@ -162,7 +163,7 @@ function App() {
             <ClosetDetailsPage />
             </ProtectedRoute>
 
-            <ProtectedRoute path="/favorites">
+            {/* <ProtectedRoute path="/favorites">
 
 
 
@@ -190,7 +191,47 @@ function App() {
               >
                 <FavoriteItemList />
               </ProtectedRoute>
+            </ProtectedRoute> */}
+
+
+{/* ********************* NEW FAVORITES ROUTES ********************* */}
+            <ProtectedRoute path="/favorites">
+
+              <ToggleButton />
+              <ProtectedRoute
+                // logged in shows FavoriteOutfitList else shows LoginPage
+                exact
+                path="/favorites/outfits"
+              >
+                <FavoriteOutfitList />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows FavoriteOutfitItemDetail else shows LoginPage
+                exact
+                path="/favorites/outfits/:id"
+              >
+                <FavoriteOutfitItemDetail />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows FavoriteItemCategoriesPage else shows LoginPage
+                exact
+                path="/favorites/categories"
+              >
+                <FavoriteItemCategoriesPage />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows FavoriteItemList else shows LoginPage
+                exact
+                path="/favorites/categories/:id"
+              >
+                <FavoriteItemList />
+              </ProtectedRoute>
+
             </ProtectedRoute>
+  {/* ********************* NEW FAVORITES ROUTES ********************* */}
 
             <ProtectedRoute path="/closet">
 
