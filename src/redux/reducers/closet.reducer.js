@@ -17,6 +17,8 @@ const closetItemReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_CLOSET_ITEMS':
             return action.payload;
+        case 'CLEAR_CLOSET_ITEMS':
+            return []
         default:
             return state;
     }
