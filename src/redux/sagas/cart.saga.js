@@ -40,6 +40,10 @@ function* unCartItem(action) {
     }
 }
 
+function* clearCart() {
+    yield axios.delete()
+}
+
 export default function* itemsSaga() {
     yield takeEvery('SAGA_ADDCART_ITEM', cartItem);
     yield takeEvery('SAGA_UNCART_ITEM', unCartItem);

@@ -14,8 +14,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     const address = req.body.address;
 
 
-    // If the outfit isn't yet tied to this user
-    //      add the entry to favorited_outfits
+    // add addy info to tabl;e
     const sqlAddAddressText = `INSERT INTO "addresses"
                                     ("user_id", "street_address", "city", "state", "zip")
                                     VALUES
@@ -47,7 +46,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
     } catch (error) {
         await connection.query('ROLLBACK;');
-        console.log('Error in POST /cart', error)
+        console.log('Error in POST /shipping', error)
         res.sendStatus(500);
     }  
     connection.release();
@@ -55,7 +54,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   console.log('Yo', req.user)
   const sqlText = `
     SELECT * from "addresses"
@@ -66,7 +65,7 @@ router.get('/', (req, res) => {
             console.log('dbRes.rows is:', dbRes.rows);
             res.send(dbRes.rows)
         }).catch(dbErr => {
-            console.log('dbErr in /favorites/outfits:', dbErr);
+            console.log('dbErr in /shipping:', dbErr);
             res.sendStatus(500);
         })
 

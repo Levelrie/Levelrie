@@ -13,7 +13,12 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 
 
-
+// useEffect(() => {
+//     effect
+//     return () => {
+//         cleanup
+//     }
+// }, [input])
 
 
 export default function CheckoutConfirmation(){
@@ -21,11 +26,17 @@ export default function CheckoutConfirmation(){
     const dispatch = useDispatch()
     const cart = useSelector(store => store.cart)
     const user = useSelector(store => store.user)
+    var cartTotal = 0
+    const shippingTotal = Number(19.99)
 
 
     useEffect(() => {
         dispatch({type: 'GET_CART_ITEMS'})
         console.log('How many???');
+        //Cleanup function to clear cart, will also nee
+        return () => {
+            dispatch({type: 'CLEAR_CART'})
+        }
     }, []);
 
     const home = {
@@ -62,6 +73,9 @@ export default function CheckoutConfirmation(){
                         <p>1 item</p>
                     </Stack>
                     {cart.length && cart.map((item) => {
+                        console.log('item price', item.price)
+                        cartTotal += Number(item.price.substring(1))
+                        console.log(cartTotal)
                         return(
                             <Box key={item.id} className='outfitFrame' paddingBottom={3} justifyItems='center' alignItems='center'>
                                 <CartItem item={item}  />
@@ -76,7 +90,7 @@ export default function CheckoutConfirmation(){
                         <p >Subtotal</p>
                     </Grid2>
                     <Grid2 xs={2}>
-                        <p>$105.00</p>
+                        <p>${cartTotal}</p>
                     </Grid2>
                     <Grid2 xs={10}>
                         <p >Shipping</p>
@@ -89,10 +103,10 @@ export default function CheckoutConfirmation(){
                         <h5 >Total</h5>
                     </Grid2>
                     <Grid2 xs={2}>
-                        <p>$124.99</p>
+                        <p>${cartTotal + shippingTotal}</p>
                     </Grid2>
                 </Grid2>
-                <Button variant='outlined' onClick={() => history.push('/home')} sx={{width:.8, paddingBottom: 10}}>Back to Shopping</Button>
+                <Button variant='outlined' onClick={() => history.push('/home')} sx={{width:.8, mb:11}}>Back to Shopping</Button>
             </Stack>
         </>
     )

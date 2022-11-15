@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// Add an item to a user's favorites
+// Add an item to cart
 router.post('/', rejectUnauthenticated, async (req, res) => {
 
     // ••• This route is forbidden if not logged in •••
@@ -14,8 +14,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     const itemIds = req.body.itemId;
 
 
-    // If the outfit isn't yet tied to this user
-    //      add the entry to favorited_outfits
+    //SQL to add item to carts table
     const sqlAddItemText = `INSERT INTO "carts"
                                     ("user_id", "itemId")
                                     VALUES
@@ -55,7 +54,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   console.log('Yo', req.user)
   const sqlText = `
     SELECT * from "items"
@@ -73,6 +72,70 @@ router.get('/', (req, res) => {
         })
 
 
+});
+
+router.delete('/', rejectUnauthenticated, async (req, res) =>{
+  const userId = req.user.id
+  const itemId = req.params.itemId
+
+  const sqlDeleteItem = `DELETE FROM "carts"
+                          WHERE "user_id"  = $1
+                          AND "item_id"  = $2;`
+
+  const connection = await pool.connect();
+
+  try {
+      await connection.query('BEGIN;');
+
+      // Remove the item
+      await connection.query(sqlDeleteItem, [userId, itemId]);
+      console.log('BREAKING HERE?????? 5');
+
+      // Confirm successful actions
+      await connection.query('COMMIT;');
+
+      res.sendStatus(200);
+
+
+      console.log('BREAKING HERE?????? END 2');
+
+  } catch (error) {
+      await connection.query('ROLLBACK;');
+      console.log('Error in DELETE /cart item', error)
+      res.sendStatus(500);
+  }  
+  connection.release();
+});
+
+router.delete('/all', rejectUnauthenticated, async (req, res) =>{
+  const userId = req.user.id
+
+  const sqlDeleteItem = `DELETE FROM "carts"
+                          WHERE "user_id"  = $1`
+
+  const connection = await pool.connect();
+
+  try {
+      await connection.query('BEGIN;');
+
+      // Remove the item
+      await connection.query(sqlDeleteItem, [userId]);
+      console.log('BREAKING HERE?????? 5');
+
+      // Confirm successful actions
+      await connection.query('COMMIT;');
+
+      res.sendStatus(200);
+
+
+      console.log('BREAKING HERE?????? END 2');
+
+  } catch (error) {
+      await connection.query('ROLLBACK;');
+      console.log('Error in DELETE /cart ALL', error)
+      res.sendStatus(500);
+  }  
+  connection.release();
 });
 
 

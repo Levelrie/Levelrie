@@ -6,9 +6,12 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
  import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
  import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+ import Badge from '@mui/material/Badge';
+
 
  import { useLocation, useHistory } from 'react-router-dom';
  import { useEffect, useState } from 'react';
+ import { useSelector } from 'react-redux';
 
 
  export default function BottomBar() {
@@ -86,7 +89,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
         <BottomNavigationAction
         label="Cart"
         value="Cart"
-        icon={<ShoppingCartOutlinedIcon htmlColor='#424242' sx={{ border: 3, borderRadius: 50, borderColor: '#f1b3f2', padding: .5 }}/>}
+        icon={<Badge badgeContent={useSelector(store => store.cart.length)} color={'primary'}><ShoppingCartOutlinedIcon htmlColor='#424242' sx={{ border: 3, borderRadius: 50, borderColor: '#f1b3f2', padding: .5 }}/></Badge>}
         />
         <BottomNavigationAction
         label="Favorites"
