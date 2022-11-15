@@ -13,31 +13,77 @@ function FavoriteItemItem({item}) {
     console.log('this is the item:', item);
 
     return (
-        <div key={item.id} variant="outlined" className="itemGrid">
-            <Grid container>
-
-                {/* COLUMN 1 */}
-                <Grid item container xs={4}>
-                    <Stack className='this'>             
-                        <img src={item.img} />
-                        <Typography>{item.price}</Typography>
-                    </Stack> 
-                </Grid>
-
-                {/* COLUMN 2 */}
-                <Grid item container xs={6}>
-                    <Stack>
-                        <Typography variant="body1" gutterBottom>{item.name}</Typography>
-                        <DropDown />
-                    </Stack>
-                </Grid>
-
-                {/* COLUMN 3 */}
-                <Grid xs={2}>       
-                    <BuyCheckbox />
-                </Grid>
-            </Grid>
+        <div className='itemItemContainer'>
+            <div className='itemItemImage'>
+                <img src={item.img} className='itemItemImagePic' />
+            </div>
+            <div className='itemItemPrice'>
+                <Typography className='priceText' sx={{ fontSize: 16 }}>{item.price}</Typography>
+            </div>
+            <div className='itemItemName'>
+                <Typography sx={{ fontSize: 16 }}>{item.name}</Typography>
+            </div>
+            <div className='itemItemColorLabel'>
+                <Typography className='ddLabel' sx={{ fontSize: 14 }}>Color:</Typography>
+            </div>
+            <div className='itemItemColorDropDown'>
+                <select name="color" className='selectDropDown'>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="yellow">Yellow</option>
+                </select>
+            </div>
+            <div className='itemItemSizeLabel'>
+                <Typography className='ddLabel' sx={{ fontSize: 14 }}>Size:</Typography>
+            </div>
+            <div className='itemItemSizeDropDown'>
+                <select name="size" className='selectDropDown'>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+            </div>
+            <div className='itemItemQuantityLabel'>
+                <Typography className='ddLabel' sx={{ fontSize: 14 }}>Qty:</Typography>
+            </div>
+            <div className='itemItemQuantityDropDown'>
+                <select name="quantity" className='selectDropDown'>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div className='itemItemBuy'>
+                <BuyCheckbox />
+            </div>
         </div>
+
+
+        // <div key={item.id} variant="outlined" className="itemGrid">
+        //     <Grid container>
+
+               
+        //         <Grid item container xs={4}>
+        //             <Stack className='this'>             
+        //                 <img src={item.img} />
+        //                 <Typography>{item.price}</Typography>
+        //             </Stack> 
+        //         </Grid>
+
+    
+        //         <Grid item container xs={6}>
+        //             <Stack>
+        //                 <Typography variant="body1" gutterBottom>{item.name}</Typography>
+        //                 <DropDown />
+        //             </Stack>
+        //         </Grid>
+
+              
+        //         <Grid xs={2}>       
+        //             <BuyCheckbox />
+        //         </Grid>
+        //     </Grid>
+        // </div>
     );
 };
 
