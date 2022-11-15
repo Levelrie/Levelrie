@@ -6,9 +6,12 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
  import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
  import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+ import Badge from '@mui/material/Badge';
+
 
  import { useLocation, useHistory } from 'react-router-dom';
  import { useEffect, useState } from 'react';
+ import { useSelector } from 'react-redux';
 
 
  export default function BottomBar() {
@@ -40,6 +43,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
    const [value, setValue] = React.useState('recents');
+   const cart = useSelector(store => store.cart)
+   var cartCount = 0
 
    const handleChange = (event, newValue) => {
      setValue(newValue);
@@ -65,6 +70,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
      console.log(location);
    };
 
+   cart ?  cartCount = cart.length : cartCount = 0
+
    return (
     <BottomNavigation  sx={{ width: 1, paddingBottom: 1, paddingTop: 1, zIndex: 100000000 }} value={value} onChange={handleChange}>
          <BottomNavigationAction
@@ -86,7 +93,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
         <BottomNavigationAction
         label="Cart"
         value="Cart"
-        icon={<ShoppingCartOutlinedIcon htmlColor='#424242' sx={{ border: 3, borderRadius: 50, borderColor: '#f1b3f2', padding: .5 }}/>}
+        icon={<Badge badgeContent={cartCount} color={'primary'}><ShoppingCartOutlinedIcon htmlColor='#424242' sx={{ border: 3, borderRadius: 50, borderColor: '#f1b3f2', padding: .5 }}/></Badge>}
         />
         <BottomNavigationAction
         label="Favorites"

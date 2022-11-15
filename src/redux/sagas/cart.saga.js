@@ -34,14 +34,29 @@ function* unCartItem(action) {
     try {
         const itemId = action.payload.itemId;
         console.log('OUTFIT ID')
-        yield axios.delete(`/api/item/unfavorite/${itemId}`);
+        yield axios.delete(`/api/cart/${itemId}`);
+        yield put({
+            type: 'GET_CART_ITEMS'
+        })
     } catch (error) {
-        console.log('itemsSaga favoriteItem function error', error);
+        console.log('cartSaga Delete Item function error', error);
     }
+}
+
+function* clearCart() {
+   try { yield axios.delete(`/api/cart/all`);
+    yield put({
+        type: 'GET_CART_ITEMS'
+    })
+} catch (error) {
+    console.log('cartSaga Clear Cart function error', error);
+}
+
 }
 
 export default function* itemsSaga() {
     yield takeEvery('SAGA_ADDCART_ITEM', cartItem);
     yield takeEvery('SAGA_UNCART_ITEM', unCartItem);
     yield takeEvery('GET_CART_ITEMS', fetchCart)
+    yield takeEvery('CLEAR_CART', clearCart)
 }

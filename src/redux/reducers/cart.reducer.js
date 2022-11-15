@@ -2,7 +2,7 @@ export default function cart(state = [], action) {
     switch (action.type) {
         case 'SET_CART_ITEMS':
             console.log('here???',action.payload)
-            return [action.payload];
+            return action.payload;
         case 'REMOVE_FROM_CART':
             return state.filter(element => element !== action.payload)
         case 'CLEAR_CART':
