@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 
 
 
-export default function PayNow() {
+export default function PayNow({ total }) {
     const history = useHistory()
 
     return(
@@ -14,9 +14,9 @@ export default function PayNow() {
             <Stack direction='row' justifyContent='space-around'>
                 <Stack spacing={0}>
                     <p className='priceTeam'>Total:</p>
-                    <p className='priceTeam'>$299.00</p>
+                    <p className='priceTeam'>${total}</p>
                 </Stack>
-                <Button variant='contained' onClick={() => history.push('/checkout')}> Pay Now!</Button>
+                <Button disabled={total === 0 ? true : false} variant='contained' onClick={() => history.push('/checkout')}> Pay Now!</Button>
             </Stack>
             <p>This is the final step, after touching the Pay Now button, the payment will be transacted</p>
         </Stack>

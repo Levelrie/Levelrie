@@ -78,9 +78,6 @@ export const themeOptions = createTheme({
   },
   typography: {
     fontFamily: 'Quicksand',
-    h6: {
-      fontFamily: 'Saira Condensed',
-    },
   },
   fontFamily: 'Saira Condensed',
 });
