@@ -31,7 +31,7 @@ function RegisterForm() {
   const history = useHistory();
 
   const onHome = (event) => {
-    history.push('/home');
+    history.push('/landing');
   };
 
   return (
