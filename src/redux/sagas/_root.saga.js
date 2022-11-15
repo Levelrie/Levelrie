@@ -33,11 +33,9 @@ export default function* rootSaga() {
     itemsSaga(),
     favoritesSaga(),
     closetSaga(),
-    outfitsSaga(),
     globalSearchSaga(),
     cart(),
     shipping(),
-    outfitsSaga(),
     outfitsDisplaySaga(),
   ]);
 }

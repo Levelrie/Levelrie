@@ -44,16 +44,14 @@ function FavoriteItemList() {
 
     console.log('favoriteItems is:', favoriteItems);
     return (
-        <>
-            <Container className='favoriteItemListContainer'>
+        <Container className='favoriteItemListContainer'>
             <Typography variant="h6">Faves</Typography>
             <Stack spacing={2}>
                 {favoriteItems.map(item => (
                         <FavoriteItemItem key={item.id} item={item}/>
                 ))}
             </Stack>
-            </Container>
-        </>
+        </Container>
     )
 }
 
