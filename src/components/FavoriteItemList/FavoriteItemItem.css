@@ -20,7 +20,7 @@
 }
 
 .itemItemName {
-    grid-column: 6 / span 7;
+    grid-column: 6 / span 9;
     grid-row: 1/ span 5;
     text-align: left;
 }
