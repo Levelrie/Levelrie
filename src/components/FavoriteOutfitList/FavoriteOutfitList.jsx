@@ -19,12 +19,28 @@ function FavoriteOutfitList() {
     const user = useSelector((store) => store.user);
     const favoriteOutfits = useSelector(store => store.favorites.favoriteOutfitsReducer);
 
+    const rejectionFits = useSelector(store => store.outfits.rejectionFits);
+    const favoriteFits = useSelector(store => store.outfits.favoriteFits);
+
     const [highlightedButton, setHighlightedButton] = useState('');
 
     useEffect(() => {
         dispatch({
             type: 'FETCH_FAVORITE_OUTFITS'
         });
+
+        dispatch({
+            type: 'SAGA_FAVORITE_OUTFITS',
+            payload: favoriteFits
+        });
+
+        dispatch({
+            type: 'SAGA_REJECT_OUTFITS',
+            payload: rejectionFits
+        });
+
+        dispatch({type: 'CLEAR_OUTFITS_TO_REJECT'});
+        dispatch({type: 'CLEAR_OUTFITS_TO_FAVORITE'});
 
         // switch(location.pathname) {
         //     case '/favorites/outfits':
