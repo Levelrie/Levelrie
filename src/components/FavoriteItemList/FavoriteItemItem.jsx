@@ -18,33 +18,33 @@ function FavoriteItemItem({item}) {
                 <img src={item.img} className='itemItemImagePic' />
             </div>
             <div className='itemItemPrice'>
-                <Typography className='priceText'>{item.price}</Typography>
+                <Typography className='priceText' sx={{ fontSize: 16 }}>{item.price}</Typography>
             </div>
             <div className='itemItemName'>
-                <Typography>{item.name}</Typography>
+                <Typography sx={{ fontSize: 16 }}>{item.name}</Typography>
             </div>
             <div className='itemItemColorLabel'>
-                <Typography variant="captiontext" className='ddLabel'>Color:</Typography>
+                <Typography className='ddLabel' sx={{ fontSize: 14 }}>Color:</Typography>
             </div>
             <div className='itemItemColorDropDown'>
                 <select name="color" className='selectDropDown'>
-                    <option value="red">red</option>
-                    <option value="blue">blue</option>
-                    <option value="yellow">yellow</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="yellow">Yellow</option>
                 </select>
             </div>
             <div className='itemItemSizeLabel'>
-                <Typography variant="captiontext" className='ddLabel'>Size:</Typography>
+                <Typography className='ddLabel' sx={{ fontSize: 14 }}>Size:</Typography>
             </div>
             <div className='itemItemSizeDropDown'>
                 <select name="size" className='selectDropDown'>
-                        <option value="s">s</option>
-                        <option value="m">m</option>
-                        <option value="l">l</option>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
                     </select>
             </div>
             <div className='itemItemQuantityLabel'>
-                <Typography variant="captiontext" className='ddLabel'>Qty:</Typography>
+                <Typography className='ddLabel' sx={{ fontSize: 14 }}>Qty:</Typography>
             </div>
             <div className='itemItemQuantityDropDown'>
                 <select name="quantity" className='selectDropDown'>
