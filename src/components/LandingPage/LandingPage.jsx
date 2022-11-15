@@ -11,13 +11,10 @@ function LandingPage() {
   const onRegister = (event) => {
     history.push('/registration');
   };
-  const onHome = (event) => {
-    history.push('/home');
-  };
 
   return (
     <div className='landing'>
-      <img onClick={onHome} src='https://res.cloudinary.com/dgainc6rr/image/upload/v1667588949/Logo/Levelrie_Logo_ipecqt.png'/>
+      <img src='https://res.cloudinary.com/dgainc6rr/image/upload/v1667588949/Logo/Levelrie_Logo_ipecqt.png'/>
       <div className='login-btn'>
         <Button 
           variant="contained"
