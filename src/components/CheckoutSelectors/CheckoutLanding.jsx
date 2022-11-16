@@ -46,11 +46,14 @@ export default function CheckoutLanding() {
             <Stack id="shippingEst" direction='row' width={1} mb={3}>
                 <ShippingEstimate />
             </Stack>
-            <Stack width={1} className='checkoutFrame' justifyItems='center' alignItems='center' mt={3}>
-                <FavoriteItemItem />
-                <Divider width='80%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, mt: 10, mb: 3}} />
-                <PurchaseItems  />
+            <Stack width={1} className='checkoutFrame' justifyItems='center' alignItems='center' mt={3} overflow='scroll'>
+                {cart ? cart.map((item) => {
+                return(
+                    <FavoriteItemItem item={item} key={item.id}/>
+                )}): 'None'}
             </Stack>
+            <Divider width='80%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, mt: 5, mb: 3}} />
+            <PurchaseItems  />
 
         </Stack>
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 
 // MUI
 import Checkbox from '@mui/material/Checkbox';
@@ -7,12 +7,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 // item is a prop passed in from component
 // example: item = a specific shirt
-function BuyCheckbox(item) {
-
-  const [check, setCheck] = useState(false);
+function BuyCheckbox({ item, carted }) {
+  console.log('carted?', carted)
+  const [check, setCheck] = useState(carted);
   const dispatch = useDispatch();
 
-  // when checkbox is clicked, set check to the opposite of its value
+
+    // when checkbox is clicked, set check to the opposite of its value
   const handleChange = () => {
     setCheck(!check);
     handleBuy();
@@ -37,8 +38,11 @@ function BuyCheckbox(item) {
 
     return (
         <FormControlLabel
-          value={check}
-          control={<Checkbox onChange={handleChange} sx={{
+        value={check}
+        control={<Checkbox 
+          onChange={handleChange}
+          checked={check}
+          sx={{
             color: 'black',
             '&.Mui-checked': {
               color: 'black',

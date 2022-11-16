@@ -11,8 +11,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('BREAKING HERE?????? 0');
     
     const userId = req.user.id;
-    const itemId = req.body.item.id;
-    console.log('req.body', req.body)
+    const itemId = req.body.id;
+    console.log('req.body', req.body.id)
 
 
     //SQL to add item to carts table

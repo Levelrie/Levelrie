@@ -2,6 +2,8 @@ import './FavoriteItemItem.css';
 import DropDown from '../DropDown/DropDown';
 import Grid from '@mui/material/Unstable_Grid2';
 import BuyCheckbox from '../BuyCheckbox/BuyCheckbox';
+import { useSelector } from 'react-redux'
+
 
 // MUI
 import Typography from '@mui/material/Typography';
@@ -9,6 +11,17 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 
 function FavoriteItemItem({item}) {
+    var carted = false
+    const cart = useSelector(store => store.cart)
+    for(let cloth of cart){
+        console.log('cloth.id', cloth.id)
+        console.log('item.id', item.id)
+        if(cloth.id === item.id){
+          console.log('cloth?', cloth)
+            carted = true
+        }
+      }
+  
 
     console.log('this is the item:', item);
 
@@ -54,7 +67,7 @@ function FavoriteItemItem({item}) {
                 </select>
             </div>
             <div className='itemItemBuy'>
-                <BuyCheckbox item={item}/>
+                <BuyCheckbox item={item} carted={carted}/>
             </div>
         </div>
 

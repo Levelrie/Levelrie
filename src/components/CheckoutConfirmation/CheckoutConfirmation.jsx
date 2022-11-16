@@ -67,8 +67,8 @@ export default function CheckoutConfirmation(){
                 </Stack>
                 <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, m: 3}}/>
 
-                <Stack>
-                    <Stack direction='row' justifyContent='space-between' alignItems='center' marginBottom={0}>
+                <Stack alignItems='center' >
+                    <Stack direction='row' justifyContent='space-between' alignItems='center' marginBottom={0} width={.8}>
                         <h4>Order Items</h4>
                         <p>{cart.length} Items</p>
                     </Stack>
@@ -77,7 +77,7 @@ export default function CheckoutConfirmation(){
                         cartTotal += Number(item.price.substring(1))
                         console.log(cartTotal)
                         return(
-                            <Box key={item.id} className='outfitFrame' paddingBottom={10} justifyItems='center' alignItems='center'>
+                            <Box key={item.id} className='outfitFrame' marginBottom={5} justifyItems='center' alignItems='center' width={.9}>
                                 <CartItem item={item}  />
                             </Box>
                     )}): ''}
