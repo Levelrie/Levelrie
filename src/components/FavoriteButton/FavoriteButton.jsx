@@ -3,22 +3,53 @@ import { useDispatch } from 'react-redux';
 
 // MUI
 import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import Button from '@mui/material/Button';
 
-// item is a prop passed in from component
-// example: item = a specific shirt
-function FavoriteButton({itemId, outfitId}) {
+function FavoriteButton({itemId, outfitId, defaultChecked}) {
 
-  const [check, setCheck] = useState(false);
+  const [check, setCheck] = useState(defaultChecked);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   // when heart is clicked, set check to the opposite of its value
   const handleChange = () => {
-    setCheck(!check);
-    handleFavorite();
+    console.log('in handleChange and check is:', check);
+    if(check) {
+      console.log('check is true, trying to UNfavorite');
+      handleClickOpen();
+    }
+    else {
+      console.log('check is false, trying to favorite');
+    }
   }
+
+    const handleClickOpen = () => {
+        console.log('in handleClickOpen');
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleDelete = () => {
+      console.log('start deleting!');
+      dispatch({
+        type: 'SAGA_UNFAVORITE_TEST',
+        payload: {
+          itemId: itemId,
+          // outfitId: outfitId
+        }
+      });
+      setCheck(false);
+      handleClose();
+      // need to refresh page
+    }
 
   const handleFavorite = () => {
     if(check === false) {  // if false (false because check will not have changed yet) then add to favorites
@@ -31,20 +62,13 @@ function FavoriteButton({itemId, outfitId}) {
         }
       });
     }
-    else { // if true (true because check will not have changed yet) then remove from favorites
-      console.log('dispatch remove from favorites');
-      dispatch({
-        type: 'SAGA_UNFAVORITE_ITEM',
-        payload: {
-          itemId: itemId,
-          outfitId: outfitId
-        }
-      });
-    }
   }
 
     return (
+      <>
+        { }
         <Checkbox 
+            checked={check}
             onChange={handleChange}
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite />}
@@ -55,7 +79,18 @@ function FavoriteButton({itemId, outfitId}) {
                   color: 'pink',
                 },
             }}
-        />    
+        />
+        <Dialog
+                open={open}
+                onClose={handleClose}
+            >
+                <DialogContent>Delete item from favorites?</DialogContent>
+                <DialogActions>
+                    <Button color="warning" onClick={handleDelete}>Delete</Button>
+                    <Button  variant="contained" onClick={handleClose}>Cancel</Button>
+                </DialogActions>
+            </Dialog>    
+            </>
     );
 };
 
