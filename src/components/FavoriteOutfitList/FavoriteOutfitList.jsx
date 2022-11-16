@@ -29,20 +29,20 @@ function FavoriteOutfitList() {
     const [highlightedButton, setHighlightedButton] = useState('');
 
     useEffect(() => {
-        dispatch({
-            type: 'FETCH_FAVORITE_OUTFITS'
-        });
-
+        
         dispatch({
             type: 'SAGA_FAVORITE_OUTFITS',
             payload: favoriteFits
         });
-
+        
         dispatch({
             type: 'SAGA_REJECT_OUTFITS',
             payload: rejectionFits
         });
-
+        
+        dispatch({
+            type: 'FETCH_FAVORITE_OUTFITS'
+        });
         dispatch({type: 'CLEAR_OUTFITS_TO_REJECT'});
         dispatch({type: 'CLEAR_OUTFITS_TO_FAVORITE'});
 
@@ -81,16 +81,20 @@ function FavoriteOutfitList() {
     console.log('favoriteOutfits is:', favoriteOutfits);
     return (
         <>
+        
+        <div className="outfitsListSearchBar">
             {/* <p>Favorite Outfit List Page</p> */} 
             <FavoriteSearchBar constraint={constraint} />
+        </div>
 
             <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (
                     <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
             ))}
             </Stack>
-
+        
         </>
+
     );
 };
 export default FavoriteOutfitList;

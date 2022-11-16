@@ -42,8 +42,10 @@ function ClosetCategoryDetailPage () {
 
     return (
         <div>
+            <div className="closetCategoriesSearchBar">
+                <ClosetSearchBar constraint={constraint} categoryName={categoryName} />
+            </div>
             <Typography className='ClosetCatergoryTitle' variant='h6'>My Closet: {categoryName}</Typography>
-            <ClosetSearchBar constraint={constraint} categoryName={categoryName} />
             <ul className='outfit-ul'>
                 {itemsDetails.map (items => (
                         <CategoryDetailsItem key={items.id} items={items}/>

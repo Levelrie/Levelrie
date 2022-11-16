@@ -41,6 +41,16 @@ function* rejectOutfit(action) {
         yield put({
             type: 'SAGA_FETCH_OUTFITS_FOR_SWIPING'
         });  
+
+        // Since swipes from home don't trigger a database update until visiting another page 
+        // Closet and Favorites must be send for incase a user immediately visits one of those pages
+        yield put({
+            type: 'FETCH_FAVORITE_OUTFITS'
+        });
+
+        dispatch({
+            type: 'FETCH_CLOSET_OUTFITS'
+        });
             
     } catch (error) {
         console.log('outfitsSaga rejectOutfit function error', error);
@@ -66,6 +76,17 @@ function* favoriteOutfit(action) {
         yield put({
             type: 'SAGA_FETCH_OUTFITS_FOR_SWIPING'
         });
+
+        // Since swipes from home don't trigger a database update until visiting another page 
+        // Closet and Favorites must be send for incase a user immediately visits one of those pages
+        yield put({
+            type: 'FETCH_FAVORITE_OUTFITS'
+        });
+
+        dispatch({
+            type: 'FETCH_CLOSET_OUTFITS'
+        });
+
     } catch (error) {
         console.log('outfitsSaga favoriteOutfit function error', error);
     }
