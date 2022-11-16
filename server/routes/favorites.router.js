@@ -37,7 +37,7 @@ router.get('/search', rejectUnauthenticated, (req, res) => {
                             JOIN "items" ON outfit_items.item_id = items.id
                             INNER JOIN "categories" ON items.category_id = categories.id
                             JOIN "favorited_outfits" ON outfits.id = favorited_outfits.outfit_id
-                                WHERE outfits.name LIKE $1
+                                WHERE UPPER(outfits.name) LIKE UPPER($1)
                                 AND "favorited_outfits".user_id = $2
                                 GROUP BY outfits.id;`
     pool.query(sqlSearchText, [query, userId])
@@ -64,7 +64,7 @@ router.get('/search/item', rejectUnauthenticated, (req, res) => {
                         JOIN "categories" ON items.category_id = categories.id
                         JOIN "favorited_items" ON items.id = favorited_items.item_id
                         JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
-                            WHERE items.name LIKE $1
+                            WHERE UPPER(items.name) LIKE UPPER($1)
                             AND categories.name = $2
                             AND "favorited_outfits".user_id = $3;`
     pool.query(sqlSearchText, [query, category, userId])
