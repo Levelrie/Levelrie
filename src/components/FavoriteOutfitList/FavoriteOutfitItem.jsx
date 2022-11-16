@@ -10,7 +10,7 @@ import Card from '@mui/material/Card';
     console.log('these are items:', outfit.items)
     return (
         <>
-         <Paper className='outfitSwipeContainer'>
+         <div className='faveOutfitContainer'>
             {outfit.items.map(item => {
                 return(
                     <div key={item.f1.id} id={item.f2}>
@@ -19,7 +19,7 @@ import Card from '@mui/material/Card';
                 )
             })
             }
-         </Paper>
+         </div>
 </>
 
      );
