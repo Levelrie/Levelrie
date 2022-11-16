@@ -41,6 +41,7 @@ import ToggleButton from '../ToggleButton/ToggleButton';
 import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
 import FavoriteOutfitItemDetail from '../FavoriteOutfitList/FavoriteOutfitItemDetail';
 import ClosetCategoryDetailPage from '../ClosetCategoryPage/ClosetCategoryDetailPage';
+import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
 
 //  CSS Import
 import './App.css';
@@ -241,7 +242,7 @@ function App() {
 
             <ProtectedRoute path="/closet">
 
-                <ToggleButton />
+                <ClosetToggleButton />
                 <ProtectedRoute
                   // logged in shows Closet Outfit List else shows LoginPage
                   exact

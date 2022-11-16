@@ -12,6 +12,7 @@ export default function OutfitHomeItem({outfit}) {
                         return (
                             <div key={item.f1.id} id={item.f2}>
                                 <img className="itemPic" src={item.f1.img} />
+                                {/* <FavoriteButton className="pressable" itemId={item.f1.id} outfitId={outfit.id} /> */}
                             </div>
                             );
                         })}
