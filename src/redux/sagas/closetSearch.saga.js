@@ -29,7 +29,7 @@ function* searchClosetItems(action) {
     });
 }
 
-export default function* globalSearchSaga() {
+export default function* ClosetSearchSaga() {
     yield takeLatest('SAGA_SEARCH_CLOSET_OUTFITS', searchClosetOutfits);
     yield takeLatest('SAGA_SEARCH_CLOSET_ITEMS', searchClosetItems)
 };

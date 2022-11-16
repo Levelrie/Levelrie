@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 // MUI
 import InputAdornment from '@mui/material/InputAdornment';
@@ -7,7 +8,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 
-function FavoriteSearchBar({constraint, categories}) {   
+function FavoriteSearchBar({constraint, categoryName}) {   
     
     // constraint is prop passed in by a component
     // example: constraint could be "global" to search entire database
@@ -18,28 +19,43 @@ function FavoriteSearchBar({constraint, categories}) {
     // const [value, setValue] = useState('');
     const [searchValue, setSearchValue] = useState('');
 
-    const query = useSelector(store => store.closetReducer.query);
+    const query = useSelector(store => store.favorites.query);
 
     const dispatch = useDispatch();
+    const location = useLocation();
 
     useEffect(() => {
         // search triggers on SearchToggleButton click
         switch (constraint) {
             case 'favoriteOutfits':
                 dispatch({
-                    type: 'SAGA_SEARCH_FAVORITE_OUTFITS',
+                    type: 'SAGA_SEARCH_CLOSET_OUTFITS',
                     payload: query
                 });
                 break;
             case 'favoriteItems':
                 dispatch({
-                    type: 'SAGA_SEARCH_FAVORITE_ITEMS',
-                    payload: {query: query, categories: categories}
+                    type: 'SAGA_SEARCH_CLOSET_ITEMS',
+                    payload: {query: query, categories: [categoryName]}
                 });
                 break;
         }
 
-    }, [constraint, categories])
+
+        dispatch({
+            type: 'ADD_FAVORITES_SEARCH_CATEGORY',
+            payload: categoryName
+        });
+
+        return() => {
+            dispatch({
+                type: 'REMOVE_FAVORITES_SEARCH_CATEGORY',
+                payload: categoryName
+            });
+        }
+
+
+    }, [constraint, categoryName])
 
     // The search will fire off to the database on change
     const handleChange = (e) => {
@@ -60,7 +76,7 @@ function FavoriteSearchBar({constraint, categories}) {
             case 'favoriteItems':
                 dispatch({
                     type: 'SAGA_SEARCH_FAVORITE_ITEMS',
-                    payload: {query: e.target.value, categories: categories}
+                    payload: {query: e.target.value, categories: [categoryName]}
                 });
                 break;
         }
