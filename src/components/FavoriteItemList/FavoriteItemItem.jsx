@@ -25,7 +25,7 @@ function FavoriteItemItem({item}) {
         console.log('in handleDelete')
         const itemId = item.id;
         dispatch({
-            type: 'SAGA_UNFAVORITE_ITEM',
+            type: 'SAGA__ITEM',
             payload: itemId
         })
     }
