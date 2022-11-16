@@ -54,7 +54,7 @@ function FavoriteItemItem({item}) {
                 </select>
             </div>
             <div className='itemItemBuy'>
-                <BuyCheckbox />
+                <BuyCheckbox item={item}/>
             </div>
         </div>
 

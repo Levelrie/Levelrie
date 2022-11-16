@@ -11,13 +11,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('BREAKING HERE?????? 0');
     
     const userId = req.user.id;
-    const itemIds = req.body;
+    const itemId = req.body.item.id;
     console.log('req.body', req.body)
 
 
     //SQL to add item to carts table
     const sqlAddItemText = `INSERT INTO "carts"
-                                    ("user_id", "itemId")
+                                    ("user_id", "item_id")
                                     VALUES
                                     ($1, $2);`
                                     
@@ -27,23 +27,23 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
     try {
         await connection.query('BEGIN;');
-        console.log('BREAKING HERE?????? 1');
+       
 
         // Add the item next
-        for(let itemId of itemIds){
-          await connection.query(sqlAddItemText, [userId, itemId.id]);
+        
+        await connection.query(sqlAddItemText, [userId, itemId]);
 
-        console.log('BREAKING HERE?????? 2');
-        }
+       
+        
         // Confirm successful actions
         await connection.query('COMMIT;');
 
-        console.log('BREAKING HERE?????? 3');
+        
 
         res.sendStatus(201);
 
 
-        console.log('BREAKING HERE?????? END 1');
+        
 
     } catch (error) {
         await connection.query('ROLLBACK;');

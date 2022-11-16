@@ -4,6 +4,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* cartItem(action) {
     console.log('WOOOOO', action.payload);
     try {
+        console.log('action.payload cart', action.payload)
         yield axios.post(`/api/cart`, action.payload);
     } catch (error) {
         console.log('itemsSaga favoriteItem function error', error);
