@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import FavoriteOutfitItem from './FavoriteOutfitItem';
 import ToggleButton from '../ToggleButton/ToggleButton.jsx';
+import './FavoriteOutfitList.css';
 
 // MUI
 import AddIcon from '@mui/icons-material/Add';
@@ -61,11 +62,11 @@ function FavoriteOutfitList() {
     console.log('favoriteOutfits is:', favoriteOutfits);
     return (
         <>
-            {/* <p>Favorite Outfit List Page</p> */} 
-
             <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (
-                    <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
+                <div className='faveOutfitCard'>
+                     <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
+                </div>
             ))}
             </Stack>
 

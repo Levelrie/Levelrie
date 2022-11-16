@@ -47,7 +47,7 @@ export default function HomeOutfitCards({outfitsArray}) {
                                     <OutfitHomeItem outfit={outfit}/>
                     </TinderCard>
                 );
-            }) : <p>'No More Fits :(((('</p>
+            }) : <p>'No More Outfits to Swipe'</p>
             }
         </>
     );
