@@ -20,7 +20,7 @@ function ClosetItemPage () {
     useEffect(()=> {
 
         dispatch({
-            type: 'FETCH_CATEGORY'
+            type: 'SAGA_FETCH_CATEGORIES'
         })
 
     },[]);

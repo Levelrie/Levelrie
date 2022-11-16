@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 // MUI
 import InputAdornment from '@mui/material/InputAdornment';
@@ -7,7 +8,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 
-function ClosetSearchBar({constraint, categories}) {   
+function ClosetSearchBar({constraint, categoryName}) {   
     
     // constraint is prop passed in by a component
     // example: constraint could be "global" to search entire database
@@ -21,6 +22,7 @@ function ClosetSearchBar({constraint, categories}) {
     const query = useSelector(store => store.closetReducer.query);
 
     const dispatch = useDispatch();
+    const location = useLocation();
 
     useEffect(() => {
         // search triggers on SearchToggleButton click
@@ -34,12 +36,26 @@ function ClosetSearchBar({constraint, categories}) {
             case 'closetItems':
                 dispatch({
                     type: 'SAGA_SEARCH_CLOSET_ITEMS',
-                    payload: {query: query, categories: categories}
+                    payload: {query: query, categories: [categoryName]}
                 });
                 break;
         }
 
-    }, [constraint, categories])
+
+        dispatch({
+            type: 'ADD_CLOSET_SEARCH_CATEGORY',
+            payload: categoryName
+        });
+
+        return() => {
+            dispatch({
+                type: 'REMOVE_CLOSET_SEARCH_CATEGORY',
+                payload: categoryName
+            });
+        }
+
+
+    }, [constraint, categoryName])
 
     // The search will fire off to the database on change
     const handleChange = (e) => {
@@ -60,7 +76,7 @@ function ClosetSearchBar({constraint, categories}) {
             case 'closetItems':
                 dispatch({
                     type: 'SAGA_SEARCH_CLOSET_ITEMS',
-                    payload: {query: e.target.value, categories: categories}
+                    payload: {query: e.target.value, categories: [categoryName]}
                 });
                 break;
         }
