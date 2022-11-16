@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 
-export default function ClosetToggleButton() {
+export default function FavoriteToggleButton() {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -20,10 +20,10 @@ export default function ClosetToggleButton() {
         });
 
         switch(location.pathname) {
-            case '/closet/outfits':
+            case '/favorites/outfits':
                 setIsFront(true);
                 break;
-            case '/closet/categories':
+            case '/favorites/categories':
                 setIsFront(false);
                 break;
             default:
@@ -44,19 +44,19 @@ export default function ClosetToggleButton() {
                 // setIsFront(true);
                 // setConstraint('globalOutfits')
                 dispatch({
-                    type: 'SET_CLOSET_SEARCH_CONSTRAINT',
-                    payload: 'closetOutfits'
+                    type: 'SET_FAVORITES_SEARCH_CONSTRAINT',
+                    payload: 'favoriteOutfits'
                 });
-                history.push('/closet/outfits');
+                history.push('/favorites/outfits');
                 break;
             case 'category':
                 // setIsFront(false);
                 // setConstraint('globalItems');
                 dispatch({
-                    type: 'SET_CLOSET_SEARCH_CONSTRAINT',
-                    payload: 'closetItems'
+                    type: 'SET_FAVORITES_SEARCH_CONSTRAINT',
+                    payload: 'favoriteItems'
                 });
-                history.push('/closet/categories');
+                history.push('/favorites/categories');
                 break;
         }
 

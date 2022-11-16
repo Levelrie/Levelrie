@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import FavoriteItemItem from "./FavoriteItemItem";
+import FavoriteSearchBar from '../FavoriteOutfitList/FavoriteSearchBar';
 import './FavoriteItemList.css';
 
 // MUI
@@ -14,8 +15,10 @@ function FavoriteItemList() {
     const params = useParams();
     const favoriteItems = useSelector(store => store.favorites.favoriteItemsReducer);
 
+    const constraint = useSelector(store => store.favorites.constraint);
+    
+    const category = params.id
     useEffect(() => {
-        const category = params.id
         dispatch({
             type: 'FETCH_FAVORITE_ITEMS',
             payload: category
@@ -44,14 +47,18 @@ function FavoriteItemList() {
 
     console.log('favoriteItems is:', favoriteItems);
     return (
+        <>
         <Container className='favoriteItemListContainer'>
-            <Typography variant="h6">Faves</Typography>
+        <FavoriteSearchBar constraint={constraint} categoryName={category} />
+            <Typography variant="h6">{category}</Typography>
             <Stack spacing={2}>
                 {favoriteItems.map(item => (
                         <FavoriteItemItem key={item.id} item={item}/>
                 ))}
             </Stack>
         </Container>
+        
+        </>
     )
 }
 

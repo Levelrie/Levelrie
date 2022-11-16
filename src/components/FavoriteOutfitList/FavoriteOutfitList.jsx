@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import FavoriteOutfitItem from './FavoriteOutfitItem';
 import ToggleButton from '../ToggleButton/ToggleButton.jsx';
+import FavoriteSearchBar from './FavoriteSearchBar';
 
 // MUI
 import AddIcon from '@mui/icons-material/Add';
@@ -21,6 +22,9 @@ function FavoriteOutfitList() {
 
     const rejectionFits = useSelector(store => store.outfits.rejectionFits);
     const favoriteFits = useSelector(store => store.outfits.favoriteFits);
+
+    const constraint = useSelector(store => store.favorites.constraint);
+    const categories = useSelector(store => store.favorites.categories);
 
     const [highlightedButton, setHighlightedButton] = useState('');
 
@@ -78,6 +82,7 @@ function FavoriteOutfitList() {
     return (
         <>
             {/* <p>Favorite Outfit List Page</p> */} 
+            <FavoriteSearchBar constraint={constraint} />
 
             <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (

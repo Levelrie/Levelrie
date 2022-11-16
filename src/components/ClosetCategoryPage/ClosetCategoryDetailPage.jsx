@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import CategoryDetailsItem from './CategoryDetailsItem';
 import '../ClosetPage/ClosetPage.css';
 import ClosetSearchBar from '../ClosetPage/ClosetSearchBar';
+import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
 
 // import material ui
 import { Typography } from '@mui/material';

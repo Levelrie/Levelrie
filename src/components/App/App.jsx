@@ -42,6 +42,7 @@ import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
 import FavoriteOutfitItemDetail from '../FavoriteOutfitList/FavoriteOutfitItemDetail';
 import ClosetCategoryDetailPage from '../ClosetCategoryPage/ClosetCategoryDetailPage';
 import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
+import FavoriteToggleButton from '../FavoriteOutfitList/FavoriteToggleButton';
 
 //  CSS Import
 import './App.css';
@@ -154,21 +155,6 @@ function App() {
             </ProtectedRoute>
 
             {/* This route is for the outfits details path. this page does not the the toggle button */}
-            <ProtectedRoute
-            // logged in shows Closet Outfit details page else shows LoginPage
-            exact
-            path="/closet/outfits/detailsPage/:id"
-            >
-            <ClosetDetailsPage />
-            </ProtectedRoute>
-
-            {/* This route is for the category details path. this page does not the the toggle button */}
-            <ProtectedRoute
-            exact
-            path="/closet/categories/:name"
-            >
-            <ClosetCategoryDetailPage />
-            </ProtectedRoute>
 
             {/* <ProtectedRoute path="/favorites">
 
@@ -204,7 +190,7 @@ function App() {
 {/* ********************* NEW FAVORITES ROUTES ********************* */}
             <ProtectedRoute path="/favorites">
 
-              <ToggleButton />
+              <FavoriteToggleButton />
               <ProtectedRoute
                 // logged in shows FavoriteOutfitList else shows LoginPage
                 exact
@@ -259,6 +245,21 @@ function App() {
                   <ClosetItemPage />
                 </ProtectedRoute>
 
+              <ProtectedRoute
+              // logged in shows Closet Outfit details page else shows LoginPage
+              exact
+              path="/closet/outfits/detailsPage/:id"
+              >
+              <ClosetDetailsPage />
+              </ProtectedRoute>
+
+              {/* This route is for the category details path. this page does not the the toggle button */}
+              <ProtectedRoute
+              exact
+              path="/closet/categories/:name"
+              >
+              <ClosetCategoryDetailPage />
+              </ProtectedRoute>
 
             </ProtectedRoute>
 

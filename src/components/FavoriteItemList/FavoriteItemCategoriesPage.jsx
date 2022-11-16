@@ -1,4 +1,6 @@
 import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as React from 'react';
 import './FavoriteItemCategoriesPage.css';
 // MUI
@@ -11,6 +13,18 @@ import Container from '@mui/material/Container';
 
  function FavoriteItemCategoriesPage() {
     const history = useHistory();
+    const dispatch = useDispatch();
+
+    // use-effect (display outfit list on the DOM)
+    useEffect(()=> {
+
+        dispatch({
+            type: 'SAGA_FETCH_CATEGORIES'
+        })
+
+    },[]);
+
+    const favoriteCategory = useSelector(store => store.categories);
 
     const handleClick = (e) => {
         console.log('id = ', e.target.id);
@@ -23,24 +37,13 @@ import Container from '@mui/material/Container';
          </Stack>
          <Box sx={{width: '100%'}}>
             <Grid container spacing={1} mt={3} mb={3}>
-                <Grid item xs={6}>
-                    <Button id='top' sx={{borderRadius:5, fontSize:20}} className="categoryButton" color='palePink' onClick={handleClick} variant='contained'>Tops</Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button id='bottom' sx={{borderRadius:5, fontSize:20}} className="categoryButton" color='palePink' onClick={handleClick} variant='contained'>Bottoms</Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button id='footwear'sx={{borderRadius:5, fontSize:20}}  className="categoryButton" color='palePink' onClick={handleClick} variant='contained'>Footwear</Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button id='outwear' sx={{borderRadius:5, fontSize:20}} className="categoryButton" color='palePink' onClick={handleClick} variant='contained'>Outerwear</Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button id='hat' sx={{borderRadius:5, fontSize:20}} className="categoryButton" color='palePink' onClick={handleClick} variant='contained'>Hats</Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button id='accessories' sx={{borderRadius:5, fontSize:20}} className="categoryButton" color='palePink' onClick={handleClick} variant='contained'>Accessories</Button>
-                </Grid>
+                {favoriteCategory.map((category) => {
+                    return (
+                        <Grid key={category.id} item xs={6}>
+                            <Button id={category.name} sx={{borderRadius:5, fontSize:20}} className="categoryButton" color='palePink' onClick={handleClick} variant='contained'>{category.name}</Button>
+                        </Grid>
+                    );
+                })}
             </Grid>
         </Box>
          </Container>

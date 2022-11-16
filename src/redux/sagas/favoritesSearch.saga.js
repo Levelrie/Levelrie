@@ -3,8 +3,8 @@ import axios from 'axios';
 
 function* searchClosetOutfits(action) {
     const query = action.payload;
-    // const searchResults = yield axios.get(`/api/outfit/search?q=${query}`);
-    console.log(searchResults.data);
+    const searchResults = yield axios.get(`/api/favorites/search?q=${query}`);
+    console.log('RESULTS!', searchResults.data);
     yield put({
         type: 'SET_FAVORITE_OUTFITS',
         payload: searchResults.data
@@ -19,7 +19,7 @@ function* searchClosetItems(action) {
     // Get results for each individual category
     // Concat results into a single array
     for (let i = 0; i < categories.length; i++) {
-        // let categoryResults = yield axios.get(`/api/item/search?q=${query}&cat=${categories[i]}`);
+        let categoryResults = yield axios.get(`/api/favorites/search/item?q=${query}&cat=${categories[i]}`);
         searchResults = searchResults.concat(categoryResults.data);
     }
     console.log(searchResults);
@@ -29,7 +29,7 @@ function* searchClosetItems(action) {
     });
 }
 
-export default function* globalSearchSaga() {
+export default function* FavoritesSearchSaga() {
     yield takeLatest('SAGA_SEARCH_FAVORITE_OUTFITS', searchClosetOutfits);
     yield takeLatest('SAGA_SEARCH_FAVORITE_ITEMS', searchClosetItems)
 };
