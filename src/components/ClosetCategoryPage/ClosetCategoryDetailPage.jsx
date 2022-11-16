@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 // import component
 import CategoryDetailsItem from './CategoryDetailsItem';
 import '../ClosetPage/ClosetPage.css';
+import ClosetSearchBar from '../ClosetPage/ClosetSearchBar';
 
 // import material ui
 import { Typography } from '@mui/material';
@@ -39,6 +40,7 @@ function ClosetCategoryDetailPage () {
     return (
         <div>
             <Typography className='ClosetCatergoryTitle' variant='h6'>My Closet: {categoryName}</Typography>
+            <ClosetSearchBar />
             <ul className='outfit-ul'>
                 {itemsDetails.map (items => (
                         <CategoryDetailsItem key={items.id} items={items}/>

@@ -23,7 +23,38 @@ const favoriteItemsReducer = (state = [], action) => {
     }
 }
 
+const constraint = (state = 'favoriteOutfits', action) => {
+    switch (action.type) {
+        case 'SET_FAVORITES_SEARCH_CONSTRAINT':
+            return action.payload;
+    }
+    return state;
+}
+
+const categories = (state = [], action) => {
+    switch (action.type) {
+        case 'ADD_FAVORITES_SEARCH_CATEGORY':
+            return [...state, action.payload];
+        case 'REMOVE_FAVORITES_SEARCH_CATEGORY':
+            let filtered = state.filter(category => category != action.payload);
+            return filtered;
+
+    }
+    return state;
+}
+
+const query = (state = '', action) => {
+    switch (action.type) {
+        case 'SET_FAVORITES_SEARCH_QUERY':
+            return action.payload;
+    }
+    return state; 
+}
+
 export default combineReducers({
     favoriteOutfitsReducer,
-    favoriteItemsReducer
+    favoriteItemsReducer,
+    constraint,
+    categories,
+    query
 })
