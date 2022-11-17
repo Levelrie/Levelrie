@@ -53,7 +53,7 @@ function FavoriteItemList() {
             <Typography variant="h6">{category}</Typography>
             <Stack spacing={2}>
                 {favoriteItems.map(item => (
-                        <FavoriteItemItem key={item.id} item={item}/>
+                        <FavoriteItemItem key={item.id} item={item} category={category}/>
                 ))}
             </Stack>
         </Container>

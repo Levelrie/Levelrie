@@ -89,19 +89,24 @@ router.get('/search/item', rejectUnauthenticated, (req, res) => {
 
     // Fetch all items that have been favorited by the user by category
     const sqlText = `
-    SELECT items.* FROM "items"
-    JOIN "categories" ON items.category_id = categories.id
-    JOIN "favorited_items" ON items.id = favorited_items.item_id
-    JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
-        WHERE categories.name = $1
-            AND "favorited_outfits".user_id = $2
-    UNION
-    SELECT items.* FROM "items"
+    SELECT results.id, results.name, results.color, results.size, results.seller, results.price, results.img, results.category_id, SUM(count) AS count FROM (
+        SELECT items.*, COUNT(items.id) AS count FROM "items"
         JOIN "categories" ON items.category_id = categories.id
-        JOIN "favorited_solo" ON items.id = favorited_solo.item_id
-        JOIN "users" ON favorited_solo.user_id = "users".id
+        JOIN "favorited_items" ON items.id = favorited_items.item_id
+        JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
             WHERE categories.name = $1
-                AND "favorited_solo".user_id = $2
+                AND "favorited_outfits".user_id = $2
+                GROUP BY items.id
+        UNION
+        SELECT items.*, COUNT(items.id) AS count FROM "items"
+            JOIN "categories" ON items.category_id = categories.id
+            JOIN "favorited_solo" ON items.id = favorited_solo.item_id
+            JOIN "users" ON favorited_solo.user_id = "users".id
+                WHERE categories.name = $1
+                    AND "favorited_solo".user_id = $2
+                    GROUP BY items.id
+        ) results 
+ 	GROUP BY results.id, results.name, results.color, results.size, results.seller, results.price, results.img, results.category_id;
     `
     const sqlValues = [req.params.id, req.user.id]
     pool.query(sqlText, sqlValues)
@@ -112,6 +117,121 @@ router.get('/search/item', rejectUnauthenticated, (req, res) => {
             console.log('dbErr in /favorites/items:', dbErr);
             res.sendStatus(500);
         })
+});
+
+router.delete('/items/decrease/:id/:quantity', rejectUnauthenticated, async (req, res) => {
+    const userId = req.user.id;
+    const itemId = req.params.id;
+    const quantity = req.params.quantity;
+
+    console.log('USER!', userId);
+    console.log('ITEM!', itemId);
+    console.log('QUANT!', quantity);
+
+    const sqlSearchText = `SELECT * FROM "favorited_solo"
+                                WHERE "user_id" = $1
+                                AND "item_id" = $2;`
+
+    const sqlDeleteFromSoloText = `DELETE FROM "favorited_solo"
+                                        WHERE ctid IN (SELECT ctid FROM "favorited_solo"
+                                            WHERE "user_id" = $1
+                                            AND "item_id" = $2
+                                            LIMIT 1
+                                        );`
+
+    const sqlDeleteFromFaveItems = `DELETE FROM "favorited_items"
+                                        WHERE ctid IN (SELECT ctid FROM "favorited_items"
+                                            JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
+                                            WHERE favorited_outfits.user_id = $1
+                                            AND favorited_items.item_id = $2
+                                            LIMIT 1
+                                        );`
+
+
+//                                         DELETE 
+// FROM "favorited_items" B  
+//      USING "favorited_outfits" C 
+// WHERE B.favorited_outfit_id = C.id AND
+//       C.user_id = $1 AND                 
+//       B.item_id =$2;
+
+
+
+
+    const connection = await pool.connect();
+
+    try {
+        await connection.query('BEGIN;');
+
+        // Delete over items in "favorited_solo" first
+        const resultsInSolo = await connection.query(sqlSearchText, [userId, itemId]);
+
+        console.log(resultsInSolo)
+
+        for (let i = 0; i < resultsInSolo.rows.length; i++) {
+            await connection.query(sqlDeleteFromSoloText, [userId, itemId]);
+        }
+
+        // If there's still more to delete
+        if (quantity > resultsInSolo.rows.length) {
+            for (let i = 0; i < (Number(quantity) - Number(resultsInSolo.rows.length)); i++) {
+                await connection.query(sqlDeleteFromFaveItems, [userId, itemId]);
+            }
+        }
+
+
+        await connection.query('COMMIT;');
+
+        res.sendStatus(200);
+
+
+    } catch (error) {
+        await connection.query('ROLLBACK;');
+        console.log('Error in DELETE /api/favorites/items/decrease queries', error)
+        res.sendStatus(500);
+    } finally {
+        connection.release();
+    }
+
+});
+
+router.post('/items/increase', rejectUnauthenticated, async (req, res) => {
+    const userId = req.user.id;
+    const itemId = req.body.itemId;
+    const quantity = req.body.qty;
+
+    console.log('USER!', userId);
+    console.log('ITEM!', itemId);
+    console.log('QUANT!', quantity);
+
+    const sqlInsertText = `INSERT INTO "favorited_solo"
+                                ("user_id", "item_id")
+                                VALUES
+                                ($1, $2);`
+
+
+    const connection = await pool.connect();
+
+    try {
+        await connection.query('BEGIN;');
+
+        for (let i = 0; i < quantity; i++) {
+            await connection.query(sqlInsertText, [userId, itemId]);
+        }
+
+        await connection.query('COMMIT;');
+
+        res.sendStatus(201);
+
+
+    } catch (error) {
+        await connection.query('ROLLBACK;');
+        console.log('Error in DELETE /api/favorites/items/increase queries', error)
+        res.sendStatus(500);
+    } finally {
+        connection.release();
+    }
+
 });
 
 
