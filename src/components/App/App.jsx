@@ -174,7 +174,7 @@ function App() {
               <ProtectedRoute
                 // logged in shows FavoriteOutfitOccasions else shows LoginPage
                 exact
-                path="/favorites/outfitoccasions"
+                path="/favorites/outfits"
               >
                 <FavoriteOutfitOccasions />
               </ProtectedRoute>
@@ -182,7 +182,7 @@ function App() {
               <ProtectedRoute
                 // logged in shows FavoriteOutfitList else shows LoginPage
                 exact
-                path="/favorites/outfitoccasions/:id"
+                path="/favorites/outfits/:id"
               >
                 <FavoriteOutfitList />
               </ProtectedRoute>
@@ -190,7 +190,7 @@ function App() {
               <ProtectedRoute
                 // logged in shows FavoriteOutfitItemDetail else shows LoginPage
                 exact
-                path="/favorites/outfitoccasions/:id/:id"
+                path="/favorites/outfits/:id/:id"
               >
                 <FavoriteOutfitItemDetail />
               </ProtectedRoute>
