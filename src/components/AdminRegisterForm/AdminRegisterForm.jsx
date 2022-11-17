@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 //  MUI Tools
 import Button from '@mui/material/Button';
@@ -10,32 +11,43 @@ import TextField from '@mui/material/TextField';
 import './AdminRegisterForm.css'
 
 function AdminRegisterForm() {
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  //  Local state  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+
+  // const isAdmin = true;
+
+  //  Reducer store data
   const error = useSelector((store) => store.errors);
-  const dispatch = useDispatch();
 
   //  function to dispatch inputs for registration process
   const registerAdmin = (event) => {
     event.preventDefault();
     if (username && password) {
       dispatch ({
-        type: 'REGISTER_ADMIN',
+        type: 'REGISTER',
         payload: {
           username: username,
           password: password,
           firstName: firstName,
           lastName: lastName,
-          email: email
+          email: email,
+          isAdmin: true
         },
       });
     } //  end IF
     else {
       dispatch ({ type: 'REGISTER_INPUT_ERROR' });
     } //  end ELSE
+    //  Navigates to design page
+    history.push('/admin/design');
   } //  end registerUser function
 
   //  form element with stacked textfields and button to allow
