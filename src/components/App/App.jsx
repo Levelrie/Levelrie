@@ -99,7 +99,7 @@ function App() {
     <ThemeProvider theme={themeOptions}>
       
       <Router>
-        {user.isAdmin ? '' : <Nav /> }
+        {!user.id || user.isAdmin ? '' : <Nav /> }
         <div>
           <Switch>
             {/* ---------- ADMIN ROUTES ---------- */}
@@ -355,7 +355,7 @@ function App() {
             </Route>
           </Switch>
             <Paper sx={{padding: 0, boxShadow: 2, margin: 0, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
-            {user.isAdmin ? '' : <BottomBar /> }
+            {!user.id || user.isAdmin ? '' : <BottomBar /> }
             </Paper>
         </div>
       </Router>

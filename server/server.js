@@ -9,7 +9,7 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
-const adminRouter = require('./routes/admin.router');
+// const adminRouter = require('./routes/admin.router');
 const itemRouter = require('./routes/item.router');
 const outfitRouter = require('./routes/outfit.router');
 const cartRouter = require('./routes/cart.router');
@@ -17,7 +17,8 @@ const favoritesRouter = require('./routes/favorites.router');
 const closetOutfitRouter = require('./routes/closetOutfit.router');
 const closetItemRouter = require('./routes/closetItem.router');
 const closetRouter = require('./routes/closet.router');
-const shippingRouter = require('./routes/shipping.router')
+const shippingRouter = require('./routes/shipping.router');
+const designRouter = require('./routes/design.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -32,7 +33,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-app.use('/api/admin', adminRouter);
+// app.use('/api/admin', adminRouter);
 app.use('/api/item', itemRouter);
 app.use('/api/outfit', outfitRouter);
 app.use('/api/cart', cartRouter);
@@ -40,7 +41,8 @@ app.use('/api/favorites', favoritesRouter);
 app.use('/api/closet/outfits', closetOutfitRouter);
 app.use('/api/closet/items', closetItemRouter);
 app.use('/api/closet', closetRouter);
-app.use('/api/shipping', shippingRouter)
+app.use('/api/shipping', shippingRouter);
+app.use('/api/design', designRouter);
 
 // Serve static files
 app.use(express.static('build'));

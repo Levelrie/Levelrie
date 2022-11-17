@@ -2,21 +2,14 @@
 -- *** Insert the following tables into the database (in order) ***
 -- *** After successful table creation, run the SQL queries ***
 
-
-
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (100) NOT NULL,
     "last_name" VARCHAR (100) NOT NULL,
-    "email" VARCHAR (100) UNIQUE NOT NULL
-);
-
-CREATE TABLE "admins" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
+    "email" VARCHAR (100) UNIQUE NOT NULL,
+    "isAdmin" BOOLEAN DEFAULT (FALSE) NOT NULL
 );
 
 CREATE TABLE "outfits" (
