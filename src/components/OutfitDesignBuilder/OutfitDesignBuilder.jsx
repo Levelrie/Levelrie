@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 //  MUI Tools
-import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
+import Box from '@mui/material/Box';
 
 function OutfitDesignBuilder() {
 
@@ -16,10 +16,16 @@ function OutfitDesignBuilder() {
 
   return (
     //  Card grid to manipulate position of clothing items for outfit build
-    <Card sx={{ height: '45vh', 
-      margin: 1, 
+    <Box sx={{ height: '45vh',
+      width: '35vw',
+      alignSelf: 'center',
+      margin: 1,
       padding: 1, 
-      backgroundColor: "#F2DCF2", 
+      // backgroundColor: "rgb(242, 220, 242, .5)",
+      backgroundColor: "rgb(67, 67, 67, .4)", 
+      border: 'solid 2px',
+      borderRadius: 4, 
+      borderColor: '#434343',
       display: 'grid', 
       gridTemplateRows: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr', 
       gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr'
@@ -45,7 +51,7 @@ function OutfitDesignBuilder() {
           maxWidth: '20vh', 
           zIndex: '2', 
           gridColumn: '5/span3', 
-          gridRow: '5/span4'
+          gridRow: '4/span4'
         }}
         className="top"
         component="img"
@@ -94,7 +100,7 @@ function OutfitDesignBuilder() {
         image={footwear.img}
         alt={footwear.name}
       /> : '' }
-    </Card>
+    </Box>
   );
 }
 

@@ -33,7 +33,7 @@ function AdminPage() {
 //    username input, password input and conditional button based on toggle
 
   return (
-    <Box className='box' sx={{width: '100vw', height: '100vh', display: 'center'}} >
+    <Box id='adminPage' className='box' sx={{width: '100vw', height: '100vh', display: 'center'}} >
       <Box className={isFront ? 'outerLoginCard' : 'outerRegisterCard'} sx={{display: 'center', bgcolor: '#f1b3f2', border: '10px solid #BFA78A', borderRadius: 4, mt: 5}} variant='outlined' bgc='red'>
         <Card className={isFront ? 'innerLoginCard' : 'innerRegisterCard'} sx={{display: 'center'}}>
           <CardContent className="adminLoginCard" sx={{height: '40vh', display: 'center'}}>

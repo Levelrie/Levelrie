@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 
 function OutfitDesignDetails() {
 
-  //  Local store
+  //  Local state
   const [addOutfit, setAddOutfit] = useState(true);
 
   //  Reducer store data
@@ -42,7 +42,7 @@ function OutfitDesignDetails() {
           sx={{borderRadius: 3 , width: 120, left: 10, fontSize: 16}}
           className={addOutfit ? 'frontButton' : ''}
         >
-          Add
+          Create
         </Button>
 
         <Button variant="contained"
