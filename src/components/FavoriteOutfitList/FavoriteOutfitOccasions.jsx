@@ -6,6 +6,7 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import './FavoriteOutfitOccasions.css'
 
 function FavoriteOutfitOccasions() {
@@ -31,7 +32,8 @@ function FavoriteOutfitOccasions() {
     console.log('here are occasions:', occasions);
     return (
         <>
-        <Box sx={{width: '100%'}}>
+        <Box sx={{width: '100%'}} className='occasionCategoryContainer'>
+        <Typography variant="h6">Faves</Typography>
             <Grid container spacing={1} mt={3} mb={3} className='occasionCategoryContainer'>
                 {
                 occasions.map(occasion => {
