@@ -85,6 +85,7 @@ router.get('/home', (req, res) => {
 // Add an outfit to a user's rejections
 router.post('/reject', rejectUnauthenticated, async (req, res) => {
 
+
     // ••• This route is forbidden if not logged in •••
     
     const userId = req.user.id;
@@ -110,6 +111,7 @@ router.post('/reject', rejectUnauthenticated, async (req, res) => {
                                     WHERE "id" = $1;`
 
 
+
     const connection = await pool.connect();
 
     try {
@@ -129,14 +131,17 @@ router.post('/reject', rejectUnauthenticated, async (req, res) => {
         }
 
         await connection.query('COMMIT;');
-
+        
         res.sendStatus(201);
 
     } catch (error) {
+        await connection.query('ROLLBACK;');
         console.log('Error in POST /api/outfit/reject queries', error)
         res.sendStatus(500);
+    } finally {
+        connection.release();
     }
-    connection.release();
+
 });
 
 // Add an outfit and ALL its items to a user's favorites
@@ -203,7 +208,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
                 await connection.query(sqlInsertItemsText, [favoritedOutfitId.rows[0].id, itemsToAdd.rows[i].item_id]);
             }
         }
-
+        console.log('Carrots');
         // Confirm successful actions
         await connection.query('COMMIT;');
 
@@ -214,6 +219,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
         console.log('Error in POST /api/outfit/favorite queries', error)
         res.sendStatus(500);
     }
+    console.log('Rabbits');
     connection.release();
 });
 

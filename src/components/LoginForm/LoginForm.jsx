@@ -30,7 +30,7 @@ function LoginForm() {
   const history = useHistory();
 
   const onHome = (event) => {
-    history.push('/home');
+    history.push('/landing');
   };
 
   return (
@@ -58,7 +58,7 @@ function LoginForm() {
         id="password" 
         label="password" 
         variant="outlined"
-        type="text"
+        type="password"
         margin="normal"
         required
         value={password}

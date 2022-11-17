@@ -14,7 +14,7 @@ function RegisterPage() {
         <Button 
           variant="contained"
           onClick={() => {
-            history.push('/home');
+            history.push('/landing');
           }}
         >
           Back

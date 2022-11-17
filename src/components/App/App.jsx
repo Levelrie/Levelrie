@@ -42,6 +42,8 @@ import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
 import FavoriteOutfitItemDetail from '../FavoriteOutfitList/FavoriteOutfitItemDetail';
 import ClosetCategoryDetailPage from '../ClosetCategoryPage/ClosetCategoryDetailPage';
 import FavoriteOutfitOccasions from '../FavoriteOutfitList/FavoriteOutfitOccasions';
+import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
+import FavoriteToggleButton from '../FavoriteOutfitList/FavoriteToggleButton';
 
 //  CSS Import
 import './App.css';
@@ -106,7 +108,7 @@ function App() {
     <ThemeProvider theme={themeOptions}>
       
       <Router>
-        {user.isAdmin ? '' : <Nav /> }
+        {!user.id || user.isAdmin ? '' : <Nav /> }
         <div>
           <Switch>
             {/* ---------- ADMIN ROUTES ---------- */}
@@ -162,21 +164,6 @@ function App() {
             </ProtectedRoute>
 
             {/* This route is for the outfits details path. this page does not the the toggle button */}
-            <ProtectedRoute
-            // logged in shows Closet Outfit details page else shows LoginPage
-            exact
-            path="/closet/outfits/detailsPage/:id"
-            >
-            <ClosetDetailsPage />
-            </ProtectedRoute>
-
-            {/* This route is for the category details path. this page does not the the toggle button */}
-            <ProtectedRoute
-            exact
-            path="/closet/categories/:name"
-            >
-            <ClosetCategoryDetailPage />
-            </ProtectedRoute>
 
 
 
@@ -246,7 +233,7 @@ function App() {
 
             <ProtectedRoute path="/closet">
 
-                <ToggleButton />
+                <ClosetToggleButton />
                 <ProtectedRoute
                   // logged in shows Closet Outfit List else shows LoginPage
                   exact
@@ -263,6 +250,21 @@ function App() {
                   <ClosetItemPage />
                 </ProtectedRoute>
 
+              <ProtectedRoute
+              // logged in shows Closet Outfit details page else shows LoginPage
+              exact
+              path="/closet/outfits/detailsPage/:id"
+              >
+              <ClosetDetailsPage />
+              </ProtectedRoute>
+
+              {/* This route is for the category details path. this page does not the the toggle button */}
+              <ProtectedRoute
+              exact
+              path="/closet/categories/:name"
+              >
+              <ClosetCategoryDetailPage />
+              </ProtectedRoute>
 
             </ProtectedRoute>
 
@@ -317,7 +319,7 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect to the /user page
-                <Redirect to="/home" />
+                <Redirect to="/landing" />
                 :
                 // Otherwise, show the login page
                 <LoginPage />
@@ -331,7 +333,7 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect them to the /user page
-                <Redirect to="/user" />
+                <Redirect to="/home" />
                 :
                 // Otherwise, show the registration page
                 <RegisterPage />
@@ -340,12 +342,12 @@ function App() {
 
             <Route
               exact
-              path="/home"
+              path="/landing"
             >
               {user.id ?
                 // If the user is already logged in, 
                 // redirect them to the /user page
-                <Redirect to="/user" />
+                <Redirect to="/home" />
                 :
                 // Otherwise, show the Landing page
                 <LandingPage />
@@ -358,7 +360,7 @@ function App() {
             </Route>
           </Switch>
             <Paper sx={{padding: 0, boxShadow: 2, margin: 0, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
-            {user.isAdmin ? '' : <BottomBar /> }
+            {!user.id || user.isAdmin ? '' : <BottomBar /> }
             </Paper>
         </div>
       </Router>

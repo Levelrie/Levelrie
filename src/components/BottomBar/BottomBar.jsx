@@ -7,6 +7,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
  import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
  import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
  import Badge from '@mui/material/Badge';
+ 
 
 
  import { useLocation, useHistory } from 'react-router-dom';
@@ -18,6 +19,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
    let location = useLocation();
    let history = useHistory();
+   const user = useSelector((store) => store.user);
 
    useEffect(() => {
     switch(location.pathname) {
@@ -73,7 +75,10 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
    cart ?  cartCount = cart.length : cartCount = 0
 
    return (
-    <BottomNavigation  sx={{ width: 1, paddingBottom: 1, paddingTop: 1, zIndex: 100000000 }} value={value} onChange={handleChange}>
+    <div>
+      {user.id && (
+          <>
+            <BottomNavigation  sx={{ width: 1, paddingBottom: 1, paddingTop: 1, zIndex: 100000000 }} value={value} onChange={handleChange}>
          <BottomNavigationAction
         label="Closet"
         value="Closet"
@@ -101,5 +106,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
         icon={<FavoriteBorderOutlinedIcon htmlColor='#424242' sx={{ border: 3, borderRadius: 50, borderColor: '#f1b3f2', padding: .5 }}/>}
       />
     </BottomNavigation>
+          </>
+        )}
+    </div>
   );
 }

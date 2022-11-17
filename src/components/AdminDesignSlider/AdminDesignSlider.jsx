@@ -15,6 +15,8 @@ import './AdminDesignSlider.css';
 function AdminDesignSlider({category}) {
 
   const dispatch = useDispatch();
+
+  //  Reducer store data
   const items = useSelector((store) => store.items);
 
   //  Get all them items
@@ -34,7 +36,8 @@ function AdminDesignSlider({category}) {
   const itemArray = [];
   {items.map(item => (item.category_id === category.id ? itemArray.push(item) : ''))}
   console.log('Items in category:', category.name, 'Equal:', itemArray);
-  const catName = category.name;
+
+  //  🟥 🟥 Remove the above code, in the map below, instead use a .filter then a .map ****
 
   //  Slider Settings
   const settings = {

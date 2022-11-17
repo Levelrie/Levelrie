@@ -5,7 +5,7 @@ import { useHistory } from 'react-router'
 
 // import component
 import ClosetOutfitList from './ClosetOutfit.jsx';
-import SearchBar from '../SearchBar/SearchBar.jsx';
+import ClosetSearchBar from './ClosetSearchBar.jsx';
 import './ClosetPage.css';
 
 // import material ui
@@ -17,6 +17,14 @@ function ClosetPage () {
     const closetOutfits = useSelector(store => store.closetReducer.closetOutfitsReducer);
     // console.log('what is our data:', closetOutfits)
 
+    const rejectionFits = useSelector(store => store.outfits.rejectionFits);
+    const favoriteFits = useSelector(store => store.outfits.favoriteFits);
+
+    const constraint = useSelector(store => store.closetReducer.constraint);
+    const categories = useSelector(store => store.closetReducer.categories);
+
+    // const searchResults = useSelector(store => store.closetReducer.searchResults);
+
     // use-dispatch
     const dispatch = useDispatch();
 
@@ -24,8 +32,21 @@ function ClosetPage () {
     useEffect(()=> {
 
         dispatch({
+            type: 'SAGA_FAVORITE_OUTFITS',
+            payload: favoriteFits
+        });
+
+        dispatch({
+            type: 'SAGA_REJECT_OUTFITS',
+            payload: rejectionFits
+        });
+
+        dispatch({
             type: 'FETCH_CLOSET_OUTFITS'
-        })
+        });
+
+        dispatch({type: 'CLEAR_OUTFITS_TO_REJECT'});
+        dispatch({type: 'CLEAR_OUTFITS_TO_FAVORITE'});
 
     },[]);
 
@@ -35,7 +56,7 @@ function ClosetPage () {
     return (
         <>
             <div className='outfitForm'>
-                <SearchBar />
+                <ClosetSearchBar constraint={constraint} categories={categories} />
                 <Typography variant='h6'>My Closet: Outfits</Typography>
                 <ul className='outfit-ul'>
                     {closetOutfits.map(outfit => (

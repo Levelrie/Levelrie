@@ -1,5 +1,5 @@
-import React, { useEffect }from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 //  MUI Tools
 import Card from '@mui/material/Card';
@@ -10,7 +10,7 @@ function AdminDesignSliderItem({item}) {
 
   const dispatch = useDispatch();
 
-  //  Temporary onClick function to console.log item details
+  //  Function adds items to the outfit builder display
   const addItemToDisplay = () => {
     console.log('Item details:', item);
     dispatch ({

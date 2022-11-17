@@ -27,6 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
+    "react-swipe-card": "^0.1.4",
     "react-tinder-card": "^1.6.2",
     "redux": "^4.1.2",
     "redux-logger": "^3.0.6",

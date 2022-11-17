@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 //  MUI Tools
 import Button from '@mui/material/Button';
@@ -11,22 +12,28 @@ import './AdminLoginForm.css'
 
 function AdminLoginForm() {
 
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  //  Local state
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  //  Reducer store data
   const error = useSelector(store => store.errors);
-  const dispatch = useDispatch();
 
    //  function to dispatch inputs for login process
   const login = (event) => {
     event.preventDefault();
     if (username && password) {
       dispatch({
-        type: 'LOGIN_ADMIN',
+        type: 'LOGIN',
         payload: {
           username: username,
           password: password,
         },
       });
+      history.push('/admin/design');
     } //  end IF
     else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
@@ -63,7 +70,7 @@ function AdminLoginForm() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" value="Log In">
           Login
         </Button>
       </Stack>
