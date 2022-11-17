@@ -41,6 +41,7 @@ import ToggleButton from '../ToggleButton/ToggleButton';
 import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
 import FavoriteOutfitItemDetail from '../FavoriteOutfitList/FavoriteOutfitItemDetail';
 import ClosetCategoryDetailPage from '../ClosetCategoryPage/ClosetCategoryDetailPage';
+import FavoriteOutfitOccasions from '../FavoriteOutfitList/FavoriteOutfitOccasions';
 
 //  CSS Import
 import './App.css';
@@ -177,42 +178,38 @@ function App() {
             <ClosetCategoryDetailPage />
             </ProtectedRoute>
 
-            {/* <ProtectedRoute path="/favorites">
 
 
+{/* ********************* FAVORITES ROUTES ********************* */}
+            <ProtectedRoute path="/favorites">
 
               <ToggleButton />
               <ProtectedRoute
+                // logged in shows FavoriteOutfitOccasions else shows LoginPage
+                exact
+                path="/favorites/outfitoccasions"
+              >
+                <FavoriteOutfitOccasions />
+              </ProtectedRoute>
+
+              <ProtectedRoute
                 // logged in shows FavoriteOutfitList else shows LoginPage
                 exact
-                path="/favorites/outfits"
+                path="/favorites/outfitoccasions/:id"
               >
                 <FavoriteOutfitList />
               </ProtectedRoute>
 
               <ProtectedRoute
-                // logged in shows FavoriteItemCategoriesPage else shows LoginPage
+                // logged in shows FavoriteOutfitItemDetail else shows LoginPage
                 exact
-                path="/favorites/categories"
+                path="/favorites/outfitoccasions/:id/:id"
               >
-                <FavoriteItemCategoriesPage />
+                <FavoriteOutfitItemDetail />
               </ProtectedRoute>
 
-              <ProtectedRoute
-                // logged in shows FavoriteItemList else shows LoginPage
-                exact
-                path="/favorites/items"
-              >
-                <FavoriteItemList />
-              </ProtectedRoute>
-            </ProtectedRoute> */}
 
-
-{/* ********************* NEW FAVORITES ROUTES ********************* */}
-            <ProtectedRoute path="/favorites">
-
-              <ToggleButton />
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 // logged in shows FavoriteOutfitList else shows LoginPage
                 exact
                 path="/favorites/outfits"
@@ -226,7 +223,7 @@ function App() {
                 path="/favorites/outfits/:id"
               >
                 <FavoriteOutfitItemDetail />
-              </ProtectedRoute>
+              </ProtectedRoute> */}
 
               <ProtectedRoute
                 // logged in shows FavoriteItemCategoriesPage else shows LoginPage
