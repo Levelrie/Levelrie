@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import './FavoriteOutfitOccasions.css'
+
 function FavoriteOutfitOccasions() {
 
     const dispatch = useDispatch();
@@ -11,28 +17,33 @@ function FavoriteOutfitOccasions() {
         dispatch({
             type: 'FETCH_OCCASIONS'
         })
-
+        return () => {
+            dispatch ({
+              type: 'CLEAR_OCCASIONS'
+            })
+          }
     },[]);
 
-    // TO DO:
-    // -create route to fetch occasions
-    // -create occasion reducer
-    // -create occasions route
-    // - subscribe to occasions reducer
+    const handleClick = (e) => {
+        console.log('id = ', e.target.id)
+    }
 
     console.log('here are occasions:', occasions);
     return (
         <>
-        
-        {
-        occasions.map(occasion => {
-            return (
-                <div key={occasion.id}>
-                    <p>{occasion.name}</p>
-                </div>
-            )
-        })
-        }
+        <Box sx={{width: '100%'}}>
+            <Grid container spacing={1} mt={3} mb={3} className='occasionCategoryContainer'>
+                {
+                occasions.map(occasion => {
+                    return (
+                        <Grid item xs={6} key={occasion.id}>
+                            <Button id={occasion.id} sx={{borderRadius:5, fontSize:20}} className="favoriteOccasionButton" color='palePink' onClick={handleClick} variant='contained'>{occasion.name}</Button>
+                        </Grid>
+                    )
+                })
+                }
+            </Grid>
+        </Box>
         </>
     );
 };
