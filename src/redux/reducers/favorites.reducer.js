@@ -23,6 +23,17 @@ const favoriteItemsReducer = (state = [], action) => {
     }
 }
 
+const occasionsReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_OCCASIONS':
+            return action.payload;
+        case 'CLEAR_OCCASIONS':
+            return [];
+        default:
+            return state;
+    }
+}
+
 const constraint = (state = 'favoriteOutfits', action) => {
     switch (action.type) {
         case 'SET_FAVORITES_SEARCH_CONSTRAINT':
@@ -54,6 +65,7 @@ const query = (state = '', action) => {
 export default combineReducers({
     favoriteOutfitsReducer,
     favoriteItemsReducer,
+    occasionsReducer,
     constraint,
     categories,
     query

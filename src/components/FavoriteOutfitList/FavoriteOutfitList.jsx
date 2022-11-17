@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import FavoriteOutfitItem from './FavoriteOutfitItem';
 import ToggleButton from '../ToggleButton/ToggleButton.jsx';
+import './FavoriteOutfitList.css';
 import FavoriteSearchBar from './FavoriteSearchBar';
 
 // MUI
@@ -83,13 +84,15 @@ function FavoriteOutfitList() {
         <>
         
         <div className="outfitsListSearchBar">
-            {/* <p>Favorite Outfit List Page</p> */} 
-            <FavoriteSearchBar constraint={constraint} />
+             <FavoriteSearchBar constraint={constraint} />
         </div>
+        <Typography className='faveOutfitListTitle' variant='h6'>Faves</Typography>
 
             <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (
-                    <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
+                <div className='faveOutfitCard' key={outfit.id}>
+                     <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
+                </div>
             ))}
             </Stack>
         

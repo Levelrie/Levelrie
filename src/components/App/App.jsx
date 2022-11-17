@@ -41,6 +41,7 @@ import ToggleButton from '../ToggleButton/ToggleButton';
 import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
 import FavoriteOutfitItemDetail from '../FavoriteOutfitList/FavoriteOutfitItemDetail';
 import ClosetCategoryDetailPage from '../ClosetCategoryPage/ClosetCategoryDetailPage';
+import FavoriteOutfitOccasions from '../FavoriteOutfitList/FavoriteOutfitOccasions';
 import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
 import FavoriteToggleButton from '../FavoriteOutfitList/FavoriteToggleButton';
 
@@ -58,6 +59,8 @@ export const themeOptions = createTheme({
     palePink: createColor('#f2dcf2'),
     baseTan: createColor('#BFA78A'),
     baseGrey: createColor('#434343'),
+    danger:  createColor('#FF0000'),
+    normal: createColor('#000000'),
     primary: {
       main: '#f1b3f2',
       contrastText: '#d62bd9',
@@ -78,6 +81,12 @@ export const themeOptions = createTheme({
       main: '#2196f3',
       contrastText: 'rgba(10,10,10,0.87)',
     },
+    warning: {
+      main: '#FF0000',
+    },
+    black: {
+      main: '#FF0000',
+    }
   },
   typography: {
     fontFamily: 'Quicksand',
@@ -156,42 +165,38 @@ function App() {
 
             {/* This route is for the outfits details path. this page does not the the toggle button */}
 
-            {/* <ProtectedRoute path="/favorites">
 
 
+{/* ********************* FAVORITES ROUTES ********************* */}
+            <ProtectedRoute path="/favorites">
 
               <ToggleButton />
               <ProtectedRoute
+                // logged in shows FavoriteOutfitOccasions else shows LoginPage
+                exact
+                path="/favorites/outfitoccasions"
+              >
+                <FavoriteOutfitOccasions />
+              </ProtectedRoute>
+
+              <ProtectedRoute
                 // logged in shows FavoriteOutfitList else shows LoginPage
                 exact
-                path="/favorites/outfits"
+                path="/favorites/outfitoccasions/:id"
               >
                 <FavoriteOutfitList />
               </ProtectedRoute>
 
               <ProtectedRoute
-                // logged in shows FavoriteItemCategoriesPage else shows LoginPage
+                // logged in shows FavoriteOutfitItemDetail else shows LoginPage
                 exact
-                path="/favorites/categories"
+                path="/favorites/outfitoccasions/:id/:id"
               >
-                <FavoriteItemCategoriesPage />
+                <FavoriteOutfitItemDetail />
               </ProtectedRoute>
 
-              <ProtectedRoute
-                // logged in shows FavoriteItemList else shows LoginPage
-                exact
-                path="/favorites/items"
-              >
-                <FavoriteItemList />
-              </ProtectedRoute>
-            </ProtectedRoute> */}
 
-
-{/* ********************* NEW FAVORITES ROUTES ********************* */}
-            <ProtectedRoute path="/favorites">
-
-              <FavoriteToggleButton />
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 // logged in shows FavoriteOutfitList else shows LoginPage
                 exact
                 path="/favorites/outfits"
@@ -205,7 +210,7 @@ function App() {
                 path="/favorites/outfits/:id"
               >
                 <FavoriteOutfitItemDetail />
-              </ProtectedRoute>
+              </ProtectedRoute> */}
 
               <ProtectedRoute
                 // logged in shows FavoriteItemCategoriesPage else shows LoginPage

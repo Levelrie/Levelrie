@@ -1,17 +1,28 @@
-import Card from '@mui/material/Card';
- import CardContent from '@mui/material/CardContent';
- import Typography from '@mui/material/Typography';
- import Paper from '@mui/material/Paper';
+import { useLocation, useHistory } from 'react-router-dom';
+ import './FavoriteOutfitItem.css';
 
  function FavoriteOutfitItem({outfit}) {
 
-     console.log('this is outfit in item:', {outfit});
+    const history = useHistory();
 
-     return (
-         <Paper key={outfit.id}>
-             <Typography>{outfit.name}</Typography>
-             <Typography>{outfit.description}</Typography>
-         </Paper>
+    const handleClick = () => {
+        console.log('in handleClick');
+        history.push(`/favorites/outfits/${outfit.id}`);
+    }
+
+    console.log('this is outfit.id in item:', outfit.id);
+    console.log('these are items:', outfit.items)
+    return (   
+         <div className='faveOutfitContainer'>
+            {outfit.items.map(item => {
+                return(
+                    <div key={item.f1.id} id={item.f2} onClick={handleClick}>
+                        <img className="itemPic" src={item.f1.img} />
+                    </div>
+                )
+            })
+            }
+         </div>
      );
  };
 
