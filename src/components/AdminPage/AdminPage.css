@@ -1,3 +1,7 @@
+/* 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇 */
+/* 👇 EVERYTHING IN THIS TOP SECTION IS LIKELY TEMPORARY 👇 */
+/* 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇 */
+
 .box {
   background-image: 
     url(https://res.cloudinary.com/dgainc6rr/image/upload/v1668112280/Logo/Hanger_Logo_seyccz.png);
@@ -6,6 +10,30 @@
   background-repeat: repeat;
   opacity: 1;
 }
+
+#adminPage {
+  top: 0 !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#react-root {
+  padding: 0 !important;
+}
+
+body {
+  padding: 0 !important;
+}
+
+html {
+  padding: 0 !important;
+  top: 0;
+}
+
+/* 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆 */
+/* 👆 EVERYTHING IN THIS TOP SECTION IS LIKELY TEMPORARY 👆 */
+/* 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆 */
 
 /* ---------------------------------------------- */
 /* Login Card Sizing */
@@ -67,3 +95,5 @@ button{
 /* footer {
   display: none;
 } */
+
+/* ---------------------------------------------- */

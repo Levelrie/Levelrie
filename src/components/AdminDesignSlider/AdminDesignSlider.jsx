@@ -15,6 +15,8 @@ import './AdminDesignSlider.css';
 function AdminDesignSlider({category}) {
 
   const dispatch = useDispatch();
+
+  //  Reducer store data
   const items = useSelector((store) => store.items);
 
   //  Get all them items
