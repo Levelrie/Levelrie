@@ -60,4 +60,20 @@ const sqlQuery = `SELECT * FROM categories;`;
     })
 });
 
+// GET route to fetch category table 
+router.get('/occasions', rejectUnauthenticated, (req, res) => {
+
+  const sqlQuery = `SELECT * FROM occasions;`;
+  
+    pool.query(sqlQuery)
+      .then( result => {
+        // console.log(result.rows);
+        res.send(result.rows);
+      })
+      .catch(err => {
+        console.log('dbErr in /api/closet/item/occasions:', err);
+        res.sendStatus(500)
+      })
+});
+
 module.exports = router;
