@@ -17,6 +17,17 @@ function* fetchFavoriteOutfits() {
         console.log('error getting favorite outfits:', error);
     }
 }
+// STARTED THE SAGA BELOW:
+// function* fetchFavoriteOutfitDetails(action) {
+//     console.log('in fetchFavoriteOutfitDetails');
+//     const outfitToPull = action.payload;
+//     try {
+//         const favoriteOutfitDetailsRes = yield axios({
+//             method: 'GET',
+
+//         })
+//     }
+// }
 
 function* fetchFavoriteItems(action) {
     const category = action.payload
@@ -38,4 +49,5 @@ function* fetchFavoriteItems(action) {
 export default function* favoritesSaga() {
     yield takeLatest('FETCH_FAVORITE_OUTFITS', fetchFavoriteOutfits);
     yield takeLatest('FETCH_FAVORITE_ITEMS', fetchFavoriteItems);
+    // yield takeLatest('FETCH_FAVORITE_OUTFIT_DETAILS', fetchFavoriteOutfitDetails);
 };
