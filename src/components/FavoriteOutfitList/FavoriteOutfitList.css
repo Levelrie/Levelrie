@@ -1,15 +1,14 @@
-/* .faveOutfitContainer {
-   aspect-ratio: 1 / 1;
-   position: fixed;
-   width: 100vw;
-   height: 100vh;
-   padding-top: 150px;
- } */
+.faveOutfitContainer {
+   /* aspect-ratio: 1 / 1; */
+   /* position: fixed; */
+   /* width: 100vw; */
+   /* height: 100vh; */
+   /* padding-top: 150px; */
+ }
 
  .faveOutfitCard {
-    /* position: absolute; */
     background-color: #fff;
-    width: 80vw;
+    /* width: 80vw; */
     max-width: 90vw;
     box-shadow: 4px 4px 5px 0px rgb(204, 204, 204);
     border-radius: 15px;

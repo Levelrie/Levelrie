@@ -64,7 +64,7 @@ function FavoriteOutfitList() {
         <>
             <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (
-                <div className='faveOutfitCard'>
+                <div className='faveOutfitCard' key={outfit.id}>
                      <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
                 </div>
             ))}
