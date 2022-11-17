@@ -46,8 +46,25 @@ function* fetchFavoriteItems(action) {
     }
 }
 
+function* fetchOccasions() {
+    try {
+        const occasionRes = yield axios({
+            method: 'GET',
+            url: `/api/favorites/occasions`
+        })
+        yield put({
+            type: 'SET_OCCASIONS',
+            payload: occasionRes.data
+        })
+    }
+    catch(error) {
+        console.log('error in saga fetchOccasions:', error);
+    }
+}
+
 export default function* favoritesSaga() {
     yield takeLatest('FETCH_FAVORITE_OUTFITS', fetchFavoriteOutfits);
     yield takeLatest('FETCH_FAVORITE_ITEMS', fetchFavoriteItems);
     // yield takeLatest('FETCH_FAVORITE_OUTFIT_DETAILS', fetchFavoriteOutfitDetails);
+    yield takeLatest('FETCH_OCCASIONS', fetchOccasions);
 };

@@ -120,6 +120,17 @@ router.get('/search/item', rejectUnauthenticated, (req, res) => {
         })
 });
 
-
+router.get('/occasions', (req, res) => {
+    console.log('in GET /api/favorites/occasions');
+    const sqlText = 'SELECT * FROM "occasions";';
+    pool.query(sqlText)
+        .then((dbRes) => {
+            console.log('dbRes is:', dbRes.rows);
+            res.send(dbRes.rows)
+        }).catch(dbErr => {
+            console.log('error in GET /api/favorites/occasions');
+            res.sendStatus(500);
+        })
+})
 
  module.exports = router;

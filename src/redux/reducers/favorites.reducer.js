@@ -23,7 +23,19 @@ const favoriteItemsReducer = (state = [], action) => {
     }
 }
 
+const occasionsReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_OCCASIONS':
+            return action.payload;
+        case 'CLEAR_OCCASIONS':
+            return [];
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     favoriteOutfitsReducer,
-    favoriteItemsReducer
+    favoriteItemsReducer,
+    occasionsReducer
 })
