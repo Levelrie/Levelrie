@@ -1,10 +1,10 @@
-.faveOutfitContainer {
-   /* aspect-ratio: 1 / 1; */
-   /* position: fixed; */
-   /* width: 100vw; */
-   /* height: 100vh; */
-   /* padding-top: 150px; */
- }
+/* .faveOutfitContainer {
+   aspect-ratio: 1 / 1;
+   position: fixed;
+   width: 100vw;
+   height: 100vh;
+   padding-top: 150px;
+ } */
 
  .faveOutfitCard {
     background-color: #fff;
@@ -21,4 +21,8 @@
     left: 0;
     right: 0;
     text-align: center;
+ }
+
+ .faveOutfitListTitle {
+   text-align: center;
  }

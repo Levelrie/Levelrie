@@ -62,6 +62,7 @@ function FavoriteOutfitList() {
     console.log('favoriteOutfits is:', favoriteOutfits);
     return (
         <>
+            <Typography className='faveOutfitListTitle' variant='h6'>Faves</Typography>
             <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (
                 <div className='faveOutfitCard' key={outfit.id}>
