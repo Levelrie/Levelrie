@@ -20,7 +20,7 @@ export default function ClosetToggleButton() {
         });
 
         switch(location.pathname) {
-            case '/closet/outfits':
+            case '/closet/occasions':
                 setIsFront(true);
                 break;
             case '/closet/categories':
@@ -47,7 +47,7 @@ export default function ClosetToggleButton() {
                     type: 'SET_CLOSET_SEARCH_CONSTRAINT',
                     payload: 'closetOutfits'
                 });
-                history.push('/closet/outfits');
+                history.push('/closet/occasions');
                 break;
             case 'category':
                 // setIsFront(false);
