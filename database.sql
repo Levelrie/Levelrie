@@ -173,10 +173,11 @@ INSERT INTO "users"
 INSERT INTO "outfits"
 	("name", "description", "occasion_id")
 		VALUES
-			('All business', 'For closing that deal', 4),
-			('Rebel with a cause', 'For taking names', 1), 
-			('Business and pleasure', 'For going out', 2),
-			('Casual vibes', 'For running errands', 5);			
+		('All business', 'For closing that deal', 4),
+		('Rebel with a cause', 'For taking names', 1),
+		('Business and pleasure', 'For going out', 2),
+		('Casual vibes', 'For running errands', 5),
+        ('On the go', 'For travel', 3);	
 
 INSERT INTO "items"
 	("name", "color", "size", "seller", "price", "img", "category_id")
@@ -252,20 +253,33 @@ INSERT INTO "items"
 INSERT INTO "outfit_items"
 	("outfit_id", "item_id")
 		VALUES
-			(1, 10),
-			(1, 8),
-			(1, 18),
-			(1, 24),
-			(2, 10),
-			(2, 11),
-			(2, 12),
-			(2, 22),
-			(2, 25),
-			(3, 10),
-			(3, 7),
-			(3, 18),
-			(3, 24),
-			(4, 10),
-			(4, 3),
-			(4, 19),
-			(4, 23);
+			(1, 30),
+			(1, 45),
+			(1, 61),
+			(1, 23),
+			(2, 36),
+			(2, 58),
+			(2, 20),
+			(2, 37),
+			(3, 12),
+			(3, 17),
+			(3, 43),
+			(3, 56),
+			(4, 14),
+			(4, 21),
+			(4, 49),
+			(4, 60),
+            (5, 26),
+			(5, 21),
+			(5, 61),
+			(5, 45);
+
+INSERT INTO "closet_outfits"
+ 	    ("user_id", "outfit_id")
+ 		VALUES
+ 		(6, 5);
+
+INSERT INTO "addresses"
+ 	("user_id", "nickname", "street_address", "city", "state", "zip", "preferred" )
+ 	VALUES
+ 	(6, 'Home', '301 Fourth Ave S', 'Minneapolis', 'MN', '55415', true);
