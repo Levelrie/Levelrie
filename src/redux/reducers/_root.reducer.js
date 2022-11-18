@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
   outfits,
-  favorites, // contains favoriteOutfitsReducer, favoriteItemsReducer, and occasionsReducer
+  favorites, // contains favoriteOutfitsReducer, favoriteItemsReducer, occasionsReducer, and favoriteOutfitsForOccasionReducer
   closetReducer, // contains closetOutfitsReducer and closetItemsReducer
   cart, //contains items to purchase
   shipping, //contains shipping info (addresses)

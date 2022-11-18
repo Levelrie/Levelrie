@@ -28,6 +28,66 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
             res.sendStatus(500);
         })
 });
+
+
+router.get('/outfits/:id', (req, res) => {
+    console.log('in GET /api/favorites/outfits:id');
+    // Fetch all outfits that have been favorited by the user
+    // AND associated items
+    // With the selected occasion
+    console.log('here is req.params.id:', req.params.id)
+    const sqlText = `
+    SELECT favorited_outfits.*,
+       JSON_AGG((items, categories.name)) AS items
+           FROM "favorited_outfits"
+               JOIN "outfits" ON favorited_outfits.outfit_id = outfits.id
+               JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
+               JOIN "items" ON outfit_items.item_id = items.id
+                   INNER JOIN "categories" ON items.category_id = categories.id
+                       WHERE favorited_outfits.user_id = $1
+                           AND outfits.occasion_id = $2
+                           GROUP BY favorited_outfits.id;
+   `
+   const sqlValues = [req.user.id, req.params.id]
+   pool.query(sqlText, sqlValues)
+       .then((dbRes) => {
+           console.log('dbRes.rows is:', dbRes.rows);
+           res.send(dbRes.rows)
+       }).catch(dbErr => {
+           console.log('dbErr in /favorites/outfits/:id', dbErr);
+           res.sendStatus(500);
+       })
+});
+
+// router.get('/outfits/:id/:outfitId', (req, res) => {
+//     console.log('in GET /api/favorites/outfits:id:outfitId');
+//     // Fetch all outfits that have been favorited by the user
+//     // AND associated items
+//     // With the selected occasion
+//     console.log('here is req.params.id:', req.params.id)
+//     const sqlText = `
+//     SELECT favorited_outfits.*,
+//        JSON_AGG((items, categories.name)) AS items
+//            FROM "favorited_outfits"
+//                JOIN "outfits" ON favorited_outfits.outfit_id = outfits.id
+//                JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
+//                JOIN "items" ON outfit_items.item_id = items.id
+//                    INNER JOIN "categories" ON items.category_id = categories.id
+//                        WHERE favorited_outfits.user_id = $1
+//                            AND outfits.occasion_id = $2
+//                            GROUP BY favorited_outfits.id;
+//    `
+//    const sqlValues = [req.user.id, req.params.id]
+//    pool.query(sqlText, sqlValues)
+//        .then((dbRes) => {
+//            console.log('dbRes.rows is:', dbRes.rows);
+//            res.send(dbRes.rows)
+//        }).catch(dbErr => {
+//            console.log('dbErr in /favorites/outfits/:id', dbErr);
+//            res.sendStatus(500);
+//        })
+// });
+
 router.get('/search', rejectUnauthenticated, (req, res) => {
     // ••• This route is forbidden if not logged in •••
     // Search a user's favorited outfits

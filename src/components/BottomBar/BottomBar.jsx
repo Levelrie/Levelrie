@@ -56,7 +56,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
         history.push('/home');
         break;
       case 'Favorites':
-        history.push('/favorites/outfitoccasions');
+        history.push('/favorites/outfits');
         break;
       case 'Cart':
         history.push('/cartlanding');

@@ -16,12 +16,12 @@ function FavoriteOutfitItemDetail() {
     // useEffect(() => {
     //     const outfitToPull = params.id
     //     dispatch({
-    //         type: 'FETCH_FAVORITE_OUTFIT_DETAILS',
+    //         type: 'FETCH_FAVORITE_OUTFIT_FOR_OCCASION_DETAILS',
     //         payload: outfitToPull
     //     })
     //     return () => {
     //         dispatch({
-    //         type: 'CLEAR_FAVORITE_OUTFIT_DETAILS'
+    //         type: 'CLEAR_FAVORITE_OUTFIT_FOR_OCCASION_DETAILS'
     //         })
     //     }
     // }, [params.id]);
