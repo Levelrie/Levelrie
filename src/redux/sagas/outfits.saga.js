@@ -48,7 +48,7 @@ function* rejectOutfit(action) {
             type: 'FETCH_FAVORITE_OUTFITS'
         });
 
-        dispatch({
+        yield put({
             type: 'FETCH_CLOSET_OUTFITS'
         });
             
@@ -83,7 +83,7 @@ function* favoriteOutfit(action) {
             type: 'FETCH_FAVORITE_OUTFITS'
         });
 
-        dispatch({
+        yield put({
             type: 'FETCH_CLOSET_OUTFITS'
         });
 

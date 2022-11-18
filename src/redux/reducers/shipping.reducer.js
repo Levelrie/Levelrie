@@ -5,7 +5,11 @@ const shippingReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_ADDRESS':
             console.log('action.payload in shipping reducer', action.payload)
-            return action.payload;
+            if (action.payload){
+                return action.payload}
+            else {
+                return state
+            }
         case 'CLEAR_ADDRESS':
             return [];
         default:
