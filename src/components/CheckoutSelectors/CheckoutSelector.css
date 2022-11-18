@@ -19,15 +19,14 @@
 }
 
 
-ul{
+.cartList{
     justify-content: center;
     align-content: center;
     list-style: none;
     height: 20vh;
-    width: 50vw;
-   
-    
+    width: 50vw;  
 }
+
 .cartImg{
     height: 20vh;
     max-width: none;
