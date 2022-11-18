@@ -98,7 +98,7 @@ router.delete('/:itemId', rejectUnauthenticated, async (req, res) =>{
   const userId = req.user.id
   const itemId = req.params.itemId
   console.log('user', userId)
-  console.log('item', itemId)
+  console.log('item', req.params)
 
   const sqlDeleteItem = `DELETE FROM "carts"
                           WHERE "user_id"  = $1

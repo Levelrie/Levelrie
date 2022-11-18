@@ -48,7 +48,7 @@ function BuyCheckbox({ item, carted }) {
               color: 'black',
             },
           }}/>}
-          label="Buy"
+          label={check ? 'Del' : 'Buy'}
           labelPlacement="top"
         />
     );

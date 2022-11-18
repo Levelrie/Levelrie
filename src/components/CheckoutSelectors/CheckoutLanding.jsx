@@ -15,6 +15,7 @@ export default function CheckoutLanding() {
     const cart = useSelector(store => store.cart);
     const rejectionFits = useSelector(store => store.outfits.rejectionFits);
     const favoriteFits = useSelector(store => store.outfits.favoriteFits);
+    console.log('cart in landing', cart[0])
     useEffect(() => {
         dispatch({type: 'GET_CART_ITEMS'})
         console.log('How many???');
@@ -49,7 +50,7 @@ export default function CheckoutLanding() {
             <Stack width={1} className='checkoutFrame' justifyItems='center' alignItems='center' mt={3} overflow='scroll'>
                 {cart ? cart.map((item) => {
                 return(
-                    <FavoriteItemItem item={item} key={item.id} sizes={[]} colors={[]}/>
+                    <FavoriteItemItem item={item} key={item.id} sizes={[item.size]} colors={[item.color]}/>
                 )}): 'None'}
             </Stack>
             <Divider width='80%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, mt: 5, mb: 3}} />
