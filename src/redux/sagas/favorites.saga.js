@@ -157,6 +157,7 @@ function* changeItemSize(action) {
 
     } catch (error) {
         console.log('error in changeItemSize function in favoritesSaga:', error); 
+    }
 }
 
 function* fetchOccasions() {

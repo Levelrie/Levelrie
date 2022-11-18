@@ -5,12 +5,29 @@ import { useEffect } from 'react';
 function FavoriteOutfitOccasions() {
 
     const dispatch = useDispatch();
-    const occasions = useSelector(store => store.favorites.occasionsReducer)
+    const occasions = useSelector(store => store.favorites.occasionsReducer);
+
+    const rejectionFits = useSelector(store => store.outfits.rejectionFits);
+    const favoriteFits = useSelector(store => store.outfits.favoriteFits);
+
     useEffect(()=> {
 
         dispatch({
             type: 'FETCH_OCCASIONS'
-        })
+        });
+
+        dispatch({
+            type: 'SAGA_FAVORITE_OUTFITS',
+            payload: favoriteFits
+        });
+        
+        dispatch({
+            type: 'SAGA_REJECT_OUTFITS',
+            payload: rejectionFits
+        });
+        
+        dispatch({type: 'CLEAR_OUTFITS_TO_REJECT'});
+        dispatch({type: 'CLEAR_OUTFITS_TO_FAVORITE'});
 
     },[]);
 

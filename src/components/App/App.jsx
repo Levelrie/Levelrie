@@ -172,7 +172,7 @@ function App() {
 {/* ********************* FAVORITES ROUTES ********************* */}
             <ProtectedRoute path="/favorites">
 
-              <ToggleButton />
+              <FavoriteToggleButton />
               <ProtectedRoute
                 // logged in shows FavoriteOutfitOccasions else shows LoginPage
                 exact
