@@ -14,9 +14,9 @@ const favoriteOutfitsReducer = (state = [], action) => {
 
 const favoriteOutfitsForOccasionReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_FAVORITE_ITEMS_FOR_OCCASION':
+        case 'SET_FAVORITE_OUTFITS_FOR_OCCASION':
             return action.payload;
-        case 'CLEAR_FAVORITE_ITEMS_FOR_OCCASION':
+        case 'CLEAR_FAVORITE_OUTFITS_FOR_OCCASION':
             return [];
         default: 
             return state;

@@ -70,12 +70,12 @@ function* fetchFavoriteOutfitsForOccasion(action) {
             url: `/api/favorites/outfits/${occasionId}`
         })
         yield put({
-            type: 'SET_FAVORITE_ITEMS_FOR_OCCASION',
+            type: 'SET_FAVORITE_OUTFITS_FOR_OCCASION',
             payload: favoriteItemsRes.data
         })
     }
     catch(error) {
-        console.log('error getting favorite items:', error);
+        console.log('error getting favorite outfits for occasion:', error);
     }
 }
 
