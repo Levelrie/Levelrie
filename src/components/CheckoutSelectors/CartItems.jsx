@@ -18,7 +18,7 @@ function CartItem({ item }) {
       
         <Stack direction={'row'} spacing={8} justifyItems='center' alignItems='end' justifyContent='center' >
               <img src={item.img} className="cartImg" />
-              <ul>
+              <ul className="cartList">
                   <li>Desc: {item.name}</li>
                   <li>Brand: {item.seller}</li>
                   <li>Color: {item.color}</li>

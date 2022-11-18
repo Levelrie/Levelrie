@@ -20,7 +20,7 @@ function AdminDesignSliderItem({item}) {
   }
 
   return (
-    <Card onClick={addItemToDisplay} sx={{ height: '14.4vh', margin: 1, padding: 1, backgroundColor: "#F1B3F2", }}>
+    <Card onClick={() => addItemToDisplay()} sx={{ height: '14.4vh', margin: 1, padding: 1, backgroundColor: "#F1B3F2", }}>
       <CardMedia
         sx={{ objectFit: 'contain', maxHeight: '12vh', margin: 'auto'}}
         className="itemSliderImg"

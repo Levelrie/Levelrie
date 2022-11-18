@@ -44,7 +44,6 @@ app.use('/api/closet/outfits', closetOutfitRouter);
 app.use('/api/closet/items', closetItemRouter);
 app.use('/api/closet', closetRouter);
 app.use('/api/shipping', shippingRouter)
-app.use('/api/shipping', shippingRouter);
 app.use('/api/design', designRouter);
 app.use('/api/occasions', occasionsRouter);
 app.use('/api/buy', orderRouter)
