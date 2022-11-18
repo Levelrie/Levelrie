@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Fab from '@mui/material/Fab';
+import Tooltip from '@mui/material/Tooltip';
 
 //  CSS
 import './AdminDesign.css';
@@ -25,7 +26,8 @@ function AdminDesign() {
   const dispatch = useDispatch();
 
   //  Local state
-  const [outfitDesign, setOutfitDesign] = useState(true);
+  // const [outfitDesign, setOutfitDesign] = useState(true);
+  const [addOutfit, setAddOutfit] = useState(true);
   
   //  Reducer store data
   const categories = useSelector((store) => store.categories);
@@ -35,6 +37,9 @@ function AdminDesign() {
   useEffect(() => {
     dispatch ({
       type: 'SAGA_FETCH_CATEGORIES'
+    })
+    dispatch ({
+      type: 'SAGA_FETCH_OCCASIONS'
     })
     return () => {
       dispatch ({
@@ -52,21 +57,44 @@ function AdminDesign() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Fab variant="extended"
-        color="default"
+      <Fab
+        color="primary"
         onClick={handleLogout}
         size="small"
         position="absolute"
         sx={{left: 10, top: 40}}
       >
-        <LogoutIcon sx={{ mr: 1 }} />
-        Logout
+        <Tooltip title="Logout">
+          <LogoutIcon />
+        </Tooltip>
       </Fab>
       <Grid container spacing={0.1}>
         <Grid item xs={5}>
           <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "white"}}>
             <Stack direction="column" spacing={2} display='flex'>
               <Stack direction="row" justifyContent="center">
+          
+                <Button variant="contained"
+                  size="small"
+                  onClick={(event) => {setAddOutfit(true)}} 
+                  color={addOutfit ? 'primary' : 'baseTan' }
+                  sx={{borderRadius: 3 , width: 120, left: 10, fontSize: 16}}
+                  className={addOutfit ? 'frontButton' : ''}
+                >
+                  Create
+                </Button>
+
+                <Button variant="contained"
+                  size="small"
+                  onClick={(event) => {setAddOutfit(false)}} 
+                  color={addOutfit ? 'baseTan' : 'primary' }
+                  sx={{borderRadius: 3, width: 120, right: 10, fontSize: 16}}
+                  className={addOutfit ? '' : 'frontButton'}
+                >
+                  Edit
+                </Button>
+              </Stack>
+              {/* <Stack direction="row" justifyContent="center">
                 <Button variant="contained"
                   size="small"
                   onClick={(event) => {setOutfitDesign(true)}}
@@ -85,9 +113,9 @@ function AdminDesign() {
                 >
                   Items
                 </Button>
-              </Stack>
-              {outfitDesign ? <OutfitDesignBuilder /> : <ItemDesignBuilder />}
-              {outfitDesign ? <OutfitDesignDetails /> : <ItemDesignDetails />}
+              </Stack> */}
+              <OutfitDesignBuilder />
+              <OutfitDesignDetails />
             </Stack>
           </Box>
         </Grid>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //  MUI Tools
 import Box from '@mui/material/Box';
@@ -8,12 +8,24 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';  
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function OutfitDesignDetails() {
+  //  TODO
+  //    1.  Setup an Outfit Fetch to utilize an Outfit Store
+  //    2.  Create a dispatch for Submitting an Outfit Create
+  //    3.  Figure out the Edit Outfit stuffzzzz
+
+  const dispatch = useDispatch();
 
   //  Local state
-  const [addOutfit, setAddOutfit] = useState(true);
+  // const [addOutfit, setAddOutfit] = useState(true);
+  const [occasionPick, setOccasionPick] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
   //  Reducer store data
   const outerwear = useSelector((store) => store.outerwear);
@@ -21,19 +33,40 @@ function OutfitDesignDetails() {
   const accessory = useSelector((store) => store.accessory);
   const bottom = useSelector((store) => store.bottom);
   const footwear = useSelector((store) => store.footwear);
+  const occasions = useSelector((store) => store.occasions);
+  const outfit = useSelector((store) => store.outfit);
 
   //  Calculating outfit price starting with strings containing special characters
   //  Set strings to numbers and removing $
-  const outerwearPrice = Number((outerwear.price)?.replace('$','')) || '';
-  const topPrice = Number((top.price)?.replace('$','')) || '';
-  const accessoryPrice = Number((accessory.price)?.replace('$','')) || '';
-  const bottomPrice = Number((bottom.price)?.replace('$','')) || '';
-  const footwearPrice = Number((footwear.price)?.replace('$','')) || '';
-  const totalPrice = outerwearPrice+topPrice+accessoryPrice+bottomPrice+footwearPrice;
+  // const outerwearPrice = Number((outerwear.price)?.replace('$','')) || '';
+  // const topPrice = Number((top.price)?.replace('$','')) || '';
+  // const accessoryPrice = Number((accessory.price)?.replace('$','')) || '';
+  // const bottomPrice = Number((bottom.price)?.replace('$','')) || '';
+  // const footwearPrice = Number((footwear.price)?.replace('$','')) || '';
+  // const totalPrice = outerwearPrice+topPrice+accessoryPrice+bottomPrice+footwearPrice;
+
+  const createOutfit = (event) => {
+    event.preventDefault();
+    dispatch ({
+      type: 'SAGA_CREATE_OUTFIT',
+      payload: {
+        name: name,
+        description: description,
+        occasion: occasionPick,
+        item_ids: [outerwear.id, top.id, accessory.id, bottom.id, footwear.id]
+      }
+    })
+  }
+  // TEST ------- TEST
+  const test = () => {
+    console.log('Occasions:', occasions);
+    console.log('Occasion Pick:', occasionPick);
+  }
+  // TEST ------- TEST
 
   return (
     <>
-      <Stack direction="row" justifyContent="center">
+      {/* <Stack direction="row" justifyContent="center">
         
         <Button variant="contained"
           size="small"
@@ -54,7 +87,7 @@ function OutfitDesignDetails() {
         >
           Edit
         </Button>
-      </Stack>
+      </Stack> */}
       <Box sx={{ height: 'auto', 
         margin: 1, 
         padding: 1, 
@@ -117,7 +150,7 @@ function OutfitDesignDetails() {
                   readOnly: true,
                 }}
               />
-              <TextField
+              {/* <TextField
                 size='small'
                 variant="outlined"
                 id="outlined-read-only-input"
@@ -126,42 +159,69 @@ function OutfitDesignDetails() {
                 InputProps={{
                   readOnly: true,
                 }}
-              />
+              /> */}
             </Stack>
           </Card>
           <Card sx={{borderRadius: 4, width: '50%'}}>
             <Stack direction="column" spacing={2} display='flex'>
               <TextField
+                required
                 size='small'
                 variant="outlined"
                 id="outlined-read-only-input"
                 label="Outfit Name:"
                 placeholder='Name goes here'
+                value={name}
+                onChange={(event) => { setName(event.target.value); }}
                 InputProps={{
                   readOnly: false,
                 }}
               />
+              <FormControl required fullWidth size="small" >
+                <InputLabel id="demo-select-small" >Outfit Occasion</InputLabel>
+                <Select
+                  required
+                  labelid="demo-select-small"
+                  id="demo-simple-small"
+                  label="Outfit Occasion"
+                  value={occasionPick}
+                  onChange={(event) => { setOccasionPick(event.target.value); }}
+                >
+                  <MenuItem value="">
+                    <em>Select an occasion</em>
+                  </MenuItem>
+                  {occasions.map(occasion => (
+                    <MenuItem key={occasion.id} value={occasion.id}>
+                      {occasion.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <TextField
                 size='small'
                 variant="outlined"
                 id="outlined-read-only-input"
-                label="Outfit Occasion:"
-                placeholder='Occasion goes here'
+                label="Outfit Description:"
+                placeholder='Description goes here'
                 multiline
-                rows={5}
+                rows={4}
+                value={description}
+                onChange={(event) => { setDescription(event.target.value); }}
                 InputProps={{
                   readOnly: false,
                 }}
               />
-              <Button variant="contained">
+              <Button variant="contained" onClick={createOutfit}>
                 Submit
               </Button>
             </Stack>
           </Card>
         </Stack>
       </Box>
+      <button onClick={test}>Test</button>
     </>
   );
 }
 
 export default OutfitDesignDetails;
+

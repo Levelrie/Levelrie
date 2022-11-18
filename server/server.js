@@ -19,6 +19,7 @@ const closetItemRouter = require('./routes/closetItem.router');
 const closetRouter = require('./routes/closet.router');
 const shippingRouter = require('./routes/shipping.router');
 const designRouter = require('./routes/design.router');
+const occasionsRouter = require('./routes/occasions.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -43,6 +44,7 @@ app.use('/api/closet/items', closetItemRouter);
 app.use('/api/closet', closetRouter);
 app.use('/api/shipping', shippingRouter);
 app.use('/api/design', designRouter);
+app.use('/api/occasions', occasionsRouter);
 
 // Serve static files
 app.use(express.static('build'));

@@ -15,7 +15,13 @@ CREATE TABLE "users" (
 CREATE TABLE "outfits" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR (80) UNIQUE NOT NULL,
-    "description" VARCHAR (500) NOT NULL
+    "description" VARCHAR (500) NOT NULL,
+    "occasion_id" INT REFERENCES "occasions"
+);
+
+CREATE TABLE "occasions" (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR (80) UNIQUE NOT NULL
 );
 
 CREATE TABLE "categories" (
@@ -121,7 +127,14 @@ INSERT INTO "categories"
             ('outerwear'),
             ('accessories');
             
-            
+INSERT INTO "occasions"
+    ("name")
+        VALUES
+            ('Brunch'),
+            ('Date Night'),
+            ('Airport'),
+            ('Work'),
+            ('Casual');           
             
             -- ****************** TEST DATA BELOW *********************
 INSERT INTO "users"
@@ -135,12 +148,12 @@ INSERT INTO "users"
             
 
 INSERT INTO "outfits"
-	("name", "description")
+	("name", "description", "occasion_id")
 		VALUES
-			('All business', 'For closing that deal'),
-			('Rebel with a cause', 'For taking names'), 
-			('Business and pleasure', 'For going out'),
-			('Casual vibes', 'For running errands');			
+			('All business', 'For closing that deal', 4),
+			('Rebel with a cause', 'For taking names', 1),
+			('Business and pleasure', 'For going out', 2),
+			('Casual vibes', 'For running errands', 5);	
 
 INSERT INTO "items"
 	("name", "color", "size", "seller", "price", "img", "category_id")
