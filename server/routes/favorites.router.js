@@ -146,7 +146,7 @@ router.delete('/items/decrease/:id/:quantity', rejectUnauthenticated, async (req
                                         );`
 
     const sqlDeleteFromFaveItems = `DELETE FROM "favorited_items"
-                                        WHERE ctid IN (SELECT ctid FROM "favorited_items"
+                                        WHERE "favorited_items".id IN (SELECT "favorited_items".id FROM "favorited_items"
                                             JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
                                             WHERE favorited_outfits.user_id = $1
                                             AND favorited_items.item_id = $2
@@ -182,6 +182,7 @@ router.delete('/items/decrease/:id/:quantity', rejectUnauthenticated, async (req
         // If there's still more to delete
         if (quantity > resultsInSolo.rows.length) {
             for (let i = 0; i < (Number(quantity) - Number(resultsInSolo.rows.length)); i++) {
+                console.log('DELETING TWO!!!!!!')
                 await connection.query(sqlDeleteFromFaveItems, [userId, itemId]);
             }
         }

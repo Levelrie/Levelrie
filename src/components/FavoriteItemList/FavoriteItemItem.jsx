@@ -5,7 +5,6 @@ import './FavoriteItemItem.css';
 import BuyCheckbox from '../BuyCheckbox/BuyCheckbox';
 import React from 'react';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
-import { useSelector } from 'react-redux'
 
 
 // MUI
@@ -60,6 +59,7 @@ function FavoriteItemItem({item, category, sizes, colors}) {
         }
     }
 
+
     const changeColor = (e) => {
         // Don't do anything if the color is not changing
         if (e.target.value != item.color) {
@@ -82,7 +82,7 @@ function FavoriteItemItem({item, category, sizes, colors}) {
     }
 
 
-function FavoriteItemItem({item}) {
+
     var carted = false
     const cart = useSelector(store => store.cart)
     for(let cloth of cart){
@@ -92,8 +92,8 @@ function FavoriteItemItem({item}) {
           console.log('cloth?', cloth)
             carted = true
         }
-      }
-  
+    }
+
 
     console.log('this is the item:', item);
 
@@ -159,7 +159,7 @@ function FavoriteItemItem({item}) {
             </div>
             <div className='itemItemDelete'>
                 {/* <Button onClick={handleClickOpen} variant="text"><HighlightOffIcon color="warning"/></Button> */}
-                <FavoriteButton defaultChecked={true}/>
+                <FavoriteButton changeQty={changeQty} defaultChecked={true}/>
             </div>
             <div className='itemItemBuy'>
                 <BuyCheckbox item={item} carted={carted}/>

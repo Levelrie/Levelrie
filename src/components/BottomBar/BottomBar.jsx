@@ -26,7 +26,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
       case '/home':
         setValue('swipe');
         break;
-      case `/favorites/outfits`:
+      case `/favorites/outfitoccasions`:
         setValue('Favorites');
         break;
       case `/cart`:

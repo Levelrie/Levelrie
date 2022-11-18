@@ -10,7 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 
-function FavoriteButton({itemId, outfitId, defaultChecked}) {
+function FavoriteButton({itemId, outfitId, defaultChecked, changeQty}) {
 
   const [check, setCheck] = useState(defaultChecked);
   const [open, setOpen] = useState(false);
@@ -39,13 +39,14 @@ function FavoriteButton({itemId, outfitId, defaultChecked}) {
 
     const handleDelete = () => {
       console.log('start deleting!');
-      dispatch({
-        type: 'SAGA_UNFAVORITE_TEST',
-        payload: {
-          itemId: itemId,
-          // outfitId: outfitId
-        }
-      });
+      // dispatch({
+      //   type: 'SAGA_UNFAVORITE_TEST',
+      //   payload: {
+      //     itemId: itemId,
+      //     // outfitId: outfitId
+      //   }
+      // });
+
       setCheck(false);
       handleClose();
       // need to refresh page
@@ -86,7 +87,7 @@ function FavoriteButton({itemId, outfitId, defaultChecked}) {
             >
                 <DialogContent>Delete item from favorites?</DialogContent>
                 <DialogActions>
-                    <Button color="warning" onClick={handleDelete}>Delete</Button>
+                    <Button color="warning" value="0" onClick={changeQty}>Delete</Button>
                     <Button  variant="contained" onClick={handleClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>    
