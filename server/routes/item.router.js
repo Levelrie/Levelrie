@@ -284,7 +284,7 @@ router.put('/changecolor', rejectUnauthenticated, async (req, res) => {
                                         AND items.img = $7
                                         AND items.category_id = $8;`
 
-    const sqlFetchTextOldItemAgain = `SELECT id FROM "favorited_solo"
+    const sqlFetchTextOldItemAgain = `SELECT "items".id AS items_id, "favorited_solo".id as favorited_solo_id FROM "favorited_solo"
                                         JOIN "items" ON favorited_solo.item_id = items.id
                                             WHERE favorited_solo.user_id = $1
                                             AND items.name = $2
@@ -332,8 +332,8 @@ router.put('/changecolor', rejectUnauthenticated, async (req, res) => {
         if (oldItem.rows.length === 0) {
             // Fetch and delete from favorited-solo instead
             oldItem = await connection.query(sqlFetchTextOldItemAgain, [req.user.id, item.name, item.color, item.size, item.seller, item.price, item.img, item.category_id]);
-            await connection.query(sqlDeleteTextAgain, [oldItem.rows[0].id, req.user.id]);
-            await connection.query(sqlInsertNewTextAgain, [req.user.id, oldItem.rows[0].id]);
+            await connection.query(sqlDeleteTextAgain, [oldItem.rows[0].favorited_solo_id, req.user.id]);
+            await connection.query(sqlInsertNewTextAgain, [req.user.id, newItem.rows[0].id]);
         } else {
             await connection.query(sqlDeleteText, [oldItem.rows[0].favorited_items_id]);
             console.log('DELETING', oldItem.rows[0].favorited_items_id)
@@ -372,7 +372,7 @@ router.put('/changesize', rejectUnauthenticated, async (req, res) => {
                                         AND items.img = $7
                                         AND items.category_id = $8;`
 
-    const sqlFetchTextOldItemAgain = `SELECT id FROM "favorited_solo"
+    const sqlFetchTextOldItemAgain = `SELECT "items".id AS items_id, "favorited_solo".id as favorited_solo_id FROM "favorited_solo"
                                         JOIN "items" ON favorited_solo.item_id = items.id
                                             WHERE favorited_solo.user_id = $1
                                             AND items.name = $2
@@ -420,8 +420,8 @@ router.put('/changesize', rejectUnauthenticated, async (req, res) => {
         if (oldItem.rows.length === 0) {
             // Fetch and delete from favorited-solo instead
             oldItem = await connection.query(sqlFetchTextOldItemAgain, [req.user.id, item.name, item.color, item.size, item.seller, item.price, item.img, item.category_id]);
-            await connection.query(sqlDeleteTextAgain, [oldItem.rows[0].id, req.user.id]);
-            await connection.query(sqlInsertNewTextAgain, [req.user.id, oldItem.rows[0].id]);
+            await connection.query(sqlDeleteTextAgain, [oldItem.rows[0].favorited_solo_id, req.user.id]);
+            await connection.query(sqlInsertNewTextAgain, [req.user.id, newItem.rows[0].id]);
         } else {
             await connection.query(sqlDeleteText, [oldItem.rows[0].favorited_items_id]);
             console.log('DELETING', oldItem.rows[0].favorited_items_id)
