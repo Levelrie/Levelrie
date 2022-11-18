@@ -45,6 +45,7 @@ import FavoriteOutfitOccasions from '../FavoriteOutfitList/FavoriteOutfitOccasio
 import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
 import FavoriteToggleButton from '../FavoriteOutfitList/FavoriteToggleButton';
 import ClosetOccasion from '../ClosetOccasionsPage/ClosetOccasionsPage';
+import ClosetOutfits from '../ClosetOccasionsPage/ClosetOutfits';
 
 //  CSS Import
 import './App.css';
@@ -273,6 +274,13 @@ function App() {
               path="/closet/categories/:name"
               >
               <ClosetCategoryDetailPage />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+              exact
+              path="/closet/:name/outfits"
+              >
+              <ClosetOutfits />
               </ProtectedRoute>
 
             </ProtectedRoute>

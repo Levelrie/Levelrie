@@ -30,17 +30,13 @@ function ClosetItemPage () {
 
     },[]);
 
-    if (!closetCategory) {
-        return null;
-    }
-
     return (
         <div>
             <Container className='faveCategoriesContainer'>
             <Typography variant="h6">My Closet: Category</Typography>
                 <Box sx={{width: '100%'}}>
                     <Grid container spacing={1} mt={3} mb={3}>
-                    {closetCategory && closetCategory.map (category => (
+                    {closetCategory.map (category => (
                             <ClosetCategory key={category.id} category={category}/>
                         ))}
                     </Grid>
