@@ -53,10 +53,31 @@ function* unfavoriteOutfit(action) {
 
 }
 
+function* favoriteItem(action) {
+    const itemId = action.payload;
+
+    try {
+        yield axios.post('/api/item/search/favorite', {itemId: itemId});
+    } catch (error) {
+        console.log('Error in favoriteItem in globalSearchSaga', error);      
+    }
+}
+
+function* unfavoriteItem(action) {
+    const itemId = action.payload;
+
+    try {
+        yield axios.delete(`/api/item/search/unfavorite/${itemId}`);
+    } catch (error) {
+        console.log('Error in favoriteItem in globalSearchSaga', error);      
+    }
+}
+
 export default function* globalSearchSaga() {
     yield takeLatest('SAGA_SEARCH_ALL_OUTFITS', searchAllOutfits);
     yield takeLatest('SAGA_SEARCH_ALL_ITEMS', searchAllItems);
     yield takeLatest('SAGA_FAVORITE_OUTFIT_FROM_GLOBAL_SEARCH', favoriteOutfit);
     yield takeLatest('SAGA_UNFAVORITE_OUTFIT_FROM_GLOBAL_SEARCH', unfavoriteOutfit);
-
+    yield takeLatest('SAGA_FAVORITE_ITEM_FROM_GLOBAL_SEARCH', favoriteItem);
+    yield takeLatest('SAGA_UNFAVORITE_ITEM_FROM_GLOBAL_SEARCH', unfavoriteItem);
 };

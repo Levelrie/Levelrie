@@ -147,7 +147,7 @@ router.delete('/unfavorite/:itemId/:outfitId', rejectUnauthenticated, async (req
     connection.release();
 });
 
-// •••••••••••••••••••••••••••••••••••••••• GLOBAL SEARCH VIEW ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
+// •••••••••••••••••••••••••••••••••••••••• GLOBAL SEARCH VIEW ROUTES BELOW ••••••••••••••••••••••••••••••••••••••••
 
 router.get('/search', (req, res) => { 
     
@@ -176,6 +176,48 @@ router.get('/search', (req, res) => {
     });
 
 });
+
+router.post('/search/favorite', rejectUnauthenticated, (req, res) => {
+
+    const itemId = req.body.itemId;
+
+    const sqlInsertText = `INSERT INTO "favorited_solo"
+                                ("user_id", "item_id")
+                                VALUES
+                                ($1, $2);`
+    
+    pool.query(sqlInsertText, [req.user.id, itemId])
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            console.log('Error in POST /api/item/search/favorite query', error);
+            res.sendStatus(500);
+        });
+
+});
+
+router.delete('/search/unfavorite/:id', rejectUnauthenticated, (req, res) => {
+    
+    const itemId = req.params.id;
+
+    const sqlDeleteText = `DELETE FROM "favorited_solo"
+                                WHERE ctid IN (SELECT ctid FROM "favorited_solo"
+                                WHERE "user_id" = $1
+                                AND "item_id" = $2
+                                LIMIT 1
+                            );`
+
+    pool.query(sqlDeleteText, [req.user.id, itemId])
+    .then((result) => {
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log('Error in POST /api/item/search/unfavorite query', error);
+        res.sendStatus(500);
+    });
+
+})
 
 // •••••••••••••••••••••••••••••••••••••••• FETCH CATEGORY NAMES ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
 
