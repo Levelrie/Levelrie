@@ -30,6 +30,8 @@ import Container from '@mui/material/Container';
         console.log('id = ', e.target.id);
         history.push(`/favorites/categories/${e.target.id}`);
     }
+
+    console.log('@@@@@@@@@ here are categories:', favoriteCategory);
      return (
          <Container className='faveCategoriesContainer'>
          <Stack>

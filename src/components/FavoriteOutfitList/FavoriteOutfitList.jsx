@@ -58,7 +58,6 @@ function FavoriteOutfitList() {
         }
     }, []);
 
-    console.log('favoriteOutfits is:', favoriteOutfits);
     return (
         <>
         <div className="outfitsListSearchBar">
@@ -68,7 +67,7 @@ function FavoriteOutfitList() {
         <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (
                 <div className='faveOutfitCard' key={outfit.id}>
-                     <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
+                     <FavoriteOutfitItem key={outfit.id} outfit={outfit} occasionId={occasionId}/>
                 </div>
             ))}
         </Stack>       

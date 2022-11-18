@@ -1,17 +1,15 @@
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
  import './FavoriteOutfitItem.css';
 
- function FavoriteOutfitItem({outfit}) {
+ function FavoriteOutfitItem({outfit, occasionId}) {
 
     const history = useHistory();
 
     const handleClick = () => {
         console.log('in handleClick');
-        history.push(`/favorites/outfits/${outfit.id}`);
+        history.push(`/favorites/outfits/${occasionId}/${outfit.id}`);
     }
 
-    console.log('this is outfit.id in item:', outfit.id);
-    console.log('these are items:', outfit.items)
     return (   
          <div className='faveOutfitContainer'>
             {outfit.items.map(item => {
