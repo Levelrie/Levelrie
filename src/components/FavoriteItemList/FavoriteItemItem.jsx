@@ -2,11 +2,24 @@ import './FavoriteItemItem.css';
 import BuyCheckbox from '../BuyCheckbox/BuyCheckbox';
 import React from 'react';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
+import { useSelector } from 'react-redux'
+
 
 // MUI
 import Typography from '@mui/material/Typography';
 
 function FavoriteItemItem({item}) {
+    var carted = false
+    const cart = useSelector(store => store.cart)
+    for(let cloth of cart){
+        console.log('cloth.id', cloth.id)
+        console.log('item.id', item.id)
+        if(cloth.id === item.id){
+          console.log('cloth?', cloth)
+            carted = true
+        }
+      }
+  
 
     console.log('this is the item:', item);
     return (
@@ -55,7 +68,7 @@ function FavoriteItemItem({item}) {
                 <FavoriteButton defaultChecked={true}/>
             </div>
             <div className='itemItemBuy'>
-                <BuyCheckbox />
+                <BuyCheckbox item={item} carted={carted}/>
             </div>
         </div>
     );

@@ -26,4 +26,6 @@ const favoriteAddyReducer = (state=[], action) => {
 
 
 
-export default shippingReducer
+export default combineReducers({
+shippingReducer,
+favoriteAddyReducer})

@@ -27,12 +27,12 @@ export default function CheckoutSelector() {
     return(
 
 
-        <Stack justifyItems='center' alignItems='center' width={1}>
+        <Stack justifyItems='center' alignItems='center' className='cartFrameFrame'>
             <ShippingSelector />
             <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, margin: 3}} />
             <PaymentSelector />
             <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, margin: 3, mb: 1}} />
-            <Stack direction='row' overflow={'scroll'} >
+            <Stack direction='row' overflow={'scroll'} className='cartItemFrame' >
             {cart ? cart.map((item) => {
                 cartTotal += Number(item.price.substring(1))
                 return(
