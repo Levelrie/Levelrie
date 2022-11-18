@@ -79,10 +79,11 @@ export default function HomeOutfitCards({outfitsArray, rejectionFits, favoriteFi
             { outfitsArray.map((outfit) => {
                 return (
                 <TinderCard key={outfit.id}
-                    className="pressable swipeCard"
+                    className="swipeCard"
                     onSwipe={(direction) => onSwipe(direction, outfit.id)}
-                    preventSwipe={['up', 'down']} >
-                        <OutfitHomeItem outfit={outfit}/>
+                    preventSwipe={['up', 'down']} 
+                    >
+                        <OutfitHomeItem outfit={outfit} />
                 </TinderCard>
                 );
             }) }
