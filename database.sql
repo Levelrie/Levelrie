@@ -47,15 +47,18 @@ CREATE TABLE "outfit_items" (
 );
 
 
-CREATE TABLE "addresses" (
+
+    CREATE TABLE "addresses" (
     "id" SERIAL PRIMARY KEY,
     "user_id" INT REFERENCES "users",
+    "nickname" VARCHAR(255) NOT NULL,
     "street_address" VARCHAR (255) NOT NULL,
     "city" VARCHAR (255) NOT NULL,
     "state" VARCHAR (255) NOT NULL,
     "zip" VARCHAR (16) NOT NULL,
     "preferred" BOOLEAN NOT NULL
 );
+
 
 -- *** NOTE: DO NOT ENTER REAL CREDIT CARD INFORMATION IN THIS BUILD *** 
 -- *** CURRENT BUILD DOES NOT ENCRYPT CARD NUMBERS ***
@@ -114,6 +117,19 @@ CREATE TABLE "rejections" (
     "id" SERIAL PRIMARY KEY,  
     "user_id" INT REFERENCES "users",
     "outfit_id" INT REFERENCES "outfits"
+);
+
+CREATE TABLE "orders"(
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INT REFERENCES "users",
+	"addresses_id" INT REFERENCES "addresses",
+	"inserted_at" TIMESTAMPTZ NOT NULL DEFAULT now()		
+);
+
+CREATE TABLE "order_items"(
+	"id" SERIAL PRIMARY KEY,
+	"order_id" INT REFERENCES "orders",
+	"item_id" INT REFERENCES "items"
 );
 
 
