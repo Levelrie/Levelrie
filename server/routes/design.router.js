@@ -4,20 +4,50 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //  POST - Create Outfit
-router.post('/outfit/create', rejectUnauthenticated, (req, res) => {
+router.post('/outfit/create', rejectUnauthenticated, async (req, res) => {
 	console.log('POST - Create Outfit', req.body);
-	// const sqlText = `
-  //       INSERT INTO 
-	// `;
-  //   const sqlValues = [];
-	// pool.query(sqlText, sqlValues)
-	// 	.then((postOutfitRes) => {
-	// 		res.sendStatus(201)
-	// 	})
-	// 	.catch((postOutfitErr) => {
-	// 		console.log('Failed to Create Outfit', postOutfitErr);
-	// 		res.sendStatus(500);
-	// 	});
+	const name = req.body.name;
+	const description = req.body.description;
+	const occasion_id = req.body.occasion;
+	const item_ids = req.body.item_ids;
+
+	// const sqlOutfitCheck 
+
+	const sqlCreateOutfit = `
+		INSERT INTO "outfits" 
+			("name", "description", "occasion_id")
+			VALUES
+				($1, $2, $3)
+			RETURNING "id";`
+
+	const sqlLinkOutfitItems = `
+		INSERT INTO "outfit_items"
+			("outfit_id", "item_id")
+			VALUES
+				($1, $2);`
+
+	const connection = await pool.connect();
+	
+		try {
+
+			await connection.query('BEGIN;');
+
+			let outfit_id = await connection.query(sqlCreateOutfit, [name, description, occasion_id]);
+			
+			for (let i=0; i<item_ids.length; i++) {
+				await connection.query(sqlLinkOutfitItems, [outfit_id.rows[0].id, item_ids[i]])
+			}
+
+			await connection.query('COMMIT;');
+
+			res.sendStatus(201);
+		}
+		catch (error) { 
+			await connection.query('ROLLBACK;');
+			console.log('POST - Create Outfit error', error)
+			res.sendStatus(500);
+		}
+		connection.release();
 });
 
 //  PUT - Edit Outfit

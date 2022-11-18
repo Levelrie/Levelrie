@@ -24,6 +24,11 @@ CREATE TABLE "outfits" (
     "occasion_id" INT REFERENCES "occasions"
 );
 
+CREATE TABLE "occasions" (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR (80) UNIQUE NOT NULL
+);
+
 CREATE TABLE "categories" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR (80) UNIQUE NOT NULL
@@ -152,8 +157,8 @@ INSERT INTO "occasions"
             ('Date Night'),
             ('Airport'),
             ('Work'),
-            ('Casual');
-           
+            ('Casual');           
+
             -- ****************** TEST DATA BELOW *********************
 INSERT INTO "users"
 	("username", "password", "first_name", "last_name", "email")
