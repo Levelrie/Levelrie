@@ -218,7 +218,7 @@ function OutfitDesignDetails() {
           </Card>
         </Stack>
       </Box>
-      <button onClick={test}>Test</button>
+      {/* <button onClick={test}>Test</button> */}
     </>
   );
 }
