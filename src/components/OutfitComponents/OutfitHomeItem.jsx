@@ -1,7 +1,13 @@
+import { useDispatch } from "react-redux";
+import { useState } from 'react';
+
+
 import FavoriteButton from "../FavoriteButton/FavoriteButton";  // for stretch goal
+import HomeFaveButton from "./HomeFaveButton";
 import './OutfitHomeItem.css';
 
 export default function OutfitHomeItem({outfit}) {
+
 
     return (
         <>
@@ -10,9 +16,9 @@ export default function OutfitHomeItem({outfit}) {
                 <div className="outfitSwipeContainer">
                     {outfit.items.map(item => {
                         return (
-                            <div key={item.f1.id} id={item.f2}>
-                                <img className="itemPic" src={item.f1.img} />
-                                {/* <FavoriteButton className="pressable" itemId={item.f1.id} outfitId={outfit.id} /> */}
+                            <div key={item.f1.id} id={item.f2} >
+                                <img className="itemPic pressable" src={item.f1.img} onClick={() => console.log('???MaYbE???', item.f1.id)}/>
+                                <HomeFaveButton itemId={item.f1.id} outfitId={outfit.id}/>
                             </div>
                             );
                         })}

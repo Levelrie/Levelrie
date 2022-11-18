@@ -223,7 +223,7 @@ router.post('/favorite', rejectUnauthenticated, async (req, res) => {
     connection.release();
 });
 
-// •••••••••••••••••••••••••••••••••••••••• GLOBAL SEARCH VIEW ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
+// •••••••••••••••••••••••••••••••••••••••• GLOBAL SEARCH VIEW ROUTES BELOW ••••••••••••••••••••••••••••••••••••••••
 router.get('/search', (req, res) => {
 
     // General outfit query will target outfits by name
@@ -253,6 +253,59 @@ router.get('/search', (req, res) => {
             console.log('Error in GET /api/outfit/search query', error);
             res.sendStatus(500);
         });
+});
+
+// Remove an outfit from a user's favorites
+router.post('/search/unfavorite', rejectUnauthenticated, async (req, res) => {
+
+
+    // ••• This route is forbidden if not logged in •••
+    
+    const userId = req.user.id;
+    const outfitId = req.body.outfitId;
+
+    // Search if this outfit has any favorited items
+    const sqlSearchText = `SELECT "id" FROM "favorited_outfits"
+                                WHERE "user_id" = $1
+                                AND "outfit_id" = $2;`
+
+    // If this item has been favorited
+    //      Remove from favorited_items and favorited_outfits
+    const sqlDeleteItemsText = `DELETE FROM "favorited_items"
+                                    WHERE "favorited_outfit_id" = $1;`
+
+    const sqlDeleteOutfitText = `DELETE FROM "favorited_outfits"
+                                    WHERE "id" = $1;`
+
+
+
+    const connection = await pool.connect();
+
+    try {
+        await connection.query('BEGIN;');
+
+ 
+        // Search if this outfit has any favorited items
+        const searchIdResults = await connection.query(sqlSearchText, [userId, outfitId]);
+
+        // If this item has been favorited
+        if (searchIdResults.rows.length != 0) {
+            await connection.query(sqlDeleteItemsText, [searchIdResults.rows[0].id]);
+            await connection.query(sqlDeleteOutfitText, [searchIdResults.rows[0].id]);
+        }
+
+        await connection.query('COMMIT;');
+        
+        res.sendStatus(201);
+
+    } catch (error) {
+        await connection.query('ROLLBACK;');
+        console.log('Error in POST /api/outfit/search/unfavorite queries', error)
+        res.sendStatus(500);
+    } finally {
+        connection.release();
+    }
+
 });
 
 

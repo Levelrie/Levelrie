@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 // import material ui
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
 function ClosetCategory ({category}) {
 
@@ -12,11 +13,13 @@ function ClosetCategory ({category}) {
     // handle the outfit detail click
     const handleDetailsClick = () => {
         history.push(`/closet/categories/${category.name}`)
-        console.log('outfit clicked', 'id', category.id, 'category', category.name);
+        // console.log('outfit clicked', 'id', category.id, 'category', category.name);
+        window.location.reload(); 
+        // this is to hard refresh page, will probably find a better way to refresh page in the future.
     }
 
     return (
-        <div className='categoryList'>
+        <Grid key={category.id} item xs={6}>
                 <Button 
                     sx={{borderRadius:5, fontSize:20}} 
                     className="categoryButton" 
@@ -26,7 +29,7 @@ function ClosetCategory ({category}) {
                 >
                     {category.name}
                 </Button>
-        </div>
+        </Grid>
     )
 }
 

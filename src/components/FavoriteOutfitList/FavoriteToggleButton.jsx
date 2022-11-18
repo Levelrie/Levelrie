@@ -23,6 +23,24 @@ export default function FavoriteToggleButton() {
             case '/favorites/outfits':
                 setIsFront(true);
                 break;
+            case '/favorites/outfits/1':
+                setIsFront(true);
+                break;
+            case '/favorites/outfits/2':
+                setIsFront(true);
+                break;
+            case '/favorites/outfits/3':
+                setIsFront(true);
+                break;
+            case '/favorites/outfits/4':
+                setIsFront(true);
+                break;
+            case '/favorites/outfits/5':
+                setIsFront(true);
+                break;                
+            case '/favorites/outfitoccasions':
+                setIsFront(true);
+                break;
             case '/favorites/categories':
                 setIsFront(false);
                 break;

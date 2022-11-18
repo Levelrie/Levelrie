@@ -12,11 +12,33 @@ const favoriteOutfitsReducer = (state = [], action) => {
     }
 }
 
+const favoriteOutfitsForOccasionReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_FAVORITE_OUTFITS_FOR_OCCASION':
+            return action.payload;
+        case 'CLEAR_FAVORITE_OUTFITS_FOR_OCCASION':
+            return [];
+        default: 
+            return state;
+    }
+}
+
 const favoriteItemsReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_FAVORITE_ITEMS':
             return action.payload;
         case 'CLEAR_FAVORITE_ITEMS':
+            return [];
+        default:
+            return state;
+    }
+}
+
+const occasionsReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_OCCASIONS':
+            return action.payload;
+        case 'CLEAR_OCCASIONS':
             return [];
         default:
             return state;
@@ -51,10 +73,30 @@ const query = (state = '', action) => {
     return state; 
 }
 
+const sizes = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_ITEM_SIZES':
+            return state.concat(action.payload);
+    }
+    return state;
+}
+
+const colors = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_ITEM_COLORS':
+            return state.concat(action.payload);
+    }
+    return state;
+}
+
 export default combineReducers({
     favoriteOutfitsReducer,
     favoriteItemsReducer,
+    occasionsReducer,
     constraint,
     categories,
-    query
+    query,
+    favoriteOutfitsForOccasionReducer,
+    sizes,
+    colors
 })

@@ -16,6 +16,9 @@ function FavoriteItemList() {
     const favoriteItems = useSelector(store => store.favorites.favoriteItemsReducer);
 
     const constraint = useSelector(store => store.favorites.constraint);
+
+    let sizes = useSelector(store => store.favorites.sizes);
+    let colors = useSelector(store => store.favorites.colors);
     
     const category = params.id
     useEffect(() => {
@@ -45,6 +48,22 @@ function FavoriteItemList() {
     //     }
     // }
 
+    // Filters for repeats
+    colors = colors.filter((color, index) => {
+        const _color = JSON.stringify(color);
+        return index === colors.findIndex(obj => {
+            return JSON.stringify(obj) === _color;
+        });
+    });
+
+    sizes = sizes.filter((color, index) => {
+        const _color = JSON.stringify(color);
+        return index === sizes.findIndex(obj => {
+            return JSON.stringify(obj) === _color;
+        });
+    });
+
+
     console.log('favoriteItems is:', favoriteItems);
     return (
         <>
@@ -53,7 +72,7 @@ function FavoriteItemList() {
             <Typography variant="h6">{category}</Typography>
             <Stack spacing={2}>
                 {favoriteItems.map(item => (
-                        <FavoriteItemItem key={item.id} item={item}/>
+                        <FavoriteItemItem key={item.id} item={item} category={category} sizes={sizes} colors={colors}/>
                 ))}
             </Stack>
         </Container>

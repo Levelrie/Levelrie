@@ -4,6 +4,8 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
+import { useState, useEffect } from 'react'
+import { useLocation} from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,10 +13,58 @@ import Toolbar from '@mui/material/Toolbar';
 
 // Import component
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu.jsx';
+import BackButton from '../BackButton/BackButton';
 
 function Nav() {
   const user = useSelector((store) => store.user);
   // Get admin id
+
+  const [backButton, setBackButton] = useState();
+  const location = useLocation();
+
+  // This is to render the back button to appear on certain pages.
+  // BUG: If users does not click on the back button and navigate to other pages, the back button will still apear 
+  // until they navigate to the original page they were in. 
+  useEffect(() => {
+    switch(location.pathname) {
+      case '/closet/occasions':
+        setBackButton(true);
+        break;
+      case '/closet/:name/outfits':
+        setBackButton(false);
+        break;
+      case '/closet/outfits/detailsPage/:id':
+        setBackButton(false);
+        break;
+      case '/closet/categories':
+        setBackButton(true);
+        break;
+      case '/favorites/outfits':
+        setBackButton(true);
+      break;
+      case '/favorites/outfits/:id':
+        setBackButton(false);
+      break;
+      case '/favorites/outfits/:id/:id':
+        setBackButton(false);
+      break;
+      case '/favorites/categories':
+        setBackButton(true);
+      break;
+      case '/favorites/categories/:id':
+        setBackButton(false);
+      break;
+      case '/home':
+      setBackButton(true);
+      break;
+      case '/search':
+      setBackButton(true);
+      break;
+      case '/cartlanding':
+      setBackButton(true);
+      break;
+    }
+  }, [location]);
 
   return (
     <div className="nav">
@@ -46,7 +96,7 @@ function Nav() {
 
             <Box sx={{ flexGrow: 1 }}>
               <AppBar position="fixed">
-              <HamburgerMenu />
+              {backButton ? <HamburgerMenu /> : <BackButton />}
                 <Toolbar>
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     LEVELRIE

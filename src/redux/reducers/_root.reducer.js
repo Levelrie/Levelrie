@@ -16,6 +16,7 @@ import accessory from './accessory.reducer';
 import bottom from './bottom.reducer';
 import footwear from './footwear.reducer';
 import occasions from './occasions.reducer';
+import order from './order.reducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -28,7 +29,7 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
   outfits,
-  favorites, // contains favoriteOutfitsReducer and favoriteItemsReducer
+  favorites, // contains favoriteOutfitsReducer, favoriteItemsReducer, occasionsReducer, and favoriteOutfitsForOccasionReducer
   closetReducer, // contains closetOutfitsReducer and closetItemsReducer
   cart, //contains items to purchase
   shipping, //contains shipping info (addresses)
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   footwear,
   searchResultsReducer,
   occasions,
+  order,
 });
 
 export default rootReducer;
