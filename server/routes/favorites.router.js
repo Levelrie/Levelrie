@@ -234,6 +234,40 @@ router.post('/items/increase', rejectUnauthenticated, async (req, res) => {
 
 });
 
+router.get('/item/sizes', rejectUnauthenticated, (req, res) => {
+
+    const itemName = req.query.name;
+
+    const sqlFetchText = `SELECT DISTINCT name, size FROM items
+                            WHERE name = $1;`
+
+    
+    pool.query(sqlFetchText, [itemName])
+        .then((response) => {
+            res.send(response.rows);
+        }).catch((error) => {
+            console.log('Error in GET api/favorites/item/sizes:', error);
+            res.sendStatus(500);
+        });
+}); 
+
+router.get('/item/colors', rejectUnauthenticated, (req, res) => {
+
+    const itemName = req.query.name;
+
+    const sqlFetchText = `SELECT DISTINCT name, color FROM items
+                            WHERE name = $1;`
+
+    
+    pool.query(sqlFetchText, [itemName])
+        .then((response) => {
+            res.send(response.rows);
+        }).catch((error) => {
+            console.log('Error in GET api/favorites/item/colors:', error);
+            res.sendStatus(500);
+        });
+}) ;
+
 
 
  module.exports = router;
