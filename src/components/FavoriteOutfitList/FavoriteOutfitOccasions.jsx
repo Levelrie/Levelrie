@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -11,10 +10,11 @@ import './FavoriteOutfitOccasions.css'
 
 function FavoriteOutfitOccasions() {
 
+    const history = useHistory();
     const dispatch = useDispatch();
     const occasions = useSelector(store => store.favorites.occasionsReducer)
+    
     useEffect(()=> {
-
         dispatch({
             type: 'FETCH_OCCASIONS'
         })
@@ -27,11 +27,10 @@ function FavoriteOutfitOccasions() {
 
     const handleClick = (e) => {
         console.log('id = ', e.target.id)
+        history.push(`/favorites/outfits/${e.target.id}`);
     }
 
-    console.log('here are occasions:', occasions);
     return (
-        <>
         <Box sx={{width: '100%'}} className='occasionCategoryContainer'>
         <Typography variant="h6">Faves</Typography>
             <Grid container spacing={1} mt={3} mb={3} className='occasionCategoryContainer'>
@@ -46,7 +45,6 @@ function FavoriteOutfitOccasions() {
                 }
             </Grid>
         </Box>
-        </>
     );
 };
 
