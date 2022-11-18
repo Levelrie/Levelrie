@@ -24,14 +24,14 @@ import Button from '@mui/material/Button';
 export default function CheckoutConfirmation(){
     const history = useHistory()
     const dispatch = useDispatch()
-    const cart = useSelector(store => store.cart)
+    const order = useSelector(store => store.order)
     const user = useSelector(store => store.user)
     var cartTotal = 0
-    const shippingTotal = Number(19.99)
-
+    const shippingTotal = Number('19.99')
+    
 
     useEffect(() => {
-        dispatch({type: 'GET_CART_ITEMS'})
+        dispatch({type: 'FETCH_ORDER'})
         console.log('How many???')
         // Cleanup function to clear cart. NEEDS TESTING
         // return () => {
@@ -39,13 +39,36 @@ export default function CheckoutConfirmation(){
         // }
     }, []);
 
-    const home = {
-        name: 'Kyle Jensen',
-        street_address: '5920 Teakwood Lane North',
-        city: 'Plymouth',
-        state: 'MN',
-        zip: '55442'
+    // const home = {
+    //     name: 'Kyle Jensen',
+    //     street_address: '5920 Teakwood Lane North',
+    //     city: 'Plymouth',
+    //     state: 'MN',
+    //     zip: '55442'
+    // }
+
+
+// city
+// color
+// img
+// inserted_at
+// name
+// nickname
+// price
+// seller
+// size
+// state
+// street_address
+// zip
+    var shipAddress = {
+        name: order.nickname,
+        street: order.street_address,
+        city: order.city,
+        state: order.state,
+        zip: order.zip
     }
+    console.log('order in confirm', order)
+
 
     return(
         <>
@@ -57,30 +80,30 @@ export default function CheckoutConfirmation(){
                 <h3 className='checkoutText'>Thank you!</h3>
                 <h5 className='checkoutText'>Your order #BE12345 has been placed.</h5>
                 <p className='checkoutText'>We sent an email to {user.email} with your order confirmation and bill.</p>
-                <p className='checkoutText'>Time placed: {new Date().toLocaleString()} </p>
+                <p className='checkoutText'>Time placed: {Date(order.inserted_at).toLocaleString()} </p>
                 <Stack className="checkoutShipping" direction='row' width={1}>
-                    <ShippingEstimate />
+                    <ShippingEstimate itemCount={order.length} />
                 </Stack>
                 <Stack width={.8}>
                     <h5 className='checkoutText'>  Shipping Address</h5>
-                    <ShippingAddress address={home}/>
+                    <ShippingAddress address={shipAddress}/>
                 </Stack>
                 <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, m: 3}}/>
 
-                <Stack>
-                    <Stack direction='row' justifyContent='space-between' alignItems='center' marginBottom={0}>
+                <Stack alignItems='center' >
+                    <Stack direction='row' justifyContent='space-between' alignItems='center' marginBottom={0} width={.8}>
                         <h4>Order Items</h4>
-                        <p>{cart.length} Items</p>
+                        <p>{order.length} Items</p>
                     </Stack>
-                    {cart ? cart.map((item) => {
-                        console.log('item price', item.price)
+                    {order.length !== 0 ? [order].map((item) => {
+                        console.log('item price', item)
                         cartTotal += Number(item.price.substring(1))
                         console.log(cartTotal)
                         return(
-                            <Box key={item.id} className='outfitFrame' paddingBottom={10} justifyItems='center' alignItems='center'>
+                            <Box key={item.id} className='outfitFrame' marginBottom={5} justifyItems='center' alignItems='center' width={.9}>
                                 <CartItem item={item}  />
                             </Box>
-                    )}): ''}
+                    )}): 'None'}
                 </Stack>
                 <Grid2 container width={.9} marginTop={5} alignItems='left' justifyContent='space-between'>
                     <Grid2 xs={12}>

@@ -12,10 +12,15 @@ function FavoriteOutfitOccasions() {
 
     const history = useHistory();
     const dispatch = useDispatch();
+
     const occasions = useSelector(store => store.favorites.occasionsReducer)
     
     const rejectionFits = useSelector(store => store.outfits.rejectionFits);
     const favoriteFits = useSelector(store => store.outfits.favoriteFits);
+
+
+    useEffect(()=> {
+
 
     useEffect(()=> {
         dispatch({
@@ -40,6 +45,7 @@ function FavoriteOutfitOccasions() {
                 type: 'CLEAR_OCCASIONS'
             })
         }
+
     },[]);
 
     const handleClick = (e) => {

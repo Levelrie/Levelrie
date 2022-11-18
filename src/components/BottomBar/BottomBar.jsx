@@ -26,13 +26,13 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
       case '/home':
         setValue('swipe');
         break;
-      case `/favorites/outfits`:
+      case `/favorites/outfitoccasions`:
         setValue('Favorites');
         break;
       case `/cart`:
         setValue('Cart');
         break;  
-      case `/closet/outfits`:
+      case `/closet/occasions`:
         setValue('Closet');
         break;    
       case `/search`:
@@ -65,7 +65,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
         history.push('/search');
         break;
       case 'Closet':
-        history.push('/closet/outfits');
+        history.push('/closet/occasions');
         break;
     }
      console.log(newValue);

@@ -3,12 +3,14 @@ import axios from 'axios';
 
 // This saga function will be use to fetch all closets outfits and 
 // store it in the closet reducer. 
-function* fetchClosetOutfits () {
+function* fetchClosetOutfits (action) {
+    const occasionsCategory = action.payload;
+    // console.log('what is action.payload', occasionsCategory);
     // console.log('in closetOutfits saga')
     try {
         const closetOutfitsRes = yield axios({
             method: 'GET',
-            url: '/api/closet/outfits'
+            url: `/api/closet/items/occasions/${occasionsCategory}`
         })
         // console.log('what is', closetOutfitsRes.data);
         yield put({
@@ -75,9 +77,26 @@ function* fetchCategory () {
     }
 }
 
+function* fetchOccasions () {
+    try {
+        const closetOccasions = yield axios({
+            method: 'GET',
+            url: `/api/closet/items/occasions`
+        })
+        yield put({
+            type: 'SET_OCCASIONS_NAMES',
+            payload: closetOccasions.data
+        })
+    }        
+    catch(error) {
+            console.log('error getting closet occasions:', error);
+    }
+}
+
 export default function* closetSaga() {
     yield takeLatest('FETCH_CLOSET_OUTFITS', fetchClosetOutfits);
     yield takeLatest('FETCH_CLOSET_ITEMS', fetchClosetItems);
     yield takeLatest('FETCH_CLOSET_OUTFIT_DETAILS', fetchClosetOutfitDetails);
     yield takeLatest('FETCH_CATEGORY', fetchCategory);
+    yield takeLatest('FETCH_OCCASIONS', fetchOccasions);
 };

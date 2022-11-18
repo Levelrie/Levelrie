@@ -73,6 +73,22 @@ const query = (state = '', action) => {
     return state; 
 }
 
+const sizes = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_ITEM_SIZES':
+            return state.concat(action.payload);
+    }
+    return state;
+}
+
+const colors = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_ITEM_COLORS':
+            return state.concat(action.payload);
+    }
+    return state;
+}
+
 export default combineReducers({
     favoriteOutfitsReducer,
     favoriteItemsReducer,
@@ -80,5 +96,7 @@ export default combineReducers({
     constraint,
     categories,
     query,
-    favoriteOutfitsForOccasionReducer
+    favoriteOutfitsForOccasionReducer,
+    sizes,
+    colors
 })

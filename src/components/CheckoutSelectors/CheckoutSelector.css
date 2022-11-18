@@ -1,9 +1,11 @@
-
+.cartFrameFrame{
+    width: 100vw;
+}
 
 
 
 .checkoutFrame{
-    height: 20vh;
+    height: 36vh;
 }
 
 #shippingEst{
@@ -11,16 +13,31 @@
  
     
 }
+
+.cartContainer{
+    width: 300vw;
+}
+
+
 ul{
     justify-content: center;
     align-content: center;
     list-style: none;
-    margin-top: 0;
+    height: 20vh;
+    width: 50vw;
+   
+    
+}
+.cartImg{
+    height: 20vh;
+    max-width: none;
+    width: 25vw;
     
 }
 
-li{
-    white-space: nowrap;
+.cartItemFrame{
+    width: 100vw;
+    height: 20vh;
 }
 
 .estimateText{

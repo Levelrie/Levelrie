@@ -5,6 +5,7 @@ import ItemItem from "../ItemItem/ItemItem.jsx"
 import PurchaseItems from "../PurchaseItems/PurchaseItems";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+import FavoriteItemItem from "../FavoriteItemList/FavoriteItemItem";
 
 
 
@@ -43,13 +44,16 @@ export default function CheckoutLanding() {
                 <h3 className="estimateText">Shopping Cart</h3>
             </Stack>
             <Stack id="shippingEst" direction='row' width={1} mb={3}>
-                <ShippingEstimate />
+                <ShippingEstimate itemCount={cart.length}/>
             </Stack>
-            <Stack width={1} className='checkoutFrame' justifyItems='center' alignItems='center' mt={3}>
-                <ItemItem />
-                <Divider width='80%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, mt: 10, mb: 3}} />
-                <PurchaseItems  />
+            <Stack width={1} className='checkoutFrame' justifyItems='center' alignItems='center' mt={3} overflow='scroll'>
+                {cart ? cart.map((item) => {
+                return(
+                    <FavoriteItemItem item={item} key={item.id}/>
+                )}): 'None'}
             </Stack>
+            <Divider width='80%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, mt: 5, mb: 3}} />
+            <PurchaseItems  />
 
         </Stack>
 

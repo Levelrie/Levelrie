@@ -1,6 +1,8 @@
 
 import Grid from '@mui/material/Unstable_Grid2';
 import './CheckoutSelector.css';
+import Stack from '@mui/material/Stack'
+
 
 
 function CartItem({ item }) {
@@ -13,13 +15,9 @@ function CartItem({ item }) {
     //     price: '299.00'
     // }
   return (
-      <Grid container width={1} >
-        <Grid xs={4} >
-          <Grid container alignItems='center' >
-            <Grid xs={9}>
-              <img src={item.img} />
-            </Grid>
-            <Grid xs={3}>
+      
+        <Stack direction={'row'} spacing={8} justifyItems='center' alignItems='end' justifyContent='center' >
+              <img src={item.img} className="cartImg" />
               <ul>
                   <li>Desc: {item.name}</li>
                   <li>Brand: {item.seller}</li>
@@ -28,10 +26,8 @@ function CartItem({ item }) {
                   <li>Quantity: 1</li>
                   <li>Price: {item.price}</li>
               </ul>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+          </Stack>
+  
     
   )
 }

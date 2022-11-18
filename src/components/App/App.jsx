@@ -44,6 +44,8 @@ import ClosetCategoryDetailPage from '../ClosetCategoryPage/ClosetCategoryDetail
 import FavoriteOutfitOccasions from '../FavoriteOutfitList/FavoriteOutfitOccasions';
 import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
 import FavoriteToggleButton from '../FavoriteOutfitList/FavoriteToggleButton';
+import ClosetOccasion from '../ClosetOccasionsPage/ClosetOccasionsPage';
+import ClosetOutfits from '../ClosetOccasionsPage/ClosetOutfits';
 
 //  CSS Import
 import './App.css';
@@ -170,7 +172,7 @@ function App() {
 {/* ********************* FAVORITES ROUTES ********************* */}
             <ProtectedRoute path="/favorites">
 
-              <ToggleButton />
+              <FavoriteToggleButton />
               <ProtectedRoute
                 // logged in shows FavoriteOutfitOccasions else shows LoginPage
                 exact
@@ -241,6 +243,14 @@ function App() {
                 >
                   <ClosetPage />
                 </ProtectedRoute>
+
+                <ProtectedRoute
+                  // logged in shows Closet Outfit List else shows LoginPage
+                  exact
+                  path="/closet/occasions"
+                >
+                  <ClosetOccasion />
+                </ProtectedRoute>
                 
                 <ProtectedRoute
                   // logged in shows Closet categories list else shows LoginPage
@@ -264,6 +274,13 @@ function App() {
               path="/closet/categories/:name"
               >
               <ClosetCategoryDetailPage />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+              exact
+              path="/closet/:name/outfits"
+              >
+              <ClosetOutfits />
               </ProtectedRoute>
 
             </ProtectedRoute>
