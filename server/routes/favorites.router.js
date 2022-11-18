@@ -166,9 +166,10 @@ router.delete('/items/decrease/:id/:quantity', rejectUnauthenticated, async (req
         // Delete over items in "favorited_solo" first
         const resultsInSolo = await connection.query(sqlSearchText, [userId, itemId]);
 
-        console.log(resultsInSolo)
+        console.log('RESULTS IN SOLO!!!!', resultsInSolo)
 
-        for (let i = 0; i < resultsInSolo.rows.length; i++) {
+        for (let i = 0; i < quantity; i++) {
+            console.log('DELETING!!!')
             await connection.query(sqlDeleteFromSoloText, [userId, itemId]);
         }
 
