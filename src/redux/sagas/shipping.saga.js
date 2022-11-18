@@ -16,12 +16,20 @@ function* fetchShipping(){
             method: 'GET',
             url: 'api/shipping'
         })
-        console.log('shippingRes', shippingRes.data)
+        console.log('shippingRes', shippingRes.data[0])
+        for(let addy of shippingRes.data){
+            if(addy.preferred === true){
+                yield put({
+                    type: 'SET_FAVORITE_ADDY',
+                    payload: addy
+                })
+            }
+        }
         yield put({
-            
             type: 'SET_ADDRESS',
-            payload: shippingRes.data
+            payload: shippingRes.data[0]
         })
+          
     }
     catch(error) {
         console.log('error getting shipping items:', error);

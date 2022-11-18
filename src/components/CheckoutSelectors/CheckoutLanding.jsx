@@ -44,7 +44,7 @@ export default function CheckoutLanding() {
                 <h3 className="estimateText">Shopping Cart</h3>
             </Stack>
             <Stack id="shippingEst" direction='row' width={1} mb={3}>
-                <ShippingEstimate />
+                <ShippingEstimate itemCount={cart.length}/>
             </Stack>
             <Stack width={1} className='checkoutFrame' justifyItems='center' alignItems='center' mt={3} overflow='scroll'>
                 {cart ? cart.map((item) => {

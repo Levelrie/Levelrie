@@ -75,9 +75,30 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 });
 
-router.delete('/', rejectUnauthenticated, async (req, res) =>{
+
+// CREATE TABLE "orders"(
+// 	"id" SERIAL PRIMARY KEY,
+// 	"user_id" INT REFERENCES "users",
+// 	"addresses_id" INT REFERENCES "addresses",
+// 	"Inserted_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
+	
+	
+// )
+
+// CREATE TABLE "order_items"(
+// 	"id" SERIAL PRIMARY KEY,
+// 	"order_id" INT REFERENCES "orders",
+// 	"item_id" INT REFERENCES "items"
+// )
+
+
+
+
+router.delete('/:itemId', rejectUnauthenticated, async (req, res) =>{
   const userId = req.user.id
   const itemId = req.params.itemId
+  console.log('user', userId)
+  console.log('item', itemId)
 
   const sqlDeleteItem = `DELETE FROM "carts"
                           WHERE "user_id"  = $1
@@ -108,36 +129,7 @@ router.delete('/', rejectUnauthenticated, async (req, res) =>{
   connection.release();
 });
 
-router.delete('/all', rejectUnauthenticated, async (req, res) =>{
-  const userId = req.user.id
 
-  const sqlDeleteItem = `DELETE FROM "carts"
-                          WHERE "user_id"  = $1`
-
-  const connection = await pool.connect();
-
-  try {
-      await connection.query('BEGIN;');
-
-      // Remove the item
-      await connection.query(sqlDeleteItem, [userId]);
-      console.log('BREAKING HERE?????? 5');
-
-      // Confirm successful actions
-      await connection.query('COMMIT;');
-
-      res.sendStatus(200);
-
-
-      console.log('BREAKING HERE?????? END 2');
-
-  } catch (error) {
-      await connection.query('ROLLBACK;');
-      console.log('Error in DELETE /cart ALL', error)
-      res.sendStatus(500);
-  }  
-  connection.release();
-});
 
 
 module.exports = router;

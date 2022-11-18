@@ -30,10 +30,14 @@ function* fetchCart(){
 }
 
 
+
+
 function* unCartItem(action) {
     console.log(action.payload);
     try {
-        const itemId = action.payload.itemId;
+        console.log('action.payload', action.payload)
+        const itemId = action.payload.item_id;
+        console.log('id in delete', itemId)
         console.log('OUTFIT ID')
         yield axios.delete(`/api/cart/${itemId}`);
         yield put({
@@ -45,7 +49,7 @@ function* unCartItem(action) {
 }
 
 function* clearCart() {
-   try { yield axios.delete(`/api/cart/all`);
+   try { yield axios.delete(`/api/buy`);
     yield put({
         type: 'GET_CART_ITEMS'
     })
@@ -55,9 +59,24 @@ function* clearCart() {
 
 }
 
-export default function* itemsSaga() {
+function* buyCart() {
+    try {
+        yield axios({
+            method: 'PUT',
+            url: '/api/buy'})
+        yield put({
+            type: 'CLEAR_CART'
+        })
+    } catch(error){
+        console.log('ERROR IN buyCart', error)
+    }
+}
+
+export default function* cartSaga() {
     yield takeEvery('SAGA_ADDCART_ITEM', cartItem);
     yield takeEvery('SAGA_UNCART_ITEM', unCartItem);
     yield takeEvery('GET_CART_ITEMS', fetchCart)
     yield takeEvery('CLEAR_CART', clearCart)
+    yield takeEvery('BUY_CART', buyCart)
+    
 }
