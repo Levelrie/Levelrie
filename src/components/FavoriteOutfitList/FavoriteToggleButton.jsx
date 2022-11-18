@@ -23,6 +23,21 @@ export default function FavoriteToggleButton() {
             case '/favorites/outfits':
                 setIsFront(true);
                 break;
+            case '/favorites/outfits/1':
+                setIsFront(true);
+                break;
+            case '/favorites/outfits/2':
+                setIsFront(true);
+                break;
+            case '/favorites/outfits/3':
+                setIsFront(true);
+                break;
+            case '/favorites/outfits/4':
+                setIsFront(true);
+                break;
+            case '/favorites/outfits/5':
+                setIsFront(true);
+                break;                
             case '/favorites/outfitoccasions':
                 setIsFront(true);
                 break;
@@ -50,7 +65,7 @@ export default function FavoriteToggleButton() {
                     type: 'SET_FAVORITES_SEARCH_CONSTRAINT',
                     payload: 'favoriteOutfits'
                 });
-                history.push('/favorites/outfitoccasions');
+                history.push('/favorites/outfits');
                 break;
             case 'category':
                 // setIsFront(false);

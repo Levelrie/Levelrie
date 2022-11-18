@@ -48,7 +48,7 @@ CREATE TABLE "outfit_items" (
 
 
 
-    CREATE TABLE "addresses" (
+CREATE TABLE "addresses" (
     "id" SERIAL PRIMARY KEY,
     "user_id" INT REFERENCES "users",
     "nickname" VARCHAR(255) NOT NULL,
