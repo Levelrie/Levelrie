@@ -61,7 +61,7 @@ function RegisterForm() {
           id="password" 
           label="password" 
           variant="outlined"
-          type="text"
+          type="password"
           margin="dense"
           required
           value={password}
