@@ -59,6 +59,7 @@ function FavoriteItemItem({item, category, sizes, colors}) {
         }
     }
 
+
     const changeColor = (e) => {
         // Don't do anything if the color is not changing
         if (e.target.value != item.color) {
@@ -158,7 +159,7 @@ function FavoriteItemItem({item, category, sizes, colors}) {
             </div>
             <div className='itemItemDelete'>
                 {/* <Button onClick={handleClickOpen} variant="text"><HighlightOffIcon color="warning"/></Button> */}
-                <FavoriteButton defaultChecked={true}/>
+                <FavoriteButton changeQty={changeQty} defaultChecked={true}/>
             </div>
             <div className='itemItemBuy'>
                 <BuyCheckbox item={item} carted={carted}/>
