@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import FavoriteOutfitItem from './FavoriteOutfitItem';
 import './FavoriteOutfitList.css';
 import FavoriteSearchBar from './FavoriteSearchBar';
@@ -12,15 +12,15 @@ import Typography from '@mui/material/Typography';
 
 function FavoriteOutfitList() {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const favoriteOutfits = useSelector(store => store.favorites.favoriteOutfitsReducer);
+    const params = useParams();
+    const favoriteOutfits = useSelector(store => store.favorites.favoriteOutfitsForOccasionReducer);
 
     // moved the following 2 to FavoriteOutfitOccasions
     // const rejectionFits = useSelector(store => store.outfits.rejectionFits);
     // const favoriteFits = useSelector(store => store.outfits.favoriteFits);
 
     const constraint = useSelector(store => store.favorites.constraint);
-
+    const occasionId = params.id
     useEffect(() => {
         
         // moved the following to FavoriteOutfitOccasions
@@ -35,7 +35,8 @@ function FavoriteOutfitList() {
         // });
         
         dispatch({
-            type: 'FETCH_FAVORITE_OUTFITS'
+            type: 'FETCH_FAVORITE_OUTFITS_FOR_OCCASION',
+            payload: occasionId
         });
         // also moved the following 2 dispatches to FavoriteOutfitOccasions
         // dispatch({type: 'CLEAR_OUTFITS_TO_REJECT'});
@@ -52,7 +53,7 @@ function FavoriteOutfitList() {
 
         return () => {
             dispatch({
-                type: 'CLEAR_FAVORITE_OUTFITS'
+                type: 'CLEAR_FAVORITE_OUTFITS_FOR_OCCASION'
             });
         }
     }, []);

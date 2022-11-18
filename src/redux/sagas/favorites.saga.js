@@ -62,9 +62,27 @@ function* fetchOccasions() {
     }
 }
 
+function* fetchFavoriteOutfitsForOccasion(action) {
+    const occasionId = action.payload
+    try {
+        const favoriteItemsRes = yield axios({
+            method: 'GET',
+            url: `/api/favorites/outfits/${occasionId}`
+        })
+        yield put({
+            type: 'SET_FAVORITE_ITEMS_FOR_OCCASION',
+            payload: favoriteItemsRes.data
+        })
+    }
+    catch(error) {
+        console.log('error getting favorite items:', error);
+    }
+}
+
 export default function* favoritesSaga() {
     yield takeLatest('FETCH_FAVORITE_OUTFITS', fetchFavoriteOutfits);
     yield takeLatest('FETCH_FAVORITE_ITEMS', fetchFavoriteItems);
     // yield takeLatest('FETCH_FAVORITE_OUTFIT_DETAILS', fetchFavoriteOutfitDetails);
     yield takeLatest('FETCH_OCCASIONS', fetchOccasions);
+    yield takeLatest('FETCH_FAVORITE_OUTFITS_FOR_OCCASION', fetchFavoriteOutfitsForOccasion);
 };
