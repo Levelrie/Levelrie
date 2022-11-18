@@ -46,7 +46,7 @@ app.use('/api/closet', closetRouter);
 app.use('/api/shipping', shippingRouter);
 app.use('/api/design', designRouter);
 app.use('/api/occasions', occasionsRouter);
-app.use('/api/buy', orderRouter)
+app.use('/api/buy', orderRouter);
 
 
 // Serve static files
