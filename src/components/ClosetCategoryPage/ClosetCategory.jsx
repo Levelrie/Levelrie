@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 // import material ui
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
 function ClosetCategory ({category}) {
 
@@ -16,7 +17,7 @@ function ClosetCategory ({category}) {
     }
 
     return (
-        <div className='categoryList'>
+        <Grid key={category.id} item xs={6}>
                 <Button 
                     sx={{borderRadius:5, fontSize:20}} 
                     className="categoryButton" 
@@ -26,7 +27,7 @@ function ClosetCategory ({category}) {
                 >
                     {category.name}
                 </Button>
-        </div>
+        </Grid>
     )
 }
 

@@ -17,6 +17,17 @@ function* fetchFavoriteOutfits() {
         console.log('error getting favorite outfits:', error);
     }
 }
+// STARTED THE SAGA BELOW:
+// function* fetchFavoriteOutfitDetails(action) {
+//     console.log('in fetchFavoriteOutfitDetails');
+//     const outfitToPull = action.payload;
+//     try {
+//         const favoriteOutfitDetailsRes = yield axios({
+//             method: 'GET',
+
+//         })
+//     }
+// }
 
 function* fetchFavoriteItems(action) {
     const category = action.payload
@@ -50,6 +61,7 @@ function* fetchFavoriteItems(action) {
         console.log('error getting favorite items:', error);
     }
 }
+
 
 function* decreasedItemQuantity(action) {
     const itemId = action.payload.id;
@@ -145,6 +157,22 @@ function* changeItemSize(action) {
 
     } catch (error) {
         console.log('error in changeItemSize function in favoritesSaga:', error); 
+}
+
+function* fetchOccasions() {
+    try {
+        const occasionRes = yield axios({
+            method: 'GET',
+            url: `/api/favorites/occasions`
+        })
+        yield put({
+            type: 'SET_OCCASIONS',
+            payload: occasionRes.data
+        })
+    }
+    catch(error) {
+        console.log('error in saga fetchOccasions:', error);
+
     }
 }
 
@@ -157,4 +185,6 @@ export default function* favoritesSaga() {
     yield takeEvery('SAGA_FETCH_ITEM_COLORS', fetchItemColors);
     yield takeLatest('SAGA_CHANGE_ITEM_COLOR', changeItemColor);
     yield takeLatest('SAGA_CHANGE_ITEM_SIZE', changeItemSize);
+    // yield takeLatest('FETCH_FAVORITE_OUTFIT_DETAILS', fetchFavoriteOutfitDetails);
+    yield takeLatest('FETCH_OCCASIONS', fetchOccasions);
 };

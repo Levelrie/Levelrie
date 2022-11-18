@@ -10,6 +10,7 @@ function RegisterForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -23,7 +24,8 @@ function RegisterForm() {
         password: password,
         firstName: firstName,
         lastName: lastName,
-        email: email
+        email: email,
+        isAdmin: false
       },
     });
   }; // end registerUser
@@ -59,7 +61,7 @@ function RegisterForm() {
           id="password" 
           label="password" 
           variant="outlined"
-          type="text"
+          type="password"
           margin="dense"
           required
           value={password}
