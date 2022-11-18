@@ -17,10 +17,6 @@ const favoritesRouter = require('./routes/favorites.router');
 const closetOutfitRouter = require('./routes/closetOutfit.router');
 const closetItemRouter = require('./routes/closetItem.router');
 const closetRouter = require('./routes/closet.router');
-
-const shippingRouter = require('./routes/shipping.router')
-
-
 const shippingRouter = require('./routes/shipping.router');
 const designRouter = require('./routes/design.router');
 const orderRouter = require('./routes/order.router')

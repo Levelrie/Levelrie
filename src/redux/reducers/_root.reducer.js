@@ -43,7 +43,7 @@ const rootReducer = combineReducers({
   footwear,
   searchResultsReducer,
   occasions,
-  order
+  order,
 
 });
 
