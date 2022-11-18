@@ -147,7 +147,7 @@ router.delete('/unfavorite/:itemId/:outfitId', rejectUnauthenticated, async (req
     connection.release();
 });
 
-// •••••••••••••••••••••••••••••••••••••••• GLOBAL SEARCH VIEW ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
+// •••••••••••••••••••••••••••••••••••••••• GLOBAL SEARCH VIEW ROUTES BELOW ••••••••••••••••••••••••••••••••••••••••
 
 router.get('/search', (req, res) => { 
     
@@ -176,6 +176,48 @@ router.get('/search', (req, res) => {
     });
 
 });
+
+router.post('/search/favorite', rejectUnauthenticated, (req, res) => {
+
+    const itemId = req.body.itemId;
+
+    const sqlInsertText = `INSERT INTO "favorited_solo"
+                                ("user_id", "item_id")
+                                VALUES
+                                ($1, $2);`
+    
+    pool.query(sqlInsertText, [req.user.id, itemId])
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            console.log('Error in POST /api/item/search/favorite query', error);
+            res.sendStatus(500);
+        });
+
+});
+
+router.delete('/search/unfavorite/:id', rejectUnauthenticated, (req, res) => {
+    
+    const itemId = req.params.id;
+
+    const sqlDeleteText = `DELETE FROM "favorited_solo"
+                                WHERE ctid IN (SELECT ctid FROM "favorited_solo"
+                                WHERE "user_id" = $1
+                                AND "item_id" = $2
+                                LIMIT 1
+                            );`
+
+    pool.query(sqlDeleteText, [req.user.id, itemId])
+    .then((result) => {
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log('Error in POST /api/item/search/unfavorite query', error);
+        res.sendStatus(500);
+    });
+
+})
 
 // •••••••••••••••••••••••••••••••••••••••• FETCH CATEGORY NAMES ROUTE BELOW ••••••••••••••••••••••••••••••••••••••••
 
@@ -222,5 +264,184 @@ router.get('/all', (req, res) => {
         res.sendStatus(500);
     });
 });
+
+// •••••••••••••••••••••••••••••••••••••••• CHANGE A FAVORITED ITEM'S COLOR AND SIZE ROUTES BELOW ••••••••••••••••••••••••••••••••••••••••
+
+router.put('/changecolor', rejectUnauthenticated, async (req, res) => {
+
+    const item = req.body.item;
+    const newColor = req.body.newColor;
+
+    const sqlFetchTextOldItem = `SELECT favorited_items.id AS favorited_items_id, * FROM "favorited_items"
+                                    JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
+                                    JOIN "items" ON favorited_items.item_id = items.id
+                                        WHERE favorited_outfits.user_id = $1
+                                        AND items.name = $2
+                                        AND items.color = $3
+                                        AND items.size = $4
+                                        AND items.seller = $5
+                                        AND items.price = $6
+                                        AND items.img = $7
+                                        AND items.category_id = $8;`
+
+    const sqlFetchTextOldItemAgain = `SELECT id FROM "favorited_solo"
+                                        JOIN "items" ON favorited_solo.item_id = items.id
+                                            WHERE favorited_solo.user_id = $1
+                                            AND items.name = $2
+                                            AND items.color = $3
+                                            AND items.size = $4
+                                            AND items.seller = $5
+                                            AND items.price = $6
+                                            AND items.img = $7
+                                            AND items.category_id = $8;`
+
+    const sqlFetchTextNewItem = `SELECT id FROM "items"
+                                    WHERE name = $1
+                                    AND color = $2;`
+
+    const sqlDeleteText = `DELETE FROM "favorited_items"
+                                WHERE id = $1;`
+
+    const sqlDeleteTextAgain = `DELETE FROM "favorited_solo"
+                                    WHERE id = $1
+                                    AND user_id = $2;`
+
+
+    const sqlInsertNewText = `INSERT INTO "favorited_items"
+                                ("favorited_outfit_id", "item_id")
+                                VALUES
+                                ($1, $2);`
+
+    const sqlInsertNewTextAgain = `INSERT INTO "favorited_solo"
+                                    ("user_id", "item_id")
+                                    VALUES
+                                    ($1, $2);`
+
+
+    const connection = await pool.connect();
+
+    try {
+        await connection.query('BEGIN;');
+
+        let oldItem = await connection.query(sqlFetchTextOldItem, [req.user.id, item.name, item.color, item.size, item.seller, item.price, item.img, item.category_id]);
+
+        console.log('OLDITEM !!!!!!', oldItem.rows)
+
+        let newItem = await connection.query(sqlFetchTextNewItem, [item.name, newColor]);
+
+        if (oldItem.rows.length === 0) {
+            // Fetch and delete from favorited-solo instead
+            oldItem = await connection.query(sqlFetchTextOldItemAgain, [req.user.id, item.name, item.color, item.size, item.seller, item.price, item.img, item.category_id]);
+            await connection.query(sqlDeleteTextAgain, [oldItem.rows[0].id, req.user.id]);
+            await connection.query(sqlInsertNewTextAgain, [req.user.id, oldItem.rows[0].id]);
+        } else {
+            await connection.query(sqlDeleteText, [oldItem.rows[0].favorited_items_id]);
+            console.log('DELETING', oldItem.rows[0].favorited_items_id)
+            await connection.query(sqlInsertNewText, [oldItem.rows[0].favorited_outfit_id, newItem.rows[0].id]);
+        }
+
+        await connection.query('COMMIT;');
+
+        res.sendStatus(200);
+
+
+    } catch (error) {
+        await connection.query('ROLLBACK;');
+        console.log('Error in PUT /api/item/changecolor queries', error)
+        res.sendStatus(500);
+    } finally {
+        connection.release();
+    }
+
+});
+
+router.put('/changesize', rejectUnauthenticated, async (req, res) => {
+
+    const item = req.body.item;
+    const newSize = req.body.newSize;
+
+    const sqlFetchTextOldItem = `SELECT favorited_items.id AS favorited_items_id, * FROM "favorited_items"
+                                    JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
+                                    JOIN "items" ON favorited_items.item_id = items.id
+                                        WHERE favorited_outfits.user_id = $1
+                                        AND items.name = $2
+                                        AND items.color = $3
+                                        AND items.size = $4
+                                        AND items.seller = $5
+                                        AND items.price = $6
+                                        AND items.img = $7
+                                        AND items.category_id = $8;`
+
+    const sqlFetchTextOldItemAgain = `SELECT id FROM "favorited_solo"
+                                        JOIN "items" ON favorited_solo.item_id = items.id
+                                            WHERE favorited_solo.user_id = $1
+                                            AND items.name = $2
+                                            AND items.color = $3
+                                            AND items.size = $4
+                                            AND items.seller = $5
+                                            AND items.price = $6
+                                            AND items.img = $7
+                                            AND items.category_id = $8;`
+
+    const sqlFetchTextNewItem = `SELECT id FROM "items"
+                                    WHERE name = $1
+                                    AND size = $2;`
+
+    const sqlDeleteText = `DELETE FROM "favorited_items"
+                                WHERE id = $1;`
+
+    const sqlDeleteTextAgain = `DELETE FROM "favorited_solo"
+                                    WHERE id = $1
+                                    AND user_id = $2;`
+
+
+    const sqlInsertNewText = `INSERT INTO "favorited_items"
+                                ("favorited_outfit_id", "item_id")
+                                VALUES
+                                ($1, $2);`
+
+    const sqlInsertNewTextAgain = `INSERT INTO "favorited_solo"
+                                    ("user_id", "item_id")
+                                    VALUES
+                                    ($1, $2);`
+
+
+    const connection = await pool.connect();
+
+    try {
+        await connection.query('BEGIN;');
+
+        let oldItem = await connection.query(sqlFetchTextOldItem, [req.user.id, item.name, item.color, item.size, item.seller, item.price, item.img, item.category_id]);
+
+        console.log('OLDITEM !!!!!!', oldItem.rows)
+
+        let newItem = await connection.query(sqlFetchTextNewItem, [item.name, newSize]);
+
+        if (oldItem.rows.length === 0) {
+            // Fetch and delete from favorited-solo instead
+            oldItem = await connection.query(sqlFetchTextOldItemAgain, [req.user.id, item.name, item.color, item.size, item.seller, item.price, item.img, item.category_id]);
+            await connection.query(sqlDeleteTextAgain, [oldItem.rows[0].id, req.user.id]);
+            await connection.query(sqlInsertNewTextAgain, [req.user.id, oldItem.rows[0].id]);
+        } else {
+            await connection.query(sqlDeleteText, [oldItem.rows[0].favorited_items_id]);
+            console.log('DELETING', oldItem.rows[0].favorited_items_id)
+            await connection.query(sqlInsertNewText, [oldItem.rows[0].favorited_outfit_id, newItem.rows[0].id]);
+        }
+
+        await connection.query('COMMIT;');
+
+        res.sendStatus(200);
+
+
+    } catch (error) {
+        await connection.query('ROLLBACK;');
+        console.log('Error in PUT /api/item/changesize queries', error)
+        res.sendStatus(500);
+    } finally {
+        connection.release();
+    }
+
+});
+
 
 module.exports = router;
