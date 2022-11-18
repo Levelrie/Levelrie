@@ -19,7 +19,6 @@ function FavoriteOutfitOccasions() {
     const favoriteFits = useSelector(store => store.outfits.favoriteFits);
 
 
-    useEffect(()=> {
 
 
     useEffect(()=> {
@@ -47,6 +46,7 @@ function FavoriteOutfitOccasions() {
         }
 
     },[]);
+
 
     const handleClick = (e) => {
         console.log('id = ', e.target.id)
