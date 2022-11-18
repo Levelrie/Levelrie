@@ -3,12 +3,14 @@ import axios from 'axios';
 
 // This saga function will be use to fetch all closets outfits and 
 // store it in the closet reducer. 
-function* fetchClosetOutfits () {
+function* fetchClosetOutfits (action) {
+    const occasionsCategory = action.payload;
+    // console.log('what is action.payload', occasionsCategory);
     // console.log('in closetOutfits saga')
     try {
         const closetOutfitsRes = yield axios({
             method: 'GET',
-            url: '/api/closet/outfits'
+            url: `/api/closet/items/occasions/${occasionsCategory}`
         })
         // console.log('what is', closetOutfitsRes.data);
         yield put({

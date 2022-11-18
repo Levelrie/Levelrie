@@ -23,6 +23,9 @@ export default function ClosetToggleButton() {
             case '/closet/occasions':
                 setIsFront(true);
                 break;
+            case '/closet/:name/outfits':
+                setIsFront(true);
+                break;
             case '/closet/categories':
                 setIsFront(false);
                 break;
