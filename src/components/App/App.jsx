@@ -41,6 +41,11 @@ import ToggleButton from '../ToggleButton/ToggleButton';
 import ClosetDetailsPage from '../ClosetDetailsPage/ClosetDetailsPage';
 import FavoriteOutfitItemDetail from '../FavoriteOutfitList/FavoriteOutfitItemDetail';
 import ClosetCategoryDetailPage from '../ClosetCategoryPage/ClosetCategoryDetailPage';
+import FavoriteOutfitOccasions from '../FavoriteOutfitList/FavoriteOutfitOccasions';
+import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
+import FavoriteToggleButton from '../FavoriteOutfitList/FavoriteToggleButton';
+import ClosetOccasion from '../ClosetOccasionsPage/ClosetOccasionsPage';
+import ClosetOutfits from '../ClosetOccasionsPage/ClosetOutfits';
 
 //  CSS Import
 import './App.css';
@@ -56,6 +61,8 @@ export const themeOptions = createTheme({
     palePink: createColor('#f2dcf2'),
     baseTan: createColor('#BFA78A'),
     baseGrey: createColor('#434343'),
+    danger:  createColor('#FF0000'),
+    normal: createColor('#000000'),
     primary: {
       main: '#f1b3f2',
       contrastText: '#d62bd9',
@@ -76,6 +83,12 @@ export const themeOptions = createTheme({
       main: '#2196f3',
       contrastText: 'rgba(10,10,10,0.87)',
     },
+    warning: {
+      main: '#FF0000',
+    },
+    black: {
+      main: '#FF0000',
+    }
   },
   typography: {
     fontFamily: 'Quicksand',
@@ -97,7 +110,7 @@ function App() {
     <ThemeProvider theme={themeOptions}>
       
       <Router>
-        {user.isAdmin ? '' : <Nav /> }
+        {!user.id || user.isAdmin ? '' : <Nav /> }
         <div>
           <Switch>
             {/* ---------- ADMIN ROUTES ---------- */}
@@ -153,58 +166,39 @@ function App() {
             </ProtectedRoute>
 
             {/* This route is for the outfits details path. this page does not the the toggle button */}
-            <ProtectedRoute
-            // logged in shows Closet Outfit details page else shows LoginPage
-            exact
-            path="/closet/outfits/detailsPage/:id"
-            >
-            <ClosetDetailsPage />
-            </ProtectedRoute>
-
-            {/* This route is for the category details path. this page does not the the toggle button */}
-            <ProtectedRoute
-            exact
-            path="/closet/categories/:name"
-            >
-            <ClosetCategoryDetailPage />
-            </ProtectedRoute>
-
-            {/* <ProtectedRoute path="/favorites">
 
 
+
+{/* ********************* FAVORITES ROUTES ********************* */}
+            <ProtectedRoute path="/favorites">
 
               <ToggleButton />
               <ProtectedRoute
+                // logged in shows FavoriteOutfitOccasions else shows LoginPage
+                exact
+                path="/favorites/outfitoccasions"
+              >
+                <FavoriteOutfitOccasions />
+              </ProtectedRoute>
+
+              <ProtectedRoute
                 // logged in shows FavoriteOutfitList else shows LoginPage
                 exact
-                path="/favorites/outfits"
+                path="/favorites/outfitoccasions/:id"
               >
                 <FavoriteOutfitList />
               </ProtectedRoute>
 
               <ProtectedRoute
-                // logged in shows FavoriteItemCategoriesPage else shows LoginPage
+                // logged in shows FavoriteOutfitItemDetail else shows LoginPage
                 exact
-                path="/favorites/categories"
+                path="/favorites/outfitoccasions/:id/:id"
               >
-                <FavoriteItemCategoriesPage />
+                <FavoriteOutfitItemDetail />
               </ProtectedRoute>
 
-              <ProtectedRoute
-                // logged in shows FavoriteItemList else shows LoginPage
-                exact
-                path="/favorites/items"
-              >
-                <FavoriteItemList />
-              </ProtectedRoute>
-            </ProtectedRoute> */}
 
-
-{/* ********************* NEW FAVORITES ROUTES ********************* */}
-            <ProtectedRoute path="/favorites">
-
-              <ToggleButton />
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 // logged in shows FavoriteOutfitList else shows LoginPage
                 exact
                 path="/favorites/outfits"
@@ -218,7 +212,7 @@ function App() {
                 path="/favorites/outfits/:id"
               >
                 <FavoriteOutfitItemDetail />
-              </ProtectedRoute>
+              </ProtectedRoute> */}
 
               <ProtectedRoute
                 // logged in shows FavoriteItemCategoriesPage else shows LoginPage
@@ -241,13 +235,21 @@ function App() {
 
             <ProtectedRoute path="/closet">
 
-                <ToggleButton />
+                <ClosetToggleButton />
                 <ProtectedRoute
                   // logged in shows Closet Outfit List else shows LoginPage
                   exact
                   path="/closet/outfits"
                 >
                   <ClosetPage />
+                </ProtectedRoute>
+
+                <ProtectedRoute
+                  // logged in shows Closet Outfit List else shows LoginPage
+                  exact
+                  path="/closet/occasions"
+                >
+                  <ClosetOccasion />
                 </ProtectedRoute>
                 
                 <ProtectedRoute
@@ -258,6 +260,28 @@ function App() {
                   <ClosetItemPage />
                 </ProtectedRoute>
 
+              <ProtectedRoute
+              // logged in shows Closet Outfit details page else shows LoginPage
+              exact
+              path="/closet/outfits/detailsPage/:id"
+              >
+              <ClosetDetailsPage />
+              </ProtectedRoute>
+
+              {/* This route is for the category details path. this page does not the the toggle button */}
+              <ProtectedRoute
+              exact
+              path="/closet/categories/:name"
+              >
+              <ClosetCategoryDetailPage />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+              exact
+              path="/closet/:name/outfits"
+              >
+              <ClosetOutfits />
+              </ProtectedRoute>
 
             </ProtectedRoute>
 
@@ -353,7 +377,7 @@ function App() {
             </Route>
           </Switch>
             <Paper sx={{padding: 0, boxShadow: 2, margin: 0, position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000000000, backgroundColor: "transparent" }} elevation={0}>
-            {user.isAdmin ? '' : <BottomBar /> }
+            {!user.id || user.isAdmin ? '' : <BottomBar /> }
             </Paper>
         </div>
       </Router>

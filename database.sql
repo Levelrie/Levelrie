@@ -2,27 +2,26 @@
 -- *** Insert the following tables into the database (in order) ***
 -- *** After successful table creation, run the SQL queries ***
 
-
-
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (100) NOT NULL,
     "last_name" VARCHAR (100) NOT NULL,
-    "email" VARCHAR (100) UNIQUE NOT NULL
+    "email" VARCHAR (100) UNIQUE NOT NULL,
+    "isAdmin" BOOLEAN DEFAULT (FALSE) NOT NULL
 );
 
-CREATE TABLE "admins" (
+CREATE TABLE "occasions" (
     "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
+    "name" VARCHAR (80) UNIQUE NOT NULL
 );
 
 CREATE TABLE "outfits" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR (80) UNIQUE NOT NULL,
-    "description" VARCHAR (500) NOT NULL
+    "description" VARCHAR (500) NOT NULL,
+    "occasion_id" INT REFERENCES "occasions"
 );
 
 CREATE TABLE "categories" (
@@ -117,6 +116,7 @@ CREATE TABLE "rejections" (
     "outfit_id" INT REFERENCES "outfits"
 );
 
+
 INSERT INTO "categories"
     ("name")
         VALUES 
@@ -128,8 +128,16 @@ INSERT INTO "categories"
             ('outerwear'),
             ('accessories');
             
-            
-            
+
+INSERT INTO "occasions"
+    ("name")
+        VALUES 
+            ('Brunch'),
+            ('Date Night'),
+            ('Airport'),
+            ('Work'),
+            ('Casual');
+           
             -- ****************** TEST DATA BELOW *********************
 INSERT INTO "users"
 	("username", "password", "first_name", "last_name", "email")
@@ -142,12 +150,12 @@ INSERT INTO "users"
             
 
 INSERT INTO "outfits"
-	("name", "description")
+	("name", "description", "occasion_id")
 		VALUES
-			('All business', 'For closing that deal'),
-			('Rebel with a cause', 'For taking names'), 
-			('Business and pleasure', 'For going out'),
-			('Casual vibes', 'For running errands');			
+			('All business', 'For closing that deal', 4),
+			('Rebel with a cause', 'For taking names', 1), 
+			('Business and pleasure', 'For going out', 2),
+			('Casual vibes', 'For running errands', 5);			
 
 INSERT INTO "items"
 	("name", "color", "size", "seller", "price", "img", "category_id")
@@ -202,32 +210,3 @@ INSERT INTO "outfit_items"
 			(4, 3),
 			(4, 19),
 			(4, 23);
-
-
---INSERT INTO "favorited_outfits"
---	("user_id", "outfit_id")
---		VALUES
---			(1, 3),
---			(1, 4);
-
-			
---INSERT INTO "favorited_items"
---	("favorited_outfit_id", "item_id")
---		VALUES
---			(1, 6),
---			(1, 13),
---			(1, 20),
---			(2, 10),
---			(2, 11),
---			(2, 16),
---			(2, 21);
-			
---			
---INSERT INTO "favorited_solo"
---	("user_id", "item_id")
---		VALUES
---			(1, 25),
---			(1, 26),
---			(1, 27),
---			(1, 4), 
---			(1, 5);

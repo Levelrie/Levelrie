@@ -8,28 +8,30 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Fab from '@mui/material/Fab';
-import Chip from '@mui/material/Chip';
 
 //  CSS
 import './AdminDesign.css';
 
 //  Component Import
-import LogOutAdminButton from '../LogOutAdminButton/LogOutAdminButton';
 import AdminDesignSlider from '../AdminDesignSlider/AdminDesignSlider';
 import OutfitDesignBuilder from '../OutfitDesignBuilder/OutfitDesignBuilder';
 import OutfitDesignDetails from '../OutfitDesignDetails/OutfitDesignDetails';
 import ItemDesignBuilder from '../ItemDesignBuilder/ItemDesignBuilder';
 import ItemDesignDetails from '../ItemDesignDetails/ItemDesignDetails';
-import Logout from '@mui/icons-material/Logout';
+
 
 function AdminDesign() {
 
   const dispatch = useDispatch();
-  const categories = useSelector((store) => store.categories);
-  const user = useSelector((store) => store.user);
 
+  //  Local state
   const [outfitDesign, setOutfitDesign] = useState(true);
   
+  //  Reducer store data
+  const categories = useSelector((store) => store.categories);
+  const user = useSelector((store) => store.user);
+  
+  //  Get all the categories
   useEffect(() => {
     dispatch ({
       type: 'SAGA_FETCH_CATEGORIES'
@@ -41,6 +43,7 @@ function AdminDesign() {
     }
   }, [user.isAdmin])
 
+  //  Function to logout current user
   const handleLogout = () => {
     dispatch ({
       type: 'LOGOUT'
@@ -49,14 +52,16 @@ function AdminDesign() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Chip icon={<LogoutIcon />} 
-        color='default' 
-        label="Logout" 
-        variant="contained"
+      <Fab variant="extended"
+        color="default"
         onClick={handleLogout}
-        position='absolute'
-        padding='10'
-      />
+        size="small"
+        position="absolute"
+        sx={{left: 10, top: 40}}
+      >
+        <LogoutIcon sx={{ mr: 1 }} />
+        Logout
+      </Fab>
       <Grid container spacing={0.1}>
         <Grid item xs={5}>
           <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "white"}}>
@@ -89,7 +94,15 @@ function AdminDesign() {
         <Grid item xs={7}>
           <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: 'white'}}>
           {categories.map(category => (
-            <Box sx={{margin: 1, py: 0, px: 4, backgroundColor: "#BFA78A", borderRadius: 2, display: 'flex', flexDirection: 'column' }} key={category.id}>
+            <Box sx={{margin: 1, 
+              py: 0, 
+              px: 4, 
+              backgroundColor: "#BFA78A", 
+              borderRadius: 2, 
+              display: 'flex', 
+              flexDirection: 'column' }} 
+              key={category.id}
+            >
               <AdminDesignSlider category={category} />
             </Box>
           ))}

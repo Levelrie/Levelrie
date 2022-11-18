@@ -6,6 +6,8 @@ import { useEffect } from 'react'
 // import component
 import CategoryDetailsItem from './CategoryDetailsItem';
 import '../ClosetPage/ClosetPage.css';
+import ClosetSearchBar from '../ClosetPage/ClosetSearchBar';
+import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
 
 // import material ui
 import { Typography } from '@mui/material';
@@ -21,6 +23,8 @@ function ClosetCategoryDetailPage () {
     // use-selector
     const itemsDetails = useSelector(store => store.closetReducer.closetItemReducer)
     // console.log('what is itemsDetails', itemsDetails);
+
+    const constraint = useSelector(store => store.closetReducer.constraint);
 
     useEffect(() => {
 
@@ -38,6 +42,9 @@ function ClosetCategoryDetailPage () {
 
     return (
         <div>
+            <div className="closetCategoriesSearchBar">
+                <ClosetSearchBar constraint={constraint} categoryName={categoryName} />
+            </div>
             <Typography className='ClosetCatergoryTitle' variant='h6'>My Closet: {categoryName}</Typography>
             <ul className='outfit-ul'>
                 {itemsDetails.map (items => (

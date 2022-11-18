@@ -3,6 +3,8 @@ import { useDispatch, useSelector} from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import FavoriteOutfitItem from './FavoriteOutfitItem';
 import ToggleButton from '../ToggleButton/ToggleButton.jsx';
+import './FavoriteOutfitList.css';
+import FavoriteSearchBar from './FavoriteSearchBar';
 
 // MUI
 import AddIcon from '@mui/icons-material/Add';
@@ -22,23 +24,26 @@ function FavoriteOutfitList() {
     const rejectionFits = useSelector(store => store.outfits.rejectionFits);
     const favoriteFits = useSelector(store => store.outfits.favoriteFits);
 
+    const constraint = useSelector(store => store.favorites.constraint);
+    const categories = useSelector(store => store.favorites.categories);
+
     const [highlightedButton, setHighlightedButton] = useState('');
 
     useEffect(() => {
-        dispatch({
-            type: 'FETCH_FAVORITE_OUTFITS'
-        });
-
+        
         dispatch({
             type: 'SAGA_FAVORITE_OUTFITS',
             payload: favoriteFits
         });
-
+        
         dispatch({
             type: 'SAGA_REJECT_OUTFITS',
             payload: rejectionFits
         });
-
+        
+        dispatch({
+            type: 'FETCH_FAVORITE_OUTFITS'
+        });
         dispatch({type: 'CLEAR_OUTFITS_TO_REJECT'});
         dispatch({type: 'CLEAR_OUTFITS_TO_FAVORITE'});
 
@@ -77,15 +82,22 @@ function FavoriteOutfitList() {
     console.log('favoriteOutfits is:', favoriteOutfits);
     return (
         <>
-            {/* <p>Favorite Outfit List Page</p> */} 
+        
+        <div className="outfitsListSearchBar">
+             <FavoriteSearchBar constraint={constraint} />
+        </div>
+        <Typography className='faveOutfitListTitle' variant='h6'>Faves</Typography>
 
             <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (
-                    <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
+                <div className='faveOutfitCard' key={outfit.id}>
+                     <FavoriteOutfitItem key={outfit.id} outfit={outfit}/>
+                </div>
             ))}
             </Stack>
-
+        
         </>
+
     );
 };
 export default FavoriteOutfitList;

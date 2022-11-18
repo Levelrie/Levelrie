@@ -28,11 +28,13 @@
 }
 
 .categoryBox {
-    margin: 10px;
+    /* padding-left: 10px; */
+    text-align: center;
 }
 
 .categoryDiv {
     text-align: center;
+    padding-left: 8%;
 }
 
 .categoryTitle {
@@ -40,6 +42,10 @@
 }
 
 .ClosetCatergoryTitle {
+    text-align: center;
+}
+
+.closetCategoriesSearchBar {
     text-align: center;
 }
 

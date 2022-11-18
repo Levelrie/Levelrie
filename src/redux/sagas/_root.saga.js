@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
-import loginAdminSaga from './login.admin.saga';
-import registrationAdminSaga from './registration.admin.saga';
-import adminSaga from './admin.saga';
+// import loginAdminSaga from './login.admin.saga';
+// import registrationAdminSaga from './registration.admin.saga';
+// import adminSaga from './admin.saga';
 import loginSaga from './login.saga';
 import outfitsSaga from './outfits.saga';
 import registrationSaga from './registration.saga';
@@ -13,7 +13,12 @@ import cart from './cart.saga';
 import shipping from './shipping.saga';
 import outfitsDisplaySaga from './outfit.display.saga';
 import globalSearchSaga from './globalSearch.saga';
+
+import ClosetSearchSaga from './closetSearch.saga';
+import FavoritesSearchSaga from './favoritesSearch.saga';
+import designSaga from './design.saga';
 import orderSaga from './order.saga';
+
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -24,9 +29,9 @@ import orderSaga from './order.saga';
 // and login triggers setting the user
 export default function* rootSaga() {
   yield all([
-    loginAdminSaga(), // login saga is now registered
-    registrationAdminSaga(),
-    adminSaga(),
+    // loginAdminSaga(), // login saga is now registered
+    // registrationAdminSaga(),
+    // adminSaga(),
     loginSaga(),
     outfitsSaga(),
     registrationSaga(),
@@ -38,6 +43,9 @@ export default function* rootSaga() {
     cart(),
     shipping(),
     outfitsDisplaySaga(),
+    ClosetSearchSaga(),
+    FavoritesSearchSaga(),
+    designSaga(),
     orderSaga()
   ]);
 }

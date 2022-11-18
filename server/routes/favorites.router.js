@@ -6,10 +6,17 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  router.get('/outfits', (req, res) => {
      console.log('in GET /api/favorites/outfits');
      // Fetch all outfits that have been favorited by the user
+     // AND associated items
      const sqlText = `
-        SELECT * FROM "favorited_outfits"
-        JOIN "outfits" ON favorited_outfits.outfit_id = outfits.id
-        WHERE favorited_outfits.user_id = $1;
+     SELECT favorited_outfits.*,
+        JSON_AGG((items, categories.name)) AS items
+            FROM "favorited_outfits"
+                JOIN "outfits" ON favorited_outfits.outfit_id = outfits.id
+                JOIN "outfit_items" ON outfits.id = outfit_items.outfit_id
+                JOIN "items" ON outfit_items.item_id = items.id
+                    INNER JOIN "categories" ON items.category_id = categories.id
+                        WHERE favorited_outfits.user_id = $1
+                            GROUP BY favorited_outfits.id;
     `
     const sqlValues = [req.user.id]
     pool.query(sqlText, sqlValues)
@@ -37,7 +44,7 @@ router.get('/search', rejectUnauthenticated, (req, res) => {
                             JOIN "items" ON outfit_items.item_id = items.id
                             INNER JOIN "categories" ON items.category_id = categories.id
                             JOIN "favorited_outfits" ON outfits.id = favorited_outfits.outfit_id
-                                WHERE outfits.name LIKE $1
+                                WHERE UPPER(outfits.name) LIKE UPPER($1)
                                 AND "favorited_outfits".user_id = $2
                                 GROUP BY outfits.id;`
     pool.query(sqlSearchText, [query, userId])
@@ -64,7 +71,7 @@ router.get('/search/item', rejectUnauthenticated, (req, res) => {
                         JOIN "categories" ON items.category_id = categories.id
                         JOIN "favorited_items" ON items.id = favorited_items.item_id
                         JOIN "favorited_outfits" ON favorited_items.favorited_outfit_id = favorited_outfits.id
-                            WHERE items.name LIKE $1
+                            WHERE UPPER(items.name) LIKE UPPER($1)
                             AND categories.name = $2
                             AND "favorited_outfits".user_id = $3;`
     pool.query(sqlSearchText, [query, category, userId])
@@ -75,7 +82,6 @@ router.get('/search/item', rejectUnauthenticated, (req, res) => {
             console.log('Error in GET /api/favorites/outfits/search/item query', error);
             res.sendStatus(500);
         });
-
  });
 
 
@@ -114,6 +120,17 @@ router.get('/search/item', rejectUnauthenticated, (req, res) => {
         })
 });
 
-
+router.get('/occasions', (req, res) => {
+    console.log('in GET /api/favorites/occasions');
+    const sqlText = 'SELECT * FROM "occasions";';
+    pool.query(sqlText)
+        .then((dbRes) => {
+            console.log('dbRes is:', dbRes.rows);
+            res.send(dbRes.rows)
+        }).catch(dbErr => {
+            console.log('error in GET /api/favorites/occasions');
+            res.sendStatus(500);
+        })
+})
 
  module.exports = router;
