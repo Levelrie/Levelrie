@@ -36,7 +36,7 @@ function* unCartItem(action) {
     console.log(action.payload);
     try {
         console.log('action.payload', action.payload)
-        const itemId = action.payload.item_id;
+        const itemId = action.payload.id;
         console.log('id in delete', itemId)
         console.log('OUTFIT ID')
         yield axios.delete(`/api/cart/${itemId}`);
