@@ -6,14 +6,6 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // GET route to fetch all closet items
 router.get('/category/:name', rejectUnauthenticated, (req, res) => {
-
-    // This route will also be used as the closetItem search route
-    let searchQuery = req.query.q;
-    // If no query is passed through, it will fetch all outfits normally
-    searchQuery += '%';
-
-  // console.log('what is', req.params.name);
-  // we only want the closet items that is related to a specific user purchases. 
   const sqlQuery = `
     SELECT 
       closet_items.id,
@@ -28,10 +20,10 @@ router.get('/category/:name', rejectUnauthenticated, (req, res) => {
     FROM closet_items
     JOIN "items" ON closet_items.item_id = items.id
     JOIN "categories" ON items.category_id = categories.id
-    WHERE closet_items.user_id = $1 AND categories.name = $2 AND UPPER(items.name) LIKE UPPER($3);
+    WHERE closet_items.user_id = $1 AND categories.name = $2;
   `;
 
-  const sqlValues = [req.user.id, req.params.name, searchQuery]
+  const sqlValues = [req.user.id, req.params.name]
 
   pool.query(sqlQuery, sqlValues)
     .then( result => {
@@ -106,6 +98,49 @@ router.get('/occasions/:name', rejectUnauthenticated, (req, res) => {
       console.log('dbErr in /api/closet/outfits/occasions:', err);
       res.sendStatus(500)
     })
-  });
+});
+
+
+// // GET route to fetch all closet items with search funcationality. 
+// (future dev, this route may or may not be use in the future, so ya'll decided if yall want to use it or not)
+
+// router.get('/category/:name', rejectUnauthenticated, (req, res) => {
+
+//   // This route will also be used as the closetItem search route
+//   let searchQuery = req.query.q;
+//   // If no query is passed through, it will fetch all outfits normally
+//   searchQuery += '%';
+
+// // console.log('what is', req.params.name);
+// // we only want the closet items that is related to a specific user purchases. 
+// const sqlQuery = `
+//   SELECT 
+//     closet_items.id,
+//     closet_items.user_id,
+//     items.name,
+//     items.color,
+//     items.size,
+//     items.seller,
+//     items.price,
+//     items.img,
+//     categories.name AS category
+//   FROM closet_items
+//   JOIN "items" ON closet_items.item_id = items.id
+//   JOIN "categories" ON items.category_id = categories.id
+//   WHERE closet_items.user_id = $1 AND categories.name = $2 AND UPPER(items.name) LIKE UPPER($3);
+// `;
+
+// const sqlValues = [req.user.id, req.params.name, searchQuery]
+
+// pool.query(sqlQuery, sqlValues)
+//   .then( result => {
+//     // console.log('what is', result.rows);
+//     res.send(result.rows);
+//   })
+//   .catch(err => {
+//     console.log('dbErr in /api/closet/items:', err);
+//     res.sendStatus(500)
+//   })
+// });
 
 module.exports = router;
