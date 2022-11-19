@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import FavoriteOutfitItem from './FavoriteOutfitItem';
 import './FavoriteOutfitList.css';
 import FavoriteSearchBar from './FavoriteSearchBar';
+import UnfavoriteOutfitButton from './UnfavoriteOutfitButton';
 
 // MUI
 import Stack from '@mui/material/Stack';
@@ -67,7 +68,8 @@ function FavoriteOutfitList() {
         <Stack spacing={2}>
             {favoriteOutfits.map(outfit => (
                 <div className='faveOutfitCard' key={outfit.id}>
-                     <FavoriteOutfitItem key={outfit.id} outfit={outfit} occasionId={occasionId}/>
+                    <FavoriteOutfitItem key={outfit.outfit_id} outfit={outfit} occasionId={occasionId}/>
+                    <UnfavoriteOutfitButton outfitId={outfit.outfit_id} occasionId={occasionId} />
                 </div>
             ))}
         </Stack>       
