@@ -18,6 +18,7 @@ export default function OutfitHomeItem({outfit}) {
                         return (
                             <div key={item.f1.id} id={item.f2} >
                                 <HomeFaveButton itemId={item.f1.id} outfitId={outfit.id}/>
+                                {/* <FavoriteButton /> */}
                                 <img className="itemPic pressable" src={item.f1.img} onClick={() => console.log('???MaYbE???', item.f1.id)}/>
                             </div>
                             );

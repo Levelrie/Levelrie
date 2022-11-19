@@ -6,6 +6,8 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     /* keeps individual outfit items from resizing */
     aspect-ratio: 1 / 1;
+    margin-top: -10px;
+    padding-bottom: 30px;
 }
 
 #top {
@@ -45,4 +47,13 @@
     height:100%;
     object-fit: contain;
     filter: drop-shadow(1px 1px 1px rgb(176, 175, 175));
+}
+
+.homeHeart {
+    width: 20px;
+}
+
+.faded {
+   filter: brightness(60%);
+   opacity: .4;
 }
