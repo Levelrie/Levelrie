@@ -36,9 +36,21 @@ const favoriteFits = (state = [], action) => {
     return state;
 }
 
+//  For Admin Design Edit
+const outfits = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_OUTFITS':
+            return [...state, action.payload];
+        case 'CLEAR_OUTFITS':
+            return [];
+    }
+    return state;
+}
+
 export default combineReducers({
     fits,
     rejectionFits,
-    favoriteFits
+    favoriteFits,
+    outfits
 })
 
