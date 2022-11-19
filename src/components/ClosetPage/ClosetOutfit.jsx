@@ -19,37 +19,16 @@ function ClosetOutfitList ({outfit}) {
     }
 
     return (
-        <div>
-            <Box sx={{ width: '100%' }}>
-                <Stack   
-                    direction="column"
-                    spacing={2}
-                >
-                    <Card onClick={handleDetailsClick} sx={{ minWidth: 275 }}>
-                        <Typography variant='h6'>{outfit.name}</Typography>
-                        <CardContent>
-                            <div className="outfitSwipeContainer">
-                                <div id="top">
-                                    <img className="ClosetItemPic" src={outfit.items[0]?.f1.img} />
-                                </div>
-                                <div id="outerwear">
-                                    <img className="ClosetItemPic" src={outfit.items[1]?.f1.img} />
-                                </div>
-                                <div id="bottom">
-                                    <img className="ClosetItemPic" src={outfit.items[2]?.f1.img} />
-                                </div>
-                                <div id="footwear">
-                                    <img className="ClosetItemPic" src={outfit.items[3]?.f1.img} />
-                                </div>
-                                <div id="accessories">
-                                    <img className="ClosetItemPic" src={outfit.items[4]?.f1.img} />
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </Stack>
-            </Box>
-        </div>
+        <div className='faveOutfitContainer'>
+        {outfit.items.map(item => {
+            return(
+                <div key={item.f1.id} id={item.f2} onClick={handleDetailsClick}>
+                    <img className="itemPic" src={item.f1.img} />
+                </div>
+            )
+        })
+        }
+     </div>
     )
 } // end of ClosetOutfitList
 
