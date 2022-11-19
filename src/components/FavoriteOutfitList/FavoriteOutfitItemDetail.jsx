@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import FavoriteItemItem from '../FavoriteItemList/FavoriteItemItem';
+
 function FavoriteOutfitItemDetail() {
     const params = useParams();
     const dispatch = useDispatch();
@@ -12,22 +14,32 @@ function FavoriteOutfitItemDetail() {
     // - RENDER THOSE ITEMS ON THE DOM USING ITEM ITEM
 
     // THINGS I STARTED BELOW:
-    // const favoriteOutfitDetails = useSelector(store => store.favorites.favoriteOutfitsReducer);
-    // useEffect(() => {
-    //     const outfitToPull = params.id
-    //     dispatch({
-    //         type: 'FETCH_FAVORITE_OUTFIT_FOR_OCCASION_DETAILS',
-    //         payload: outfitToPull
-    //     })
-    //     return () => {
-    //         dispatch({
-    //         type: 'CLEAR_FAVORITE_OUTFIT_FOR_OCCASION_DETAILS'
-    //         })
-    //     }
-    // }, [params.id]);
+    // const favoriteOutfitDetailsItem = useSelector(store => store.favorites.favoriteOutfitsReducer);
+
+    let sizes = useSelector(store => store.favorites.sizes);
+    let colors = useSelector(store => store.favorites.colors);
+    let item = useSelector(store => store.favorites.specificItem);
+
+    useEffect(() => {
+        const itemToPull = params.itemId;
+        const itemToPullOutfitId = params.outfitId;
+        dispatch({
+            type: 'SAGA_FETCH_FAVORITE_ITEM_FOR_OUTFIT_DETAILS',
+            payload: {outfitId: itemToPullOutfitId, itemId: itemToPull}
+        })
+        return () => {
+            dispatch({
+                type: 'CLEAR_FAVORITE_ITEM_FOR_OUTFIT_DETAILS'
+            });
+        }
+    }, [params.itemId]);
 
     return (
-        <p>FavoriteOutfitItemDetail</p>
+        <>
+            <p>FavoriteOutfitItemDetail</p>
+            {/* // Category won't be used here, so we can set it to zero */}
+            <FavoriteItemItem item={item} category={item.category_id} sizes={sizes} colors={colors} inItemDetails={true}/>
+        </>
     )
 }
 
