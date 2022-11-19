@@ -1,11 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //  MUI Tools
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 function OutfitDesignBuilder() {
+
+  const dispatch = useDispatch();
 
   //  Reducer store data
   const outerwear = useSelector((store) => store.outerwear);
@@ -13,6 +18,11 @@ function OutfitDesignBuilder() {
   const accessory = useSelector((store) => store.accessory);
   const bottom = useSelector((store) => store.bottom);
   const footwear = useSelector((store) => store.footwear);
+
+  //  Clears out the outfit display
+  const clearOutfit = () => {
+    dispatch ({type: 'SAGA_CLEAR_OUTFIT'});
+  }
 
   return (
     //  Card grid to manipulate position of clothing items for outfit build
@@ -100,6 +110,17 @@ function OutfitDesignBuilder() {
         image={footwear.img}
         alt={footwear.name}
       /> : '' }
+      {/* Button to clear outfit display */}
+      <IconButton 
+        size="small"
+        position="absolute"
+        sx={{left: 0, top: 0}} 
+        aria-label="delete"
+      >
+        <Tooltip title="Clear Outfit">
+          <DeleteIcon onClick={clearOutfit}/>
+        </Tooltip>
+      </IconButton>
     </Box>
   );
 }

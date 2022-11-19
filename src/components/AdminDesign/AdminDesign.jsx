@@ -9,6 +9,8 @@ import Stack from '@mui/material/Stack';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Fab from '@mui/material/Fab';
 import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 //  CSS
 import './AdminDesign.css';
@@ -17,9 +19,7 @@ import './AdminDesign.css';
 import AdminDesignSlider from '../AdminDesignSlider/AdminDesignSlider';
 import OutfitDesignBuilder from '../OutfitDesignBuilder/OutfitDesignBuilder';
 import OutfitDesignDetails from '../OutfitDesignDetails/OutfitDesignDetails';
-import ItemDesignBuilder from '../ItemDesignBuilder/ItemDesignBuilder';
-import ItemDesignDetails from '../ItemDesignDetails/ItemDesignDetails';
-
+import EditOutfitDesignDetails from '../OutfitDesignDetails/EditOutfitDesignDetails';
 
 function AdminDesign() {
 
@@ -55,6 +55,13 @@ function AdminDesign() {
     })
   }
 
+  const fetchOutfits = () => {
+    setAddOutfit(false);
+    // dispatch ({
+    //   type: 'SAGA_'
+    // })
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Fab
@@ -73,7 +80,7 @@ function AdminDesign() {
           <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "white"}}>
             <Stack direction="column" spacing={2} display='flex'>
               <Stack direction="row" justifyContent="center">
-          
+                {/* Create Outfit Display and Details */}
                 <Button variant="contained"
                   size="small"
                   onClick={(event) => {setAddOutfit(true)}} 
@@ -83,10 +90,11 @@ function AdminDesign() {
                 >
                   Create
                 </Button>
-
+                {/* Edit Outfit Display and Details */}
                 <Button variant="contained"
                   size="small"
-                  onClick={(event) => {setAddOutfit(false)}} 
+                  // onClick={(event) => {setAddOutfit(false)}} ---OLD
+                  onClick={fetchOutfits} 
                   color={addOutfit ? 'baseTan' : 'primary' }
                   sx={{borderRadius: 3, width: 120, right: 10, fontSize: 16}}
                   className={addOutfit ? '' : 'frontButton'}
@@ -94,28 +102,8 @@ function AdminDesign() {
                   Edit
                 </Button>
               </Stack>
-              {/* <Stack direction="row" justifyContent="center">
-                <Button variant="contained"
-                  size="small"
-                  onClick={(event) => {setOutfitDesign(true)}}
-                  sx={{borderRadius: 3 , width: 120, left: 10, fontSize: 16}} 
-                  color={outfitDesign ? 'primary' : 'baseTan' } 
-                  className={outfitDesign ? 'frontButton' : ''}
-                >
-                  Outfits
-                </Button>
-                <Button variant="contained" 
-                  size="small"
-                  onClick={(event) => {setOutfitDesign(false)}}
-                  sx={{borderRadius: 3, width: 120, right: 10, fontSize: 16}} 
-                  color={outfitDesign ? 'baseTan' : 'primary' }
-                  className={outfitDesign ? '' : 'frontButton'}
-                >
-                  Items
-                </Button>
-              </Stack> */}
               <OutfitDesignBuilder />
-              <OutfitDesignDetails />
+              {addOutfit ? <OutfitDesignDetails /> : <EditOutfitDesignDetails /> }
             </Stack>
           </Box>
         </Grid>
