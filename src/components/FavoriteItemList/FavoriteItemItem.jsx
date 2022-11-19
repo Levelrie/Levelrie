@@ -62,7 +62,7 @@ function FavoriteItemItem({item, category, sizes, colors, inItemDetails}) {
 
     const changeColor = (e) => {
         // Don't do anything if the color is not changing
-        if (e.target.value != item.color) {
+        if ((e.target.value != item.color) && inItemDetails != true) {
             dispatch({
                 type: 'SAGA_CHANGE_ITEM_COLOR',
                 payload: {item: item, newColor: e.target.value}
@@ -73,7 +73,7 @@ function FavoriteItemItem({item, category, sizes, colors, inItemDetails}) {
 
     const changeSize = (e) => {
         // Don't do anything if the size is not changing
-        if (e.target.value != item.size) {
+        if ((e.target.value != item.size) && inItemDetails != true) {
             dispatch({
                 type: 'SAGA_CHANGE_ITEM_SIZE',
                 payload: {item: item, newSize: e.target.value}
