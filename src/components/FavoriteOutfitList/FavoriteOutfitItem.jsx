@@ -1,13 +1,13 @@
 import { useHistory } from 'react-router-dom';
- import './FavoriteOutfitItem.css';
+import './FavoriteOutfitItem.css';
 
- function FavoriteOutfitItem({outfit, occasionId}) {
+function FavoriteOutfitItem({outfit, occasionId}) {
 
     const history = useHistory();
 
     const handleClick = () => {
         console.log('in handleClick');
-        history.push(`/favorites/outfits/${occasionId}/${outfit.id}`);
+        history.push(`/favorites/outfits/${occasionId}/${outfit.outfit_id}`);
     }
 
     return (   
