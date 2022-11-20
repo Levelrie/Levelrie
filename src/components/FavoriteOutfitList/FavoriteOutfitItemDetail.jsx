@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import FavoriteItemItem from '../FavoriteItemList/FavoriteItemItem';
 
+import './FavoriteOutfitItemDetail.css';
+
 function FavoriteOutfitItemDetail() {
     const params = useParams();
     const dispatch = useDispatch();
@@ -35,11 +37,11 @@ function FavoriteOutfitItemDetail() {
     }, [params.itemId]);
 
     return (
-        <>
-            <p>FavoriteOutfitItemDetail</p>
+        <div className="favoriteOutfitItemDetailsPage">
+            {/* <p>FavoriteOutfitItemDetail</p> */}
             {/* // Category won't be used here, so we can set it to zero */}
             <FavoriteItemItem item={item} category={item.category_id} sizes={sizes} colors={colors} inItemDetails={true}/>
-        </>
+        </div>
     )
 }
 
