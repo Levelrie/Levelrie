@@ -348,7 +348,28 @@ router.get('/occasions', (req, res) => {
             console.log('error in GET /api/favorites/occasions');
             res.sendStatus(500);
         })
-})
+});
+
+router.get('/specific/favorite/item', rejectUnauthenticated, (req, res) => {
+
+    const outfitId = req.query.outfitid;
+    const itemId = req.query.itemid;
+    
+    const sqlFetchText = `SELECT items.*, COUNT(*) AS count FROM "favorited_items" 
+	                        JOIN "favorited_outfits" ON "favorited_items".favorited_outfit_id = "favorited_outfits".id
+	                        JOIN "items" ON "favorited_items".item_id = "items".id
+	                            WHERE "favorited_outfits".outfit_id = $1
+	                            AND "item_id" = $2
+                                GROUP BY items.id;`
+
+    pool.query(sqlFetchText, [outfitId, itemId])
+        .then((response) => {
+            res.send(response.rows)
+        }).catch(error => {
+            console.log('error in GET /api/favorites/specific/favorite/item', error);
+            res.sendStatus(500);
+        })   
+});
 
 
  module.exports = router;

@@ -29,8 +29,6 @@ function* fetchCategories() {
             type: 'SET_CATEGORY_NAMES',
             payload: categories.data
         })
-
-
     } catch (error) {
         console.log('itemsSaga fetchCategories function error', error);
     }

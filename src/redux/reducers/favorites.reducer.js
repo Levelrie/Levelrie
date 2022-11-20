@@ -89,6 +89,16 @@ const colors = (state = [], action) => {
     return state;
 }
 
+const specificItem = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_FAVORITE_ITEM_FOR_OUTFIT_DETAILS':
+            return action.payload;
+        case 'CLEAR_FAVORITE_ITEM_FOR_OUTFIT_DETAILS':
+            return {};
+    }
+    return state;
+}
+
 export default combineReducers({
     favoriteOutfitsReducer,
     favoriteItemsReducer,
@@ -98,5 +108,6 @@ export default combineReducers({
     query,
     favoriteOutfitsForOccasionReducer,
     sizes,
-    colors
+    colors,
+    specificItem
 })

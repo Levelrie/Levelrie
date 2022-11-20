@@ -8,6 +8,9 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Fab from '@mui/material/Fab';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 //  CSS
 import './AdminDesign.css';
@@ -16,16 +19,15 @@ import './AdminDesign.css';
 import AdminDesignSlider from '../AdminDesignSlider/AdminDesignSlider';
 import OutfitDesignBuilder from '../OutfitDesignBuilder/OutfitDesignBuilder';
 import OutfitDesignDetails from '../OutfitDesignDetails/OutfitDesignDetails';
-import ItemDesignBuilder from '../ItemDesignBuilder/ItemDesignBuilder';
-import ItemDesignDetails from '../ItemDesignDetails/ItemDesignDetails';
-
+import EditOutfitDesignDetails from '../OutfitDesignDetails/EditOutfitDesignDetails';
 
 function AdminDesign() {
 
   const dispatch = useDispatch();
 
   //  Local state
-  const [outfitDesign, setOutfitDesign] = useState(true);
+  // const [outfitDesign, setOutfitDesign] = useState(true);
+  const [addOutfit, setAddOutfit] = useState(true);
   
   //  Reducer store data
   const categories = useSelector((store) => store.categories);
@@ -35,6 +37,9 @@ function AdminDesign() {
   useEffect(() => {
     dispatch ({
       type: 'SAGA_FETCH_CATEGORIES'
+    })
+    dispatch ({
+      type: 'SAGA_FETCH_OCCASIONS'
     })
     return () => {
       dispatch ({
@@ -50,44 +55,55 @@ function AdminDesign() {
     })
   }
 
+  const fetchOutfits = () => {
+    setAddOutfit(false);
+    // dispatch ({
+    //   type: 'SAGA_'
+    // })
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Fab variant="extended"
-        color="default"
+      <Fab
+        color="primary"
         onClick={handleLogout}
         size="small"
         position="absolute"
         sx={{left: 10, top: 40}}
       >
-        <LogoutIcon sx={{ mr: 1 }} />
-        Logout
+        <Tooltip title="Logout">
+          <LogoutIcon />
+        </Tooltip>
       </Fab>
       <Grid container spacing={0.1}>
         <Grid item xs={5}>
           <Box sx={{ height: '95vh', margin: 1, py: 0, backgroundColor: "white"}}>
             <Stack direction="column" spacing={2} display='flex'>
               <Stack direction="row" justifyContent="center">
+                {/* Create Outfit Display and Details */}
                 <Button variant="contained"
                   size="small"
-                  onClick={(event) => {setOutfitDesign(true)}}
-                  sx={{borderRadius: 3 , width: 120, left: 10, fontSize: 16}} 
-                  color={outfitDesign ? 'primary' : 'baseTan' } 
-                  className={outfitDesign ? 'frontButton' : ''}
+                  onClick={(event) => {setAddOutfit(true)}} 
+                  color={addOutfit ? 'primary' : 'baseTan' }
+                  sx={{borderRadius: 3 , width: 120, left: 10, fontSize: 16}}
+                  className={addOutfit ? 'frontButton' : ''}
                 >
-                  Outfits
+                  Create
                 </Button>
-                <Button variant="contained" 
+                {/* Edit Outfit Display and Details */}
+                <Button variant="contained"
                   size="small"
-                  onClick={(event) => {setOutfitDesign(false)}}
-                  sx={{borderRadius: 3, width: 120, right: 10, fontSize: 16}} 
-                  color={outfitDesign ? 'baseTan' : 'primary' }
-                  className={outfitDesign ? '' : 'frontButton'}
+                  // onClick={(event) => {setAddOutfit(false)}} ---OLD
+                  onClick={fetchOutfits} 
+                  color={addOutfit ? 'baseTan' : 'primary' }
+                  sx={{borderRadius: 3, width: 120, right: 10, fontSize: 16}}
+                  className={addOutfit ? '' : 'frontButton'}
                 >
-                  Items
+                  Edit
                 </Button>
               </Stack>
-              {outfitDesign ? <OutfitDesignBuilder /> : <ItemDesignBuilder />}
-              {outfitDesign ? <OutfitDesignDetails /> : <ItemDesignDetails />}
+              <OutfitDesignBuilder />
+              {addOutfit ? <OutfitDesignDetails /> : <EditOutfitDesignDetails /> }
             </Stack>
           </Box>
         </Grid>

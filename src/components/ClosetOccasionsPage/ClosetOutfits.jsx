@@ -8,6 +8,7 @@ import ClosetOutfitList from '../ClosetPage/ClosetOutfit.jsx';
 
 // import material ui
 import { Typography } from '@mui/material';
+import { Stack } from '@mui/system';
 
 function ClosetOutfits () {
     // use-params
@@ -38,11 +39,15 @@ function ClosetOutfits () {
     return (
         <div className='outfitForm'>
             <Typography variant='h6'>My Closet: Outfits</Typography>
-            <ul className='outfit-ul'>
+            <Stack spacing={2}>
                 {closetOutfits.map(outfit => (
-                    <ClosetOutfitList key={outfit.id} outfit={outfit}/>
+                    <div className='faveOutfitCard' key={outfit.id}>
+                        <ClosetOutfitList outfit={outfit}/>
+                    </div>    
                 ))}
-            </ul>
+
+            </Stack>
+
         </div>
     )
 }

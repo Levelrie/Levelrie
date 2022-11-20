@@ -194,6 +194,58 @@ function* fetchFavoriteOutfitsForOccasion(action) {
     }
 }
 
+function* unfavoriteOutfit(action) {
+    const outfitId = action.payload.outfitId;
+    const occasionId = action.payload.occasionId;
+
+    console.log('OUTFIT ID????', outfitId)
+
+    try {
+        yield axios.post(`/api/outfit/search/unfavorite`, {outfitId: outfitId});
+
+        yield put({
+            type: 'FETCH_FAVORITE_OUTFITS_FOR_OCCASION',
+            payload: occasionId
+        });
+
+    } catch (error) {
+        console.log('Error in unfavoriteOutfit in favoritesSaga', error);
+    }
+
+}
+
+function* fetchFavoriteItemForOutfitDetails(action) {
+    const outfitId = action.payload.outfitId;
+    const itemId = action.payload.itemId;
+
+    try {
+        const item = yield axios.get(`/api/favorites/specific/favorite/item?outfitid=${outfitId}&itemid=${itemId}`);
+
+        console.log('ITEM!!!!', item.data[0])
+
+        yield put({
+            type: 'SET_FAVORITE_ITEM_FOR_OUTFIT_DETAILS',
+            payload: item.data[0]
+        });
+
+
+        yield put({
+            type: 'SAGA_FETCH_ITEM_SIZES',
+            payload: item.data[0].name
+        });
+
+        yield put({
+            type: 'SAGA_FETCH_ITEM_COLORS',
+            payload: item.data[0].name
+        });
+
+    } catch (error) {
+        console.log('Error in fetchFavoriteItemForOutfitDetails in favoritesSaga', error);
+    }
+
+}
+
+
 export default function* favoritesSaga() {
     yield takeLatest('FETCH_FAVORITE_OUTFITS', fetchFavoriteOutfits);
     yield takeLatest('FETCH_FAVORITE_ITEMS', fetchFavoriteItems);
@@ -206,4 +258,6 @@ export default function* favoritesSaga() {
     // yield takeLatest('FETCH_FAVORITE_OUTFIT_DETAILS', fetchFavoriteOutfitDetails);
     yield takeLatest('FETCH_OCCASIONS', fetchOccasions);
     yield takeLatest('FETCH_FAVORITE_OUTFITS_FOR_OCCASION', fetchFavoriteOutfitsForOccasion);
+    yield takeLatest('SAGA_UNFAVORITE_OUTFIT_FROM_FAVORITES', unfavoriteOutfit);
+    yield takeLatest('SAGA_FETCH_FAVORITE_ITEM_FOR_OUTFIT_DETAILS', fetchFavoriteItemForOutfitDetails);
 };

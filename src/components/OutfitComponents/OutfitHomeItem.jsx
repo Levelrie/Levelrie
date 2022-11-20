@@ -1,8 +1,14 @@
+import { useDispatch } from "react-redux";
+import { useState } from 'react';
+
+
 import FavoriteButton from "../FavoriteButton/FavoriteButton";  // for stretch goal
+import HomeFaveButton from "./HomeFaveButton";
 import './OutfitHomeItem.css';
 import { IconButton } from "@mui/material"; 
 
 export default function OutfitHomeItem({outfit}) {
+
 
     return (
         <>
@@ -12,8 +18,9 @@ export default function OutfitHomeItem({outfit}) {
                     {outfit.items.map(item => {
                         return (
                             <div key={item.f1.id} id={item.f2} >
+                                <HomeFaveButton itemId={item.f1.id} outfitId={outfit.id}/>
+                                {/* <FavoriteButton /> */}
                                 <img className="itemPic pressable" src={item.f1.img} onClick={() => console.log('???MaYbE???', item.f1.id)}/>
-                                <FavoriteButton itemId={item.f1.id} outfitId={outfit.id}  onClick={() => console.log('???MaYbE???', item.f1.id)}/>
                             </div>
                             );
                         })}

@@ -192,7 +192,7 @@ function App() {
               <ProtectedRoute
                 // logged in shows FavoriteOutfitItemDetail else shows LoginPage
                 exact
-                path="/favorites/outfits/:id/:id"
+                path="/favorites/outfits/:occasionId/:outfitId/:itemId"
               >
                 <FavoriteOutfitItemDetail />
               </ProtectedRoute>

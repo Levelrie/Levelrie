@@ -15,9 +15,8 @@ import top from './top.reducer';
 import accessory from './accessory.reducer';
 import bottom from './bottom.reducer';
 import footwear from './footwear.reducer';
-import occasions from './occasions.reducers';
+import occasions from './occasions.reducer';
 import order from './order.reducer'
-
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -44,7 +43,6 @@ const rootReducer = combineReducers({
   searchResultsReducer,
   occasions,
   order,
-
 });
 
 export default rootReducer;
