@@ -29,7 +29,7 @@ export default function ShippingAddress({ address }){
     return(
 
                 <FormControlLabel value={address.id} control={<Radio/>}  label={
-                    <Box className='addressDisplay' width={1} lineHeight={.5}>
+                    <Box className='addressDisplay' width={1} lineHeight={.25} padding={2}>
                         <p>{address.name}</p>
                         <p>{address.street}</p>
                         <p>{address.city} {address.state}, {address.zip}</p>
