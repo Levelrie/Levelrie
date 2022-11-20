@@ -50,7 +50,7 @@ export default function SearchPage() {
                                 />
             <SearchBar constraint={constraint}
                        categories={categories}/>
-            <SearchResults searchResults={searchResults} />  
+            <SearchResults searchResults={searchResults} constraint={constraint} />  
         </div>
     );
 

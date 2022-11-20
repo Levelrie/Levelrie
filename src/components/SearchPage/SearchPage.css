@@ -10,3 +10,52 @@
 .resultImg {
     max-width: 100px;
 }
+
+.faveOutfitContainer {
+    display: grid;
+    /* set width of each column */
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    /* set height of each row */
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    /* keeps individual outfit items from resizing */
+    aspect-ratio: 1 / 1;
+}
+
+.faveOutfitContainer > #top {
+    /* column number that the item starts in (11 columns) */
+    grid-column: 6 / span 4;
+    /* row number that the item starts in (11 rows)  */
+    grid-row: 4 / span 7;
+    z-index: 3
+}
+
+.faveOutfitContainer > #outerwear {
+    grid-column: 1 / span 7;
+    grid-row: 1 / span 9;
+    z-index: 2
+}
+
+.faveOutfitContainer > #bottom {
+    grid-column: 9 / span 4;
+    grid-row: 2 / span 12;
+    z-index: 1
+}
+
+.faveOutfitContainer > #footwear {
+    grid-column: 2 / span 5;
+    grid-row: 9 / span 4;
+    z-index: 4
+}
+
+.faveOutfitContainer > #accessories {
+    grid-column: 8 / span 3;
+    grid-row: 1;
+    z-index: 5
+}
+
+.faveOutfitContainer > .itemPic {
+    width:100%;
+    height:100%;
+    object-fit: contain;
+    filter: drop-shadow(1px 1px 1px rgb(176, 175, 175));
+}
