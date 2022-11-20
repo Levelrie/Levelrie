@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import Nav from '../Nav/Nav';
 
 function ClosetItemPage () {
 
@@ -31,6 +32,8 @@ function ClosetItemPage () {
     },[]);
 
     return (
+        <>  
+        
         <div className='closetOccasionsPage'>
             <Container className='faveCategoriesContainer'>
             <Typography variant="h6">My Closet: Category</Typography>
@@ -43,6 +46,8 @@ function ClosetItemPage () {
                 </Box>
             </Container>
         </div>
+        
+        </>
     )
 } 
 

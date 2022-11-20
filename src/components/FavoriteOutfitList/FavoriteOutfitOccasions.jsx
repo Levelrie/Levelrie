@@ -58,7 +58,7 @@ function FavoriteOutfitOccasions() {
     return (
         <Container className='faveCategoriesContainer'>
         <Stack>
-        <Typography variant="h6">Faves</Typography>
+        <Typography variant="h6"></Typography>
         </Stack>
         <Box sx={{width: '100%'}}>
            <Grid container spacing={1} mt={3} mb={3}>

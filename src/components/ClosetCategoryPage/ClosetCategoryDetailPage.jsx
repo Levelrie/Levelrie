@@ -8,6 +8,7 @@ import CategoryDetailsItem from './CategoryDetailsItem';
 import '../ClosetPage/ClosetPage.css';
 import ClosetSearchBar from '../ClosetPage/ClosetSearchBar';
 import ClosetToggleButton from '../ClosetPage/ClosetToggleButton';
+import NavStack from '../Nav/NavStack';
 
 // import material ui
 import { Typography } from '@mui/material';
@@ -42,6 +43,7 @@ function ClosetCategoryDetailPage () {
 
     return (
         <div>
+            <NavStack />
             <div className="closetCategoriesSearchBar">
                 <ClosetSearchBar constraint={constraint} categoryName={categoryName} />
             </div>

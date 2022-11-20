@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 
 // import component
 import ClosetOutfitList from '../ClosetPage/ClosetOutfit.jsx';
+import NavStack from '../Nav/NavStack.jsx';
 
 // import material ui
 import { Typography } from '@mui/material';
@@ -38,6 +39,7 @@ function ClosetOutfits () {
 
     return (
         <div className='outfitForm'>
+            <NavStack />
             <Typography variant='h6'>My Closet: Outfits</Typography>
             <Stack spacing={2}>
                 {closetOutfits.map(outfit => (
