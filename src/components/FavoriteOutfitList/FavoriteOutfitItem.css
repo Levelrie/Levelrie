@@ -1,16 +1,16 @@
 .faveOutfitContainer {
     display: grid;
-    /* set width of each column */
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    /* set height of each row */
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    /* set width of each column - 13 columns each 1fr in width */
+    grid-template-columns: repeat(13, 1fr);
+    /* set height of each row - 13 rows each 1fr in height */
+    grid-template-rows: repeat(13, 1fr);
     /* keeps individual outfit items from resizing */
     aspect-ratio: 1 / 1;
 }
 
 .faveOutfitContainer > #top {
     /* column number that the item starts in (11 columns) */
-    grid-column: 6 / span 4;
+    grid-column: 4 / span 7;
     /* row number that the item starts in (11 rows)  */
     grid-row: 4 / span 7;
     z-index: 3
@@ -30,13 +30,13 @@
 
 .faveOutfitContainer > #footwear {
     grid-column: 2 / span 5;
-    grid-row: 9 / span 4;
+    grid-row: 8 / span 6;
     z-index: 4
 }
 
 .faveOutfitContainer > #accessories {
-    grid-column: 8 / span 3;
-    grid-row: 1;
+    grid-column: 7 / span 5;
+    grid-row: 1 / span 2;
     z-index: 5
 }
 
