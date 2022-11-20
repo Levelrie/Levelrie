@@ -55,11 +55,12 @@ function AdminDesign() {
     })
   }
 
-  const fetchOutfits = () => {
+  const fetchOutfits = (event) => {
+    event.preventDefault();
     setAddOutfit(false);
-    // dispatch ({
-    //   type: 'SAGA_'
-    // })
+    dispatch ({
+      type: 'SAGA_FETCH_OUTFITS'
+    })
   }
 
   return (

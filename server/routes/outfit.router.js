@@ -30,7 +30,7 @@ router.get('/home', (req, res) => {
                             LEFT JOIN "favorited_outfits" ON outfits.id = favorited_outfits.outfit_id
                             LEFT JOIN "rejections" ON outfits.id = rejections.outfit_id
                                 GROUP BY outfits.id, favorited_outfits.user_id, rejections.user_id;`
-Thi
+
     pool.query(sqlText)
         .then((results) => {
             let outfits = results.rows;
