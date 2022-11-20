@@ -19,7 +19,7 @@
    padding: 20px;
    margin:auto;
    margin-left: auto;
-   margin-right: auto;
+   margin-right: 25px;
    left: 0;
    right: 0;
    text-align: center;
@@ -28,4 +28,121 @@
 
 .outfitsListSearchBar {
    text-align: center;
+}
+
+
+
+
+/* ************************************ ORIENTATION ************************************ */
+.homeOrientation {
+   width: 100%;
+   margin-top: 360px;
+   margin-right: 15px;
+   margin-left: 15px;
+   position: relative;
+}
+
+@keyframes sickFade {
+   from {
+      opacity: 0;
+   }
+   35% {
+      opacity: 1;
+   }
+   85% {
+      opacity: 1;
+   }
+   to {
+     opacity: 0;
+   }
+}
+
+.orientationRightDiv {
+   /* background-color: aqua; */
+   animation: sickFade 4s;
+   animation-fill-mode: forwards;
+   position: absolute;
+   z-index: 10;
+   margin-left: auto;
+   margin-right: 37px;
+   left: 0;
+   right: 0;
+   text-align: center;
+}
+
+@keyframes rightSwipeIcon {
+   from {
+      transform: rotate(-20deg);
+   }
+   to {
+      transform: rotate(20deg);
+   }
+}
+
+.rightIcon {
+   animation: rightSwipeIcon 4s;
+   animation-iteration-count: 1;
+}
+
+.orientationLeftDiv {
+   /* background-color: rgb(255, 0, 200); */
+   text-align: center;
+   position: absolute;
+   z-index: 11;
+   animation: sickFade 4s;
+   animation-fill-mode: both;
+   animation-delay: 4s;
+   margin-left: auto;
+   margin-right: 37px;
+   left: 0;
+   right: 0;
+   text-align: center;
+}
+
+@keyframes leftSwipeIcon {
+   from {
+      transform: rotate(20deg);
+   }
+   to {
+      transform: rotate(-20deg);
+   }
+}
+
+.leftIcon {
+   animation: leftSwipeIcon 4s;
+   animation-iteration-count: 4;
+}
+
+.orientationFaveDiv {
+   /* background-color: rgb(72, 255, 0); */
+   text-align: center;
+   position: absolute;
+   z-index: 12;
+   animation: sickFade 4s;
+   animation-fill-mode: both;
+   animation-delay: 8s;
+   margin-left: auto;
+   margin-right: 37px;
+   left: 0;
+   right: 0;
+   text-align: center;
+}
+
+@keyframes touchFaveIcon {
+   from {
+      transform: scale(1);
+   }
+   to {
+      transform: scale(0.8);
+   }
+}
+
+.touchIcon {
+   animation: touchFaveIcon 4s;
+   animation-iteration-count: 10;
+}
+
+.orientationP {
+   margin: 2px;
+   color: #D62BD9
 }
