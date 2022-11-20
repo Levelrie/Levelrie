@@ -1,6 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useState } from 'react';
 
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+
 export default function HomeFaveButton({itemId, outfitId}) {
 
     const [check, setCheck] = useState(false);
@@ -37,6 +41,26 @@ export default function HomeFaveButton({itemId, outfitId}) {
     }
 
     return (
-        <button className="pressable" onClick={handleFavorite}>{text}</button>
+        // <div className="pressable" onClick={handleFavorite}>
+
+        //     <Checkbox 
+        //     className="pressable"
+        //     checked={check}
+        //     onClick={handleFavorite}
+        //     icon={<FavoriteBorder className="pressable" />}
+        //     checkedIcon={<Favorite className="pressable" />}
+        //     value={check}
+        //     sx={{
+        //         color: 'pink',
+        //         '&.Mui-checked': {
+        //           color: 'pink',
+        //         },
+        //         className: "pressable"
+        //     }}
+        // />
+
+        // </div>
+        // <button className="pressable button" onClick={handleFavorite}>{text}</button>
+        <img className={check === false ? "pressable homeHeart faded" : "pressable homeHeart"} onClick={handleFavorite} src="./images/home_heart_button.png" />
     )
 }

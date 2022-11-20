@@ -329,7 +329,7 @@ function App() {
               <CheckoutConfirmation />
             </ProtectedRoute>
 
-            <Route
+            {/* <Route
               exact
               path="/login"
             >
@@ -341,7 +341,7 @@ function App() {
                 // Otherwise, show the login page
                 <LoginPage />
               }
-            </Route>
+            </Route> */}
 
             <Route
               exact
@@ -357,7 +357,7 @@ function App() {
               }
             </Route>
 
-            <Route
+            {/* <Route
               exact
               path="/landing"
             >
@@ -369,7 +369,7 @@ function App() {
                 // Otherwise, show the Landing page
                 <LandingPage />
               }
-            </Route>
+            </Route> */}
             
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>

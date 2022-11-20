@@ -101,7 +101,7 @@ export default function SearchToggleButton({setConstraint, currentCategories, se
                 Category
             </Button>
         </Stack>
-        <FormGroup aria-label="position" row>
+        <FormGroup aria-label="position" row sx={{justifyContent: 'center', paddingTop: '10px'}}>
         {categories.map((category, i) => {
             return (
                 <FormControlLabel

@@ -1,29 +1,41 @@
 import SearchFavoriteButton from "./SearchFavoriteButton";
+import SearchFavoriteOutfitItem from "./SearchFavoriteOutfitItem";
+import SearchFavoriteItemItem from "./SearchFavoriteItemItem";
 
-export default function SearchResults({searchResults}) {
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
+export default function SearchResults({searchResults, constraint}) {
 
     return (
         <>
-            {searchResults.map((result, i) => {
-                return (
-                    <div key={i} className="resultsDiv">
-                        <p>{result.name}</p>
-                        {/* If the result is one item, its image will be rendered */}
-                        <SearchFavoriteButton id={result.id} />
-                        <img className="resultImg" src={result.img} />
-                        {/* If the result is an outfit, all outfit items will be rendered */}
-                        {result?.items?.map((item, i) => {
-                            return (
-                                <div key={i}>
-                                    <img className="resultImg" src={item.f1.img} />
-                                </div>
-                            );
-                        })}
+            {constraint === 'globalOutfits' ? 
 
-                    </div>
-                );
-            })}
+                <Stack spacing={2}>
+                    {searchResults?.map(outfit => (
+                        <div className='faveOutfitCard' key={outfit.id}>
+                            <p>{outfit.name}</p>
+                            <SearchFavoriteOutfitItem key={outfit.outfit_id} outfit={outfit}/>
+                            <SearchFavoriteButton id={outfit.id} />
+                        </div>
+                    ))}
+                </Stack>  
 
+        : constraint === 'globalItems' ? 
+        <>
+            <Stack spacing={2}>
+            {searchResults?.map((item, i) => {
+            return (
+                <div key={i} className="resultsDiv">
+                    {/* If the result is an outfit, all outfit items will be rendered */}
+                    <SearchFavoriteItemItem key={i} item={item} />
+                </div>
+            );
+        })}
+            </Stack>
+        </>
+        : null
+        } 
         </>
     );
 

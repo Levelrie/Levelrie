@@ -6,6 +6,8 @@ import './FavoriteOutfitList.css';
 import FavoriteSearchBar from './FavoriteSearchBar';
 import UnfavoriteOutfitButton from './UnfavoriteOutfitButton';
 
+import NavStack from '../Nav/NavStack';
+
 // MUI
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -61,6 +63,7 @@ function FavoriteOutfitList() {
 
     return (
         <>
+        <NavStack />
         <div className="outfitsListSearchBar">
              <FavoriteSearchBar constraint={constraint} />
         </div>

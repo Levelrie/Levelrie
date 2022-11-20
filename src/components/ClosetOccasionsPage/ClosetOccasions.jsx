@@ -12,7 +12,7 @@ function ClosetCategoryOccasions ({occasion}) {
      // handle the outfit detail click
      const handleDetailsClick = () => {
          history.push(`/closet/${occasion.name}/outfits`)
-         window.location.reload(); 
+        //  window.location.reload(); 
          // this is to hard refresh page, will probably find a better way to refresh page in the future.
      }
     return (

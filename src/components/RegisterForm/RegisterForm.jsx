@@ -38,7 +38,7 @@ function RegisterForm() {
 
   return (
     <form className='registerForm' onSubmit={registerUser}>
-      <img onClick={onHome} src='https://res.cloudinary.com/dgainc6rr/image/upload/v1667588949/Logo/Levelrie_Logo_ipecqt.png'/>
+      <img src='https://res.cloudinary.com/dgainc6rr/image/upload/v1668918083/Levelrie_Logo_Cropped_1_ydibm5.png'/>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
@@ -71,7 +71,7 @@ function RegisterForm() {
       <div>
       <TextField 
           id="firstName" 
-          label="First Name" 
+          label="first name" 
           variant="outlined"
           type="text"
           margin="dense"
@@ -83,7 +83,7 @@ function RegisterForm() {
       <div>
         <TextField 
           id="lastName" 
-          label="Last Name" 
+          label="last name" 
           variant="outlined"
           type="text"
           margin="dense"
@@ -95,7 +95,7 @@ function RegisterForm() {
       <div>
         <TextField 
           id="email" 
-          label="Email" 
+          label="email" 
           variant="outlined"
           type="text"
           margin="dense"

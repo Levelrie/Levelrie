@@ -14,7 +14,7 @@ function ClosetCategory ({category}) {
     const handleDetailsClick = () => {
         history.push(`/closet/categories/${category.name}`)
         // console.log('outfit clicked', 'id', category.id, 'category', category.name);
-        window.location.reload(); 
+        // window.location.reload(); 
         // this is to hard refresh page, will probably find a better way to refresh page in the future.
     }
 
