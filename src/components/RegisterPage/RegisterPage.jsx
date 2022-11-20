@@ -12,12 +12,12 @@ function RegisterPage() {
       <RegisterForm />
       <div className='RegisterPage'>
         <Button 
-          variant="contained"
+          variant="text"
           onClick={() => {
-            history.push('/landing');
+            history.push('/login');
           }}
         >
-          Back
+          Back to Login
         </Button>
       </div>
     </div>

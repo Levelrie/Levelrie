@@ -83,12 +83,12 @@ Alert
 
 .alert {
   box-sizing: border-box;
-  padding: 15px 10px;
-  margin: 15px 0;
-  border: 2px solid #e01616;
+  padding: 10px 10px;
+  margin: 0;
+  border: 2px solid #D62BD9;
   background-color: #efefef;
   border-radius: 3px;
-  color: #e01616;
+  color: #D62BD9;
   font-size: 0.8rem;
 }
 
