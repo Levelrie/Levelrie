@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import './FavoriteOutfitOccasions.css'
 
 function FavoriteOutfitOccasions() {
@@ -54,20 +56,22 @@ function FavoriteOutfitOccasions() {
     }
 
     return (
-        <Box sx={{width: '100%'}} className='occasionCategoryContainer'>
+        <Container className='faveCategoriesContainer'>
+        <Stack>
         <Typography variant="h6">Faves</Typography>
-            <Grid container spacing={1} mt={3} mb={3} className='occasionCategoryContainer'>
-                {
-                occasions.map(occasion => {
-                    return (
-                        <Grid item xs={6} key={occasion.id}>
-                            <Button id={occasion.id} sx={{borderRadius:5, fontSize:20}} className="favoriteOccasionButton" color='palePink' onClick={handleClick} variant='contained'>{occasion.name}</Button>
-                        </Grid>
-                    )
-                })
-                }
-            </Grid>
-        </Box>
+        </Stack>
+        <Box sx={{width: '100%'}}>
+           <Grid container spacing={1} mt={3} mb={3}>
+               {occasions.map((category) => {
+                   return (
+                       <Grid key={category.id} item xs={6}>
+                           <Button id={category.id} sx={{borderRadius:5, fontSize:20}} className="categoryButton" color='palePink' onClick={handleClick} variant='contained'>{category.name}</Button>
+                       </Grid>
+                   );
+               })}
+           </Grid>
+       </Box>
+        </Container>
     );
 };
 

@@ -33,7 +33,7 @@ function ClosetOccasion () {
     },[]);
  
     return (
-        <div>
+        <div className="closetOccasionsPage">
             <Container className='faveCategoriesContainer'>
             <Typography variant="h6">My Closet: Occasion Outfits</Typography>
                 <Box sx={{width: '100%'}}>
