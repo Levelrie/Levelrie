@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import FavoriteItemItem from '../FavoriteItemList/FavoriteItemItem';
+import NavStack from '../Nav/NavStack';
 
 import './FavoriteOutfitItemDetail.css';
 
@@ -38,6 +39,7 @@ function FavoriteOutfitItemDetail() {
 
     return (
         <div className="favoriteOutfitItemDetailsPage">
+            <NavStack />
             {/* <p>FavoriteOutfitItemDetail</p> */}
             {/* // Category won't be used here, so we can set it to zero */}
             <FavoriteItemItem item={item} category={item.category_id} sizes={sizes} colors={colors} inItemDetails={true}/>
