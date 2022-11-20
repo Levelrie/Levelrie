@@ -31,7 +31,7 @@ function ClosetItemPage () {
     },[]);
 
     return (
-        <div>
+        <div className='closetOccasionsPage'>
             <Container className='faveCategoriesContainer'>
             <Typography variant="h6">My Closet: Category</Typography>
                 <Box sx={{width: '100%'}}>
