@@ -24,7 +24,6 @@ function FavoriteOutfitItem({outfit, occasionId}) {
             })
             }
          </div>
-         <BuyButton outfit={outfit}/>
          </> 
      );
  };

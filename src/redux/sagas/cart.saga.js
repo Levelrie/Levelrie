@@ -12,7 +12,12 @@ function* cartItem(action) {
 }
 
 function* cartOutfit(action){
-    console.log('outfit in cartOutfit', action.payload.items)
+    console.log('outfit in cartOutfit', action.payload)
+    try {
+        yield axios.post('/api/cart/outfit', action.payload)
+    } catch (error) {
+        console.log('error in cartOutfit POST', error)
+    }
 }
 
 function* fetchCart(){

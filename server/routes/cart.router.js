@@ -52,6 +52,60 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     }  
     connection.release();
 });
+
+router.post('/outfit', rejectUnauthenticated, async (req, res) => {
+
+  // ••• This route is forbidden if not logged in •••
+
+  console.log('BREAKING HERE?????? 0');
+  
+  const userId = req.user.id;
+  const itemIds = [];
+  console.log('req.body', req.body)
+
+  for(let item of req.body){
+    itemIds.push(item.f1.id)
+  }
+  console.log('itemIds', itemIds)
+
+  //SQL to add item to carts table
+  const sqlAddItemText = `INSERT INTO "carts"
+                                  ("user_id", "item_id")
+                                  VALUES
+                                  ($1, $2);`
+                                  
+
+
+  const connection = await pool.connect();
+
+  try {
+      await connection.query('BEGIN;');
+     
+
+      // Add the item next
+      for(let id of itemIds){
+        await connection.query(sqlAddItemText, [userId, id]);
+      }
+     
+      
+      // Confirm successful actions
+      await connection.query('COMMIT;');
+
+      
+
+      res.sendStatus(201);
+
+
+      
+
+  } catch (error) {
+      await connection.query('ROLLBACK;');
+      console.log('Error in POST /cart', error)
+      res.sendStatus(500);
+  }  
+  connection.release();
+});
+
 /**
  * GET route template
  */

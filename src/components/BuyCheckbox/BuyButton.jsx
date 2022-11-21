@@ -8,10 +8,10 @@ export default function BuyButton({ outfit }) {
     const dispatch = useDispatch()
 
     const buyThisFit = () => {
-        console.log('outfit buy button', outfit);
+        console.log('outfit buy button', outfit[0].items);
         dispatch({
                 type: 'SAGA_ADDCART_OUTFIT',
-                payload: outfit
+                payload: outfit[0].items
             })
       }
     
