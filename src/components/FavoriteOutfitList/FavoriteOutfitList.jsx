@@ -62,7 +62,7 @@ function FavoriteOutfitList() {
     }, []);
 
     return (
-        <>
+        <div className="paddingForBuyButton">
         <NavStack />
         <div className="outfitsListSearchBar">
              <FavoriteSearchBar constraint={constraint} />
@@ -78,7 +78,7 @@ function FavoriteOutfitList() {
             <BuyButton outfit={favoriteOutfits}/> 
         </Stack> 
           
-        </>
+        </div>
     );
 };
 export default FavoriteOutfitList;
