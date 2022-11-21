@@ -265,6 +265,22 @@ router.get('/all', (req, res) => {
     });
 });
 
+// Selects all items, limited by one per distinct item name
+router.get('/design', (req, res) => {
+    const sqlFetchText = `SELECT * FROM "items" WHERE
+                            items.id IN (SELECT max(items.id) FROM "items" GROUP BY items.name)
+                            ORDER BY items.category_id;`
+
+    pool.query(sqlFetchText)
+    .then((results) => {
+        res.send(results.rows);
+    })
+    .catch((error) => {
+        console.log('Error in GET /api/item/design query', error);
+        res.sendStatus(500);
+    });
+})
+
 // •••••••••••••••••••••••••••••••••••••••• CHANGE A FAVORITED ITEM'S COLOR AND SIZE ROUTES BELOW ••••••••••••••••••••••••••••••••••••••••
 
 router.put('/changecolor', rejectUnauthenticated, async (req, res) => {

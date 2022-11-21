@@ -100,13 +100,27 @@ function* findOutfit(action) {
   }
 }
 
+function* fetchItemsForDesign() {
+    try {
+        const items = yield axios.get('/api/item/design');
+        yield put({
+            type: 'SET_ITEMS',
+            payload: items.data
+        })
+
+    } catch (error) {
+        console.log('itemsSaga fetchItemsForDesign function error', error);
+    }
+}
+
 function* designSaga() {
     yield takeLatest('SAGA_FETCH_OUTFITS', fetchOutfits),
     yield takeLatest('SAGA_CREATE_OUTFIT', createOutfit),
     yield takeLatest('SAGA_EDIT_OUTFIT', editOutfit),
     yield takeLatest('SAGA_DELETE_OUTFIT', deleteOutfit),
     yield takeLatest('SAGA_CLEAR_OUTFIT', clearOutfit),
-    yield takeLatest('SAGA_FIND_OUTFIT', findOutfit)
+    yield takeLatest('SAGA_FIND_OUTFIT', findOutfit),
+    yield takeLatest('SAGA_FETCH_ITEMS_FOR_DESIGN', fetchItemsForDesign);
 }
 
 export default designSaga;
