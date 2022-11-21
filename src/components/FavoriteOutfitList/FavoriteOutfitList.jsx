@@ -75,8 +75,9 @@ function FavoriteOutfitList() {
                     <UnfavoriteOutfitButton outfitId={outfit.outfit_id} occasionId={occasionId} />
                 </div>
             ))}
+            <BuyButton outfit={favoriteOutfits}/> 
         </Stack> 
-         <BuyButton outfit={favoriteOutfits}/>  
+          
         </>
     );
 };

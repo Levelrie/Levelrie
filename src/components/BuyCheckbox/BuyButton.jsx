@@ -13,10 +13,13 @@ export default function BuyButton({ outfit }) {
                 type: 'SAGA_ADDCART_OUTFIT',
                 payload: outfit[0].items
             })
+            .then(
+                history.push('/cartlanding')
+            )
       }
     
 
     return(
-        <Button variant='contained' onClick={buyThisFit} sx={{width:.8}}>Purchase Items</Button>
+        <Button variant='contained' onClick={buyThisFit} >Purchase Outfit</Button>
     )
 }
