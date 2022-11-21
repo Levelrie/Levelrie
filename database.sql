@@ -157,7 +157,8 @@ INSERT INTO "occasions"
             ('Date Night'),
             ('Airport'),
             ('Work'),
-            ('Casual');           
+            ('Casual')
+            ('Formal');           
 
             -- ****************** TEST DATA BELOW *********************
 INSERT INTO "users"
@@ -173,11 +174,13 @@ INSERT INTO "users"
 INSERT INTO "outfits"
 	("name", "description", "occasion_id")
 		VALUES
-		('All business', 'For closing that deal', 4),
-		('Rebel with a cause', 'For taking names', 1),
-		('Business and pleasure', 'For going out', 2),
-		('Casual vibes', 'For running errands', 5),
-        ('On the go', 'For travel', 3);	
+		('All business', 'For closing that deal', 4), --work
+			('Rebel with a cause', 'For taking names', 1), -- brunch
+			('On the go', 'For travel', 3), -- airport
+			('Casual vibes', 'For running errands', 5), -- casual
+			('Love is in the air', 'For a hot date', 2), -- date night
+			('Bruncheon', 'For brunching with the squad', 1), -- brunch
+			('Boss babe', 'Presentation confidence', 4); -- work
 
 INSERT INTO "items"
 	("name", "color", "size", "seller", "price", "img", "category_id")
@@ -253,26 +256,40 @@ INSERT INTO "items"
 INSERT INTO "outfit_items"
 	("outfit_id", "item_id")
 		VALUES
-			(1, 30),
-			(1, 45),
-			(1, 61),
-			(1, 23),
-			(2, 36),
-			(2, 58),
-			(2, 20),
-			(2, 37),
-			(3, 12),
-			(3, 17),
-			(3, 43),
-			(3, 56),
-			(4, 14),
-			(4, 21),
-			(4, 49),
-			(4, 60),
-            (5, 26),
-			(5, 21),
-			(5, 61),
-			(5, 45);
+			(1, 30), -- floral blazer
+            (1, 23), -- cami
+            (1, 45), -- frame skinny jeans
+            (1, 61), -- pumps
+            (1, 65), -- mango belt
+            (2, 36), -- cropped blazer
+            (2, 58), -- combat boots
+            (2, 20), -- cami
+            (2, 37), -- maroon pants
+            (2, 62), -- double buckle belt
+            (3, 12), -- cardi
+            (3, 17), -- black t-shirt
+            (3, 43), -- jogger pants
+            (3, 56), -- nike sneaks
+            (4, 14), -- cardi
+            (4, 21), -- cami
+            (4, 49), -- light wash jeans
+            (4, 60), -- white sneaks
+            (4, 64), -- revolve belt
+            (5, 26), -- velvet blazer
+            (5, 21), -- beige cami
+            (5, 61), -- pumps
+            (5, 65), -- mango belt
+            (5, 45), -- frame skinny jeans
+            (6, 15), -- tweed blazer
+            (6, 10), -- cream knit
+            (6, 41), -- jeans
+            (6, 61), -- pumps
+            (6, 65), -- mango belt   
+            (7, 34), -- beige blazer
+            (7, 3), -- tank
+            (7, 40), -- slouchy pants
+            (7, 61), -- pumps
+            (7, 62); -- double buckle belt
 
 INSERT INTO "closet_outfits"
  	    ("user_id", "outfit_id")

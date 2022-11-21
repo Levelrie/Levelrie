@@ -11,13 +11,14 @@ function LoginPage() {
     <div>
       <LoginForm />
       <div className='LoginPage'>
+        New here?
         <Button 
-          variant="contained"
+          variant="text"
           onClick={() => {
-            history.push('/landing');
+            history.push('/registration');
           }}
         >
-          Back
+          Register
         </Button>
       </div>
     </div>

@@ -35,7 +35,7 @@ function LoginForm() {
 
   return (
     <form className='loginForm' onSubmit={login}>
-      <img onClick={onHome} src='https://res.cloudinary.com/dgainc6rr/image/upload/v1667588949/Logo/Levelrie_Logo_ipecqt.png'/>
+      <img src='https://res.cloudinary.com/dgainc6rr/image/upload/v1668918083/Levelrie_Logo_Cropped_1_ydibm5.png'/>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}

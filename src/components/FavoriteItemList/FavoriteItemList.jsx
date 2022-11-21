@@ -5,6 +5,8 @@ import FavoriteItemItem from "./FavoriteItemItem";
 import FavoriteSearchBar from '../FavoriteOutfitList/FavoriteSearchBar';
 import './FavoriteItemList.css';
 
+import NavStack from '../Nav/NavStack';
+
 // MUI
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -67,6 +69,7 @@ function FavoriteItemList() {
     console.log('favoriteItems is:', favoriteItems);
     return (
         <>
+        <NavStack />
         <Container className='favoriteItemListContainer'>
         <FavoriteSearchBar constraint={constraint} categoryName={category} />
             <Typography variant="h6">{category}</Typography>
