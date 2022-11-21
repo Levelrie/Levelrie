@@ -142,7 +142,8 @@ INSERT INTO "categories"
             ('dress'),
             ('hat'),
             ('outerwear'),
-            ('accessories');
+            ('accessories'),
+            ('hats');
             
 
 INSERT INTO "occasions"
