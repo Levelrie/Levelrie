@@ -18,9 +18,8 @@ if (process.env.DB_PASS) {
     password: 'db.bit.io',
     database: 'levelrie/levelrie',
     password: process.env.DB_PASS,
-    ssl: { rejectUnauthorized: false },
-    max: 10, // max number of clients in the pool
-    idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
+    port: 5432,
+    ssl: true,
   };
 } else {
   config = {
