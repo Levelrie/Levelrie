@@ -16,8 +16,6 @@ if (process.env.DB_PASS) {
   config = {
     user: 'levelrie',
     password: 'db.bit.io',
-    host: params.hostname,
-    port: params.port,
     database: 'levelrie/levelrie',
     password: process.env.DB_PASS,
     ssl: { rejectUnauthorized: false },
