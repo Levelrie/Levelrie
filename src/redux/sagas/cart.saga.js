@@ -11,6 +11,10 @@ function* cartItem(action) {
     }
 }
 
+function* cartOutfit(action){
+    console.log('outfit in cartOutfit', action.payload.items)
+}
+
 function* fetchCart(){
     try {
         const cartRes = yield axios({
@@ -78,5 +82,6 @@ export default function* cartSaga() {
     yield takeEvery('GET_CART_ITEMS', fetchCart)
     yield takeEvery('CLEAR_CART', clearCart)
     yield takeEvery('BUY_CART', buyCart)
+    yield takeEvery('SAGA_ADDCART_OUTFIT', cartOutfit)
     
 }
