@@ -14,7 +14,7 @@ function RegisterPage() {
         <Button 
           variant="text"
           onClick={() => {
-            history.push('/login');
+            history.push('/home');
           }}
         >
           Back to Login

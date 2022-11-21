@@ -64,11 +64,12 @@
     height:100%;
     object-fit: contain;
     filter: drop-shadow(1px 1px 1px rgb(176, 175, 175));
+    pointer-events: none;
 }
 
 .homeHeart {
     width: 20px;
-    z-index: 20;
+    z-index: 10000;
     position: absolute;
     top: 50%;
     left: 20%;
@@ -76,7 +77,22 @@
  
 }
 
+#outerwear > .homeHeart {
+    width: 20px;
+    z-index: 10000;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    margin-left: 40px;
+}
+
+
+
 .faded {
    filter: brightness(60%);
    opacity: .8;
 }
+
+/* .zIndex {
+    z-index: 1000000000000;
+} */

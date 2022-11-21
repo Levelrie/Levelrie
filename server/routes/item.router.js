@@ -233,7 +233,7 @@ router.get('/categories', (req, res) => {
             WHEN name = 'footwear' THEN 5
             ELSE 6
         END
-        LIMIT 5
+        LIMIT 6
         ;`
 
     pool.query(sqlFetchText)
