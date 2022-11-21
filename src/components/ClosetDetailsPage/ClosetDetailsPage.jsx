@@ -39,7 +39,7 @@ function ClosetDetailsPage () {
     }
 
     return (
-        <div className="closetItemList">
+        <div className="paddingForBuyButton">
             <Typography className='ClosetTitle' variant='h6'>My Closet: Outfit Details</Typography>
             {/* <Typography variant='h6'>{outfitDetails.name}</Typography>
             <Typography variant='h6'>{outfitDetails.description}</Typography> */}
