@@ -24,11 +24,6 @@ CREATE TABLE "outfits" (
     "occasion_id" INT REFERENCES "occasions"
 );
 
-CREATE TABLE "occasions" (
-    "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (80) UNIQUE NOT NULL
-);
-
 CREATE TABLE "categories" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR (80) UNIQUE NOT NULL
@@ -157,7 +152,7 @@ INSERT INTO "occasions"
             ('Date Night'),
             ('Airport'),
             ('Work'),
-            ('Casual')
+            ('Casual'),
             ('Formal');           
 
             -- ****************** TEST DATA BELOW *********************
@@ -297,6 +292,6 @@ INSERT INTO "closet_outfits"
  		(6, 5);
 
 INSERT INTO "addresses"
- 	("user_id", "nickname", "street_address", "city", "state", "zip", "preferred" )
+ 	("user_id", "nickname", "street_address", "city", "state", "zip", "preferred")
  	VALUES
  	(6, 'Home', '301 Fourth Ave S', 'Minneapolis', 'MN', '55415', true);

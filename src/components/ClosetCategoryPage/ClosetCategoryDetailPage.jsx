@@ -42,7 +42,7 @@ function ClosetCategoryDetailPage () {
     }, [params.name])
 
     return (
-        <div>
+        <div className="paddingForBuyButton">
             <NavStack />
             <div className="closetCategoriesSearchBar">
                 <ClosetSearchBar constraint={constraint} categoryName={categoryName} />
