@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';  
 import InputLabel from '@mui/material/InputLabel';
@@ -19,15 +18,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 function OutfitDesignDetails() {
-  //  TODO
-  //    1.  Setup an Outfit Fetch to utilize an Outfit Store
-  //    2.  Create a dispatch for Submitting an Outfit Create
-  //    3.  Figure out the Edit Outfit stuffzzzz
 
   const dispatch = useDispatch();
 
   //  Local state
-  // const [addOutfit, setAddOutfit] = useState(true);
   const [occasionPick, setOccasionPick] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -41,16 +35,6 @@ function OutfitDesignDetails() {
   const bottom = useSelector((store) => store.bottom);
   const footwear = useSelector((store) => store.footwear);
   const occasions = useSelector((store) => store.occasions);
-  // const outfit = useSelector((store) => store.outfit);
-
-  //  Calculating outfit price starting with strings containing special characters
-  //  Set strings to numbers and removing $
-  // const outerwearPrice = Number((outerwear.price)?.replace('$','')) || '';
-  // const topPrice = Number((top.price)?.replace('$','')) || '';
-  // const accessoryPrice = Number((accessory.price)?.replace('$','')) || '';
-  // const bottomPrice = Number((bottom.price)?.replace('$','')) || '';
-  // const footwearPrice = Number((footwear.price)?.replace('$','')) || '';
-  // const totalPrice = outerwearPrice+topPrice+accessoryPrice+bottomPrice+footwearPrice;
 
   //  Launches Dialog Pop-Up
   const handleSubmitCheck = () => {
@@ -143,16 +127,6 @@ function OutfitDesignDetails() {
                 readOnly: true,
               }}
             />
-            {/* <TextField
-              size='small'
-              variant="outlined"
-              id="outlined-read-only-input"
-              label="Outfit Price:"
-              value={totalPrice || ''}
-              InputProps={{
-                readOnly: true,
-              }}
-            /> */}
           </Stack>
         </Card>
         <Card sx={{borderRadius: 4, width: '50%'}}>

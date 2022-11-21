@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';  
 import InputLabel from '@mui/material/InputLabel';
@@ -23,9 +22,6 @@ function EditOutfitDesignDetails() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-  //   dispatch ({
-  //     type: 'SAGA_FETCH_OUTFITS'
-  //   })
   }, [nameId])
 
   //  Local state
@@ -65,24 +61,6 @@ function EditOutfitDesignDetails() {
   const handleDeleteClose = () => {
     setDeleteCheck(false);
   };
-
-  //  Adds Outfit to Database
-  // const createOutfit = (event) => {
-  //   event.preventDefault();
-  //   setOpen(false);
-  //   dispatch ({
-  //     type: 'SAGA_CREATE_OUTFIT',
-  //     payload: {
-  //       name: nameId,
-  //       description: description,
-  //       occasion: occasionPick,
-  //       item_ids: [outerwear.id, top.id, accessory.id, bottom.id, footwear.id]
-  //     }
-  //   })
-    // setName('');
-    // setOccasionPick('');
-    // setDescription('');
-  // }
 
   //  Update an Outfit in the Database
   const updateOutfit = (event) => {
@@ -197,8 +175,6 @@ function EditOutfitDesignDetails() {
         </Card>
         <Card sx={{borderRadius: 4, width: '50%'}}>
           <Stack direction="column" spacing={2} display='flex'>
-{/* ---------------👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇------------------ */}
-
             <FormControl required fullWidth size="small" >
               <InputLabel id="demo-select-small" >Outfit Name</InputLabel>
               <Select
@@ -206,9 +182,7 @@ function EditOutfitDesignDetails() {
                 labelid="demo-select-small"
                 id="demo-simple-small"
                 label="Outfit Name"
-                // defaultValue={''}
                 value={nameId}
-                // onChange={(event) => { setName(event.target.value); }}
                 onChange={(event) => handleSelection(event.target.value)}
               >
                 <MenuItem value="">
@@ -221,10 +195,6 @@ function EditOutfitDesignDetails() {
                 ))}
               </Select>
             </FormControl>
-
-{/* ---------------👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆------------------ */}
-{/* -----------------------I keep the one below but need to have the default value set based on above--------------------------------------------- */}
-
             <FormControl required fullWidth size="small" >
               <InputLabel id="demo-select-small" >Outfit Occasion</InputLabel>
               <Select
@@ -245,8 +215,6 @@ function EditOutfitDesignDetails() {
                 ))}
               </Select>
             </FormControl>
-{/* ------------------------------------------------------------------------------------ */}
-
             <TextField
               size='small'
               variant="outlined"

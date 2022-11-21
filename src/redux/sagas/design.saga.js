@@ -47,17 +47,6 @@ function* editOutfit(action) {
   return;
 }
 
-// function* updateQuest(action) {
-//   console.log('In update quest SAGA', action.payload);
-//   const id = action.payload.id
-//   try {
-//       yield axios.put(`/api/quest/${id}`, action.payload);
-//       yield put({ type: 'UPDATE_SCORE', payload: action.payload});
-//   } catch (error) {
-//       console.log('Quest update request failed', error);
-//   }
-// }
-
 //  Delete Outfit Saga
 function* deleteOutfit(action) {
   console.log('Action Payload:', action.payload);

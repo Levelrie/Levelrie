@@ -9,8 +9,6 @@ import Stack from '@mui/material/Stack';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Fab from '@mui/material/Fab';
 import Tooltip from '@mui/material/Tooltip';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
 
 //  CSS
 import './AdminDesign.css';
@@ -26,7 +24,6 @@ function AdminDesign() {
   const dispatch = useDispatch();
 
   //  Local state
-  // const [outfitDesign, setOutfitDesign] = useState(true);
   const [addOutfit, setAddOutfit] = useState(true);
   
   //  Reducer store data
@@ -55,6 +52,16 @@ function AdminDesign() {
     })
   }
 
+  //  Set to Create - Clears Outfits
+  const clearOutfits = (event) => {
+    event.preventDefault();
+    setAddOutfit(true);
+    dispatch ({
+      type: 'CLEAR_OUTFITS'
+    })
+  }
+
+  //  Set to Edit - Fetchs Outfits
   const fetchOutfits = (event) => {
     event.preventDefault();
     setAddOutfit(false);
@@ -84,7 +91,7 @@ function AdminDesign() {
                 {/* Create Outfit Display and Details */}
                 <Button variant="contained"
                   size="small"
-                  onClick={(event) => {setAddOutfit(true)}} 
+                  onClick={clearOutfits} 
                   color={addOutfit ? 'primary' : 'baseTan' }
                   sx={{borderRadius: 3 , width: 120, left: 10, fontSize: 16}}
                   className={addOutfit ? 'frontButton' : ''}
@@ -94,7 +101,6 @@ function AdminDesign() {
                 {/* Edit Outfit Display and Details */}
                 <Button variant="contained"
                   size="small"
-                  // onClick={(event) => {setAddOutfit(false)}} ---OLD
                   onClick={fetchOutfits} 
                   color={addOutfit ? 'baseTan' : 'primary' }
                   sx={{borderRadius: 3, width: 120, right: 10, fontSize: 16}}
