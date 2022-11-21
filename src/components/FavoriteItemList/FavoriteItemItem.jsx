@@ -11,9 +11,9 @@ import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import Typography from '@mui/material/Typography';
 
 
-function FavoriteItemItem({item, category, sizes, colors, inItemDetails}) {
+function FavoriteItemItem({item, category, sizes, colors, inItemDetails, qtyArray=[]}) {
 
-    let qtyArray = [];
+    // let qtyArray = [];
 
     for (let i = 0; i < 10; i++) {
       qtyArray.push(i);                   

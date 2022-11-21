@@ -26,8 +26,8 @@ export default function PayNow({ total }) {
         <Stack width={.8} alignContent='center' className='payNow' mt={10}>
             <Stack direction='row' justifyContent='space-around'>
                 <Stack spacing={0}>
-                    <p className='priceTeam'>Total:</p>
-                    <p className='priceTeam'>${total}</p>
+                    <p className='priceTeam'>Shipping: $19.99</p>
+                    <p className='priceTeam'>Total: ${total + 19.99}</p>
                 </Stack>
                 <Button disabled={total === 0 ? true : false} variant='contained' onClick={handleClick}> Pay Now!</Button>
             </Stack>

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import FavoriteButton from "../FavoriteButton/FavoriteButton";  // for stretch goal
 import HomeFaveButton from "./HomeFaveButton";
 import './OutfitHomeItem.css';
+import { IconButton } from "@mui/material"; 
 
 export default function OutfitHomeItem({outfit}) {
 

@@ -67,7 +67,7 @@ export default function CheckoutConfirmation(){
         state: order.state,
         zip: order.zip
     }
-    console.log('order in confirm', order)
+    console.log('order in confirm', [order].length)
 
 
     return(
@@ -81,11 +81,11 @@ export default function CheckoutConfirmation(){
                 <h5 className='checkoutText'>Your order #BE12345 has been placed.</h5>
                 <p className='checkoutText'>We sent an email to {user.email} with your order confirmation and bill.</p>
                 <p className='checkoutText'>Time placed: {Date(order.inserted_at).toLocaleString()} </p>
-                <Stack className="checkoutShipping" direction='row' width={1}>
+                <Stack className="checkoutShipping" direction='row' width={1} >
                     <ShippingEstimate itemCount={order.length} />
                 </Stack>
-                <Stack width={.8}>
-                    <h5 className='checkoutText'>  Shipping Address</h5>
+                <Stack width={.8} alignContent='left'>
+                    <h3 className='checkoutText'>  Shipping Address</h3>
                     <ShippingAddress address={shipAddress}/>
                 </Stack>
                 <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, m: 3}}/>
@@ -93,7 +93,7 @@ export default function CheckoutConfirmation(){
                 <Stack alignItems='center' >
                     <Stack direction='row' justifyContent='space-between' alignItems='center' marginBottom={0} width={.8}>
                         <h4>Order Items</h4>
-                        <p>{order.length} Items</p>
+                        <p>{[order].length} Items</p>
                     </Stack>
                     {order.length !== 0 ? [order].map((item) => {
                         console.log('item price', item)
@@ -107,26 +107,26 @@ export default function CheckoutConfirmation(){
                 </Stack>
                 <Grid2 container width={.9} marginTop={5} alignItems='left' justifyContent='space-between'>
                     <Grid2 xs={12}>
-                        <h5 >Order Summary</h5>
+                        <h3 >Order Summary</h3>
                     </Grid2>
                     <Grid2 xs={10}>
                         <p >Subtotal</p>
                     </Grid2>
                     <Grid2 xs={2}>
-                        <p>${cartTotal}</p>
+                        <h3>${cartTotal}</h3>
                     </Grid2>
                     <Grid2 xs={10}>
                         <p >Shipping</p>
                     </Grid2>
                     <Grid2 xs={2}>
-                        <p>$19.99</p>
+                        <h3>$19.99</h3>
                     </Grid2>
                     <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 4, mb: 1}}/>
                     <Grid2 xs={10}>
-                        <h5 >Total</h5>
+                        <h3>Total</h3>
                     </Grid2>
                     <Grid2 xs={2}>
-                        <p>${cartTotal + shippingTotal}</p>
+                        <h3>${cartTotal + shippingTotal}</h3>
                     </Grid2>
                 </Grid2>
                 <Button variant='outlined' onClick={() => history.push('/home')} sx={{width:.8, mb:11}}>Back to Shopping</Button>

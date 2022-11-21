@@ -1,5 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import './FavoriteOutfitItem.css';
+import BuyButton from '../BuyCheckbox/BuyButton';
+
 
 function FavoriteOutfitItem({outfit, occasionId}) {
 
@@ -10,7 +12,8 @@ function FavoriteOutfitItem({outfit, occasionId}) {
         history.push(`/favorites/outfits/${occasionId}/${outfit.outfit_id}/${itemId}`);
     }
 
-    return (   
+    return (  
+        <>
          <div className='faveOutfitContainer'>
             {outfit.items.map(item => {
                 return(
@@ -21,6 +24,7 @@ function FavoriteOutfitItem({outfit, occasionId}) {
             })
             }
          </div>
+         </> 
      );
  };
 

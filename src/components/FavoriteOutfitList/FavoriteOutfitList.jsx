@@ -5,7 +5,7 @@ import FavoriteOutfitItem from './FavoriteOutfitItem';
 import './FavoriteOutfitList.css';
 import FavoriteSearchBar from './FavoriteSearchBar';
 import UnfavoriteOutfitButton from './UnfavoriteOutfitButton';
-
+import BuyButton from '../BuyCheckbox/BuyButton';
 import NavStack from '../Nav/NavStack';
 
 // MUI
@@ -75,7 +75,9 @@ function FavoriteOutfitList() {
                     <UnfavoriteOutfitButton outfitId={outfit.outfit_id} occasionId={occasionId} />
                 </div>
             ))}
-        </Stack>       
+            <BuyButton outfit={favoriteOutfits}/> 
+        </Stack> 
+          
         </>
     );
 };

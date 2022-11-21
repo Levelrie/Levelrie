@@ -11,14 +11,15 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('BREAKING HERE?????? 0');
     
     const userId = req.user.id;
-    const address = req.body.address;
+    const address = req.body;
+    console.log('shipping req.body', req.body)
 
 
     // add addy info to tabl;e
     const sqlAddAddressText = `INSERT INTO "addresses"
-                                    ("user_id", "street_address", "city", "state", "zip")
+                                    ("user_id", "nickname", "street_address", "city", "state", "zip", "preferred")
                                     VALUES
-                                    ($1, $2, $3, $4, $5);`
+                                    ($1, $2, $3, $4, $5, $6, $7);`
                                     
 
 
@@ -30,7 +31,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
         // Add the item next
         
-        await connection.query(sqlAddAddressText, [userId, address.street_address, address.city, address.state, address.zip]);
+        await connection.query(sqlAddAddressText, [userId, address.nickname, address.street_address, address.city, address.state, address.zip, address.preferred]);
 
         console.log('BREAKING HERE?????? 2');
         

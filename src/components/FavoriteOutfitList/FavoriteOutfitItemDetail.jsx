@@ -44,6 +44,7 @@ function FavoriteOutfitItemDetail() {
             {/* // Category won't be used here, so we can set it to zero */}
             <FavoriteItemItem item={item} category={item.category_id} sizes={sizes} colors={colors} inItemDetails={true}/>
         </div>
+
     )
 }
 
