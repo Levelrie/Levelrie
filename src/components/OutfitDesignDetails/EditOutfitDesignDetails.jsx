@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 //  MUI Tools
@@ -22,11 +22,19 @@ function EditOutfitDesignDetails() {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+  //   dispatch ({
+  //     type: 'SAGA_FETCH_OUTFITS'
+  //   })
+  }, [nameId])
+
   //  Local state
   const [occasionPick, setOccasionPick] = useState('');
-  const [name, setName] = useState('');
+  const [nameId, setNameId] = useState('');
   const [description, setDescription] = useState('');
-  const [open, setOpen] = useState(false);
+  const [updateCheck, setUpdateCheck] = useState(false);
+  const [deleteCheck, setDeleteCheck] = useState(false);
+  const [outfit, setOutfit] = useState('');
 
   //  Reducer store data
   const user = useSelector((store) => store.user);
@@ -36,34 +44,90 @@ function EditOutfitDesignDetails() {
   const bottom = useSelector((store) => store.bottom);
   const footwear = useSelector((store) => store.footwear);
   const occasions = useSelector((store) => store.occasions);
-  // const outfit = useSelector((store) => store.outfit);
+  const outfits = useSelector((store) => store.outfits.outfits[0]);
 
-  //  Launches Dialog Pop-Up
-  const handleSubmitCheck = () => {
-    setOpen(true);
+   //  Launches Update Pop-Up
+  const handleUpdateCheck = () => {
+    setUpdateCheck(true);
   }
 
-  //  Closes Dialog Pop-Up
-  const handleClose = () => {
-    setOpen(false);
+  //  Closes Update Pop-Up
+  const handleUpdateClose = () => {
+    setUpdateCheck(false);
+  };
+
+  //  Launches Delete Pop-Up
+  const handleDeleteCheck = () => {
+    setDeleteCheck(true);
+  }
+
+  //  Closes Delete Pop-Up
+  const handleDeleteClose = () => {
+    setDeleteCheck(false);
   };
 
   //  Adds Outfit to Database
-  const createOutfit = (event) => {
+  // const createOutfit = (event) => {
+  //   event.preventDefault();
+  //   setOpen(false);
+  //   dispatch ({
+  //     type: 'SAGA_CREATE_OUTFIT',
+  //     payload: {
+  //       name: nameId,
+  //       description: description,
+  //       occasion: occasionPick,
+  //       item_ids: [outerwear.id, top.id, accessory.id, bottom.id, footwear.id]
+  //     }
+  //   })
+    // setName('');
+    // setOccasionPick('');
+    // setDescription('');
+  // }
+
+  //  Update an Outfit in the Database
+  const updateOutfit = (event) => {
     event.preventDefault();
-    setOpen(false);
+    setUpdateCheck(false);
     dispatch ({
-      type: 'SAGA_CREATE_OUTFIT',
+      type: 'SAGA_EDIT_OUTFIT',
       payload: {
-        name: name,
+        id: nameId,
         description: description,
         occasion: occasionPick,
         item_ids: [outerwear.id, top.id, accessory.id, bottom.id, footwear.id]
       }
     })
-    setName('');
+    setNameId('');
     setOccasionPick('');
     setDescription('');
+  }
+
+  //  Delete an Outfit from the Database
+  const deleteOutfit = (event) => {
+    event.preventDefault();
+    setDeleteCheck(false);
+    dispatch ({
+      type: 'SAGA_DELETE_OUTFIT',
+      payload: nameId
+    })
+    setNameId('');
+    setOccasionPick('');
+    setDescription('');
+  }
+
+  const handleSelection = (nameIdSelected) => {
+    console.log('What is this?', nameIdSelected);
+    setNameId(nameIdSelected);
+    for(let outfit of outfits) {
+      if (outfit.id === nameIdSelected) {
+        setOccasionPick(outfit.occasion_id);
+        setDescription(outfit.description)
+      }
+    }
+    dispatch ({
+      type: 'SAGA_FIND_OUTFIT',
+      payload: nameIdSelected
+    })
   }
 
   return (
@@ -84,7 +148,7 @@ function EditOutfitDesignDetails() {
               variant="outlined"
               id="outlined-read-only-input"
               label="Outerwear:"
-              value={outerwear.name || ''}
+              value={outerwear?.name || ''}
               InputProps={{
                 readOnly: true,
               }}
@@ -133,19 +197,34 @@ function EditOutfitDesignDetails() {
         </Card>
         <Card sx={{borderRadius: 4, width: '50%'}}>
           <Stack direction="column" spacing={2} display='flex'>
-            <TextField
-              required
-              size='small'
-              variant="outlined"
-              id="outlined-read-only-input"
-              label="Outfit Name:"
-              placeholder='Name goes here'
-              value={name}
-              onChange={(event) => { setName(event.target.value); }}
-              InputProps={{
-                readOnly: false,
-              }}
-            />
+{/* ---------------👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇------------------ */}
+
+            <FormControl required fullWidth size="small" >
+              <InputLabel id="demo-select-small" >Outfit Name</InputLabel>
+              <Select
+                required
+                labelid="demo-select-small"
+                id="demo-simple-small"
+                label="Outfit Name"
+                // defaultValue={''}
+                value={nameId}
+                // onChange={(event) => { setName(event.target.value); }}
+                onChange={(event) => handleSelection(event.target.value)}
+              >
+                <MenuItem value="">
+                  <em>Select an outfit name</em>
+                </MenuItem>
+                {outfits?.map(outfit => (
+                  <MenuItem key={outfit.id} value={outfit.id} >
+                    {outfit.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+{/* ---------------👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆------------------ */}
+{/* -----------------------I keep the one below but need to have the default value set based on above--------------------------------------------- */}
+
             <FormControl required fullWidth size="small" >
               <InputLabel id="demo-select-small" >Outfit Occasion</InputLabel>
               <Select
@@ -166,6 +245,8 @@ function EditOutfitDesignDetails() {
                 ))}
               </Select>
             </FormControl>
+{/* ------------------------------------------------------------------------------------ */}
+
             <TextField
               size='small'
               variant="outlined"
@@ -181,39 +262,63 @@ function EditOutfitDesignDetails() {
               }}
             />
             <Stack direction="row" spacing={2} justifyContent="center">
-              <Button variant="contained" onClick={handleSubmitCheck}>
-                Edit
+              <Button variant="contained" onClick={handleUpdateCheck}>
+                Update
               </Button>
-              <Button variant="contained" color="error" onClick={handleSubmitCheck}>
+              <Button variant="contained" color="error" onClick={handleDeleteCheck}>
                 Delete
               </Button>
             </Stack>
+{/* ------------------------------------------------------------------------------------ */}
             <Dialog
-              open={open}
-              onClose={handleClose}
+              open={updateCheck}
+              onClose={handleUpdateClose}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
             >
-{/* ------------------------------------------------------------------------------------ */}
               <DialogTitle id="alert-dialog-title">
-                Outfit Design by {user.username}:  {name}
+                Apply Changes to Outfit Design?
               </DialogTitle>
               <DialogContent dividers>
                 <DialogContentText id="alert-dialog-description">
-                  CONFIRM - Add outfit design to database
+                  UPDATE - Confirm changes to outfit design in database
                 </DialogContentText>
                 <DialogContentText id="alert-dialog-description">
-                  CANCEL - Explore alternative outfit designs
+                  CANCEL - No changes made to outfit design in database
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button variant="outlined" onClick={createOutfit} autoFocus>
-                  Confirm
+                <Button variant="outlined" onClick={updateOutfit} autoFocus>
+                  UPDATE
                 </Button>
-                <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+                <Button variant="outlined" onClick={handleUpdateClose}>Cancel</Button>
               </DialogActions>
             </Dialog>
 {/* ------------------------------------------------------------------------------------ */}
+            <Dialog
+              open={deleteCheck}
+              onClose={handleDeleteClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                Delete Outfit Design?
+              </DialogTitle>
+              <DialogContent dividers>
+                <DialogContentText id="alert-dialog-description">
+                  DELETE - Remove outfit design from database
+                </DialogContentText>
+                <DialogContentText id="alert-dialog-description">
+                  CANCEL - No changes made to outfit design in database
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button variant="outlined" onClick={deleteOutfit} autoFocus>
+                  DELETE
+                </Button>
+                <Button variant="outlined" onClick={handleDeleteClose}>Cancel</Button>
+              </DialogActions>
+            </Dialog>
           </Stack>
         </Card>
       </Stack>

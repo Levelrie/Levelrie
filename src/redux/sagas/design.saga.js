@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 //  Fetch Outfits Saga
 function* fetchOutfits() {
   try {
-    yield put({type: 'CLEAR_OUTFITS'});
+    // yield put({type: 'CLEAR_OUTFITS'});
     const outfits = yield axios.get('/api/design/outfits');
     yield put({
       type: 'SET_OUTFITS',
@@ -23,6 +23,7 @@ function* createOutfit(action) {
   try {
     yield axios.post('/api/design/outfit/create', action.payload);
     yield put({type: 'SAGA_CLEAR_OUTFIT'});
+    yield put({type: 'SAGA_FETCH_OUTFITS'});
   }
   catch (error) {
     console.log('Outfit create failed', error);
@@ -33,8 +34,12 @@ function* createOutfit(action) {
 //  Edit Outfit Saga
 function* editOutfit(action) {
   console.log('Action Payload:', action.payload);
+  const id = action.payload.id
   try {
-    yield axios.put('/api/design/outfit/edit', action.payload);
+    yield axios.put(`/api/design/outfit/edit/${id}`, action.payload);
+    yield put({type: 'SAGA_CLEAR_OUTFIT'});
+    yield put({type: 'CLEAR_OUTFITS'});
+    yield put({type: 'SAGA_FETCH_OUTFITS'});
   }
   catch (error) {
     console.log('Outfit edit failed', error);
@@ -42,11 +47,26 @@ function* editOutfit(action) {
   return;
 }
 
+// function* updateQuest(action) {
+//   console.log('In update quest SAGA', action.payload);
+//   const id = action.payload.id
+//   try {
+//       yield axios.put(`/api/quest/${id}`, action.payload);
+//       yield put({ type: 'UPDATE_SCORE', payload: action.payload});
+//   } catch (error) {
+//       console.log('Quest update request failed', error);
+//   }
+// }
+
 //  Delete Outfit Saga
 function* deleteOutfit(action) {
   console.log('Action Payload:', action.payload);
+  const id = action.payload
   try {
-    yield axios.delete('/api/design/outfit/delete', action.payload);
+    yield axios.delete(`/api/design/outfit/delete/${id}`);
+    yield put({type: 'SAGA_CLEAR_OUTFIT'});
+    yield put({type: 'CLEAR_OUTFITS'});
+    yield put({type: 'SAGA_FETCH_OUTFITS'});
   }
   catch (error) {
     console.log('Outfit delete failed', error);
@@ -69,12 +89,35 @@ function* clearOutfit() {
   return;
 }
 
+//  Find Outfit Saga
+function* findOutfit(action) {
+  // console.log('Find outfit ID: ', action.payload);
+  const id = action.payload;
+  try {
+    const outerwear = yield axios.get(`/api/design/outerwear/${id}`);
+    const top = yield axios.get(`/api/design/top/${id}`);
+    const accessory = yield axios.get(`/api/design/accessory/${id}`);
+    const bottom = yield axios.get(`/api/design/bottom/${id}`);
+    const footwear = yield axios.get(`/api/design/footwear/${id}`);
+    // console.log('outerwear:', outerwear);
+    yield put({ type: 'SET_OUTERWEAR', payload: outerwear.data[0] })
+    yield put({ type: 'SET_TOP', payload: top.data[0] })
+    yield put({ type: 'SET_ACCESSORY', payload: accessory.data[0] })
+    yield put({ type: 'SET_BOTTOM', payload: bottom.data[0] })
+    yield put({ type: 'SET_FOOTWEAR', payload: footwear.data[0] })
+  }
+  catch (error) {
+    console.log('Outfit find failed', error);
+  }
+}
+
 function* designSaga() {
     yield takeLatest('SAGA_FETCH_OUTFITS', fetchOutfits),
     yield takeLatest('SAGA_CREATE_OUTFIT', createOutfit),
     yield takeLatest('SAGA_EDIT_OUTFIT', editOutfit),
     yield takeLatest('SAGA_DELETE_OUTFIT', deleteOutfit),
-    yield takeLatest('SAGA_CLEAR_OUTFIT', clearOutfit)
+    yield takeLatest('SAGA_CLEAR_OUTFIT', clearOutfit),
+    yield takeLatest('SAGA_FIND_OUTFIT', findOutfit)
 }
 
 export default designSaga;
