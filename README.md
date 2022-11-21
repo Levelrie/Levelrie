@@ -21,6 +21,9 @@ Do you ever look at someone and think “I would so swipe right”…On their ou
 - [Swipejs](https://swipe.js.org/)
 - [Passport](https://www.npmjs.com/package/passport)
 - [Cloudinary](https://cloudinary.com/)
+- [React-Slick](https://www.npmjs.com/package/react-slick)
+- [React-Tinder-Card](https://www.npmjs.com/package/react-tinder-card)
+
 <a href="https://www.w3schools.com/w3css/defaulT.asp"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" height="40px" width="40px" /></a>
 <a href="https://expressjs.com/"><img src="https://github.com/devicons/devicon/blob/master/icons/express/express-original.svg" height="40px" width="40px" /></a>
 <a href="https://www.w3schools.com/html/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" height="40px" width="40px" /></a>
@@ -63,7 +66,14 @@ Before you get started, make sure you have the following software installed on y
 # Usage
 Once everything is installed and running it should open in your default browser - if not, navigate to http://localhost:3000/#/.
 
-Video walkthrough of application usage: (ADD VIDEO LINK)
+- Client Home: http://localhost:3000/#/
+    * Mobile View
+  - Admin Home: http://localhost:3000/#/admin
+    * Desktop View
+
+Once logged in to either Client or Admin account, user will need to completely log out in order to switch between the two versions.
+
+Video walkthrough of application usage: (Coming Soon)
 
 # Deployment
 Login Credentials for Heroku have been provided in the hand off document.
