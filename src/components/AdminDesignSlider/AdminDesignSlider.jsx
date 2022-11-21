@@ -22,7 +22,7 @@ function AdminDesignSlider({category}) {
   //  Get all them items
   useEffect(() => {
     dispatch ({
-      type: 'SAGA_FETCH_ITEMS'
+      type: 'SAGA_FETCH_ITEMS_FOR_DESIGN'
     })
     return () => {
       dispatch ({

@@ -286,13 +286,3 @@ INSERT INTO "outfit_items"
             (7, 40), -- slouchy pants
             (7, 61), -- pumps
             (7, 62); -- double buckle belt
-
-INSERT INTO "closet_outfits"
- 	    ("user_id", "outfit_id")
- 		VALUES
- 		(6, 5);
-
-INSERT INTO "addresses"
- 	("user_id", "nickname", "street_address", "city", "state", "zip", "preferred")
- 	VALUES
- 	(6, 'Home', '301 Fourth Ave S', 'Minneapolis', 'MN', '55415', true);
