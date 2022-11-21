@@ -15,7 +15,7 @@ if (process.env.DB_PASS) {
   // https://github.com/brianc/node-pg-pool
   config = {
     user: 'levelrie',
-    password: 'db.bit.io',
+    host: 'db.bit.io',
     database: 'levelrie/levelrie',
     password: process.env.DB_PASS,
     port: 5432,
