@@ -2,11 +2,13 @@
 
 # Table of Contents 
 
-- Description 
-- Built With
-- Prerequisites
-- Installation 
-- Usage
+- [Description](#description)
+- [Built With](#built-with)
+- [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Deployment](#deployment)
 
 # Description
 
@@ -14,17 +16,23 @@ Do you ever look at someone and think “I would so swipe right”…On their ou
 
 # Built With
 
-- Node
-- Express
-- React
-- Redux-Saga
-- SQL
-- Postgresql
-- Heroku
-- Swipejs
-- Javascript
-- HTML/CSS
-- Passport
+- [SQL](https://www.w3schools.com/sql/)
+- [Heroku](https://www.heroku.com/)
+- [Swipejs](https://swipe.js.org/)
+- [Passport](https://www.npmjs.com/package/passport)
+- [Cloudinary](https://cloudinary.com/)
+<a href="https://www.w3schools.com/w3css/defaulT.asp"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" height="40px" width="40px" /></a>
+<a href="https://expressjs.com/"><img src="https://github.com/devicons/devicon/blob/master/icons/express/express-original.svg" height="40px" width="40px" /></a>
+<a href="https://www.w3schools.com/html/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" height="40px" width="40px" /></a>
+<a href="https://www.w3schools.com/js/default.asp"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" height="40px" width="40px" /></a>
+<a href="https://www.postgresql.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" height="40px" width="40px" /></a>
+<a href="https://reactjs.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" height="40px" width="40px" /></a>
+<a href="https://redux.js.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" height="40px" width="40px" /></a>
+<a href="https://www.figma.com/?fuid="><img src="https://github.com/devicons/devicon/blob/master/icons/figma/figma-original.svg" height="40px" width="40px" /></a>
+<a href="https://material-ui.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" height="40px" width="40px" /></a>
+<a href="https://nodejs.org/en/"><img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-plain.svg" height="40px" width="40px" /></a>
+
+## Getting Started
 
 # Getting Started 
 
@@ -48,7 +56,7 @@ Before you get started, make sure you have the following software installed on y
 6. In the terminal of VS Code type... run npm install to install all dependencies
 7. Create a .env file at the root of the project and paste this line into the file:
 8. Create a database named levelrie in PostgresSQL If you would like to name your database something else, you will need to change levelrie to the name of your new database name in server/modules/pool.js
-9 The queries in the database.sql file are set up to create all the necessary tables that you need, as well as a dummy data table to test the app. Copy and paste those queries in the SQL query of the database. If this is going to production, leave out the dummy data.
+9. The queries in the database.sql file are set up to create all the necessary tables that you need, as well as a dummy data table to test the app. Copy and paste those queries in the SQL query of the database. If this is going to production, leave out the dummy data.
 10. Run npm run server in your VS Code terminal
 11. Open a second terminal and run npm run client
 
