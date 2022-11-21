@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
-const shippingReducer = (state = [], action) => {
+const shippingReducer = (state =[], action) => {
     console.log('in shippingReducer');
     switch (action.type) {
         case 'SET_ADDRESS':
             console.log('action.payload in shipping reducer', action.payload)
             if (action.payload){
+                
                 return action.payload}
             else {
                 return state
@@ -15,6 +16,7 @@ const shippingReducer = (state = [], action) => {
         default:
             return state;
     }
+    
 }
 
 const favoriteAddyReducer = (state=[], action) => {
