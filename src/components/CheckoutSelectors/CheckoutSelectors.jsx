@@ -27,19 +27,19 @@ export default function CheckoutSelector() {
     return(
 
 
-        <Stack justifyItems='center' alignItems='center' className='cartFrameFrame'>
+        <Stack justifyItems='center' alignItems='center' className='cartFrameFrame' pb={10}>
             <ShippingSelector />
             <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, margin: 3}} />
             <PaymentSelector />
             <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, margin: 3, mb: 1}} />
-            <Stack direction='row' overflow={'scroll'} className='cartItemFrame' >
+            <Stack direction='row' overflow={'scroll'} className='cartItemFrame' sx={{paddingBottom: 3, paddingTop: 20}}>
             {cart ? cart.map((item) => {
                 cartTotal += Number(item.price.substring(1))
                 return(
                     <CartItem item={item} key={item.id}/>
             )}): 'None'}
             </Stack>
-            <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, margin: 3}} />
+            <Divider width='100%' color='#F2DCF2' height={32} sx={{borderBottomWidth: 8, marginBottom: 3}}/>
             <PayNow total={cartTotal}/>
         </Stack>
     )

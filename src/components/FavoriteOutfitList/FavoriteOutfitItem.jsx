@@ -13,8 +13,8 @@ function FavoriteOutfitItem({outfit, occasionId}) {
     }
 
     return (  
-        <>
-         <div className='faveOutfitContainer'>
+        <div className="gridFather">
+         <div className="outfitSwipeContainer">
             {outfit.items.map(item => {
                 return(
                     <div key={item.f1.id} id={item.f2} onClick={() => handleClick(item.f1.id)}>
@@ -24,7 +24,7 @@ function FavoriteOutfitItem({outfit, occasionId}) {
             })
             }
          </div>
-         </> 
+         </div> 
      );
  };
 
