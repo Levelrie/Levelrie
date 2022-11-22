@@ -1,7 +1,8 @@
 function SearchFavoriteOutfitItem({outfit}) {
 
-    return (   
-         <div className='faveOutfitContainer'>
+    return (  
+        <div className="swipeDaddy">
+         <div className="outfitSwipeContainer">
             {outfit?.items?.map(item => {
                 return(
                     <div key={item.f1.id} id={item.f2}>
@@ -11,6 +12,8 @@ function SearchFavoriteOutfitItem({outfit}) {
             })
             }
          </div>
+
+        </div> 
      );
  };
 

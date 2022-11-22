@@ -27,7 +27,9 @@ export default function CheckoutConfirmation(){
     const order = useSelector(store => store.order)
     const user = useSelector(store => store.user)
     var cartTotal = 0
-    const shippingTotal = Number('19.99')
+    const shippingTotal = Number('19.99');
+
+    const addy = useSelector(store => store.shipping.favoriteAddyReducer);
     
 
     useEffect(() => {
@@ -61,11 +63,11 @@ export default function CheckoutConfirmation(){
 // street_address
 // zip
     var shipAddress = {
-        name: order.nickname,
-        street: order.street_address,
-        city: order.city,
-        state: order.state,
-        zip: order.zip
+        nickname: addy.nickname,
+        street_address: addy.street_address,
+        city: addy.city,
+        state: addy.state,
+        zip: addy.zip
     }
     console.log('order in confirm', [order].length)
 

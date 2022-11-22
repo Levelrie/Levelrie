@@ -1,5 +1,6 @@
 .cartFrameFrame{
     width: 100vw;
+    height: 100vh;
 }
 
 
@@ -31,6 +32,7 @@
     height: 20vh;
     max-width: none;
     width: 25vw;
+    object-fit: contain;
     
 }
 

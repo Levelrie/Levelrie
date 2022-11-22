@@ -23,7 +23,7 @@ export default function PayNow({ total }) {
     }
 
     return(
-        <Stack width={.8} alignContent='center' className='payNow' mt={10}>
+        <Stack width={.8} alignContent='center' className='payNow'>
             <Stack direction='row' justifyContent='space-around'>
                 <Stack spacing={0}>
                     <p className='priceTeam'>Shipping: $19.99</p>
