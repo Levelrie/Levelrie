@@ -39,7 +39,7 @@ export default function CheckoutLanding() {
 
     return(
 
-        <Stack justifyItems='center' alignItems='center'>
+        <Stack justifyItems='center' alignItems='center' pb={20}>
             <Stack justifyItems='center' alignItems='center' width={.8} mb={3}>
                 <h1 className="estimateText">LEVELRIE</h1>
                 <h3 className="estimateText">Shopping Cart</h3>

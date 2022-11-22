@@ -14,7 +14,7 @@ export default function OutfitHomeItem({outfit}) {
         <>
         {
             outfit ?
-            <div className="gridDaddy">
+            <div className="gridFather">
                 <div className="outfitSwipeContainer">
                     {outfit.items.map(item => {
                         return (

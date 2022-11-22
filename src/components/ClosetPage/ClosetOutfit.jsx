@@ -19,16 +19,18 @@ function ClosetOutfitList ({outfit}) {
     }
 
     return (
-        <div className='faveOutfitContainer'>
-        {outfit.items.map(item => {
-            return(
-                <div key={item.f1.id} id={item.f2} onClick={handleDetailsClick}>
-                    <img className="itemPic" src={item.f1.img} />
-                </div>
-            )
-        })
-        }
-     </div>
+        <div className="gridFather">
+            <div className="outfitSwipeContainer">
+            {outfit.items.map(item => {
+                return(
+                    <div key={item.f1.id} id={item.f2} onClick={handleDetailsClick}>
+                        <img className="itemPic" src={item.f1.img} />
+                    </div>
+                )
+            })
+            }
+            </div>
+        </div>
     )
 } // end of ClosetOutfitList
 

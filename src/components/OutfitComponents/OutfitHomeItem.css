@@ -1,4 +1,4 @@
-.gridDaddy {
+.gridFather {
     aspect-ratio: 1;
 }
 
@@ -11,7 +11,7 @@
     /* set height of each row */
     grid-template-rows: repeat(13, 1fr);
     /* keeps individual outfit items from resizing */
-    aspect-ratio: 1;
+    /* aspect-ratio: 1; */
     /* margin-top: -5px;
     padding-bottom: 30px; */
     max-width: 100%;

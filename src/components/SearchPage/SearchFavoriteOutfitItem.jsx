@@ -1,7 +1,7 @@
 function SearchFavoriteOutfitItem({outfit}) {
 
     return (  
-        <div className="swipeDaddy">
+        <div className="gridFather">
          <div className="outfitSwipeContainer">
             {outfit?.items?.map(item => {
                 return(

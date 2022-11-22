@@ -97,7 +97,7 @@ export default function CheckoutConfirmation(){
                         <h4>Order Items</h4>
                         <p>{[order].length} Items</p>
                     </Stack>
-                    {order.length !== 0 ? [order].map((item) => {
+                    {order.length !== 0 ? order.map((item) => {
                         console.log('item price', item)
                         cartTotal += Number(item.price.substring(1))
                         console.log(cartTotal)
