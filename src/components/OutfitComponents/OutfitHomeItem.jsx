@@ -14,6 +14,7 @@ export default function OutfitHomeItem({outfit}) {
         <>
         {
             outfit ?
+            <div className="gridDaddy">
                 <div className="outfitSwipeContainer">
                     {outfit.items.map(item => {
                         return (
@@ -25,6 +26,7 @@ export default function OutfitHomeItem({outfit}) {
                             );
                         })}
                 </div>
+            </div>
             :
                 <p>No more outfits to swipe</p>
         }

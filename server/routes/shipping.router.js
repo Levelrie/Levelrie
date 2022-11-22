@@ -61,7 +61,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     SELECT * from "addresses"
         WHERE user_id = $1;
   `
-    pool.query(sqlText, [1])
+    pool.query(sqlText, [req.user.id])
         .then((dbRes) => {
             console.log('dbRes.rows is:', dbRes.rows);
             res.send(dbRes.rows)
